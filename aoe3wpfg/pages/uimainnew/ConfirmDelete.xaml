@@ -1,0 +1,50 @@
+﻿<Window x:Class="aoe3wpfg.ConfirmDelete"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:aoe3wpfg"
+        mc:Ignorable="d"
+      Title="ConfirmDelete"
+        Style="{StaticResource WindowStyle}">
+    <Viewbox Style="{StaticResource ViewboxMain}">
+
+        <Grid x:Name="mainGridPanel" Width="1920" Height="1080">
+
+            <ContentControl Template="{StaticResource ScreenBlur}" />
+
+            <Grid Width="850" Height="{Binding ElementName=ContentStack, Path=ActualHeight}" Style="{StaticResource PopupGrid}">
+                <ContentControl Template="{StaticResource PanelBG_Titled}" Margin="-10,-50,-10,-90" />
+                <StackPanel x:Name="ContentStack" HorizontalAlignment="Center" VerticalAlignment="Center" Width="800">
+
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Grid Width="750" Margin="0,0">
+                            <TextBlock x:Name="title_label" Style="{StaticResource ConfirmationTitlesStyle}" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,-12,0,0" MaxWidth="750" 
+                                       Text="$$18574$$Delete"/>
+                        </Grid>
+                    </StackPanel>
+
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,20">
+                        <Grid Width="750" Margin="0,20">
+                            <Rectangle Grid.Row="2" Style="{StaticResource PanelBGSection}" Margin="-10,-20"/>
+                            <TextBlock x:Name="ConfirmDelete_text" Style="{StaticResource CampaignRegularTextBlockStyle}" TextAlignment="Center" FontSize="24" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,0" MaxWidth="750" TextWrapping="Wrap"
+                                       Text="$$36020$$Are you sure you want to delete these units?" />
+                        </Grid>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Button x:Name="ConfirmDelete_YesButton" Style="{StaticResource MainMenuButton}" Width="350" Content="$$18451$$Yes" TabIndex="1">
+                            <Button.ToolTip>$$90163$$Confirm unit deletion.</Button.ToolTip>
+                        </Button>
+                        <!--ConsoleCommand="gadgetUnReal(&quot;ConfirmDelete&quot;) uiDeleteAllSelectedUnits"-->
+                        <Button x:Name="ConfirmDelete_NoButton" Style="{StaticResource MainMenuButton}" Width="350" Margin="50,0,0,0" Content="$$18452$$No" TabIndex="2">
+                            <Button.ToolTip>$$90162$$Cancel current action.</Button.ToolTip>
+                        </Button>
+                        <!--ConsoleCommand="gadgetUnReal(&quot;ConfirmDelete&quot;)"-->
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+            
+        </Grid>
+    </Viewbox>
+</Window>

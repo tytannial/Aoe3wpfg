@@ -1,0 +1,424 @@
+﻿<Window x:Class="aoe3wpfg.uiplayercomms"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:aoe3wpfg"
+        mc:Ignorable="d"
+        Title="uiplayercomms"
+        Style="{StaticResource WindowStyle}"
+        local:Age3Accessibility.Mode="Game">
+
+    <Window.Resources>
+        <Style TargetType="{x:Type local:Age3GlowButton}" BasedOn="{StaticResource ImageButton}" x:Key="GlowToggleButton">
+            <Setter Property="Glow" Value="false" />
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="local:Age3GlowButton">
+                        <Grid Name="background">
+                            <Grid x:Name="ButtonBody" RenderTransformOrigin="0.5,0.5">
+                                <Grid.RenderTransform>
+                                    <ScaleTransform/>
+                                </Grid.RenderTransform>
+                                <Rectangle Fill="Black" RadiusX="5" RadiusY="5"></Rectangle>
+                                <Rectangle Fill="{TemplateBinding Background}" RadiusX="5" RadiusY="5" Margin="1.5"></Rectangle>
+
+                                <Rectangle x:Name="glow" RadiusX="5" RadiusY="5" Margin="1.5" Opacity="0">
+                                    <Rectangle.Fill>
+                                        <ImageBrush ImageSource="/resources/images/hud/imagebutton_glow.png" />
+                                    </Rectangle.Fill>
+                                </Rectangle>
+                                <Rectangle x:Name="toggleGlow" RadiusX="5" RadiusY="5" Margin="1.5" Opacity="0">
+                                    <Rectangle.Fill>
+                                        <ImageBrush ImageSource="/resources/images/hud/imagebutton_glow.png" />
+                                    </Rectangle.Fill>
+                                </Rectangle>
+                                <Rectangle x:Name="glow2" Fill="White" RadiusX="5" RadiusY="5" Margin="1.5" Opacity="0"/>
+
+                                <local:Age3ResourceTimer x:Name="timer" Height="{TemplateBinding ActualHeight}" Width="{TemplateBinding ActualWidth}" Fill="LightGreen" Opacity="0.25" Visibility="Hidden"/>
+                            </Grid>
+
+                            <TextBlock x:Name="UnitSelection_Text" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="25" FontWeight="Bold" Foreground="White" Text="{TemplateBinding Content}"/>
+                        </Grid>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Trigger.EnterActions>
+                                    <StopStoryboard BeginStoryboardName="MouseOverStoryBoard" />
+                                    <StopStoryboard BeginStoryboardName="MouseOverStoryBoard2" />
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="ButtonBody" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)" To="1" Duration="0:0:.05" />
+                                            <DoubleAnimation Storyboard.TargetName="ButtonBody" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)" To="1" Duration="0:0:.05" />
+                                            <DoubleAnimation Storyboard.TargetName="glow" Storyboard.TargetProperty="Opacity" To="0.75" Duration="0:0:.05" />
+                                            <DoubleAnimation Storyboard.TargetName="glow2" Storyboard.TargetProperty="Opacity" To="0.15" Duration="0:0:.05" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="ButtonBody" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)" To="1.05" Duration="0:0:.05" />
+                                            <DoubleAnimation Storyboard.TargetName="ButtonBody" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)" To="1.05" Duration="0:0:.05" />
+                                            <DoubleAnimation Storyboard.TargetName="glow" Storyboard.TargetProperty="Opacity" To="0.5" Duration="0:0:.05" />
+                                            <DoubleAnimation Storyboard.TargetName="glow2" Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:.05" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard Name="MouseOverStoryBoard">
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)" To="1.05" Duration="0:0:.2" />
+                                            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)" To="1.05" Duration="0:0:.2" />
+                                            <DoubleAnimation Storyboard.TargetName="glow" Storyboard.TargetProperty="Opacity" To="0.5" Duration="0:0:.2" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                    <SoundPlayerAction Source="resources/audio/mouseover_00.wav" />
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard Name="MouseOverStoryBoard2">
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)" To="1" Duration="0:0:.2" />
+                                            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)" To="1" Duration="0:0:.2" />
+                                            <DoubleAnimation Storyboard.TargetName="glow" Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:.2" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+
+                            <Trigger Property="Glow" Value="True">
+                                <Setter TargetName="toggleGlow" Property="Opacity" Value="1"/>
+                            </Trigger>
+                            <Trigger Property="Glow" Value="False">
+                                <Setter TargetName="toggleGlow" Property="Opacity" Value="0"/>
+                            </Trigger>
+
+                            <EventTrigger RoutedEvent="PreviewMouseDown">
+                                <SoundPlayerAction Source="resources/audio/smallbutton.wav" />
+                            </EventTrigger>
+                        </ControlTemplate.Triggers>
+
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+        </Style>
+    </Window.Resources>
+
+    <Viewbox Style="{StaticResource ViewboxMain}">
+
+        <Grid Width="1920" Height="1080">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="100"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" Height="650" Width="600">
+                <Grid.LayoutTransform>
+                    <ScaleTransform
+                        CenterX="0"
+                        CenterY="0"
+                        ScaleX="{Binding OptionUIHudScale, Source={StaticResource optionsProxy}}"
+                        ScaleY="{Binding OptionUIHudScale, Source={StaticResource optionsProxy}}" />
+                </Grid.LayoutTransform>
+                
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="90"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="40"/>
+                </Grid.RowDefinitions>
+
+                <!--Background-->
+                <local:Age3PanelBG Grid.RowSpan="3" Stroke="Black" StrokeThickness="6" Margin="18,18,14,16">
+                    <local:Age3PanelBG.Fill>
+                        <ImageBrush ImageSource="/resources/wood.png"/>
+                    </local:Age3PanelBG.Fill>
+                    <local:Age3PanelBG.Effect>
+                        <DropShadowEffect Color="Black" Direction="-90" ShadowDepth="3" BlurRadius="30" />
+                    </local:Age3PanelBG.Effect>
+                </local:Age3PanelBG>
+
+                <local:Age3PanelBG Grid.RowSpan="3" Fill="Transparent" Stroke="{StaticResource PanelBGStrokeGradient}" StrokeThickness="2" Margin="20"/>
+
+                <!--Title-->
+                <TextBlock x:Name="playercomms_mainLabel" Grid.Row="0" Style="{StaticResource ConfirmationTitlesStyle}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30" Margin="0,30,0,0">
+                    $$70898$$Diplomacy
+                </TextBlock>
+
+                <!--Diplomacy-->
+                <Grid Grid.Row="1" Margin="25,0,25,25">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="60"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="60"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="60"/>
+                        <RowDefinition Height="100"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0" Margin="10,5,10,5">
+                        <Rectangle Style="{StaticResource PanelBGSection}" />
+                        <TextBlock Style="{StaticResource subInfoLeft}" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" Width="500">
+                            $$70752$$Allies
+                        </TextBlock>
+                    </Grid>
+
+                    <Grid Grid.Row="2" Margin="10,5,10,5">
+                        <Rectangle Style="{StaticResource PanelBGSection}" />
+                        <TextBlock Style="{StaticResource subInfoLeft}" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" Width="500">
+                            $$70899$$Actions
+                        </TextBlock>
+                    </Grid>
+
+                    <Grid Grid.Row="4" Margin="10,5,10,5">
+                        <Rectangle Style="{StaticResource PanelBGSection}" />
+                        <TextBlock Style="{StaticResource subInfoLeft}" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" Width="500">
+                            $$70900$$Requests
+                        </TextBlock>
+                    </Grid>
+
+                    <!--Allies-->
+                    <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                        
+                        <local:Age3GlowButton x:Name="playercomms_button_allPlayers" Height="55" Width="55" Margin="0,8,0,8" Style="{DynamicResource GlowToggleButton}" Visibility="Visible">
+                            <Button.ToolTip>$$38240$$All Players</Button.ToolTip>
+                            <local:Age3Button.Background>
+                                <ImageBrush ImageSource="resources/images/icons/hp_cp/hp_cp_ally.png" />
+                            </local:Age3Button.Background>
+                        </local:Age3GlowButton>
+
+                        <local:Age3GlowButton x:Name="playercomms_button_toPlayer1" Height="55" Width="55" Margin="3,0,0,0" Style="{DynamicResource GlowToggleButton}" Visibility="Collapsed">
+                            <Button.ToolTip>player civ</Button.ToolTip>
+                            <local:Age3Button.Background>
+                                <ImageBrush ImageSource="resources/images/icons/hp_cp/hp_cp_player_1.png" />
+                            </local:Age3Button.Background>
+                        </local:Age3GlowButton>
+
+                        <local:Age3GlowButton x:Name="playercomms_button_toPlayer2" Height="55" Width="55" Margin="3,0,0,0" Style="{DynamicResource GlowToggleButton}" Visibility="Collapsed">
+                            <Button.ToolTip>player civ</Button.ToolTip>
+                            <local:Age3Button.Background>
+                                <ImageBrush ImageSource="resources/images/icons/hp_cp/hp_cp_player_2.png" />
+                            </local:Age3Button.Background>
+                        </local:Age3GlowButton>
+
+                        <local:Age3GlowButton x:Name="playercomms_button_toPlayer3" Height="55" Width="55" Margin="3,0,0,0" Style="{DynamicResource GlowToggleButton}" Visibility="Collapsed">
+                            <Button.ToolTip>player civ</Button.ToolTip>
+                            <local:Age3Button.Background>
+                                <ImageBrush ImageSource="resources/images/icons/hp_cp/hp_cp_player_3.png" />
+                            </local:Age3Button.Background>
+                        </local:Age3GlowButton>
+
+                        <local:Age3GlowButton x:Name="playercomms_button_toPlayer4" Height="55" Width="55" Margin="3,0,0,0" Style="{DynamicResource GlowToggleButton}" Visibility="Collapsed">
+                            <Button.ToolTip>player civ</Button.ToolTip>
+                            <local:Age3Button.Background>
+                                <ImageBrush ImageSource="resources/images/icons/hp_cp/hp_cp_player_4.png" />
+                            </local:Age3Button.Background>
+                        </local:Age3GlowButton>
+
+                        <local:Age3GlowButton x:Name="playercomms_button_toPlayer5" Height="55" Width="55" Margin="3,0,0,0" Style="{DynamicResource GlowToggleButton}" Visibility="Collapsed">
+                            <Button.ToolTip>player civ</Button.ToolTip>
+                            <local:Age3Button.Background>
+                                <ImageBrush ImageSource="resources/images/icons/hp_cp/hp_cp_player_5.png" />
+                            </local:Age3Button.Background>
+                        </local:Age3GlowButton>
+
+                        <local:Age3GlowButton x:Name="playercomms_button_toPlayer6" Height="55" Width="55" Margin="3,0,0,0" Style="{DynamicResource GlowToggleButton}" Visibility="Collapsed">
+                            <Button.ToolTip>player civ</Button.ToolTip>
+                            <local:Age3Button.Background>
+                                <ImageBrush ImageSource="resources/images/icons/hp_cp/hp_cp_player_6.png" />
+                            </local:Age3Button.Background>
+                        </local:Age3GlowButton>
+
+                        <local:Age3GlowButton x:Name="playercomms_button_toPlayer7" Height="55" Width="55" Margin="3,0,0,0" Style="{DynamicResource GlowToggleButton}" Visibility="Collapsed">
+                            <Button.ToolTip>player civ</Button.ToolTip>
+                            <local:Age3Button.Background>
+                                <ImageBrush ImageSource="resources/images/icons/hp_cp/hp_cp_player_7.png" />
+                            </local:Age3Button.Background>
+                        </local:Age3GlowButton>
+
+                        <local:Age3GlowButton x:Name="playercomms_button_toPlayer8" Height="55" Width="55" Margin="3,0,0,0" Style="{DynamicResource GlowToggleButton}" Visibility="Collapsed">
+                            <Button.ToolTip>player civ</Button.ToolTip>
+                            <local:Age3Button.Background>
+                                <ImageBrush ImageSource="resources/images/icons/hp_cp/hp_cp_player_8.png" />
+                            </local:Age3Button.Background>
+                        </local:Age3GlowButton>
+                        
+                    </StackPanel>
+
+                    <!--Actions-->
+                    <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center">
+
+                        <local:Age3GlowButton x:Name="action_attack" Height="55" Width="55" Margin="0,0,0,0" Style="{DynamicResource GlowToggleButton}">
+                            <Button.ToolTip>$$38225$$Attack</Button.ToolTip>
+                            <local:Age3Button.Background>
+                                <ImageBrush ImageSource="resources/images/icons/hp_cp/hp_cp_verb_attack.png" />
+                            </local:Age3Button.Background>
+                        </local:Age3GlowButton>
+
+                        <local:Age3GlowButton x:Name="action_sendtribute" Height="55" Width="55" Margin="10,0,0,0" Style="{DynamicResource GlowToggleButton}">
+                            <Button.ToolTip>$$38227$$Tribute Resources</Button.ToolTip>
+                            <local:Age3Button.Background>
+                                <ImageBrush ImageSource="resources/images/icons/hp_cp/hp_cp_verb_tribute.png" />
+                            </local:Age3Button.Background>
+                        </local:Age3GlowButton>
+
+                        <local:Age3GlowButton x:Name="action_timetribute" Height="55" Width="55" Margin="10,0,0,0" Style="{DynamicResource GlowToggleButton}">
+                            <Button.ToolTip>$$38229$$Feed resources over time</Button.ToolTip>
+                            <local:Age3Button.Background>
+                                <ImageBrush ImageSource="resources/images/icons/hp_cp/hp_cp_feed_resouce_over_time.png" />
+                            </local:Age3Button.Background>
+                        </local:Age3GlowButton>
+
+                        <local:Age3GlowButton x:Name="action_buildunits" Height="55" Width="55" Margin="10,0,0,0" Style="{DynamicResource GlowToggleButton}">
+                            <Button.ToolTip>$$38231$$Build units</Button.ToolTip>
+                            <local:Age3Button.Background>
+                                <ImageBrush ImageSource="resources/images/icons/hp_cp/hp_cp_build_units.png" />
+                            </local:Age3Button.Background>
+                        </local:Age3GlowButton>
+
+                        <local:Age3GlowButton x:Name="action_strategy" Height="55" Width="55" Margin="10,0,0,0" Style="{DynamicResource GlowToggleButton}">
+                            <Button.ToolTip>$$38233$$Set strategy</Button.ToolTip>
+                            <local:Age3Button.Background>
+                                <ImageBrush ImageSource="resources/images/icons/hp_cp/hp_cp_strategy.png" />
+                            </local:Age3Button.Background>
+                        </local:Age3GlowButton>
+
+                        <local:Age3GlowButton x:Name="action_cancel" Height="55" Width="55" Margin="10,0,0,0" Style="{DynamicResource GlowToggleButton}">
+                            <Button.ToolTip>$$48918$$Cancel all commands</Button.ToolTip>
+                            <local:Age3Button.Background>
+                                <ImageBrush ImageSource="resources/images/icons/hp_cp/hp_cp_cancel.png" />
+                            </local:Age3Button.Background>
+                        </local:Age3GlowButton>
+                        
+                    </StackPanel>
+
+                    <!--Requested-->
+                    <!--REQUEST ATTACK-->
+                    <TextBlock x:Name="request_attackoption" Grid.Row="5" Style="{StaticResource subInfoLeft}" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" Width="500" FontSize="18" Visibility="Collapsed">
+                        $$38242$$Click on a world or Mini Map location
+                    </TextBlock>
+                    <!--REQUEST RESOURCES-->
+                    <StackPanel x:Name="request_resources" Grid.Row="5" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Visible">
+                        <TextBlock x:Name="request_tips" Style="{StaticResource subInfoLeft}" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" Width="500" FontSize="18">
+                            $$38228$$Select a resource to send
+                        </TextBlock>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,0">
+                            <local:Age3Button x:Name="request_option1" Height="55" Width="55" Margin="0,0,0,0" Style="{StaticResource ImageButton}">
+                                <Button.ToolTip>$$38210$$Send Food</Button.ToolTip>
+                                <local:Age3Button.Background>
+                                    <ImageBrush ImageSource="resources/images/icons/hp_cp/hp_cp_rec_food.png" />
+                                </local:Age3Button.Background>
+                            </local:Age3Button>
+                            <local:Age3Button x:Name="request_option2" Height="55" Width="55" Margin="10,0,0,0" Style="{StaticResource ImageButton}">
+                                <Button.ToolTip>$$28211$$Send Wood</Button.ToolTip>
+                                <local:Age3Button.Background>
+                                    <ImageBrush ImageSource="resources/images/icons/hp_cp/hp_cp_rec_wood.png" />
+                                </local:Age3Button.Background>
+                            </local:Age3Button>
+                            <local:Age3Button x:Name="request_option3" Height="55" Width="55" Margin="10,0,0,0" Style="{StaticResource ImageButton}">
+                                <Button.ToolTip>$$38212$$Send Coin</Button.ToolTip>
+                                <local:Age3Button.Background>
+                                    <ImageBrush ImageSource="resources/images/icons/hp_cp/hp_cp_rec_gold.png" />
+                                </local:Age3Button.Background>
+                            </local:Age3Button>
+                        </StackPanel>
+                    </StackPanel>
+                    <!--REQUEST RESOURCES OVERTIME-->
+                    <StackPanel x:Name="request_resources_time" Grid.Row="5" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed">
+                        <TextBlock x:Name="request_tips_time" Style="{StaticResource subInfoLeft}" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" Width="500" FontSize="18">
+                            $$38230$$Select a resource to feed over time
+                        </TextBlock>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,0">
+                            <local:Age3Button x:Name="request_time_option1" Height="55" Width="55" Margin="0,0,0,0" Style="{StaticResource ImageButton}">
+                                <Button.ToolTip>$$38210$$Send Food</Button.ToolTip>
+                                <local:Age3Button.Background>
+                                    <ImageBrush ImageSource="resources/images/icons/hp_cp/hp_cp_rec_food.png" />
+                                </local:Age3Button.Background>
+                            </local:Age3Button>
+                            <local:Age3Button x:Name="request_time_option2" Height="55" Width="55" Margin="10,0,0,0" Style="{StaticResource ImageButton}">
+                                <Button.ToolTip>$$28211$$Send Wood</Button.ToolTip>
+                                <local:Age3Button.Background>
+                                    <ImageBrush ImageSource="resources/images/icons/hp_cp/hp_cp_rec_wood.png" />
+                                </local:Age3Button.Background>
+                            </local:Age3Button>
+                            <local:Age3Button x:Name="request_time_option3" Height="55" Width="55" Margin="10,0,0,0" Style="{StaticResource ImageButton}">
+                                <Button.ToolTip>$$38212$$Send Coin</Button.ToolTip>
+                                <local:Age3Button.Background>
+                                    <ImageBrush ImageSource="resources/images/icons/hp_cp/hp_cp_rec_gold.png" />
+                                </local:Age3Button.Background>
+                            </local:Age3Button>
+                        </StackPanel>
+                    </StackPanel>
+                    <!--REQUEST BUILD UNITS-->
+                    <StackPanel x:Name="request_build_units" Grid.Row="5" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed">
+                        <TextBlock x:Name="request_tips_units" Style="{StaticResource subInfoLeft}" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" Width="500" FontSize="18">
+                            $$38232$$Select the unit type to build
+                        </TextBlock>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,0">
+                            <local:Age3Button x:Name="request_unit_option1" Height="55" Width="55" Margin="0,0,0,0" Style="{StaticResource ImageButton}">
+                                <Button.ToolTip>$$38207$$Build infantry</Button.ToolTip>
+                                <local:Age3Button.Background>
+                                    <ImageBrush ImageSource="resources/images/icons/hp_cp/hp_cp_build_inf.png" />
+                                </local:Age3Button.Background>
+                            </local:Age3Button>
+                            <local:Age3Button x:Name="request_unit_option2" Height="55" Width="55" Margin="10,0,0,0" Style="{StaticResource ImageButton}">
+                                <Button.ToolTip>$$38208$$Build cavalry</Button.ToolTip>
+                                <local:Age3Button.Background>
+                                    <ImageBrush ImageSource="resources/images/icons/hp_cp/hp_cp_build_cav.png" />
+                                </local:Age3Button.Background>
+                            </local:Age3Button>
+                            <local:Age3Button x:Name="request_unit_option3" Height="55" Width="55" Margin="10,0,0,0" Style="{StaticResource ImageButton}">
+                                <Button.ToolTip>$$38209$$Build artillery</Button.ToolTip>
+                                <local:Age3Button.Background>
+                                    <ImageBrush ImageSource="resources/images/icons/hp_cp/hp_cp_build_art.png" />
+                                </local:Age3Button.Background>
+                            </local:Age3Button>
+                        </StackPanel>
+                    </StackPanel>
+                    <!--SET STRATEGY-->
+                    <StackPanel x:Name="request_strat" Grid.Row="5" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed">
+                        <TextBlock x:Name="request_tips_strat" Style="{StaticResource subInfoLeft}" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" Width="500" FontSize="18">
+                            $$38234$$Select a strategy
+                        </TextBlock>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,0">
+                            <local:Age3Button x:Name="request_strat_option1" Height="55" Width="55" Margin="0,0,0,0" Style="{StaticResource ImageButton}">
+                                <Button.ToolTip>$$38219$$Focus on a quick attack</Button.ToolTip>
+                                <local:Age3Button.Background>
+                                    <ImageBrush ImageSource="resources/images/icons/hp_cp/hp_cp_rush.png" />
+                                </local:Age3Button.Background>
+                            </local:Age3Button>
+                            <local:Age3Button x:Name="request_strat_option2" Height="55" Width="55" Margin="10,0,0,0" Style="{StaticResource ImageButton}">
+                                <Button.ToolTip>$$38220$$Focus on economy</Button.ToolTip>
+                                <local:Age3Button.Background>
+                                    <ImageBrush ImageSource="resources/images/icons/hp_cp/hp_cp_boom.png" />
+                                </local:Age3Button.Background>
+                            </local:Age3Button>
+                            <local:Age3Button x:Name="request_strat_option3" Height="55" Width="55" Margin="10,0,0,0" Style="{StaticResource ImageButton}">
+                                <Button.ToolTip>$$38221$$Focus on defense</Button.ToolTip>
+                                <local:Age3Button.Background>
+                                    <ImageBrush ImageSource="resources/images/icons/hp_cp/hp_cp_turtle.png" />
+                                </local:Age3Button.Background>
+                            </local:Age3Button>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <!--Cancel-->
+                    <local:Age3Button x:Name="playercomms_ExitButton" Grid.Row="6" Height="50" Width="280" Margin="0,10,0,0" Style="{StaticResource MainMenuButton}" Content="$$18466$$Cancel"/>
+
+                </Grid>
+
+            </Grid>
+
+        </Grid>
+    </Viewbox>
+</Window>

@@ -1,0 +1,177 @@
+﻿<Window x:Class="aoe3wpfg.uideckpicker" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:local="clr-namespace:aoe3wpfg" mc:Ignorable="d" Title="uideckpicker" Style="{StaticResource WindowStyle}">
+    <Window.Resources>
+        <Style TargetType="{x:Type ListBoxItem}" x:Key="basicListItem">
+            <Setter Property="Height" Value="50" />
+            <Setter Property="Width" Value="495" />
+            <Setter Property="Margin" Value="0,10,0,0" />
+            <Setter Property="FontFamily" Value="Trajan Pro" />
+            <Setter Property="FontSize" Value="20" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <Border Name="Border" Padding="7" CornerRadius="4" SnapsToDevicePixels="True" Background="{TemplateBinding Background}">
+                            <ContentPresenter />
+                        </Border>
+                        <ControlTemplate.Triggers>
+
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Trigger.EnterActions>
+                                    <RemoveStoryboard BeginStoryboardName="listisselectedexit" />
+                                    <BeginStoryboard x:Name="listmouseover">
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)" To="1.015" Duration="0:0:.2" />
+                                            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)" To="1.015" Duration="0:0:.2" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <RemoveStoryboard BeginStoryboardName="listisselectedexit" />
+                                    <BeginStoryboard x:Name="listmouseoverexit">
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)" To="1" Duration="0:0:.2" />
+                                            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)" To="1" Duration="0:0:.2" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                                <Setter Property="Background" Value="{StaticResource ListViewItemGradientOver}" />
+                                <Setter Property="Foreground" Value="#f6f6f6" />
+                            </Trigger>
+
+                            <Trigger Property="IsFocused" Value="true">
+                                <Trigger.EnterActions>
+                                    <RemoveStoryboard BeginStoryboardName="listisselectedexit" />
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)" To="1.015" Duration="0:0:.2" />
+                                            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)" To="1.015" Duration="0:0:.2" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <RemoveStoryboard BeginStoryboardName="listisselectedexit" />
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)" To="1" Duration="0:0:.2" />
+                                            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)" To="1" Duration="0:0:.2" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                                <Setter Property="Background" Value="{StaticResource ListViewItemGradientOver}" />
+                                <Setter Property="Foreground" Value="#f6f6f6" />
+                            </Trigger>
+
+                            <Trigger Property="IsSelected" Value="true">
+                                <Trigger.EnterActions>
+                                    <RemoveStoryboard BeginStoryboardName="listmouseover" />
+                                    <RemoveStoryboard BeginStoryboardName="listmouseoverexit" />
+                                    <BeginStoryboard x:Name="listisselected">
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)" To="1.03" Duration="0:0:.2" />
+                                            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)" To="1.03" Duration="0:0:.2" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <RemoveStoryboard BeginStoryboardName="listmouseover" />
+                                    <RemoveStoryboard BeginStoryboardName="listmouseoverexit" />
+                                    <BeginStoryboard x:Name="listisselectedexit">
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)" To="1" Duration="0:0:.2" />
+                                            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)" To="1" Duration="0:0:.2" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                                <Setter Property="Background" Value="{StaticResource ListViewItemGradientSelected}" />
+                                <Setter Property="Foreground" Value="#ffffff" />
+                            </Trigger>
+
+                            <EventTrigger RoutedEvent="PreviewMouseDown">
+                                <SoundPlayerAction Source="resources/audio/bigbutton.wav" />
+                            </EventTrigger>
+
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Foreground" Value="Green" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        
+        <Style TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource basicListItem}" x:Key="deckListItem">
+            <Setter Property="Margin" Value="0,0,0,0" />
+            <Setter Property="Width" Value="500" />
+            <Setter Property="ContentTemplate">
+                <Setter.Value>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Padding="10" Width="410" Text="{Binding Name}" VerticalAlignment="Center" />
+                            <Image Source="/resources/skirmish_cards_white.png" Height="30" Width="30" Margin="10,0,0,0" />
+                            <TextBlock Padding="10" Width="50" Margin="0,0,0,0" Text="{Binding Number}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <ImageBrush x:Key="icontest" ImageSource="/resources/images/icons/abilities/ability_anchor_fist.png" Stretch="Uniform" />
+    </Window.Resources>
+
+    <Viewbox Style="{StaticResource ViewboxMain}">
+
+        <Grid x:Name="mainGridPanel" Width="1920" Height="1080">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="22" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="420" />
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="20" />
+                <ColumnDefinition Width="400" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="400"/>
+                <ColumnDefinition Width="20" />
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="580" Height="500" Margin="0,20,0,20">
+                <Grid.LayoutTransform>
+                    <ScaleTransform
+                        CenterX="0"
+                        CenterY="0"
+                        ScaleX="{Binding OptionUIHudScale, Source={StaticResource optionsProxy}}"
+                        ScaleY="{Binding OptionUIHudScale, Source={StaticResource optionsProxy}}" />
+                </Grid.LayoutTransform>
+                
+                <ContentControl Template="{StaticResource PanelBG}" Margin="-10,-50,-10,-90" />
+
+                <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="50" />
+                    </Grid.RowDefinitions>
+
+                    <!--Title-->
+                    <TextBlock x:Name="homecity_deckpickerLabel" Grid.Row="0" Style="{StaticResource ConfirmationTitlesStyle}" FontSize="30" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,0,0,10">
+                        $$41593$$Select a Deck
+                    </TextBlock>
+
+                    <!--List BG Panel-->
+                    <Rectangle Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Height="380" Width="540" Margin="10" Style="{StaticResource PanelBGSection}" />
+
+                    <ListBox x:Name="deck_List" Grid.Row="1" Margin="20,25,30,25" ItemContainerStyle="{StaticResource deckListItem}" TabIndex="1"/>
+
+                    <!--Buttons-->
+                    <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
+                        <local:Age3Button x:Name="HomeCityPicker_SubmitButton" Height="50" Width="250" Style="{StaticResource MainMenuButton}" Content="$$18465$$Ok" TabIndex="2"/>
+                        <local:Age3Button x:Name="HomeCityPicker_CancelButton" Height="50" Width="250" Margin="20,0,0,0" Style="{StaticResource MainMenuButton}" Content="$$18466$$Cancel" TabIndex="3"/>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Viewbox>
+</Window>

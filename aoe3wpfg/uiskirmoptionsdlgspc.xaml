@@ -1,0 +1,110 @@
+﻿
+<Window x:Class="aoe3wpfg.uiskirmoptionsdlgspc" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:local="clr-namespace:aoe3wpfg" mc:Ignorable="d" Title="uiskirmoptionsdlgspc" Style="{StaticResource WindowStyle}">
+    <Window.Resources>
+        <ControlTemplate x:Key="TitlebarSkirmish">
+            <Grid Height="50" VerticalAlignment="Top">
+                <Rectangle Fill="Black" Opacity="0.4"></Rectangle>
+                <Rectangle Height="4" Fill="Black" VerticalAlignment="Bottom"></Rectangle>
+                <Rectangle Height="2" Fill="{StaticResource ButtonStrokeGradient}" VerticalAlignment="Bottom" Margin="0,0,0,1"></Rectangle>
+            </Grid>
+        </ControlTemplate>
+    </Window.Resources>
+
+    <Viewbox Style="{StaticResource ViewboxMain}">
+
+        <Grid x:Name="mainGridPanel" Width="1920" Height="1080">
+            <Grid x:Name="SkirmHCOptions">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <!--Campaign Home City HUD-->
+                <Grid Grid.Row="0" x:Name="SinglePlayerTitleBar">
+
+                    <Grid VerticalAlignment="Top">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="400" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="100" />
+                            <ColumnDefinition Width="2" />
+                            <ColumnDefinition Width="250" />
+                            <ColumnDefinition Width="2" />
+                            <ColumnDefinition Width="250" />
+                            <ColumnDefinition Width="2" />
+                            <ColumnDefinition Width="250" />
+                            <ColumnDefinition Width="2" />
+                            <ColumnDefinition Width="450" />
+                        </Grid.ColumnDefinitions>
+
+                        <!--BG-->
+                        <ContentControl Grid.Column="0" Grid.ColumnSpan="11" Template="{StaticResource TitlebarSkirmish}" />
+                        <!--Dividers-->
+                        <Rectangle Grid.Column="3" Fill="White" Margin="0,0,0,4" Opacity="0.5" />
+                        <Rectangle Grid.Column="5" Fill="White" Margin="0,0,0,4" Opacity="0.5" />
+                        <Rectangle Grid.Column="7" Fill="White" Margin="0,0,0,4" Opacity="0.5" />
+                        <Rectangle Grid.Column="9" Fill="White" Margin="0,0,0,4" Opacity="0.5" />
+
+                        <Grid Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left">
+                            <!--Return to Main Menu button-->
+                            <local:Age3Button x:Name="SkirmHCOptions_backButton" Style="{StaticResource SubMenuBackButton}" Visibility="Hidden">
+                                $$18458$$Back
+                                <Button.ToolTip>$$42423$$Saves your progress and returns you to the Campaign menu.</Button.ToolTip>
+                            </local:Age3Button>
+                            <local:Age3Button x:Name="SkirmHCOptions_CancelButton" Style="{StaticResource SubMenuBackButton}" IsCancel="true" VerticalAlignment="Center" HorizontalAlignment="Left" ConsoleCommand="navigate(/pages/uipregamenew/MainMenu,MainFrame)" Content="$$42451$$Back"></local:Age3Button>
+                            <!--Closing context menus such as upgrade/deck builder-->
+                        </Grid>
+
+                        <!--Hero-->
+                        <Grid Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <TextBlock x:Name="hcSummaryPanel_Explorer" Width="250" Height="Auto" MaxHeight="50" TextAlignment="Center" Style="{StaticResource hcStatus}" TextWrapping="Wrap">Martin Hudson</TextBlock>
+                        </Grid>
+
+                        <!--Progression-->
+                        <StackPanel Grid.Column="6" Height="40">
+                            <TextBlock x:Name="hcSummaryPanel_Level" Height="20" Text="Level 3" FontFamily="Trajan Pro" FontSize="19" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center" Margin="0,0,0,0" />
+                            <ProgressBar x:Name="hcSummaryPanel_homecityxpbar" Style="{StaticResource ProgressBar_Mini}" Height="16" Width="200" Value="30" Foreground="Cyan" Background="Gray" BorderBrush="Gold" Margin="0,3,0,0" />
+                        </StackPanel>
+
+                        <!--EXP-->
+                        <Grid Grid.Column="8" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <TextBlock x:Name="hcSummaryPanel_Exp" Width="250" Height="Auto" MaxHeight="50" TextAlignment="Center" Style="{StaticResource hcStatus}" TextWrapping="Wrap">XP 999,999</TextBlock>
+                        </Grid>
+
+                        <!--Civ-->
+                        <Grid Grid.Column="10" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <TextBlock x:Name="homeCity" Width="450" Height="Auto" MaxHeight="50" TextAlignment="Center" Style="{StaticResource hcStatus}" TextWrapping="Wrap">Black Family Estate</TextBlock>
+                        </Grid>
+                    </Grid>
+                </Grid>
+
+                <!--Buttons-->
+                <Grid x:Name="SkirmHCOptions_ButtonContainer" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="380" Margin="40,0,0,40">
+
+                    <Rectangle Grid.Column="0" Grid.ColumnSpan="11" Fill="Black" Opacity="0.4" />
+
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,20">
+                        <!--Customize button only appears once the player has completed a mission from start to finish and has returned to this menu!!!-->
+                        <Button x:Name="SkirmHCOptions_CustomizeButton" Style="{StaticResource MainMenuButton}" Width="350" Content="$$37429$$Customize" Margin="0,10,0,0" Visibility="Visible">
+                            <Button.ToolTip>$$42142$$Allows you to customize the look of your Home City when it gains a level.</Button.ToolTip>
+                        </Button>
+
+                        <Button x:Name="SkirmHCOptions_UpgradeButton" Style="{StaticResource MainMenuButton}" Width="350" Content="$$37427$$Choose new cards" Margin="0,10,0,0">
+                            <Button.ToolTip>$$42140$$Allows you to add new Cards to your Inventory when your Home City gains a level.</Button.ToolTip>
+                        </Button>
+
+                        <!--This button also ONLY appears if the player has selected HC button from the campaign menu. Playthrough does not appear!!!-->
+                        <Button x:Name="SkirmHCOptions_DeckButton" Style="{StaticResource MainMenuButton}" Width="350" Content="$$70846$$Deck Builder" Margin="0,10,0,0" Visibility="Visible">
+                            <Button.ToolTip>$$42141$$Allows you to organize Cards in your Inventory into Decks. You can create a new Deck or add or remove Cards from existing Decks.</Button.ToolTip>
+                        </Button>
+
+                        <Button x:Name="SkirmHCOptions_PlayButton" Style="{StaticResource MainMenuButton}" Width="350" Content="$$18593$$Play" Margin="0,10,0,0"></Button>
+                    </StackPanel>
+                </Grid>
+
+            </Grid>
+        </Grid>
+    </Viewbox>
+</Window>

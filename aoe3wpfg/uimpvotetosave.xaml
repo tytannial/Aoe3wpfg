@@ -1,0 +1,86 @@
+﻿<Window x:Class="aoe3wpfg.uimpvotetosave"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:aoe3wpfg"
+        mc:Ignorable="d"
+        Title="uimpvotetosave"
+        Style="{StaticResource WindowStyle}">
+    <Viewbox Style="{StaticResource ViewboxMain}">
+        <Grid x:Name="mainGridPanel" Width="1920" Height="1080">
+
+            <ContentControl Template="{StaticResource ScreenBlur}" />
+
+            <Grid Width="1920" Height="1080" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <!--Defining Grid-->
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="90"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="60"/>
+                </Grid.RowDefinitions>
+
+                <ContentControl Template="{StaticResource PanelBG_Titled}" Grid.Row="1" Width="1100" Height="450" HorizontalAlignment="Center" Margin="0,30,-4,0" />
+
+                <Grid Grid.Row="1" x:Name="MPVoteToSave" Height="400" Width="1075">
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10"/>
+                        <RowDefinition Height="75"/>
+                        <RowDefinition Height="280"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="1" x:Name="MPVoteToSave_ScreenLabel" Style="{StaticResource ConfirmationTitlesStyle}" VerticalAlignment="Center" Text="$$20215$$Save and Exit"/>
+
+                    <Grid Grid.Row="2" Width="1000">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="500"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Row="0" Grid.ColumnSpan="2" x:Name="MPVoteToSave_Warning" FontFamily="Trajan Pro" FontSize="17" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    $$36694$$Warning if you save and exit you will lose any home city experience earned this game.
+                        </TextBlock>
+
+                        <!--Continue-->
+                        <TextBlock Grid.Row="1" Grid.Column="0" x:Name="MPVoteToSave_ContinueText" FontFamily="Trajan Pro" FontSize="20" Foreground="White" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0">
+                        $$20038$$Continue
+                        </TextBlock>
+
+                        <!--Save & Exit-->
+                        <TextBlock Grid.Row="2" Grid.Column="0" x:Name="MPVoteToSave_SaveText" FontFamily="Trajan Pro" FontSize="20" Foreground="White" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0">
+                        $$20215$$Save and Exit
+                        </TextBlock>
+
+                        <!--Vote-->
+                        <TextBlock Grid.Row="3" Grid.Column="0" x:Name="MPVoteToSave_NoVoteText" FontFamily="Trajan Pro" FontSize="20" Foreground="White" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0">
+                        $$20213$$No Vote
+                        </TextBlock>
+
+                        <RadioButton Grid.Row="1" Grid.Column="1" x:Name="MPVoteToSave_VoteContinue" HorizontalAlignment="Left" Margin="10,0,0,0">
+                            <TextBlock x:Name="MPVoteToSave_CountContinue" FontFamily="Trajan Pro" FontSize="18" Foreground="White" Text="(00/00)"/>
+                        </RadioButton>
+
+                        <RadioButton Grid.Row="2" Grid.Column="1" x:Name="MPVoteToSave_VoteSaveAndExit" HorizontalAlignment="Left" Margin="10,0,0,0">
+                            <TextBlock x:Name="MPVoteToSave_CountSaveAndExit" FontFamily="Trajan Pro" FontSize="18" Foreground="White" Text="(00/00)"/>
+                        </RadioButton>
+
+                        <RadioButton Grid.Row="3" Grid.Column="1" x:Name="MPVoteToSave_VoteNoVote" HorizontalAlignment="Left" Margin="10,0,0,0">
+                            <TextBlock x:Name="MPVoteToSave_CountNoVote" FontFamily="Trajan Pro" FontSize="18" Foreground="White" Text="(00/00)"/>
+                        </RadioButton>
+                        <Button Grid.Row="4" Grid.ColumnSpan="2" x:Name="MPVoteDialog_CancelButton" Style="{StaticResource MainMenuButton}" Width="350" HorizontalAlignment="Center" Content="$$18466$$Cancel" Margin="0,-5,0,0" Visibility="Visible"/>
+                    </Grid>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Viewbox>
+</Window>

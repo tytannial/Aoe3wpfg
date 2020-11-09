@@ -1,0 +1,51 @@
+﻿<Window x:Class="aoe3wpfg.UpdateChecked"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:local="clr-namespace:aoe3wpfg"
+      mc:Ignorable="d" 
+      Title="UpdateChecked"
+      Style="{StaticResource WindowStyle}">
+    <Viewbox Style="{StaticResource ViewboxMain}">
+        <Grid Height="1080" Width="1920">
+
+            <ContentControl Template="{StaticResource ScreenBlur}" />
+
+            <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Height="400" Width="1000">
+                <local:Age3PanelBG Stroke="Black" StrokeThickness="8" Margin="18,18,12,14">
+
+                    <local:Age3PanelBG.Fill>
+                        <ImageBrush ImageSource="/resources/wood.png"/>
+                    </local:Age3PanelBG.Fill>
+                    <local:Age3PanelBG.Effect>
+                        <DropShadowEffect Color="Black" Direction="-90" ShadowDepth="3" BlurRadius="30" />
+                    </local:Age3PanelBG.Effect>
+                </local:Age3PanelBG>
+                <local:Age3PanelBG Fill="Transparent" Stroke="{StaticResource PanelBGStrokeGradient}" StrokeThickness="3" Margin="20"/>
+            </Grid>
+
+            <Grid Height="400" Width="1000">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="90"/>
+                    <RowDefinition Height="60"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="1" Style="{StaticResource ConfirmationTitlesStyle}" VerticalAlignment="Center">
+            Update Checked
+                </TextBlock>
+
+
+                <TextBlock Grid.Row="2" FontFamily="Trajan Pro" FontSize="25" TextAlignment="Center" VerticalAlignment="Center" Padding="10" Margin="0,0,0,0" Foreground="White">
+                Message Text Goes Here
+                    </TextBlock>
+                <Button Grid.Row="3" x:Name="btn_confirm" Style="{StaticResource MainMenuButton}" Margin="0,0,0,0" Width= "400" Content="$$18466$$Cancel"/>
+            </Grid>
+        </Grid>
+    </Viewbox>
+
+</Window>

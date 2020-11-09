@@ -1,0 +1,332 @@
+﻿<Page x:Class="aoe3wpfg.uiclanbrowser"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:aoe3wpfg"
+        mc:Ignorable="d"
+        Title="uiclanbrowser">
+    <Page.Resources>
+        <Style x:Key="NavButton" TargetType="Button" BasedOn="{StaticResource SubMenuButton}">
+            <Setter Property="Width" Value="30"/>
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        </Style>
+        <Style x:Key="{x:Type ListViewItem}" TargetType="ListViewItem">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource Age3FocusVisual}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListViewItem">
+                        <Border Style="{StaticResource ItemBorderStyle}">
+                            <Border.Resources>
+                                <Style x:Key="{x:Type TextBlock}" TargetType="TextBlock"  BasedOn="{StaticResource ItemTextStyle}"/>
+                            </Border.Resources>
+                            <GridViewRowPresenter />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="{x:Type TabItem}">
+            <Setter Property="FontFamily" Value="Trajan Pro" />
+            <Setter Property="Height" Value="30" />
+            <Setter Property="FontSize" Value="20" />
+            <Setter Property="Foreground" Value="{StaticResource ButtonTextGradient}" />
+            <Setter Property="Width" Value="390" />
+            <Setter Property="Height" Value="50" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="Margin" Value="0,0,0,0"/>
+
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect BlurRadius="10" Color="Black" Direction="-90" ShadowDepth="1.5" RenderingBias="Quality" />
+                </Setter.Value>
+            </Setter>
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TabItem}">
+                        <Border Name="Border" Background="Transparent" BorderThickness="2" CornerRadius="4">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" ContentSource="Header"/>
+                            <Border.BorderBrush>
+                                <LinearGradientBrush StartPoint="0,0.5" EndPoint="1,0.5">
+                                    <LinearGradientBrush.GradientStops>
+                                        <GradientStopCollection>
+                                            <GradientStop Color="#755f22" Offset="0" />
+                                            <GradientStop Color="#ceb165" Offset="0.25" />
+                                            <GradientStop Color="#ffe6a6" Offset="0.5" />
+                                            <GradientStop Color="#ceb165" Offset="0.25" />
+                                            <GradientStop Color="#755f22" Offset="1" />
+                                        </GradientStopCollection>
+                                    </LinearGradientBrush.GradientStops>
+                                </LinearGradientBrush>
+                            </Border.BorderBrush>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Panel.ZIndex" Value="100" />
+                                <Setter TargetName="Border" Property="Background" Value="{StaticResource MainMenuButtonInnerGradientPress}" />
+                                <Setter Property="BorderBrush" Value="{StaticResource MainMenuButtonStrokeGradientOver}"/>
+                                <Trigger.EnterActions>
+                                    <SoundPlayerAction Source="resources/audio/smallbutton.wav" />
+                                </Trigger.EnterActions>
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="False">
+                                <Setter Property="Panel.ZIndex" Value="-100" />
+                                <Setter TargetName="Border" Property="Background" Value="{StaticResource MainMenuButtonInnerGradient}" />
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="Border" Property="Background" Value="DarkRed" />
+                                <Setter TargetName="Border" Property="BorderBrush" Value="Black" />
+                                <Setter Property="Foreground" Value="DarkGray" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+    <Page.DataContext>
+        <local:Age3ClanBrowserViewModel />
+    </Page.DataContext>
+
+    <Grid Width="800" MinHeight="600">
+        <!--Loading text-->
+        <Grid >
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="{Binding LoadingVisible}" >
+                <StackPanel.Triggers>
+                    <EventTrigger RoutedEvent="Rectangle.Loaded">
+                        <BeginStoryboard>
+                            <Storyboard Name="loadAnimation" RepeatBehavior="Forever">
+                                <DoubleAnimation Storyboard.TargetName="Dot1" BeginTime="0:0:0.1" Storyboard.TargetProperty="Opacity" From=".1" To="1" AutoReverse="True" Duration="0:0:0.5"/>
+                                <DoubleAnimation Storyboard.TargetName="Dot2" BeginTime="0:0:0.2" Storyboard.TargetProperty="Opacity" From=".1" To="1" AutoReverse="True" Duration="0:0:0.5"/>
+                                <DoubleAnimation Storyboard.TargetName="Dot3" BeginTime="0:0:0.3" Storyboard.TargetProperty="Opacity" From=".1" To="1" AutoReverse="True" Duration="0:0:0.5"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </StackPanel.Triggers>
+
+                <TextBlock TextAlignment="Center" HorizontalAlignment="Center" Style="{StaticResource CampaignTitleTextBlockStyle}">
+                    <TextBlock.Text>$$22605$$Loading</TextBlock.Text>
+                </TextBlock>
+
+                <Ellipse Name="Dot1" VerticalAlignment="Bottom" Fill="{StaticResource ButtonTextGradient}" Opacity=".1" Width="6" Height="6" Margin="4,0,0,8"/>
+                <Ellipse Name="Dot2" VerticalAlignment="Bottom" Fill="{StaticResource ButtonTextGradient}" Opacity=".1" Width="6" Height="6" Margin="2,0,0,8"/>
+                <Ellipse Name="Dot3" VerticalAlignment="Bottom" Fill="{StaticResource ButtonTextGradient}" Opacity=".1" Width="6" Height="6" Margin="2,0,0,8"/>
+            </StackPanel>
+
+            <StackPanel Visibility="{Binding ErrorVisible}" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock TextAlignment="Center" HorizontalAlignment="Center" Style="{StaticResource CampaignTitleTextBlockStyle}" local:Age3StringDB.StringId="{Binding ErrorStringId}" />
+                <Button Style="{StaticResource MainMenuButton}" Margin="10" Width="300" Command="{Binding RefreshCommand}">$$21130$$Refresh</Button>
+            </StackPanel>
+        </Grid>
+
+        <TabControl Visibility="{Binding ResultsVisible}" Margin="10,5,0,0">
+            <TabItem Header="$$70653$$ Clan Browser">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10"/>
+                        <RowDefinition Height="*" MinHeight="400"/>
+                        <RowDefinition Height="10"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="1" >
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <!--Sort By-->
+                        <Grid Grid.Row="0" Margin="15,0,20,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="160"/>
+                                <ColumnDefinition Width="80"/>
+                                <ColumnDefinition Width="80"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Rectangle Grid.Column="0" Width="2" HorizontalAlignment="Left" Fill="White" Opacity="0.5"/>
+                            <Rectangle Grid.Column="0" Width="2" HorizontalAlignment="Right" Fill="White" Opacity="0.5"/>
+                            <Rectangle Grid.Column="1" Width="2" HorizontalAlignment="Right" Fill="White" Opacity="0.5"/>
+                            <Rectangle Grid.Column="2" Width="2" HorizontalAlignment="Right" Fill="White" Opacity="0.5"/>
+
+                            <TextBlock Grid.Column="0" Style="{StaticResource RegularTextBlockStyleFormal}" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Text="$$20509$$Name"/>
+                            <TextBlock Grid.Column="1" Style="{StaticResource RegularTextBlockStyleFormal}" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Text="$$70987$$Abbrv"/>
+                            <Image Grid.Column="2" HorizontalAlignment="Center" Width="30" Source="/resources/images/multiplayer/quickicon_friends.png"/>
+                        </Grid>
+
+                        <Border Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,10,0,10">
+                            <Border.Style>
+                                <Style TargetType="Border" BasedOn="{StaticResource PanelBGSectionAsBorder}">
+                                    <Setter Property="TextBlock.Opacity" Value="1"/>
+                                </Style>
+                            </Border.Style>
+                            <!--List-->
+                            <ListView x:Name="Results" ScrollViewer.CanContentScroll="True" SelectionMode="Single"
+                                  ItemsSource="{Binding SearchResults}" >
+                                <ListView.Resources>
+                                    <Style TargetType="GridViewColumnHeader">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                    </Style>
+                                </ListView.Resources>
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn Width="450" DisplayMemberBinding="{Binding ClanName}"/>
+                                        <GridViewColumn Width="145" DisplayMemberBinding="{Binding Abbreviation}"/>
+                                        <GridViewColumn Width="75" DisplayMemberBinding="{Binding Members}"/>
+                                        <GridViewColumn Width="Auto">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate DataType="{x:Type local:Age3ClanInfo}">
+                                                    <Button Content="{Binding Report}"  Style="{StaticResource ProfileActionButton}"/>
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                        </Border>
+
+                        <StackPanel Grid.Row="2">
+                            <UniformGrid Grid.Row="2" Columns="5" HorizontalAlignment="Center" Visibility="Collapsed">
+                                <Button Content="&lt;&lt;" Style="{StaticResource NavButton}" Command="{Binding NavFirstCmd}" Width="100" />
+                                <Button Content="←" Style="{StaticResource NavButton}" Command="{Binding NavPrevCmd}" Width="100" />
+                                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Width="150">
+                                    <UniformGrid Columns="2">
+                                        <TextBox Width="50" Text="{Binding CurrentLadder.CurrentPage}" HorizontalAlignment="Right" VerticalAlignment="Center" Name="currPagetxt" TextAlignment="Right" Height="36">
+                                            <TextBox.InputBindings/>
+                                        </TextBox>
+                                        <TextBlock Width="50" HorizontalAlignment="Left" VerticalAlignment="Center" >
+                                            <TextBlock.Text>
+                                                <Binding Path="CurrentLadder.NumPages" StringFormat="/{0}"/>
+                                            </TextBlock.Text>
+                                        </TextBlock>
+                                    </UniformGrid>
+                                </StackPanel>
+                                <Button Content="→" Style="{StaticResource NavButton}" Command="{Binding NavNextCmd}" Width="100"/>
+                                <Button Content="&gt;&gt;" Style="{StaticResource NavButton}" Command="{Binding NavLastCmd}" Width="100" />
+                            </UniformGrid>
+                            <UniformGrid Columns="2" Visibility="{Binding IsEnabledPlayerClanless, Converter={StaticResource BoolToVisibility}}">
+                                <Button x:Name="clanBrowser_CreateButton" Width="370" Margin="0,5" Style="{StaticResource MainMenuButton}" Content="$$33930$$Create Clan" Command="{x:Static local:Age3MPCommands.NavigateToClanPage}" IsEnabled="{Binding IsCurrentPlayerClanless}">
+                                    <Button.ToolTip>$$70716$$Select to create a Clan.</Button.ToolTip>
+                                </Button>
+                                <ContentPresenter Content="{Binding SelectedItem, ElementName=Results}">
+                                    <ContentPresenter.ContentTemplate>
+                                        <DataTemplate DataType="{x:Type local:Age3ClanInfo}">
+                                            <Button x:Name="clanJoin" Width="370"
+                                                Style="{StaticResource MainMenuButton}"
+                                                CommandParameter="{Binding }" Command="{x:Static local:Age3ClanBrowser.SendApplication}"
+                                                local:Age3StringDB.StringId="72299"><!-- "Apply for Membership" -->
+                                                <Button.ToolTip>$$70718$$Select to request to join this clan.</Button.ToolTip>
+                                            </Button>
+                                            <DataTemplate.Triggers>
+                                                <DataTrigger Binding="{Binding JoinPolicy}" Value="{x:Static local:Age3ClanJoinPolicy.Public}">
+                                                    <!-- "Join" -->
+                                                    <Setter TargetName="clanJoin" Property="local:Age3StringDB.StringId" Value="72303"/>
+                                                    <Setter TargetName="clanJoin" Property="ToolTip" Value="$$72304$$Select to join this clan."/>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding JoinPolicy}" Value="{x:Static local:Age3ClanJoinPolicy.Private}">
+                                                    <Setter TargetName="clanJoin" Property="IsEnabled" Value="False"/>
+                                                    <Setter TargetName="clanJoin" Property="ToolTip" Value="$$72305$$This clan is private."/>
+                                                </DataTrigger>
+                                            </DataTemplate.Triggers>
+                                        </DataTemplate>
+                                    </ContentPresenter.ContentTemplate>
+                                </ContentPresenter>
+                            </UniformGrid>
+                            <!--Search panel-->
+                            <UniformGrid Rows="1" ToolTip="$$90167$$Search for a clan using keywords.">
+                                <TextBox x:Name="clanBrowser_SearchBar" Style="{StaticResource hcInfoName}" Width="auto" Margin="10,0,5,0" FontSize="20" GotFocus="TextBox_GotFocus" Text="{Binding SearchText, Mode=TwoWay }"/>
+                                <Button x:Name="clanBrowser_SearchButtonWithResults" Style="{StaticResource MainMenuButton}" Width="auto" Margin="5,0,5,0" Content="$$19813$$Search" Command="{Binding SearchCommand}"/>
+                                <Button x:Name="clanBrowser_ClearSearchButton" Style="{StaticResource MainMenuButton}" Visibility="{Binding ResultsWithFilter, Converter={StaticResource BoolToVisibility}}" Margin="5,0,10,0" Width="auto" Content="$$91769$$Clear Search" Command="{Binding RefreshCommand}"/>
+                            </UniformGrid>
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="$$72298$$ Invites/Applications">
+                <Border Width="770" Height="960">
+                    <Border.Style>
+                        <Style TargetType="Border" BasedOn="{StaticResource PanelBGSectionAsBorder}">
+                            <Setter Property="TextBlock.Opacity" Value="1"/>
+                        </Style>
+                    </Border.Style>
+
+                    <StackPanel CanVerticallyScroll="True">
+                        <StackPanel.Resources>
+                            <Style TargetType="ContentPresenter">
+                                <Setter Property="TextBlock.FontFamily" Value="Trajan Pro" />
+                                <Setter Property="TextBlock.FontSize" Value="25" />
+                                <Setter Property="TextBlock.Foreground" Value="{StaticResource ButtonTextGradient}" />
+                                <Setter Property="Effect">
+                                    <Setter.Value>
+                                        <DropShadowEffect BlurRadius="4" Color="Black" Direction="-90" ShadowDepth="4" RenderingBias="Quality" />
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                            <Style TargetType="ItemsControl" BasedOn="{StaticResource {x:Type ItemsControl}}">
+                                <Setter Property="Margin" Value="30,0,0,0"/>
+                                <Setter Property="Focusable" Value="False" />
+                            </Style>
+                        </StackPanel.Resources>
+                        <Expander IsExpanded="True" KeyboardNavigation.DirectionalNavigation="Continue">
+                            <Expander.Header>
+                                <ContentPresenter Content="{Binding Items.Count, ElementName=Invites}" local:Age3StringDB.StringFormatId="72297" KeyboardNavigation.IsTabStop="True" />
+                            </Expander.Header>
+                            <ItemsControl x:Name="Invites" ItemsSource="{Binding Invites}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate DataType="{x:Type local:Age3ClanInfo}">
+                                        <local:Age3KeyboardFocusBorder>
+                                            <Border Style="{StaticResource ItemBorderStyle}" >
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*"/>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <TextBlock Text="{Binding ClanName}" Style="{StaticResource ItemTextStyle}" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" />
+                                                    <Button Content="{StaticResource friends_accept}" ToolTip="$$71993$$Accept" Style="{StaticResource InviteActionButton}" Grid.Column="1" CommandParameter="{Binding}" Command="{x:Static local:Age3ClanBrowser.AcceptInvite}"/>
+                                                    <Button Content="{StaticResource friends_decline}" ToolTip="$$71987$$Reject" Style="{StaticResource InviteActionButton}" Grid.Column="2" CommandParameter="{Binding}" Command="{x:Static local:Age3ClanBrowser.RejectInvite}"/>
+                                                </Grid>
+                                            </Border>
+                                        </local:Age3KeyboardFocusBorder>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </Expander>
+                        <Expander IsExpanded="True" KeyboardNavigation.DirectionalNavigation="Continue">
+                            <Expander.Header>
+                                <ContentPresenter Content="{Binding Items.Count, ElementName=Applications}" local:Age3StringDB.StringFormatId="72296"/>
+                            </Expander.Header>
+                            <ItemsControl x:Name="Applications" ItemsSource="{Binding Applications}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate DataType="{x:Type local:Age3ClanInfo}">
+                                        <local:Age3KeyboardFocusBorder>
+                                            <Border Style="{StaticResource ItemBorderStyle}" >
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*"/>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <TextBlock Text="{Binding ClanName}" Style="{StaticResource ItemTextStyle}" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                                                    <Button Content="{StaticResource friends_cancel}" ToolTip="$$71992$$Cancel" Style="{StaticResource InviteActionButton}" Grid.Column="1" CommandParameter="{Binding}" Command="{x:Static local:Age3ClanBrowser.CancelApplication}"/>
+                                                </Grid>
+                                            </Border>
+                                        </local:Age3KeyboardFocusBorder>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </Expander>
+                    </StackPanel>
+                </Border>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Page>

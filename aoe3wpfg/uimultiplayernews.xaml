@@ -1,0 +1,111 @@
+﻿<Window x:Class="aoe3wpfg.uimultiplayernews" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:local="clr-namespace:aoe3wpfg" mc:Ignorable="d" Title="uimultiplayernews" Name="NewsScreen" Style="{StaticResource WindowStyle}">
+    <Window.Resources>
+        <LinearGradientBrush x:Key="ListViewItemGradient2Selected" StartPoint="0.5,0" EndPoint="0.5,1">
+            <GradientStop Color="#80312615" Offset="0" />
+            <GradientStop Color="#80312615" Offset="1" />
+        </LinearGradientBrush>
+        <LinearGradientBrush x:Key="ListViewItemGradient2Over" StartPoint="0.5,0" EndPoint="0.5,1">
+            <GradientStop Color="#8020190d" Offset="0" />
+            <GradientStop Color="#8020190d" Offset="1" />
+        </LinearGradientBrush>
+
+        <LinearGradientBrush x:Key="ListViewItemGradient2" StartPoint="0.5,0" EndPoint="0.5,1">
+            <GradientStop Color="#80000000" Offset="0" />
+            <GradientStop Color="#80000000" Offset="1" />
+        </LinearGradientBrush>
+        <Style TargetType="ListView" x:Name="newsListContainer">
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Height" Value="{Binding ElementName=NewsContainer, Path=ActualHeight}" />
+            <Setter Property="Width" Value="1400" />
+            <Setter Property="BorderBrush" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Visible"/>
+        </Style>
+
+        <Style TargetType="ListViewItem" x:Name="newsItemConatiner">
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Height" Value="{Binding ElementName=newsBody, Path=ActualHeight}" />
+            <Setter Property="Width" Value="1350" />
+            <Setter Property="Margin" Value="0,20,0,0" />
+            <Setter Property="Background" Value="{StaticResource ListViewItemGradient2}" />
+            <Setter Property="FontSize" Value="18" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="FontFamily" Value="Trajan Pro" />
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ListViewItem}">
+                        <Grid x:Name="newsBody">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="250" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <Image Grid.Column="0" VerticalAlignment="Top" Width="235" Height="235" Source="resources/news_shadow.png" Margin="0,0,0,0"/>
+                            <Grid Grid.Column="0" VerticalAlignment="Top" Width="200" Height="200" Margin="0,0,0,0">
+                                <Grid.OpacityMask>
+                                    <ImageBrush ImageSource="resources/news_mask.png"></ImageBrush>
+                                </Grid.OpacityMask>
+                                <Image x:Name="newsImage" Grid.Column="0" VerticalAlignment="Top" Width="200" Height="200" Source="{Binding newsImagePath}" Margin="0,0,0,0"/>
+                            </Grid>
+                            <Image Grid.Column="0" VerticalAlignment="Top" Width="200" Height="200" Source="resources/news_overlay.png" Margin="0,0,0,0"/>
+
+                            <StackPanel Grid.Column="1">
+                                <local:Age3TextBlockFormatted PermissionLevel="EnableAllFormatting" FontSize="25" TextAlignment="Left" HorizontalAlignment="Left" Margin="20,0,0,0" Style="{StaticResource ConfirmationTitlesStyle}" TextWrapping="Wrap" Width="1100" Text="{Binding newsTitle}" />
+                                <local:Age3TextBlockFormatted PermissionLevel="EnableAllFormatting" FontSize="18" FontWeight="Normal" FontFamily="Arial" VerticalAlignment="Center" Margin="20,15,0,0" Style="{StaticResource RegularTextBlockStyle}" TextWrapping="Wrap" Width="1050" Text="{Binding newsDescription}" />
+                                <local:Age3TextBlockFormatted PermissionLevel="EnableAllFormatting" FontSize="18" FontFamily="Arial" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="20,15,0,6" TextAlignment="Left" Style="{StaticResource subInfoLeft}" Text="{Binding newsDate}" />
+                            </StackPanel>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Viewbox Style="{StaticResource ViewboxMain}">
+        <Grid x:Name="mainGridPanel" Width="1920" Height="1080">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="245"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <ContentControl Grid.Column="0" Grid.ColumnSpan="2" Template="{StaticResource ScreenBlur}" />
+
+            <Grid Grid.Column="1" Width="1530" Height="760" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <ContentControl Template="{StaticResource PanelBG_Titled}" Margin="-10,-15,-10,-20" />
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="40"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="40"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="70"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="60"/>
+                        <RowDefinition Height="40"/>
+                    </Grid.RowDefinitions>
+
+                    <Rectangle Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10,20,10,10" Style="{StaticResource PanelBGSection}" />
+
+                    <TextBlock Grid.Row="0" Grid.Column="1" Style="{StaticResource ConfirmationTitlesStyle}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="45" Margin="0,25,0,0" Text="$$70662$$News"/>
+                    
+                    <Grid Grid.Row="1" Grid.Column="1" x:Name="NewsContainer" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="15,30,15,20">
+                        <TextBlock x:Name="ConnectionErrorText" TextAlignment="Center" HorizontalAlignment="Center" Style="{StaticResource CampaignTitleTextBlockStyle}" Visibility="{Binding ConnectionError}">
+                            <TextBlock.Text>$$71083$$Connection Error...</TextBlock.Text>
+                        </TextBlock>
+
+                        <ListView x:Name="newsFeed" ScrollViewer.CanContentScroll="False"/>
+                    </Grid>
+
+                    <local:Age3Button x:Name="CloseBtn" Grid.Row="2" Grid.Column="1" Style="{StaticResource MainMenuButton}" Width="280" Content="$$18457$$Close" ConsoleCommand="gadgetUnreal(&quot;MPNewsPage&quot;)" VerticalAlignment="Top" IsCancel="True"/>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Viewbox>
+</Window>

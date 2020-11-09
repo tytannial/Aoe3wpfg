@@ -1,0 +1,38 @@
+﻿<Window x:Class="aoe3wpfg.uiscenvictoriousdlg"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:aoe3wpfg"
+        mc:Ignorable="d"
+        Title="uiscenvictoriousdlg"
+        Style="{StaticResource WindowStyle}">
+    <Viewbox Style="{StaticResource ViewboxMain}">
+
+        <Grid x:Name="mainGridPanel" Height="1080" Width="1920">
+
+            <ContentControl Template="{StaticResource ScreenBlur}" />
+
+            <Grid Width="{Binding ElementName=MainStack, Path=ActualWidth}" MinWidth="900" Height="{Binding ElementName=ContentStack, Path=ActualHeight}" Style="{StaticResource PopupGrid}">
+
+                <ContentControl Template="{StaticResource PanelBG_Titled}" Margin="-50,-50,-50,-90" />
+
+                <StackPanel x:Name="ContentStack" HorizontalAlignment="Center" VerticalAlignment="Center">
+
+                    <StackPanel x:Name="MainStack"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="{Binding ElementName=ScenarioDefeatedDlg_DefeatedText, Path=ActualWidth}" Margin="-50,-20,-50,0">
+                        <TextBlock x:Name="ScenarioVictoriousDlg_VictoriousText" Style="{StaticResource ConfirmationTitlesStyle}" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center" MinWidth="900"
+                                   Text="$$20165$$Continue your Journey?"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Vertical" Margin="0,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <local:Age3Button x:Name="ScenarioVictoriousDlg_NextScenarioButton" Style="{StaticResource MainMenuButton}" Width="400" Margin="0,20,0,0" Content="$$18454$$Next Scenario" ConsoleCommand="gadgetUnreal(&quot;ScenarioDefeatedDlg&quot;) restartCurrentGame"/>
+                        <local:Age3Button x:Name="ScenarioVictoriousDlg_MainMenuButton" Style="{StaticResource MainMenuButton}" Width="400" Margin="0,10,0,0" Content="$$20215$$Save and Exit" ConsoleCommand="uiOpenSavedGameBrowser"/>
+                        <local:Age3Button x:Name="ScenarioVictoriousDlg_HCButton" Style="{StaticResource MainMenuButton}" Width="400" Margin="0,10,0,0" Content="$$35625$$Upgrade Home City" ConsoleCommand="gadgetUnreal(&quot;ScenarioDefeatedDlg&quot;) leaveGame"/>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+
+        </Grid>
+
+    </Viewbox>
+</Window>

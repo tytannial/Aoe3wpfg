@@ -1,0 +1,1462 @@
+﻿<Window x:Class="aoe3wpfg.uimpgamesetuppage"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:aoe3wpfg"
+        mc:Ignorable="d"
+        Title="uimpgamesetuppage"
+        Style="{StaticResource WindowStyle}">
+
+    <Viewbox Style="{StaticResource ViewboxMain}">
+
+        <Grid Width="1920" Height="1080" Background="{StaticResource wood_tile}">
+
+            <!--Defining Grid-->
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!--Background Panels-->
+            <Rectangle HorizontalAlignment="Left" Height="775" Width="1400" Margin="20,0,0,0" Grid.Row="2" VerticalAlignment="Top" Style="{StaticResource PanelBGSection}" />
+
+            <Rectangle HorizontalAlignment="Right" Height="962" Width="440" Margin="0,0,45,0" Grid.Row="2" VerticalAlignment="Top" Style="{StaticResource PanelBGSection}" />
+
+            <!--Top Bar-->
+            <Grid Grid.Row="0" x:Name="LanHUD">
+                <ContentControl Template="{StaticResource Titlebar}" />
+                <Grid Height="50" VerticalAlignment="Top">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="300"/>
+                        <ColumnDefinition Width="300"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!--Back Button-->
+                    <Grid Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left">
+                        <local:Age3Button x:Name="mpsetup_cancelbutton" Style="{StaticResource SubMenuBackButton}" ConsoleCommand="navigate(/pages/uipregamenew/MainMenu,MainFrame)">
+                            $$33157$$Leave Game
+                            <Button.ToolTip>
+                                <TextBlock FontFamily="arial" FontSize="18" Text="$$41683$$"/>
+                            </Button.ToolTip>
+                        </local:Age3Button>
+                    </Grid>
+
+                    <!--Exit & Options Buttons-->
+                    <StackPanel Grid.Column="6" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,2">
+                        <!--Tech Tree button-->
+                        <Button Name="hcSummary_TechTree" Height="40" Width="50" HorizontalAlignment="Right" Margin="0,0,5,0" Style="{StaticResource HUDButton}">
+                            <Image Source="{StaticResource icon_techtree}" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0"></Image>
+                            <Button.ToolTip>$$70734$$You can view Technology Trees of all civilizations.</Button.ToolTip>
+                        </Button>
+                        <Button Name="mphud_options" Height="40" Width="40" Margin="0,0,5,0" Style="{StaticResource HUDButton}">
+                            <Image Source="{StaticResource multiplayer_quickicon_settings}" Width="35" Height="35" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,-3,0,0"></Image>
+                            <Button.ToolTip>$$70706$$Click to open Options.</Button.ToolTip>
+                        </Button>
+                        <Button Name="mphud_exit" Height="40" Width="40" Margin="0,0,15,0" Style="{StaticResource HUDButton}">
+                            <Image Source="{StaticResource multiplayer_quickicon_exit}" Width="35" Height="35" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,-3,0,0"></Image>
+                            <Button.ToolTip>$$70707$$Exit to Main Menu.</Button.ToolTip>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+                <Grid.Effect>
+                    <DropShadowEffect BlurRadius="10" Color="Black" Direction="-90" ShadowDepth="5" RenderingBias="Quality"/>
+                </Grid.Effect>
+            </Grid>
+
+            <!--Title & IP Address-->
+            <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Left" Margin="25,0,0,0">
+                <TextBlock x:Name="mpsetup_gamename_text" FontSize="30" FontWeight="Bold" Height="40" Padding="5" Margin="0,0,0,0" Style="{StaticResource CampaignTitleTextBlockStyle}">
+                    $$21131$$LAN Game Name:
+                    <TextBlock.ToolTip>
+                        <TextBlock FontFamily="arial" FontSize="18" Text="$$22024$$This is the name of the game."/>
+                    </TextBlock.ToolTip>
+                </TextBlock>
+                <!--
+                <TextBlock x:Name="mpsetup_IPAddressLabel" FontSize="30" FontWeight="Bold" Height="40" Padding="5" Margin="20,0,0,0" Style="{StaticResource CampaignTitleTextBlockStyle}">
+                    $$20241$$IP Address:
+                </TextBlock>
+                <TextBlock x:Name="mpsetup_IPAddress" FontSize="30" FontWeight="Bold" Height="40" Padding="5" Margin="20,0,0,0" Style="{StaticResource CampaignTitleTextBlockStyle}">
+                    127.0.0.1
+                </TextBlock>
+                -->
+            </StackPanel>
+
+            <Grid Grid.Row="2" Margin="5,10,0,5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="200"/>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="450"/>
+                    <ColumnDefinition Width="40"/>
+                </Grid.ColumnDefinitions>
+
+                <!--Players-->
+                <Grid Grid.Row="0" Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <!--Player #1-->
+                    <Grid x:Name="mpsetup_Player1" Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="700"/>
+                            <ColumnDefinition Width="130"/>
+                            <ColumnDefinition Width="290"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!--If AI Player-->
+
+                        <local:Age3KeyboardFocusBorder Margin="110,20,10,20">
+                          <ComboBox x:Name="mpsetup_Player1_AIDropdown" Height="40" Width="580" Style="{StaticResource RegularCombobox}" Visibility="Visible">
+                            <ComboBoxItem Content="$$19010$$Open" IsSelected="True"/>
+                            <ComboBoxItem Content="$$33687$$Queen Isabella"/>
+                            <ComboBoxItem Content="$$33260$$Queen Elizabeth"/>
+                            <ComboBoxItem Content="$$33259$$Napoleon"/>
+                            <ComboBoxItem Content="$$33686$$Henry the Navigator"/>
+                            <ComboBoxItem Content="$$34016$$Maurice of Nassau"/>
+                            <ComboBoxItem Content="$$34017$$Ivan the Terrible"/>
+                            <ComboBoxItem Content="$$34018$$Frederick the Great"/>
+                            <ComboBoxItem Content="$$34015$$Suleiman"/>
+                            <ComboBoxItem Content="$$41635$$Random"/>
+                            <ComboBox.ToolTip>
+                              <TextBlock FontFamily="arial" FontSize="18" Text="$$41687$$"/>
+                            </ComboBox.ToolTip>
+                          </ComboBox>
+                        </local:Age3KeyboardFocusBorder>
+
+                        <!--If Human Player-->
+                        <Grid x:Name="mpsetup_Player1_nametext_parent" Grid.Column="0" Margin="90,0,0,0" Visibility="Hidden">
+                            <Rectangle HorizontalAlignment="Left" VerticalAlignment="Center" Width="575" Height="40" Margin="0,10,0,0" Fill="{Binding Colour}">
+                                <Rectangle.OpacityMask>
+                                    <ImageBrush ImageSource="resources/images/icons/post_game/playertitle_mask.png" />
+                                </Rectangle.OpacityMask>
+                                <Rectangle.Effect>
+                                    <DropShadowEffect Color="Black" Direction="-90" ShadowDepth="8" BlurRadius="10" />
+                                </Rectangle.Effect>
+                            </Rectangle>
+
+                            <Rectangle HorizontalAlignment="Left" VerticalAlignment="Center" Width="575" Height="40" Margin="0,10,0,0">
+                                <Rectangle.Fill>
+                                    <ImageBrush ImageSource="resources/images/icons/post_game/playertitle_gradient.png" />
+                                </Rectangle.Fill>
+                                <Rectangle.OpacityMask>
+                                    <ImageBrush ImageSource="resources/images/icons/post_game/playertitle_mask.png" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                            <Rectangle HorizontalAlignment="Left" VerticalAlignment="Center" Width="575" Height="6" Margin="0,50,0,0">
+                                <Rectangle.Fill>
+                                    <ImageBrush ImageSource="resources/images/icons/post_game/playertitle_deco.png"/>
+                                </Rectangle.Fill>
+                            </Rectangle>
+
+                            <TextBlock x:Name="mpsetup_Player1_nametext" FontFamily="Trajan Pro" FontWeight="Bold" FontSize="25" Foreground="White" Height="40" Padding="5" Background="Transparent" Margin="5,10,0,0">Player Name here.
+                                <TextBlock.Effect>
+                                    <DropShadowEffect BlurRadius="5" Color="Black" Direction="-90" ShadowDepth="3" RenderingBias="Quality"/>
+                                </TextBlock.Effect>
+                            </TextBlock>
+                        </Grid>
+
+
+                        <!--Profile-->
+                          <Image x:Name="mpsetup_Player1_Avatar" Height="80" HorizontalAlignment="Left" Margin="10,0,0,0" Source="/resources/hc_profile.png"/>
+                      
+                        <!--Flag-->
+                        <local:Age3KeyboardFocusBorder Grid.Column="1" Margin="8,0,8,0" >
+                            <Button x:Name="mpsetup_Player1_CivFlag" Height="80" Width="118" VerticalAlignment="Center" Background="{StaticResource flag_square_random}" Style="{StaticResource FlagButton}" Content="20">
+
+                          </Button>
+                        </local:Age3KeyboardFocusBorder>
+                        <!--Team & Handicapped-->
+                        <StackPanel Grid.Column="2" Height="100">
+
+                            <local:Age3KeyboardFocusBorder Grid.Column="1" Margin="10,0,10,0">
+                                <ComboBox x:Name="mpsetup_Player1_team" Height="35" Width="270" Margin="0,10,0,10" Style="{StaticResource RegularCombobox}">
+                              <ComboBoxItem Content="$$36141$$Team 1" IsSelected="True"/>
+                              <ComboBoxItem Content="$$36142$$Team 2"/>
+                              <ComboBoxItem Content="$$36145$$Team ?"/>
+                              <ComboBoxItem Content="Spectator"/>
+                              <ComboBox.ToolTip>
+                                <TextBlock FontFamily="arial" FontSize="18" Text="$$41640$$"/>
+                              </ComboBox.ToolTip>
+                            </ComboBox>
+                          </local:Age3KeyboardFocusBorder>
+
+                            <local:Age3KeyboardFocusBorder Margin="10,0,10,0">
+                              <StackPanel Orientation="Horizontal" Height="40">
+                                  <TextBlock x:Name="mpsetup_Player1_HandicapLabel" Style="{StaticResource RegularTextBlockStyle}" Padding="5,8" Text="+%">
+                                      <TextBlock.ToolTip>
+                                          <TextBlock FontFamily="arial" FontSize="18" Text="$$20033$$"/>
+                                      </TextBlock.ToolTip>
+                                              </TextBlock>
+
+                                  <Slider x:Name="mpsetup_Player1_Handicap" Height="20" Width="225">
+                                    <Slider.ToolTip>
+                                      <TextBlock FontFamily="arial" FontSize="18" Text="$$20033$$"/>
+                                    </Slider.ToolTip>
+                                  </Slider>
+                              </StackPanel>
+                            </local:Age3KeyboardFocusBorder>
+                        </StackPanel>
+
+                        <!--Colours & Ready-->
+                        <StackPanel Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,0,0" Height="100">
+                            <StackPanel Orientation="Horizontal">
+
+                                <local:Age3KeyboardFocusBorder Margin="10,0,0,0">
+                                <ComboBox x:Name="mpsetup_player1_teamColor" Height="35" Width="200" VerticalAlignment="Center" Margin="0,10,0,10" Style="{StaticResource RegularCombobox}">
+                                  <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                      <StackPanel Orientation="Horizontal" Width="170">
+                                        <Rectangle Fill="{Binding Name}" Width="170" Height="30" Margin="0,2.5,0,0"/>
+                                      </StackPanel>
+                                    </DataTemplate>
+                                  </ComboBox.ItemTemplate>
+                                  <ComboBox.ToolTip>
+                                    <TextBlock FontFamily="arial" FontSize="18" Text="$$41641$$"/>
+                                  </ComboBox.ToolTip>
+                                </ComboBox>
+                              </local:Age3KeyboardFocusBorder>
+                            </StackPanel>
+
+                            <local:Age3KeyboardFocusBorder Margin="10,0,0,0">
+                                <CheckBox x:Name="mpsetup_Player1_Ready" Style="{StaticResource Checkbox_Medium}" Width="170" HorizontalAlignment="Left" VerticalAlignment="Top" Content="$$20021$$Ready" >
+                                  <CheckBox.ToolTip>
+                                    <TextBlock FontFamily="arial" FontSize="18" Text="$$41686$$"/>
+                                  </CheckBox.ToolTip>
+                                </CheckBox>
+                          </local:Age3KeyboardFocusBorder>
+                        </StackPanel>
+                    </Grid>
+
+                    <!--Player #2-->
+                    <Grid x:Name="mpsetup_Player2" Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="700"/>
+                            <ColumnDefinition Width="130"/>
+                            <ColumnDefinition Width="290"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!--If AI Player-->
+                        <local:Age3KeyboardFocusBorder Margin="110,20,10,20">
+                            <ComboBox Grid.Column="0" x:Name="mpsetup_Player2_AIDropdown" Height="40" Width="580" Style="{StaticResource RegularCombobox}" Visibility="Visible">
+                                <ComboBoxItem Content="$$19010$$Open" IsSelected="True"/>
+                                <ComboBoxItem Content="$$33687$$Queen Isabella"/>
+                                <ComboBoxItem Content="$$33260$$Queen Elizabeth"/>
+                                <ComboBoxItem Content="$$33259$$Napoleon"/>
+                                <ComboBoxItem Content="$$33686$$Henry the Navigator"/>
+                                <ComboBoxItem Content="$$34016$$Maurice of Nassau"/>
+                                <ComboBoxItem Content="$$34017$$Ivan the Terrible"/>
+                                <ComboBoxItem Content="$$34018$$Frederick the Great"/>
+                                <ComboBoxItem Content="$$34015$$Suleiman"/>
+                                <ComboBoxItem Content="$$41635$$Random"/>
+                                <ComboBox.ToolTip>
+                                    <TextBlock FontFamily="arial" FontSize="18" Text="$$41687$$"/>
+                                </ComboBox.ToolTip>
+                            </ComboBox>
+                        </local:Age3KeyboardFocusBorder>
+
+                        <!--If Human Player-->
+                        <Grid x:Name="mpsetup_Player2_nametext_parent" Grid.Column="0" Margin="90,0,0,0" Visibility="Hidden">
+                            <Rectangle HorizontalAlignment="Left" VerticalAlignment="Center" Width="575" Height="40" Margin="0,10,0,0" Fill="{Binding Colour}">
+                                <Rectangle.OpacityMask>
+                                    <ImageBrush ImageSource="resources/images/icons/post_game/playertitle_mask.png" />
+                                </Rectangle.OpacityMask>
+                                <Rectangle.Effect>
+                                    <DropShadowEffect Color="Black" Direction="-90" ShadowDepth="8" BlurRadius="10" />
+                                </Rectangle.Effect>
+                            </Rectangle>
+
+                            <Rectangle HorizontalAlignment="Left" VerticalAlignment="Center" Width="575" Height="40" Margin="0,10,0,0">
+                                <Rectangle.Fill>
+                                    <ImageBrush ImageSource="resources/images/icons/post_game/playertitle_gradient.png" />
+                                </Rectangle.Fill>
+                                <Rectangle.OpacityMask>
+                                    <ImageBrush ImageSource="resources/images/icons/post_game/playertitle_mask.png" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                            <Rectangle HorizontalAlignment="Left" VerticalAlignment="Center" Width="575" Height="6" Margin="0,50,0,0">
+                                <Rectangle.Fill>
+                                    <ImageBrush ImageSource="resources/images/icons/post_game/playertitle_deco.png"/>
+                                </Rectangle.Fill>
+                            </Rectangle>
+
+                            <TextBlock x:Name="mpsetup_Player2_nametext" FontFamily="Trajan Pro" FontWeight="Bold" FontSize="25" Foreground="White" Height="40" Padding="5" Background="Transparent" Margin="5,10,0,0">Player Name here.
+                                <TextBlock.Effect>
+                                    <DropShadowEffect BlurRadius="5" Color="Black" Direction="-90" ShadowDepth="3" RenderingBias="Quality"/>
+                                </TextBlock.Effect>
+                            </TextBlock>
+                        </Grid>
+
+
+                        <!--Profile-->
+                        <Image Grid.Column="0" x:Name="mpsetup_Player2_Avatar" Height="80" HorizontalAlignment="Left" Margin="10,0,0,0" Source="/resources/hc_profile.png"/>
+
+                        <!--Flag-->
+                        <local:Age3KeyboardFocusBorder Grid.Column="1" Margin="8,0,8,0" >
+                            <Button x:Name="mpsetup_Player2_CivFlag" Height="80" Width="118" VerticalAlignment="Center" Background="{StaticResource flag_square_random}" Style="{StaticResource FlagButton}" Content="20" IsEnabled="False">
+
+                            </Button>
+                        </local:Age3KeyboardFocusBorder>
+                        <!--Team & Handicapped-->
+                        <StackPanel Grid.Column="2" Height="100">
+
+                            <local:Age3KeyboardFocusBorder Grid.Column="1" Margin="10,0,10,0">
+                                <ComboBox x:Name="mpsetup_Player2_team" Height="35" Width="270" Margin="0,10,0,10" Style="{StaticResource RegularCombobox}">
+                                    <ComboBoxItem Content="$$36141$$Team 1" IsSelected="True"/>
+                                    <ComboBoxItem Content="$$36142$$Team 2"/>
+                                    <ComboBoxItem Content="$$36145$$Team ?"/>
+                                    <ComboBoxItem Content="Spectator"/>
+                                    <ComboBox.ToolTip>
+                                        <TextBlock FontFamily="arial" FontSize="18" Text="$$41640$$"/>
+                                    </ComboBox.ToolTip>
+                                </ComboBox>
+                            </local:Age3KeyboardFocusBorder>
+
+                            <local:Age3KeyboardFocusBorder Margin="10,0,10,0">
+                                <StackPanel Orientation="Horizontal" Height="40">
+                                    <TextBlock x:Name="mpsetup_Player2_HandicapLabel" Style="{StaticResource RegularTextBlockStyle}" Padding="5,8" Text="+%">
+                                        <TextBlock.ToolTip>
+                                            <TextBlock FontFamily="arial" FontSize="18" Text="$$20033$$"/>
+                                        </TextBlock.ToolTip>
+                                              </TextBlock>
+
+                                    <Slider x:Name="mpsetup_Player2_Handicap" Height="20" Width="225">
+                                        <Slider.ToolTip>
+                                            <TextBlock FontFamily="arial" FontSize="18" Text="$$20033$$"/>
+                                        </Slider.ToolTip>
+                                    </Slider>
+                                </StackPanel>
+                            </local:Age3KeyboardFocusBorder>
+                        </StackPanel>
+
+                        <!--Colours & Ready-->
+                        <StackPanel Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,0,0" Height="100">
+                            <StackPanel Orientation="Horizontal">
+
+                                <local:Age3KeyboardFocusBorder Margin="10,0,0,0">
+                                    <ComboBox x:Name="mpsetup_player2_teamColor" Height="35" Width="200" VerticalAlignment="Center" Margin="0,10,0,10" Style="{StaticResource RegularCombobox}">
+                                        <ComboBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Orientation="Horizontal" Width="170">
+                                                    <Rectangle Fill="{Binding Name}" Width="170" Height="30" Margin="0,2.5,0,0"/>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </ComboBox.ItemTemplate>
+                                        <ComboBox.ToolTip>
+                                            <TextBlock FontFamily="arial" FontSize="18" Text="$$41641$$"/>
+                                        </ComboBox.ToolTip>
+                                    </ComboBox>
+                                </local:Age3KeyboardFocusBorder>
+
+                                <local:Age3KeyboardFocusBorder Margin="10,0,0,0">
+                                    <Button x:Name="mpsetup_Player2_kick" Style="{StaticResource Kickbutton}" Margin="0,0,0,0">
+                                        <Image Source="{StaticResource icon_kick}"/>
+                                        <Button.ToolTip>$$22013$$Kick this player out of the game.  This option can only be used by the game host.</Button.ToolTip>
+                                    </Button>
+                                </local:Age3KeyboardFocusBorder>
+                            </StackPanel>
+
+                            <local:Age3KeyboardFocusBorder Margin="10,0,45,0">
+                                <CheckBox x:Name="mpsetup_Player2_Ready" Style="{StaticResource Checkbox_Medium}" Width="200" HorizontalAlignment="Left" VerticalAlignment="Top" Content="$$20021$$Ready" >
+                                    <CheckBox.ToolTip>
+                                        <TextBlock FontFamily="arial" FontSize="18" Text="$$41686$$"/>
+                                    </CheckBox.ToolTip>
+                                </CheckBox>
+                            </local:Age3KeyboardFocusBorder>
+                        </StackPanel>
+                    </Grid>
+
+                    <!--Player #3-->
+                    <Grid x:Name="mpsetup_Player3" Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="700"/>
+                            <ColumnDefinition Width="130"/>
+                            <ColumnDefinition Width="290"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!--If AI Player-->
+
+                        <local:Age3KeyboardFocusBorder Margin="110,20,10,20">
+                        <ComboBox Grid.Column="0" x:Name="mpsetup_Player3_AIDropdown" Height="40" Width="580" Style="{StaticResource RegularCombobox}" Visibility="Visible">
+                          <ComboBoxItem Content="$$19010$$Open" IsSelected="True"/>
+                          <ComboBoxItem Content="$$33687$$Queen Isabella"/>
+                          <ComboBoxItem Content="$$33260$$Queen Elizabeth"/>
+                          <ComboBoxItem Content="$$33259$$Napoleon"/>
+                          <ComboBoxItem Content="$$33686$$Henry the Navigator"/>
+                          <ComboBoxItem Content="$$34016$$Maurice of Nassau"/>
+                          <ComboBoxItem Content="$$34017$$Ivan the Terrible"/>
+                          <ComboBoxItem Content="$$34018$$Frederick the Great"/>
+                          <ComboBoxItem Content="$$34015$$Suleiman"/>
+                          <ComboBoxItem Content="$$41635$$Random"/>
+                          <ComboBox.ToolTip>
+                            <TextBlock FontFamily="arial" FontSize="18" Text="$$41687$$"/>
+                          </ComboBox.ToolTip>
+                        </ComboBox>
+                      </local:Age3KeyboardFocusBorder>
+
+                        <!--If Human Player-->
+                        <Grid x:Name="mpsetup_Player3_nametext_parent" Grid.Column="0" Margin="90,0,0,0" Visibility="Hidden">
+                            <Rectangle HorizontalAlignment="Left" VerticalAlignment="Center" Width="575" Height="40" Margin="0,10,0,0" Fill="{Binding Colour}">
+                                <Rectangle.OpacityMask>
+                                    <ImageBrush ImageSource="resources/images/icons/post_game/playertitle_mask.png" />
+                                </Rectangle.OpacityMask>
+                                <Rectangle.Effect>
+                                    <DropShadowEffect Color="Black" Direction="-90" ShadowDepth="8" BlurRadius="10" />
+                                </Rectangle.Effect>
+                            </Rectangle>
+
+                            <Rectangle HorizontalAlignment="Left" VerticalAlignment="Center" Width="575" Height="40" Margin="0,10,0,0">
+                                <Rectangle.Fill>
+                                    <ImageBrush ImageSource="resources/images/icons/post_game/playertitle_gradient.png" />
+                                </Rectangle.Fill>
+                                <Rectangle.OpacityMask>
+                                    <ImageBrush ImageSource="resources/images/icons/post_game/playertitle_mask.png" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                            <Rectangle HorizontalAlignment="Left" VerticalAlignment="Center" Width="575" Height="6" Margin="0,50,0,0">
+                                <Rectangle.Fill>
+                                    <ImageBrush ImageSource="resources/images/icons/post_game/playertitle_deco.png"/>
+                                </Rectangle.Fill>
+                            </Rectangle>
+
+                            <TextBlock x:Name="mpsetup_Player3_nametext" FontFamily="Trajan Pro" FontWeight="Bold" FontSize="25" Foreground="White" Height="40" Padding="5" Background="Transparent" Margin="5,10,0,0">Player Name here.
+                                <TextBlock.Effect>
+                                    <DropShadowEffect BlurRadius="5" Color="Black" Direction="-90" ShadowDepth="3" RenderingBias="Quality"/>
+                                </TextBlock.Effect>
+                            </TextBlock>
+                        </Grid>
+
+
+                        <!--Profile-->
+                        <Image Grid.Column="0" x:Name="mpsetup_Player3_Avatar" Height="80" HorizontalAlignment="Left" Margin="10,0,0,0" Source="/resources/hc_profile.png"/>
+
+                        <!--Flag-->
+                        <local:Age3KeyboardFocusBorder Grid.Column="1" Margin="8,0,8,0" >
+                            <Button x:Name="mpsetup_Player3_CivFlag" Height="80" Width="118" VerticalAlignment="Center" Background="{StaticResource flag_square_random}" Style="{StaticResource FlagButton}" Content="20" IsEnabled="False">
+
+                            </Button>
+                        </local:Age3KeyboardFocusBorder>
+                        <!--Team & Handicapped-->
+                        <StackPanel Grid.Column="2" Height="100">
+
+                            <local:Age3KeyboardFocusBorder Grid.Column="1" Margin="10,0,10,0">
+                                <ComboBox x:Name="mpsetup_Player3_team" Height="35" Width="270" Margin="0,10,0,10" Style="{StaticResource RegularCombobox}">
+                                    <ComboBoxItem Content="$$36141$$Team 1" IsSelected="True"/>
+                                    <ComboBoxItem Content="$$36142$$Team 2"/>
+                                    <ComboBoxItem Content="$$36145$$Team ?"/>
+                                    <ComboBoxItem Content="Spectator"/>
+                                    <ComboBox.ToolTip>
+                                        <TextBlock FontFamily="arial" FontSize="18" Text="$$41640$$"/>
+                                    </ComboBox.ToolTip>
+                                </ComboBox>
+                            </local:Age3KeyboardFocusBorder>
+
+                            <local:Age3KeyboardFocusBorder Margin="10,0,10,0">
+                                <StackPanel Orientation="Horizontal" Height="40">
+                                    <TextBlock x:Name="mpsetup_Player3_HandicapLabel" Style="{StaticResource RegularTextBlockStyle}" Padding="5,8" Text="+%">
+                                        <TextBlock.ToolTip>
+                                            <TextBlock FontFamily="arial" FontSize="18" Text="$$20033$$"/>
+                                        </TextBlock.ToolTip>
+                                              </TextBlock>
+
+                                    <Slider x:Name="mpsetup_Player3_Handicap" Height="20" Width="225">
+                                        <Slider.ToolTip>
+                                            <TextBlock FontFamily="arial" FontSize="18" Text="$$20033$$"/>
+                                        </Slider.ToolTip>
+                                    </Slider>
+                                </StackPanel>
+                            </local:Age3KeyboardFocusBorder>
+                        </StackPanel>
+
+                        <!--Colours & Ready-->
+                        <StackPanel Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,0,0" Height="100">
+                            <StackPanel Orientation="Horizontal">
+
+                                <local:Age3KeyboardFocusBorder Margin="10,0,0,0">
+                                    <ComboBox x:Name="mpsetup_player3_teamColor" Height="35" Width="200" VerticalAlignment="Center" Margin="0,10,0,10" Style="{StaticResource RegularCombobox}">
+                                        <ComboBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Orientation="Horizontal" Width="170">
+                                                    <Rectangle Fill="{Binding Name}" Width="170" Height="30" Margin="0,2.5,0,0"/>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </ComboBox.ItemTemplate>
+                                        <ComboBox.ToolTip>
+                                            <TextBlock FontFamily="arial" FontSize="18" Text="$$41641$$"/>
+                                        </ComboBox.ToolTip>
+                                    </ComboBox>
+                                </local:Age3KeyboardFocusBorder>
+
+                                <local:Age3KeyboardFocusBorder Margin="10,0,0,0">
+                                    <Button x:Name="mpsetup_Player3_kick" Style="{StaticResource Kickbutton}" Margin="0,0,0,0">
+                                        <Image Source="{StaticResource icon_kick}"/>
+                                        <Button.ToolTip>$$22013$$Kick this player out of the game.  This option can only be used by the game host.</Button.ToolTip>
+                                    </Button>
+                                </local:Age3KeyboardFocusBorder>
+                            </StackPanel>
+
+                            <local:Age3KeyboardFocusBorder Margin="10,0,45,0">
+                                <CheckBox x:Name="mpsetup_Player3_Ready" Style="{StaticResource Checkbox_Medium}" Width="200" HorizontalAlignment="Left" VerticalAlignment="Top" Content="$$20021$$Ready" >
+                                    <CheckBox.ToolTip>
+                                        <TextBlock FontFamily="arial" FontSize="18" Text="$$41686$$"/>
+                                    </CheckBox.ToolTip>
+                                </CheckBox>
+                            </local:Age3KeyboardFocusBorder>
+                        </StackPanel>
+                    </Grid>
+
+                    <!--Player #4-->
+                    <Grid x:Name="mpsetup_Player4" Grid.Row="3">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="700"/>
+                            <ColumnDefinition Width="130"/>
+                            <ColumnDefinition Width="290"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!--If AI Player-->
+                        <local:Age3KeyboardFocusBorder Margin="110,20,10,20">
+                            <ComboBox Grid.Column="0" x:Name="mpsetup_Player4_AIDropdown" Height="40" Width="580" Style="{StaticResource RegularCombobox}" Visibility="Visible">
+                                <ComboBoxItem Content="$$19010$$Open" IsSelected="True"/>
+                                <ComboBoxItem Content="$$33687$$Queen Isabella"/>
+                                <ComboBoxItem Content="$$33260$$Queen Elizabeth"/>
+                                <ComboBoxItem Content="$$33259$$Napoleon"/>
+                                <ComboBoxItem Content="$$33686$$Henry the Navigator"/>
+                                <ComboBoxItem Content="$$34016$$Maurice of Nassau"/>
+                                <ComboBoxItem Content="$$34017$$Ivan the Terrible"/>
+                                <ComboBoxItem Content="$$34018$$Frederick the Great"/>
+                                <ComboBoxItem Content="$$34015$$Suleiman"/>
+                                <ComboBoxItem Content="$$41635$$Random"/>
+                                <ComboBox.ToolTip>
+                                    <TextBlock FontFamily="arial" FontSize="18" Text="$$41687$$"/>
+                                </ComboBox.ToolTip>
+                            </ComboBox>
+                        </local:Age3KeyboardFocusBorder>
+
+                        <!--If Human Player-->
+                        <Grid x:Name="mpsetup_Player4_nametext_parent" Grid.Column="0" Margin="90,0,0,0" Visibility="Hidden">
+                            <Rectangle HorizontalAlignment="Left" VerticalAlignment="Center" Width="575" Height="40" Margin="0,10,0,0" Fill="{Binding Colour}">
+                                <Rectangle.OpacityMask>
+                                    <ImageBrush ImageSource="resources/images/icons/post_game/playertitle_mask.png" />
+                                </Rectangle.OpacityMask>
+                                <Rectangle.Effect>
+                                    <DropShadowEffect Color="Black" Direction="-90" ShadowDepth="8" BlurRadius="10" />
+                                </Rectangle.Effect>
+                            </Rectangle>
+
+                            <Rectangle HorizontalAlignment="Left" VerticalAlignment="Center" Width="575" Height="40" Margin="0,10,0,0">
+                                <Rectangle.Fill>
+                                    <ImageBrush ImageSource="resources/images/icons/post_game/playertitle_gradient.png" />
+                                </Rectangle.Fill>
+                                <Rectangle.OpacityMask>
+                                    <ImageBrush ImageSource="resources/images/icons/post_game/playertitle_mask.png" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                            <Rectangle HorizontalAlignment="Left" VerticalAlignment="Center" Width="575" Height="6" Margin="0,50,0,0">
+                                <Rectangle.Fill>
+                                    <ImageBrush ImageSource="resources/images/icons/post_game/playertitle_deco.png"/>
+                                </Rectangle.Fill>
+                            </Rectangle>
+
+                            <TextBlock x:Name="mpsetup_Player4_nametext" FontFamily="Trajan Pro" FontWeight="Bold" FontSize="25" Foreground="White" Height="40" Padding="5" Background="Transparent" Margin="5,10,0,0">Player Name here.
+                                <TextBlock.Effect>
+                                    <DropShadowEffect BlurRadius="5" Color="Black" Direction="-90" ShadowDepth="3" RenderingBias="Quality"/>
+                                </TextBlock.Effect>
+                            </TextBlock>
+                        </Grid>
+
+
+                        <!--Profile-->
+                        <Image Grid.Column="0" x:Name="mpsetup_Player4_Avatar" Height="80" HorizontalAlignment="Left" Margin="10,0,0,0" Source="/resources/hc_profile.png"/>
+
+                        <!--Flag-->
+                        <local:Age3KeyboardFocusBorder Grid.Column="1" Margin="8,0,8,0" >
+                            <Button x:Name="mpsetup_Player4_CivFlag" Height="80" Width="118" VerticalAlignment="Center" Background="{StaticResource flag_square_random}" Style="{StaticResource FlagButton}" Content="20" IsEnabled="False">
+
+                            </Button>
+                        </local:Age3KeyboardFocusBorder>
+                        <!--Team & Handicapped-->
+                        <StackPanel Grid.Column="2" Height="100">
+
+                            <local:Age3KeyboardFocusBorder Grid.Column="1" Margin="10,0,10,0">
+                                <ComboBox x:Name="mpsetup_Player4_team" Height="35" Width="270" Margin="0,10,0,10" Style="{StaticResource RegularCombobox}">
+                                    <ComboBoxItem Content="$$36141$$Team 1" IsSelected="True"/>
+                                    <ComboBoxItem Content="$$36142$$Team 2"/>
+                                    <ComboBoxItem Content="$$36145$$Team ?"/>
+                                    <ComboBoxItem Content="Spectator"/>
+                                    <ComboBox.ToolTip>
+                                        <TextBlock FontFamily="arial" FontSize="18" Text="$$41640$$"/>
+                                    </ComboBox.ToolTip>
+                                </ComboBox>
+                            </local:Age3KeyboardFocusBorder>
+
+                            <local:Age3KeyboardFocusBorder Margin="10,0,10,0">
+                                <StackPanel Orientation="Horizontal" Height="40">
+                                    <TextBlock x:Name="mpsetup_Player4_HandicapLabel" Style="{StaticResource RegularTextBlockStyle}" Padding="5,8" Text="+%">
+                                        <TextBlock.ToolTip>
+                                            <TextBlock FontFamily="arial" FontSize="18" Text="$$20033$$"/>
+                                        </TextBlock.ToolTip>
+                                              </TextBlock>
+
+                                    <Slider x:Name="mpsetup_Player4_Handicap" Height="20" Width="225">
+                                        <Slider.ToolTip>
+                                            <TextBlock FontFamily="arial" FontSize="18" Text="$$20033$$"/>
+                                        </Slider.ToolTip>
+                                    </Slider>
+                                </StackPanel>
+                            </local:Age3KeyboardFocusBorder>
+                        </StackPanel>
+
+                        <!--Colours & Ready-->
+                        <StackPanel Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,0,0" Height="100">
+                            <StackPanel Orientation="Horizontal">
+
+                                <local:Age3KeyboardFocusBorder Margin="10,0,0,0">
+                                    <ComboBox x:Name="mpsetup_player4_teamColor" Height="35" Width="200" VerticalAlignment="Center" Margin="0,10,0,10" Style="{StaticResource RegularCombobox}">
+                                        <ComboBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Orientation="Horizontal" Width="170">
+                                                    <Rectangle Fill="{Binding Name}" Width="170" Height="30" Margin="0,2.5,0,0"/>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </ComboBox.ItemTemplate>
+                                        <ComboBox.ToolTip>
+                                            <TextBlock FontFamily="arial" FontSize="18" Text="$$41641$$"/>
+                                        </ComboBox.ToolTip>
+                                    </ComboBox>
+                                </local:Age3KeyboardFocusBorder>
+
+                                <local:Age3KeyboardFocusBorder Margin="10,0,0,0">
+                                    <Button x:Name="mpsetup_Player4_kick" Style="{StaticResource Kickbutton}" Margin="0,0,0,0">
+                                        <Image Source="{StaticResource icon_kick}"/>
+                                        <Button.ToolTip>$$22013$$Kick this player out of the game.  This option can only be used by the game host.</Button.ToolTip>
+                                    </Button>
+                                </local:Age3KeyboardFocusBorder>
+                            </StackPanel>
+
+                            <local:Age3KeyboardFocusBorder Margin="10,0,45,0">
+                                <CheckBox x:Name="mpsetup_Player4_Ready" Style="{StaticResource Checkbox_Medium}" Width="200" HorizontalAlignment="Left" VerticalAlignment="Top" Content="$$20021$$Ready" >
+                                    <CheckBox.ToolTip>
+                                        <TextBlock FontFamily="arial" FontSize="18" Text="$$41686$$"/>
+                                    </CheckBox.ToolTip>
+                                </CheckBox>
+                            </local:Age3KeyboardFocusBorder>
+                        </StackPanel>
+                    </Grid>
+
+                    <!--Player #5-->
+                    <Grid x:Name="mpsetup_Player5" Grid.Row="4">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="700"/>
+                            <ColumnDefinition Width="130"/>
+                            <ColumnDefinition Width="290"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!--If AI Player-->
+                        <local:Age3KeyboardFocusBorder Margin="110,20,10,20">
+                            <ComboBox Grid.Column="0" x:Name="mpsetup_Player5_AIDropdown" Height="40" Width="580" Style="{StaticResource RegularCombobox}" Visibility="Visible">
+                                <ComboBoxItem Content="$$19010$$Open" IsSelected="True"/>
+                                <ComboBoxItem Content="$$33687$$Queen Isabella"/>
+                                <ComboBoxItem Content="$$33260$$Queen Elizabeth"/>
+                                <ComboBoxItem Content="$$33259$$Napoleon"/>
+                                <ComboBoxItem Content="$$33686$$Henry the Navigator"/>
+                                <ComboBoxItem Content="$$34016$$Maurice of Nassau"/>
+                                <ComboBoxItem Content="$$34017$$Ivan the Terrible"/>
+                                <ComboBoxItem Content="$$34018$$Frederick the Great"/>
+                                <ComboBoxItem Content="$$34015$$Suleiman"/>
+                                <ComboBoxItem Content="$$41635$$Random"/>
+                                <ComboBox.ToolTip>
+                                    <TextBlock FontFamily="arial" FontSize="18" Text="$$41687$$"/>
+                                </ComboBox.ToolTip>
+                            </ComboBox>
+                        </local:Age3KeyboardFocusBorder>
+
+                        <!--If Human Player-->
+                        <Grid x:Name="mpsetup_Player5_nametext_parent" Grid.Column="0" Margin="90,0,0,0" Visibility="Hidden">
+                            <Rectangle HorizontalAlignment="Left" VerticalAlignment="Center" Width="575" Height="40" Margin="0,10,0,0" Fill="{Binding Colour}">
+                                <Rectangle.OpacityMask>
+                                    <ImageBrush ImageSource="resources/images/icons/post_game/playertitle_mask.png" />
+                                </Rectangle.OpacityMask>
+                                <Rectangle.Effect>
+                                    <DropShadowEffect Color="Black" Direction="-90" ShadowDepth="8" BlurRadius="10" />
+                                </Rectangle.Effect>
+                            </Rectangle>
+
+                            <Rectangle HorizontalAlignment="Left" VerticalAlignment="Center" Width="575" Height="40" Margin="0,10,0,0">
+                                <Rectangle.Fill>
+                                    <ImageBrush ImageSource="resources/images/icons/post_game/playertitle_gradient.png" />
+                                </Rectangle.Fill>
+                                <Rectangle.OpacityMask>
+                                    <ImageBrush ImageSource="resources/images/icons/post_game/playertitle_mask.png" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                            <Rectangle HorizontalAlignment="Left" VerticalAlignment="Center" Width="575" Height="6" Margin="0,50,0,0">
+                                <Rectangle.Fill>
+                                    <ImageBrush ImageSource="resources/images/icons/post_game/playertitle_deco.png"/>
+                                </Rectangle.Fill>
+                            </Rectangle>
+
+                            <TextBlock x:Name="mpsetup_Player5_nametext" FontFamily="Trajan Pro" FontWeight="Bold" FontSize="25" Foreground="White" Height="40" Padding="5" Background="Transparent" Margin="5,10,0,0">Player Name here.
+                                <TextBlock.Effect>
+                                    <DropShadowEffect BlurRadius="5" Color="Black" Direction="-90" ShadowDepth="3" RenderingBias="Quality"/>
+                                </TextBlock.Effect>
+                            </TextBlock>
+                        </Grid>
+
+
+                        <!--Profile-->
+                        <Image Grid.Column="0" x:Name="mpsetup_Player5_Avatar" Height="80" HorizontalAlignment="Left" Margin="10,0,0,0" Source="/resources/hc_profile.png"/>
+
+                        <!--Flag-->
+                        <local:Age3KeyboardFocusBorder Grid.Column="1" Margin="8,0,8,0" >
+                            <Button x:Name="mpsetup_Player5_CivFlag" Height="80" Width="118" VerticalAlignment="Center" Background="{StaticResource flag_square_random}" Style="{StaticResource FlagButton}" Content="20" IsEnabled="False">
+
+                            </Button>
+                        </local:Age3KeyboardFocusBorder>
+                        <!--Team & Handicapped-->
+                        <StackPanel Grid.Column="2" Height="100">
+
+                            <local:Age3KeyboardFocusBorder Grid.Column="1" Margin="10,0,10,0">
+                                <ComboBox x:Name="mpsetup_Player5_team" Height="35" Width="270" Margin="0,10,0,10" Style="{StaticResource RegularCombobox}">
+                                    <ComboBoxItem Content="$$36141$$Team 1" IsSelected="True"/>
+                                    <ComboBoxItem Content="$$36142$$Team 2"/>
+                                    <ComboBoxItem Content="$$36145$$Team ?"/>
+                                    <ComboBoxItem Content="Spectator"/>
+                                    <ComboBox.ToolTip>
+                                        <TextBlock FontFamily="arial" FontSize="18" Text="$$41640$$"/>
+                                    </ComboBox.ToolTip>
+                                </ComboBox>
+                            </local:Age3KeyboardFocusBorder>
+
+                            <local:Age3KeyboardFocusBorder Margin="10,0,10,0">
+                                <StackPanel Orientation="Horizontal" Height="40">
+                                    <TextBlock x:Name="mpsetup_Player5_HandicapLabel" Style="{StaticResource RegularTextBlockStyle}" Padding="5,8" Text="+%">
+                                        <TextBlock.ToolTip>
+                                            <TextBlock FontFamily="arial" FontSize="18" Text="$$20033$$"/>
+                                        </TextBlock.ToolTip>
+                                              </TextBlock>
+
+                                    <Slider x:Name="mpsetup_Player5_Handicap" Height="20" Width="225">
+                                        <Slider.ToolTip>
+                                            <TextBlock FontFamily="arial" FontSize="18" Text="$$20033$$"/>
+                                        </Slider.ToolTip>
+                                    </Slider>
+                                </StackPanel>
+                            </local:Age3KeyboardFocusBorder>
+                        </StackPanel>
+
+                        <!--Colours & Ready-->
+                        <StackPanel Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,0,0" Height="100">
+                            <StackPanel Orientation="Horizontal">
+
+                                <local:Age3KeyboardFocusBorder Margin="10,0,0,0">
+                                    <ComboBox x:Name="mpsetup_player5_teamColor" Height="35" Width="200" VerticalAlignment="Center" Margin="0,10,0,10" Style="{StaticResource RegularCombobox}">
+                                        <ComboBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Orientation="Horizontal" Width="170">
+                                                    <Rectangle Fill="{Binding Name}" Width="170" Height="30" Margin="0,2.5,0,0"/>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </ComboBox.ItemTemplate>
+                                        <ComboBox.ToolTip>
+                                            <TextBlock FontFamily="arial" FontSize="18" Text="$$41641$$"/>
+                                        </ComboBox.ToolTip>
+                                    </ComboBox>
+                                </local:Age3KeyboardFocusBorder>
+
+                                <local:Age3KeyboardFocusBorder Margin="10,0,0,0">
+                                    <Button x:Name="mpsetup_Player5_kick" Style="{StaticResource Kickbutton}" Margin="0,0,0,0">
+                                        <Image Source="{StaticResource icon_kick}"/>
+                                        <Button.ToolTip>$$22013$$Kick this player out of the game.  This option can only be used by the game host.</Button.ToolTip>
+                                    </Button>
+                                </local:Age3KeyboardFocusBorder>
+                            </StackPanel>
+
+                            <local:Age3KeyboardFocusBorder Margin="10,0,45,0">
+                                <CheckBox x:Name="mpsetup_Player5_Ready" Style="{StaticResource Checkbox_Medium}" Width="200" HorizontalAlignment="Left" VerticalAlignment="Top" Content="$$20021$$Ready" >
+                                    <CheckBox.ToolTip>
+                                        <TextBlock FontFamily="arial" FontSize="18" Text="$$41686$$"/>
+                                    </CheckBox.ToolTip>
+                                </CheckBox>
+                            </local:Age3KeyboardFocusBorder>
+                        </StackPanel>
+                    </Grid>
+
+                    <!--Player #6-->
+                    <Grid x:Name="mpsetup_Player6" Grid.Row="5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="700"/>
+                            <ColumnDefinition Width="130"/>
+                            <ColumnDefinition Width="290"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!--If AI Player-->
+                        <local:Age3KeyboardFocusBorder Margin="110,20,10,20">
+                            <ComboBox Grid.Column="0" x:Name="mpsetup_Player6_AIDropdown" Height="40" Width="580" Style="{StaticResource RegularCombobox}" Visibility="Visible">
+                                <ComboBoxItem Content="$$19010$$Open" IsSelected="True"/>
+                                <ComboBoxItem Content="$$33687$$Queen Isabella"/>
+                                <ComboBoxItem Content="$$33260$$Queen Elizabeth"/>
+                                <ComboBoxItem Content="$$33259$$Napoleon"/>
+                                <ComboBoxItem Content="$$33686$$Henry the Navigator"/>
+                                <ComboBoxItem Content="$$34016$$Maurice of Nassau"/>
+                                <ComboBoxItem Content="$$34017$$Ivan the Terrible"/>
+                                <ComboBoxItem Content="$$34018$$Frederick the Great"/>
+                                <ComboBoxItem Content="$$34015$$Suleiman"/>
+                                <ComboBoxItem Content="$$41635$$Random"/>
+                                <ComboBox.ToolTip>
+                                    <TextBlock FontFamily="arial" FontSize="18" Text="$$41687$$"/>
+                                </ComboBox.ToolTip>
+                            </ComboBox>
+                        </local:Age3KeyboardFocusBorder>
+
+                        <!--If Human Player-->
+                        <Grid x:Name="mpsetup_Player6_nametext_parent" Grid.Column="0" Margin="90,0,0,0" Visibility="Hidden">
+                            <Rectangle HorizontalAlignment="Left" VerticalAlignment="Center" Width="575" Height="40" Margin="0,10,0,0" Fill="{Binding Colour}">
+                                <Rectangle.OpacityMask>
+                                    <ImageBrush ImageSource="resources/images/icons/post_game/playertitle_mask.png" />
+                                </Rectangle.OpacityMask>
+                                <Rectangle.Effect>
+                                    <DropShadowEffect Color="Black" Direction="-90" ShadowDepth="8" BlurRadius="10" />
+                                </Rectangle.Effect>
+                            </Rectangle>
+
+                            <Rectangle HorizontalAlignment="Left" VerticalAlignment="Center" Width="575" Height="40" Margin="0,10,0,0">
+                                <Rectangle.Fill>
+                                    <ImageBrush ImageSource="resources/images/icons/post_game/playertitle_gradient.png" />
+                                </Rectangle.Fill>
+                                <Rectangle.OpacityMask>
+                                    <ImageBrush ImageSource="resources/images/icons/post_game/playertitle_mask.png" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                            <Rectangle HorizontalAlignment="Left" VerticalAlignment="Center" Width="575" Height="6" Margin="0,50,0,0">
+                                <Rectangle.Fill>
+                                    <ImageBrush ImageSource="resources/images/icons/post_game/playertitle_deco.png"/>
+                                </Rectangle.Fill>
+                            </Rectangle>
+
+                            <TextBlock x:Name="mpsetup_Player6_nametext" FontFamily="Trajan Pro" FontWeight="Bold" FontSize="25" Foreground="White" Height="40" Padding="5" Background="Transparent" Margin="5,10,0,0">Player Name here.
+                                <TextBlock.Effect>
+                                    <DropShadowEffect BlurRadius="5" Color="Black" Direction="-90" ShadowDepth="3" RenderingBias="Quality"/>
+                                </TextBlock.Effect>
+                            </TextBlock>
+                        </Grid>
+
+
+                        <!--Profile-->
+                        <Image Grid.Column="0" x:Name="mpsetup_Player6_Avatar" HorizontalAlignment="Left" Margin="10,0,0,0" Height="80" Source="/resources/hc_profile.png"/>
+
+                        <!--Flag-->
+                        <local:Age3KeyboardFocusBorder Grid.Column="1" Margin="8,0,8,0" >
+                            <Button x:Name="mpsetup_Player6_CivFlag" Height="80" Width="118" VerticalAlignment="Center" Background="{StaticResource flag_square_random}" Style="{StaticResource FlagButton}" Content="20" IsEnabled="False">
+
+                            </Button>
+                        </local:Age3KeyboardFocusBorder>
+                        <!--Team & Handicapped-->
+                        <StackPanel Grid.Column="2" Height="100">
+
+                            <local:Age3KeyboardFocusBorder Grid.Column="1" Margin="10,0,10,0">
+                                <ComboBox x:Name="mpsetup_Player6_team" Height="35" Width="270" Margin="0,10,0,10" Style="{StaticResource RegularCombobox}">
+                                    <ComboBoxItem Content="$$36141$$Team 1" IsSelected="True"/>
+                                    <ComboBoxItem Content="$$36142$$Team 2"/>
+                                    <ComboBoxItem Content="$$36145$$Team ?"/>
+                                    <ComboBoxItem Content="Spectator"/>
+                                    <ComboBox.ToolTip>
+                                        <TextBlock FontFamily="arial" FontSize="18" Text="$$41640$$"/>
+                                    </ComboBox.ToolTip>
+                                </ComboBox>
+                            </local:Age3KeyboardFocusBorder>
+
+                            <local:Age3KeyboardFocusBorder Margin="10,0,10,0">
+                                <StackPanel Orientation="Horizontal" Height="40">
+                                    <TextBlock x:Name="mpsetup_Player6_HandicapLabel" Style="{StaticResource RegularTextBlockStyle}" Padding="5,8" Text="+%">
+                                        <TextBlock.ToolTip>
+                                            <TextBlock FontFamily="arial" FontSize="18" Text="$$20033$$"/>
+                                        </TextBlock.ToolTip>
+                                              </TextBlock>
+
+                                    <Slider x:Name="mpsetup_Player6_Handicap" Height="20" Width="225">
+                                        <Slider.ToolTip>
+                                            <TextBlock FontFamily="arial" FontSize="18" Text="$$20033$$"/>
+                                        </Slider.ToolTip>
+                                    </Slider>
+                                </StackPanel>
+                            </local:Age3KeyboardFocusBorder>
+                        </StackPanel>
+
+                        <!--Colours & Ready-->
+                        <StackPanel Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,0,0" Height="100">
+                            <StackPanel Orientation="Horizontal">
+
+                                <local:Age3KeyboardFocusBorder Margin="10,0,0,0">
+                                    <ComboBox x:Name="mpsetup_player6_teamColor" Height="35" Width="200" VerticalAlignment="Center" Margin="0,10,0,10" Style="{StaticResource RegularCombobox}">
+                                        <ComboBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Orientation="Horizontal" Width="170">
+                                                    <Rectangle Fill="{Binding Name}" Width="170" Height="30" Margin="0,2.5,0,0"/>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </ComboBox.ItemTemplate>
+                                        <ComboBox.ToolTip>
+                                            <TextBlock FontFamily="arial" FontSize="18" Text="$$41641$$"/>
+                                        </ComboBox.ToolTip>
+                                    </ComboBox>
+                                </local:Age3KeyboardFocusBorder>
+
+                                <local:Age3KeyboardFocusBorder Margin="10,0,0,0">
+                                    <Button x:Name="mpsetup_Player6_kick" Style="{StaticResource Kickbutton}" Margin="0,0,0,0">
+                                        <Image Source="{StaticResource icon_kick}"/>
+                                        <Button.ToolTip>$$22013$$Kick this player out of the game.  This option can only be used by the game host.</Button.ToolTip>
+                                    </Button>
+                                </local:Age3KeyboardFocusBorder>
+                            </StackPanel>
+
+                            <local:Age3KeyboardFocusBorder Margin="10,0,45,0">
+                                <CheckBox x:Name="mpsetup_Player6_Ready" Style="{StaticResource Checkbox_Medium}" Width="200" HorizontalAlignment="Left" VerticalAlignment="Top" Content="$$20021$$Ready" >
+                                    <CheckBox.ToolTip>
+                                        <TextBlock FontFamily="arial" FontSize="18" Text="$$41686$$"/>
+                                    </CheckBox.ToolTip>
+                                </CheckBox>
+                            </local:Age3KeyboardFocusBorder>
+                        </StackPanel>
+                    </Grid>
+
+                    <!--Player #7-->
+                    <Grid x:Name="mpsetup_Player7" Grid.Row="6">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="700"/>
+                            <ColumnDefinition Width="130"/>
+                            <ColumnDefinition Width="290"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!--If AI Player-->
+                        <local:Age3KeyboardFocusBorder Margin="110,20,10,20">
+                            <ComboBox Grid.Column="0" x:Name="mpsetup_Player7_AIDropdown" Height="40" Width="580" Style="{StaticResource RegularCombobox}" Visibility="Visible">
+                                <ComboBoxItem Content="$$19010$$Open" IsSelected="True"/>
+                                <ComboBoxItem Content="$$33687$$Queen Isabella"/>
+                                <ComboBoxItem Content="$$33260$$Queen Elizabeth"/>
+                                <ComboBoxItem Content="$$33259$$Napoleon"/>
+                                <ComboBoxItem Content="$$33686$$Henry the Navigator"/>
+                                <ComboBoxItem Content="$$34016$$Maurice of Nassau"/>
+                                <ComboBoxItem Content="$$34017$$Ivan the Terrible"/>
+                                <ComboBoxItem Content="$$34018$$Frederick the Great"/>
+                                <ComboBoxItem Content="$$34015$$Suleiman"/>
+                                <ComboBoxItem Content="$$41635$$Random"/>
+                                <ComboBox.ToolTip>
+                                    <TextBlock FontFamily="arial" FontSize="18" Text="$$41687$$"/>
+                                </ComboBox.ToolTip>
+                            </ComboBox>
+                        </local:Age3KeyboardFocusBorder>
+
+                        <!--If Human Player-->
+                        <Grid x:Name="mpsetup_Player7_nametext_parent" Grid.Column="0" Margin="90,0,0,0" Visibility="Hidden">
+                            <Rectangle HorizontalAlignment="Left" VerticalAlignment="Center" Width="575" Height="40" Margin="0,10,0,0" Fill="{Binding Colour}">
+                                <Rectangle.OpacityMask>
+                                    <ImageBrush ImageSource="resources/images/icons/post_game/playertitle_mask.png" />
+                                </Rectangle.OpacityMask>
+                                <Rectangle.Effect>
+                                    <DropShadowEffect Color="Black" Direction="-90" ShadowDepth="8" BlurRadius="10" />
+                                </Rectangle.Effect>
+                            </Rectangle>
+
+                            <Rectangle HorizontalAlignment="Left" VerticalAlignment="Center" Width="575" Height="40" Margin="0,10,0,0">
+                                <Rectangle.Fill>
+                                    <ImageBrush ImageSource="resources/images/icons/post_game/playertitle_gradient.png" />
+                                </Rectangle.Fill>
+                                <Rectangle.OpacityMask>
+                                    <ImageBrush ImageSource="resources/images/icons/post_game/playertitle_mask.png" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                            <Rectangle HorizontalAlignment="Left" VerticalAlignment="Center" Width="575" Height="6" Margin="0,50,0,0">
+                                <Rectangle.Fill>
+                                    <ImageBrush ImageSource="resources/images/icons/post_game/playertitle_deco.png"/>
+                                </Rectangle.Fill>
+                            </Rectangle>
+
+                            <TextBlock x:Name="mpsetup_Player7_nametext" FontFamily="Trajan Pro" FontWeight="Bold" FontSize="25" Foreground="White" Height="40" Padding="5" Background="Transparent" Margin="5,10,0,0">Player Name here.
+                                <TextBlock.Effect>
+                                    <DropShadowEffect BlurRadius="5" Color="Black" Direction="-90" ShadowDepth="3" RenderingBias="Quality"/>
+                                </TextBlock.Effect>
+                            </TextBlock>
+                        </Grid>
+
+
+                        <!--Profile-->
+                        <Image Grid.Column="0" x:Name="mpsetup_Player7_Avatar" HorizontalAlignment="Left" Margin="10,0,0,0" Height="80" Source="/resources/hc_profile.png"/>
+
+                        <!--Flag-->
+                        <local:Age3KeyboardFocusBorder Grid.Column="1" Margin="8,0,8,0" >
+                            <Button x:Name="mpsetup_Player7_CivFlag" Height="80" Width="118" VerticalAlignment="Center" Background="{StaticResource flag_square_random}" Style="{StaticResource FlagButton}" Content="20" IsEnabled="False">
+
+                            </Button>
+                        </local:Age3KeyboardFocusBorder>
+                        <!--Team & Handicapped-->
+                        <StackPanel Grid.Column="2" Height="100">
+
+                            <local:Age3KeyboardFocusBorder Grid.Column="1" Margin="10,0,10,0">
+                                <ComboBox x:Name="mpsetup_Player7_team" Height="35" Width="270" Margin="0,10,0,10" Style="{StaticResource RegularCombobox}">
+                                    <ComboBoxItem Content="$$36141$$Team 1" IsSelected="True"/>
+                                    <ComboBoxItem Content="$$36142$$Team 2"/>
+                                    <ComboBoxItem Content="$$36145$$Team ?"/>
+                                    <ComboBoxItem Content="Spectator"/>
+                                    <ComboBox.ToolTip>
+                                        <TextBlock FontFamily="arial" FontSize="18" Text="$$41640$$"/>
+                                    </ComboBox.ToolTip>
+                                </ComboBox>
+                            </local:Age3KeyboardFocusBorder>
+
+                            <local:Age3KeyboardFocusBorder Margin="10,0,10,0">
+                                <StackPanel Orientation="Horizontal" Height="40">
+                                    <TextBlock x:Name="mpsetup_Player7_HandicapLabel" Style="{StaticResource RegularTextBlockStyle}" Padding="5,8" Text="+%">
+                                        <TextBlock.ToolTip>
+                                            <TextBlock FontFamily="arial" FontSize="18" Text="$$20033$$"/>
+                                        </TextBlock.ToolTip>
+                                              </TextBlock>
+
+                                    <Slider x:Name="mpsetup_Player7_Handicap" Height="20" Width="225">
+                                        <Slider.ToolTip>
+                                            <TextBlock FontFamily="arial" FontSize="18" Text="$$20033$$"/>
+                                        </Slider.ToolTip>
+                                    </Slider>
+                                </StackPanel>
+                            </local:Age3KeyboardFocusBorder>
+                        </StackPanel>
+
+                        <!--Colours & Ready-->
+                        <StackPanel Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,0,0" Height="100">
+                            <StackPanel Orientation="Horizontal">
+
+                                <local:Age3KeyboardFocusBorder Margin="10,0,0,0">
+                                    <ComboBox x:Name="mpsetup_player7_teamColor" Height="35" Width="200" VerticalAlignment="Center" Margin="0,10,0,10" Style="{StaticResource RegularCombobox}">
+                                        <ComboBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Orientation="Horizontal" Width="170">
+                                                    <Rectangle Fill="{Binding Name}" Width="170" Height="30" Margin="0,2.5,0,0"/>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </ComboBox.ItemTemplate>
+                                        <ComboBox.ToolTip>
+                                            <TextBlock FontFamily="arial" FontSize="18" Text="$$41641$$"/>
+                                        </ComboBox.ToolTip>
+                                    </ComboBox>
+                                </local:Age3KeyboardFocusBorder>
+
+                                <local:Age3KeyboardFocusBorder Margin="10,0,0,0">
+                                    <Button x:Name="mpsetup_Player7_kick" Style="{StaticResource Kickbutton}" Margin="0,0,0,0">
+                                        <Image Source="{StaticResource icon_kick}"/>
+                                        <Button.ToolTip>$$22013$$Kick this player out of the game.  This option can only be used by the game host.</Button.ToolTip>
+                                    </Button>
+                                </local:Age3KeyboardFocusBorder>
+                            </StackPanel>
+
+                            <local:Age3KeyboardFocusBorder Margin="10,0,45,0">
+                                <CheckBox x:Name="mpsetup_Player7_Ready" Style="{StaticResource Checkbox_Medium}" Width="200" HorizontalAlignment="Left" VerticalAlignment="Top" Content="$$20021$$Ready" >
+                                    <CheckBox.ToolTip>
+                                        <TextBlock FontFamily="arial" FontSize="18" Text="$$41686$$"/>
+                                    </CheckBox.ToolTip>
+                                </CheckBox>
+                            </local:Age3KeyboardFocusBorder>
+                        </StackPanel>
+                    </Grid>
+
+                    <!--Player #8-->
+                    <Grid x:Name="mpsetup_Player8" Grid.Row="7">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="700"/>
+                            <ColumnDefinition Width="130"/>
+                            <ColumnDefinition Width="290"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!--If AI Player-->
+                        <local:Age3KeyboardFocusBorder Margin="110,20,10,20">
+                            <ComboBox Grid.Column="0" x:Name="mpsetup_Player8_AIDropdown" Height="40" Width="580" Style="{StaticResource RegularCombobox}" Visibility="Visible">
+                                <ComboBoxItem Content="$$19010$$Open" IsSelected="True"/>
+                                <ComboBoxItem Content="$$33687$$Queen Isabella"/>
+                                <ComboBoxItem Content="$$33260$$Queen Elizabeth"/>
+                                <ComboBoxItem Content="$$33259$$Napoleon"/>
+                                <ComboBoxItem Content="$$33686$$Henry the Navigator"/>
+                                <ComboBoxItem Content="$$34016$$Maurice of Nassau"/>
+                                <ComboBoxItem Content="$$34017$$Ivan the Terrible"/>
+                                <ComboBoxItem Content="$$34018$$Frederick the Great"/>
+                                <ComboBoxItem Content="$$34015$$Suleiman"/>
+                                <ComboBoxItem Content="$$41635$$Random"/>
+                                <ComboBox.ToolTip>
+                                    <TextBlock FontFamily="arial" FontSize="18" Text="$$41687$$"/>
+                                </ComboBox.ToolTip>
+                            </ComboBox>
+                        </local:Age3KeyboardFocusBorder>
+
+                        <!--If Human Player-->
+                        <Grid x:Name="mpsetup_Player8_nametext_parent" Grid.Column="0" Margin="90,0,0,0" Visibility="Hidden">
+                            <Rectangle HorizontalAlignment="Left" VerticalAlignment="Center" Width="575" Height="40" Margin="0,10,0,0" Fill="{Binding Colour}">
+                                <Rectangle.OpacityMask>
+                                    <ImageBrush ImageSource="resources/images/icons/post_game/playertitle_mask.png" />
+                                </Rectangle.OpacityMask>
+                                <Rectangle.Effect>
+                                    <DropShadowEffect Color="Black" Direction="-90" ShadowDepth="8" BlurRadius="10" />
+                                </Rectangle.Effect>
+                            </Rectangle>
+
+                            <Rectangle HorizontalAlignment="Left" VerticalAlignment="Center" Width="575" Height="40" Margin="0,10,0,0">
+                                <Rectangle.Fill>
+                                    <ImageBrush ImageSource="resources/images/icons/post_game/playertitle_gradient.png" />
+                                </Rectangle.Fill>
+                                <Rectangle.OpacityMask>
+                                    <ImageBrush ImageSource="resources/images/icons/post_game/playertitle_mask.png" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                            <Rectangle HorizontalAlignment="Left" VerticalAlignment="Center" Width="575" Height="6" Margin="0,50,0,0">
+                                <Rectangle.Fill>
+                                    <ImageBrush ImageSource="resources/images/icons/post_game/playertitle_deco.png"/>
+                                </Rectangle.Fill>
+                            </Rectangle>
+
+                            <TextBlock x:Name="mpsetup_Player8_nametext" FontFamily="Trajan Pro" FontWeight="Bold" FontSize="25" Foreground="White" Height="40" Padding="5" Background="Transparent" Margin="5,10,0,0">Player Name here.
+                                <TextBlock.Effect>
+                                    <DropShadowEffect BlurRadius="5" Color="Black" Direction="-90" ShadowDepth="3" RenderingBias="Quality"/>
+                                </TextBlock.Effect>
+                            </TextBlock>
+                        </Grid>
+
+
+                        <!--Profile-->
+                        <Image Grid.Column="0" x:Name="mpsetup_Player8_Avatar" HorizontalAlignment="Left" Margin="10,0,0,0" Height="80" Source="/resources/hc_profile.png"/>
+
+                        <!--Flag-->
+                        <local:Age3KeyboardFocusBorder Grid.Column="1" Margin="8,0,8,0" >
+                            <Button x:Name="mpsetup_Player8_CivFlag" Height="80" Width="118" VerticalAlignment="Center" Background="{StaticResource flag_square_random}" Style="{StaticResource FlagButton}" Content="20" IsEnabled="False">
+
+                            </Button>
+                        </local:Age3KeyboardFocusBorder>
+                        <!--Team & Handicapped-->
+                        <StackPanel Grid.Column="2" Height="100">
+
+                            <local:Age3KeyboardFocusBorder Grid.Column="1" Margin="10,0,10,0">
+                                <ComboBox x:Name="mpsetup_Player8_team" Height="35" Width="270" Margin="0,10,0,10" Style="{StaticResource RegularCombobox}">
+                                    <ComboBoxItem Content="$$36141$$Team 1" IsSelected="True"/>
+                                    <ComboBoxItem Content="$$36142$$Team 2"/>
+                                    <ComboBoxItem Content="$$36145$$Team ?"/>
+                                    <ComboBoxItem Content="Spectator"/>
+                                    <ComboBox.ToolTip>
+                                        <TextBlock FontFamily="arial" FontSize="18" Text="$$41640$$"/>
+                                    </ComboBox.ToolTip>
+                                </ComboBox>
+                            </local:Age3KeyboardFocusBorder>
+
+                            <local:Age3KeyboardFocusBorder Margin="10,0,10,0">
+                                <StackPanel Orientation="Horizontal" Height="40">
+                                    <TextBlock x:Name="mpsetup_Player8_HandicapLabel" Style="{StaticResource RegularTextBlockStyle}" Padding="5,8" Text="+%">
+                                        <TextBlock.ToolTip>
+                                            <TextBlock FontFamily="arial" FontSize="18" Text="$$20033$$"/>
+                                        </TextBlock.ToolTip>
+                                              </TextBlock>
+
+                                    <Slider x:Name="mpsetup_Player8_Handicap" Height="20" Width="225">
+                                        <Slider.ToolTip>
+                                            <TextBlock FontFamily="arial" FontSize="18" Text="$$20033$$"/>
+                                        </Slider.ToolTip>
+                                    </Slider>
+                                </StackPanel>
+                            </local:Age3KeyboardFocusBorder>
+                        </StackPanel>
+
+                        <!--Colours & Ready-->
+                        <StackPanel Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,0,0" Height="100">
+                            <StackPanel Orientation="Horizontal">
+
+                                <local:Age3KeyboardFocusBorder Margin="10,0,0,0">
+                                    <ComboBox x:Name="mpsetup_player8_teamColor" Height="35" Width="200" VerticalAlignment="Center" Margin="0,10,0,10" Style="{StaticResource RegularCombobox}">
+                                        <ComboBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Orientation="Horizontal" Width="170">
+                                                    <Rectangle Fill="{Binding Name}" Width="170" Height="30" Margin="0,2.5,0,0"/>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </ComboBox.ItemTemplate>
+                                        <ComboBox.ToolTip>
+                                            <TextBlock FontFamily="arial" FontSize="18" Text="$$41641$$"/>
+                                        </ComboBox.ToolTip>
+                                    </ComboBox>
+                                </local:Age3KeyboardFocusBorder>
+
+                                <local:Age3KeyboardFocusBorder Margin="10,0,0,0">
+                                    <Button x:Name="mpsetup_Player8_kick" Style="{StaticResource Kickbutton}" Margin="0,0,0,0">
+                                        <Image Source="{StaticResource icon_kick}"/>
+                                        <Button.ToolTip>$$22013$$Kick this player out of the game.  This option can only be used by the game host.</Button.ToolTip>
+                                    </Button>
+                                </local:Age3KeyboardFocusBorder>
+                            </StackPanel>
+
+                            <local:Age3KeyboardFocusBorder Margin="10,0,45,0">
+                                <CheckBox x:Name="mpsetup_Player8_Ready" Style="{StaticResource Checkbox_Medium}" Width="200" HorizontalAlignment="Left" VerticalAlignment="Top" Content="$$20021$$Ready" >
+                                    <CheckBox.ToolTip>
+                                        <TextBlock FontFamily="arial" FontSize="18" Text="$$41686$$"/>
+                                    </CheckBox.ToolTip>
+                                </CheckBox>
+                            </local:Age3KeyboardFocusBorder>
+                        </StackPanel>
+                    </Grid>
+
+                </Grid>
+
+                <!--Chat Box-->
+                <StackPanel Grid.Row="2" Grid.Column="1" Margin="0,10,0,0">
+                    <TextBox Height="130" FontFamily="arial">
+                        Chat goes here
+                        <TextBox.Background>
+                            <SolidColorBrush Opacity="0.5" Color="Black"/>
+                        </TextBox.Background>
+                    </TextBox>
+                    <local:PreviewTextBox Height="40" Margin="0,5,0,0" FontFamily="arial" PreviewText="Enter message here..." MaxLength="200">
+                        <TextBox.Background>
+                            <SolidColorBrush Opacity="0.5" Color="Gray"/>
+                        </TextBox.Background>
+                    </local:PreviewTextBox>
+                </StackPanel>
+
+                <!--Game Settings-->
+                <Grid Grid.Column="3" Grid.RowSpan="3" Height="950" Width="400" Margin="0,-10,0,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="300"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="12"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="10"/>
+
+                    </Grid.RowDefinitions>
+
+                    <!--Map-->
+                    <Rectangle Grid.Row="2" Height="300" Width="300" Margin="0,0,0,0">
+                        <Rectangle.Fill>
+                            <ImageBrush ImageSource="/resources/images/icons/random_map/all_maps.png"/>
+                        </Rectangle.Fill>
+                    </Rectangle>
+
+                    <!--Titles-->
+                    <TextBlock Grid.Row="5" x:Name="mpsetup_LabelStartingAge" Style="{StaticResource subInfoLeft}" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Width="350" Text="$$36148$$Starting Age"/>
+                    <TextBlock Grid.Row="7" x:Name="mpsetup_LabelDifficulty" Style="{StaticResource subInfoLeft}" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Width="350" Text="$$36147$$Difficulty"/>
+                    <TextBlock Grid.Row="9" x:Name="mpsetup_LabelGameSpeed" Style="{StaticResource subInfoLeft}" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Width="350" Text="$$36149$$Game Speed"/>
+
+                    <!--Combo boxes-->
+                    <local:Age3KeyboardFocusBorder Grid.Row="1">
+                        <ComboBox x:Name="mpsetup_NumberPlayers" Width="400" HorizontalAlignment="Center" Style="{StaticResource RegularCombobox}">
+                            <ComboBoxItem Content="$$36122$$2 Players" IsSelected="True"/>
+                            <ComboBoxItem Content="$$36123$$3 Players"/>
+                            <ComboBoxItem Content="$$36124$$4 Players"/>
+                            <ComboBoxItem Content="$$36125$$5 Players"/>
+                            <ComboBoxItem Content="$$36126$$6 Players"/>
+                            <ComboBoxItem Content="$$36127$$7 Players"/>
+                            <ComboBoxItem Content="$$36128$$8 Players"/>
+                            <ComboBox.ToolTip>
+                                <TextBlock FontFamily="arial" FontSize="18" Text="$$41646$$"/>
+                            </ComboBox.ToolTip>
+                        </ComboBox>
+                    </local:Age3KeyboardFocusBorder>
+
+                    <local:Age3KeyboardFocusBorder Grid.Row="3">
+                        <ComboBox x:Name="mpsetup_MapDropdown" Width="400" HorizontalAlignment="Center" Style="{StaticResource RegularCombobox}">
+                            <ComboBoxItem Content="All Maps" IsSelected="True"/>
+                            <ComboBoxItem Content="Amazonia"/>
+                            <ComboBoxItem Content="Araucania"/>
+                            <ComboBoxItem Content="Bayou"/>
+                            <ComboBoxItem Content="Borneo"/>
+                            <ComboBoxItem Content="California"/>
+                            <ComboBoxItem Content="Caribbean"/>
+                            <ComboBoxItem Content="Carolina"/>
+                            <ComboBoxItem Content="Ceylon"/>
+                            <ComboBoxItem Content="Deccan"/>
+                            <ComboBoxItem Content="Great Lakes"/>
+                            <ComboBoxItem Content="Great Plains"/>
+                            <ComboBoxItem Content="Himalayas"/>
+                            <ComboBoxItem Content="Himalayas - Upper"/>
+                            <ComboBoxItem Content="Hispaniola"/>
+                            <ComboBoxItem Content="Honshu"/>
+                            <ComboBoxItem Content="Indochina"/>
+                            <ComboBoxItem Content="Lrg Carolina"/>
+                            <ComboBoxItem Content="Lrg Deccan"/>
+                            <ComboBoxItem Content="Lrg G.Plains"/>
+                            <ComboBoxItem Content="Lrg Saguenay"/>
+                            <ComboBoxItem Content="Lrg Siberia"/>
+                            <ComboBoxItem Content="Lrg Silk Road"/>
+                            <ComboBoxItem Content="Lrg Sonora"/>
+                            <ComboBoxItem Content="Lrg Texas"/>
+                            <ComboBoxItem Content="Lrg Yellow River"/>
+                            <ComboBoxItem Content="Mongolia"/>
+                            <ComboBoxItem Content="New England"/>
+                            <ComboBoxItem Content="Northwest Territory"/>
+                            <ComboBoxItem Content="Orinoco"/>
+                            <ComboBoxItem Content="Ozarks"/>
+                            <ComboBoxItem Content="Painted Desert"/>
+                            <ComboBoxItem Content="Pampas"/>
+                            <ComboBoxItem Content="Patagonia"/>
+                            <ComboBoxItem Content="Plymouth"/>
+                            <ComboBoxItem Content="Regicide - Honshu"/>
+                            <ComboBoxItem Content="Rockies"/>
+                            <ComboBoxItem Content="Saguenay"/>
+                            <ComboBoxItem Content="Siberia"/>
+                            <ComboBoxItem Content="Silk Road"/>
+                            <ComboBoxItem Content="Sonora"/>
+                            <ComboBoxItem Content="Texas"/>
+                            <ComboBoxItem Content="Unknown"/>
+                            <ComboBoxItem Content="Yellow River"/>
+                            <ComboBoxItem Content="Yucatan"/>
+                            <ComboBox.ToolTip>
+                                <TextBlock FontFamily="arial" FontSize="18" Text="$$41642$$"/>
+                            </ComboBox.ToolTip>
+                        </ComboBox>
+                    </local:Age3KeyboardFocusBorder>
+
+                    <local:Age3KeyboardFocusBorder Grid.Row="6">
+                        <ComboBox x:Name="mpsetup_StartingAgeSelection" Width="400" HorizontalAlignment="Center" Style="{StaticResource RegularCombobox}">
+                            <ComboBoxItem Content="$$36425$$Nomad"/>
+                            <ComboBoxItem Content="$$36129$$Exploration Age" IsSelected="True"/>
+                            <ComboBoxItem Content="$$36130$$Commerce Age"/>
+                            <ComboBoxItem Content="$$36131$$Fortress Age"/>
+                            <ComboBoxItem Content="$$36132$$Industrial Age"/>
+                            <ComboBoxItem Content="$$36133$$Post-Industrial Age"/>
+                            <ComboBoxItem Content="$$36134$$Sovereign Age"/>
+                            <ComboBoxItem Content="$$36135$$Post-Sovereign Age"/>
+                            <ComboBox.ToolTip>
+                                <TextBlock FontFamily="arial" FontSize="18" Text="$$41643$$"/>
+                            </ComboBox.ToolTip>
+                        </ComboBox>
+                    </local:Age3KeyboardFocusBorder>
+
+                    <local:Age3KeyboardFocusBorder Grid.Row="8">
+                        <ComboBox x:Name="mpsetup_DifficultyDropdown" Width="400" HorizontalAlignment="Center" Style="{StaticResource RegularCombobox}">
+                            <ComboBoxItem Content="$$32605$$Sandbox"/>
+                            <ComboBoxItem Content="$$18297$$Easy"/>
+                            <ComboBoxItem Content="$$18298$$Moderate" IsSelected="True"/>
+                            <ComboBoxItem Content="$$18299$$Hard"/>
+                            <ComboBoxItem Content="$$18300$$Expert"/>
+                            <ComboBox.ToolTip>
+                                <TextBlock FontFamily="arial" FontSize="18" Text="$$41644$$"/>
+                            </ComboBox.ToolTip>
+                        </ComboBox>
+                    </local:Age3KeyboardFocusBorder>
+
+                    <local:Age3KeyboardFocusBorder Grid.Row="10">
+                        <ComboBox x:Name="mpsetup_GameSpeedDropdown" Width="400" HorizontalAlignment="Center" Style="{StaticResource RegularCombobox}">
+                            <ComboBoxItem Content="$$36136$$Slow"/>
+                            <ComboBoxItem Content="$$36137$$Med" IsSelected="True"/>
+                            <ComboBoxItem Content="$$36138$$Fast"/>
+                            <ComboBox.ToolTip>
+                                <TextBlock FontFamily="arial" FontSize="18" Text="$$37456$$"/>
+                            </ComboBox.ToolTip>
+                        </ComboBox>
+                    </local:Age3KeyboardFocusBorder>
+
+                    <!--Checkboxes-->
+
+                    <local:Age3KeyboardFocusBorder Grid.Row="4">
+                    <CheckBox x:Name="mpsetup_CheckCustomMaps" Style="{StaticResource Checkbox_Medium}" Margin="20,0,20,0" >
+                      <TextBlock Style="{StaticResource RegularTextBlockStyle}" FontSize="19" Text="$$42359$$Custom Maps">
+                        <TextBlock.ToolTip>
+                          <TextBlock FontFamily="arial" FontSize="18" Text="$$42360$$"/>
+                        </TextBlock.ToolTip>
+                      </TextBlock>
+                      <CheckBox.ToolTip>
+                        <TextBlock FontFamily="arial" FontSize="18" Text="$$42360$$"/>
+                      </CheckBox.ToolTip>
+                    </CheckBox>
+                  </local:Age3KeyboardFocusBorder>
+
+                    <local:Age3KeyboardFocusBorder Grid.Row="12">
+                    <CheckBox x:Name="mpsetup_FFACheckButton" Style="{StaticResource Checkbox_Medium}" Margin="15,0" >
+                      <TextBlock Style="{StaticResource RegularTextBlockStyle}" FontSize="19" Text="$$36520$$Free For All">
+                        <TextBlock.ToolTip>
+                          <TextBlock FontFamily="arial" FontSize="18" Text="$$37458$$Enable/Disable Free For All"/>
+                        </TextBlock.ToolTip>
+                      </TextBlock>
+                      <CheckBox.ToolTip>
+                        <TextBlock FontFamily="arial" FontSize="18" Text="$$37458$$Enable/Disable Free For All"/>
+                      </CheckBox.ToolTip>
+                    </CheckBox>
+                  </local:Age3KeyboardFocusBorder>
+
+                    <local:Age3KeyboardFocusBorder Grid.Row="13">
+                    <CheckBox x:Name="mpsetup_recordCheckButton" Style="{StaticResource Checkbox_Medium}" Margin="15,0" >
+                      <TextBlock Style="{StaticResource RegularTextBlockStyle}" FontSize="19" Text="$$36150$$Record Game">
+                        <TextBlock.ToolTip>
+                          <TextBlock FontFamily="arial" FontSize="18" Text="$$19136$$"/>
+                        </TextBlock.ToolTip>
+                      </TextBlock>
+                      <CheckBox.ToolTip>
+                        <TextBlock FontFamily="arial" FontSize="18" Text="$$19136$$"/>
+                      </CheckBox.ToolTip>
+                    </CheckBox>
+                  </local:Age3KeyboardFocusBorder>
+
+                    <local:Age3KeyboardFocusBorder Grid.Row="14">
+                    <CheckBox x:Name="mpsetup_HandiCheckButton" Grid.Column="0" Style="{StaticResource Checkbox_Medium}" Margin="15,0" >
+                      <TextBlock Style="{StaticResource RegularTextBlockStyle}" FontSize="19" Text="$$19100$$Handicap">
+                        <TextBlock.ToolTip>
+                          <TextBlock FontFamily="arial" FontSize="18" Text="$$42186$$Setting a handicap increases the gathering rates of a player in order to have a more competitive game between players of different skills."/>
+                        </TextBlock.ToolTip>
+                      </TextBlock>
+                      <CheckBox.ToolTip>
+                        <TextBlock FontFamily="arial" FontSize="18" Text="$$42186$$Setting a handicap increases the gathering rates of a player in order to have a more competitive game between players of different skills."/>
+                      </CheckBox.ToolTip>
+                    </CheckBox>
+                  </local:Age3KeyboardFocusBorder>
+
+                    <local:Age3KeyboardFocusBorder Grid.Row="15">
+                    <CheckBox x:Name="mpsetup_cheatsCheckButton" Grid.Column="1" Style="{StaticResource Checkbox_Medium}" Margin="15,0" >
+                      <TextBlock Style="{StaticResource RegularTextBlockStyle}" FontSize="19" Text="$$19135$$Allow Cheats">
+                        <TextBlock.ToolTip>
+                          <TextBlock FontFamily="arial" FontSize="18" Text="$$19134$$"/>
+                        </TextBlock.ToolTip>
+                      </TextBlock>
+                      <CheckBox.ToolTip>
+                        <TextBlock FontFamily="arial" FontSize="18" Text="$$19134$$"/>
+                      </CheckBox.ToolTip>
+                    </CheckBox>
+                  </local:Age3KeyboardFocusBorder>
+
+                    <local:Age3KeyboardFocusBorder Grid.Row="16">
+                    <CheckBox x:Name="mpsetup_allowSpectators" Grid.Column="0" Style="{StaticResource Checkbox_Medium}" Margin="15,0" >
+                      <TextBlock Style="{StaticResource RegularTextBlockStyle}" FontSize="19">Allow Spectators</TextBlock>
+                    </CheckBox>
+                  </local:Age3KeyboardFocusBorder>
+                </Grid>
+
+            </Grid>
+        </Grid>
+    </Viewbox>
+</Window>

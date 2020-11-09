@@ -1,0 +1,53 @@
+﻿<Window x:Class="aoe3wpfg.pages.uimainnew.overlayWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:local="clr-namespace:aoe3wpfg" mc:Ignorable="d" Title="overlayWindow" Style="{StaticResource WindowStyle}">
+    <Window.Resources>
+        <Style TargetType="TextBlock" x:Key="CinematicTitleTextBlockStyle">
+            <Setter Property="FontFamily" Value="Trajan Pro" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="FontSize" Value="50" />
+            <Setter Property="TextAlignment" Value="Center" />
+            <Setter Property="Foreground" Value="{StaticResource CinematicTitleGradient}" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Margin" Value="0,0,0,0" />
+        </Style>
+        <LinearGradientBrush x:Key="CinematicTitleGradient" EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="#ffffff" Offset="0" />
+            <GradientStop Color="#b9b9b9" Offset="1" />
+        </LinearGradientBrush>
+        <LinearGradientBrush x:Key="OverlayTitleGradient" EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="#efd365" Offset="0" />
+            <GradientStop Color="#f3e3a6" Offset="0.5" />
+            <GradientStop Color="#b69721" Offset="1" />
+        </LinearGradientBrush>
+        <LinearGradientBrush x:Key="TitleGradient" EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="#ffea9e" Offset="0" />
+            <GradientStop Color="#cda440" Offset="1" />
+        </LinearGradientBrush>
+    </Window.Resources>
+
+    <Viewbox Style="{StaticResource ViewboxMain}">
+        <Grid Width="1920" Height="1080">
+
+            <TextBlock Name="overlayWindow_cinematictext" Style="{StaticResource CinematicTitleTextBlockStyle}" Text="{Binding Text}" />
+
+            <!--<ItemsControl x:Name="overlayWindow_text">-->
+            <Grid x:Name="overlayWindow_textContainer">
+                <TextBlock Margin="-4,0,0,0" Text="TEST" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Trajan Pro" FontWeight="Bold" FontSize="60pt" Foreground="Black" />
+                <TextBlock Margin=" 4,0,0,0" Text="TEST" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Trajan Pro" FontWeight="Bold" FontSize="60pt" Foreground="Black" />
+                <TextBlock Margin="0, 4,0,0" Text="TEST" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Trajan Pro" FontWeight="Bold" FontSize="60pt" Foreground="Black" />
+                <TextBlock Margin="0,-4,0,0" Text="TEST" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Trajan Pro" FontWeight="Bold" FontSize="60pt" Foreground="Black" />
+
+                <TextBlock Margin="-2.9,-2.9,0,0" Text="TEST" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Trajan Pro" FontWeight="Bold" FontSize="60pt" Foreground="Black" />
+                <TextBlock Margin="-2.9, 2.9,0,0" Text="TEST" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Trajan Pro" FontWeight="Bold" FontSize="60pt" Foreground="Black" />
+                <TextBlock Margin=" 2.9,-2.9,0,0" Text="TEST" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Trajan Pro" FontWeight="Bold" FontSize="60pt" Foreground="Black" />
+                <TextBlock Margin=" 2.9, 2.9,0,0" Text="TEST" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Trajan Pro" FontWeight="Bold" FontSize="60pt" Foreground="Black" />
+
+                <TextBlock Text="TEST" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Trajan Pro" FontWeight="Bold" FontSize="60pt" Foreground="{StaticResource OverlayTitleGradient}">
+                    <TextBlock.Effect>
+                        <DropShadowEffect BlurRadius="6" Color="Black" Direction="-90" ShadowDepth="4" RenderingBias="Quality" />
+                    </TextBlock.Effect>
+                </TextBlock>
+            </Grid>
+        </Grid>
+    </Viewbox>
+</Window>

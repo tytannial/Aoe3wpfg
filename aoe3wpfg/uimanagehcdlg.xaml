@@ -1,0 +1,330 @@
+﻿<Window x:Class="aoe3wpfg.uimanagehcdlg" 
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:local="clr-namespace:aoe3wpfg" 
+        mc:Ignorable="d" 
+        x:Name="ManageHCDlg" 
+        Style="{StaticResource WindowStyle}"
+        Topmost="True">
+    
+    <Window.Resources>
+        <Style TargetType="ListViewItem" x:Key="hcCreateListItem">
+            <Setter Property="Background" Value="Red" />
+            <Setter Property="Padding" Value="10" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+            <Setter Property="Margin" Value="0,2,0,2"/>
+
+            <Setter Property="RenderTransformOrigin" Value="0.5, 0.5" />
+            <Setter Property="RenderTransform">
+                <Setter.Value>
+                    <ScaleTransform ScaleX="1" ScaleY="1" />
+                </Setter.Value>
+            </Setter>
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ListViewItem}">
+                        <Grid>
+                            <Grid Name="BackgroundObjects" Width="auto" Height="45" RenderTransformOrigin="0.5, 0.5">
+                                <Grid.RenderTransform>
+                                    <ScaleTransform ScaleX="1" ScaleY="1" />
+                                </Grid.RenderTransform>
+                                <Rectangle Name="background" Grid.Column="1" Height="38" Fill="{StaticResource SubButtonInnerGradient}" Opacity="0.5" RadiusX="5" RadiusY="5">
+                                </Rectangle>
+                                <Rectangle Name="highlight" Grid.Column="1" Height="38" Fill="{StaticResource SubButtonInnerGradientOver}" Opacity="0" RadiusX="5" RadiusY="5">
+                                </Rectangle>
+                            </Grid>
+                            <TextBlock Name="Text" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="19" FontFamily="Trajan Pro" FontWeight="Bold" Foreground="White" Margin="0,5,0,0" Text="{Binding Text}">
+                                <TextBlock.Effect>
+                                    <DropShadowEffect BlurRadius="3" Color="Black" Direction="-90" ShadowDepth="1.7" RenderingBias="Quality" />
+                                </TextBlock.Effect>
+                            </TextBlock>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+
+                            <Trigger Property="IsSelected" Value="True">
+                                <Trigger.EnterActions>
+                                    <StopStoryboard BeginStoryboardName="MouseOverStoryBoard" />
+                                    <StopStoryboard BeginStoryboardName="MouseOverStoryBoard2" />
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="BackgroundObjects" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)" To="1" Duration="0:0:.025" />
+                                            <DoubleAnimation Storyboard.TargetName="BackgroundObjects" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)" To="1" Duration="0:0:.025" />
+                                            <DoubleAnimation Storyboard.TargetName="background" Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:.05" />
+                                            <DoubleAnimation Storyboard.TargetName="highlight" Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:.05" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="BackgroundObjects" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)" To="1" Duration="0:0:.025" />
+                                            <DoubleAnimation Storyboard.TargetName="BackgroundObjects" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)" To="1" Duration="0:0:.025" />
+                                            <DoubleAnimation Storyboard.TargetName="background" Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:.6" RepeatBehavior="Forever" AutoReverse="True" />
+                                            <DoubleAnimation Storyboard.TargetName="highlight" Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:.05" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                                <Setter TargetName="Text" Property="Foreground" Value="{StaticResource ButtonTextGradientOver}" />
+                            </Trigger>
+
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsMouseOver" Value="true" />
+                                    <Condition Property="IsSelected" Value="false" />
+                                </MultiTrigger.Conditions>
+                                <MultiTrigger.EnterActions>
+                                    <BeginStoryboard Name="MouseOverStoryBoard">
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="BackgroundObjects" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)" To="1.02" Duration="0:0:.2" />
+                                            <DoubleAnimation Storyboard.TargetName="BackgroundObjects" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)" To="1.02" Duration="0:0:.2" />
+                                            <DoubleAnimation Storyboard.TargetName="background" Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:.6" RepeatBehavior="Forever" AutoReverse="True" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                    <SoundPlayerAction Source="resources/audio/mouseover_00.wav" />
+                                </MultiTrigger.EnterActions>
+                                <MultiTrigger.ExitActions>
+                                    <BeginStoryboard Name="MouseOverStoryBoard2">
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="BackgroundObjects" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)" To="1" Duration="0:0:.2" />
+                                            <DoubleAnimation Storyboard.TargetName="BackgroundObjects" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)" To="1" Duration="0:0:.2" />
+                                            <DoubleAnimation Storyboard.TargetName="background" Storyboard.TargetProperty="Opacity" To="0.5" Duration="0:0:.2" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </MultiTrigger.ExitActions>
+
+                                <Setter TargetName="Text" Property="Foreground" Value="{StaticResource ButtonTextGradientOver}" />
+                            </MultiTrigger>
+
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsFocused" Value="true" />
+                                    <Condition Property="IsSelected" Value="false" />
+                                </MultiTrigger.Conditions>
+                                <MultiTrigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="BackgroundObjects" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)" To="1.02" Duration="0:0:.2" />
+                                            <DoubleAnimation Storyboard.TargetName="BackgroundObjects" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)" To="1.02" Duration="0:0:.2" />
+                                            <DoubleAnimation Storyboard.TargetName="background" Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:.6" RepeatBehavior="Forever" AutoReverse="True" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                    <SoundPlayerAction Source="resources/audio/mouseover_00.wav" />
+                                </MultiTrigger.EnterActions>
+                                <MultiTrigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="BackgroundObjects" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)" To="1" Duration="0:0:.2" />
+                                            <DoubleAnimation Storyboard.TargetName="BackgroundObjects" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)" To="1" Duration="0:0:.2" />
+                                            <DoubleAnimation Storyboard.TargetName="background" Storyboard.TargetProperty="Opacity" To="0.5" Duration="0:0:.2" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </MultiTrigger.ExitActions>
+
+                                <Setter TargetName="Text" Property="Foreground" Value="{StaticResource ButtonTextGradientOver}" />
+                            </MultiTrigger>
+                            <EventTrigger RoutedEvent="PreviewMouseDown">
+                                <SoundPlayerAction Source="resources/audio/smallbutton.wav" />
+                            </EventTrigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="Text" Property="Foreground" Value="{StaticResource ButtonTextGradient3}" />
+                                <Setter TargetName="background" Property="Fill" Value="{StaticResource MainMenuButtonInnerGradientDisabled}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="{x:Type TextBlock}" x:Key="hcCreatorBio">
+            <Setter Property="FontFamily" Value="arial" />
+            <Setter Property="FontSize" Value="18" />
+            <Setter Property="TextAlignment" Value="Left" />
+            <Setter Property="Foreground" Value="White" />
+        </Style>
+        <LinearGradientBrush x:Key="SubButtonInnerGradientOver" StartPoint="0,0.5" EndPoint="1,0.5">
+            <GradientStop Color="#503f23" Offset="0" />
+            <GradientStop Color="#755c33" Offset="0.5" />
+            <GradientStop Color="#503f23" Offset="1" />
+        </LinearGradientBrush>
+        <LinearGradientBrush x:Key="SubButtonInnerGradient" StartPoint="0,0.5" EndPoint="1,0.5">
+            <GradientStop Color="#503f23" Offset="0" />
+            <GradientStop Color="#755c33" Offset="0.5" />
+            <GradientStop Color="#503f23" Offset="1" />
+        </LinearGradientBrush>
+        <LinearGradientBrush x:Key="MainMenuButtonInnerGradientDisabled" StartPoint="0,0.5" EndPoint="1,0.5">
+            <GradientStop Color="#141414" Offset="0" />
+            <GradientStop Color="#393939" Offset="0.15" />
+            <GradientStop Color="#535353" Offset="0.40" />
+            <GradientStop Color="#535353" Offset="0.60" />
+            <GradientStop Color="#393939" Offset="0.85" />
+            <GradientStop Color="#141414" Offset="1" />
+        </LinearGradientBrush>
+        <LinearGradientBrush x:Key="MainMenuButtonInnerGradient" StartPoint="0,0.5" EndPoint="1,0.5">
+            <GradientStop Color="#170803" Offset="0" />
+            <GradientStop Color="#3b190d" Offset="0.15" />
+            <GradientStop Color="#532412" Offset="0.40" />
+            <GradientStop Color="#532412" Offset="0.60" />
+            <GradientStop Color="#3b190d" Offset="0.85" />
+            <GradientStop Color="#170803" Offset="1" />
+        </LinearGradientBrush>
+        <LinearGradientBrush x:Key="ButtonInnerGradient" StartPoint="0,0.5" EndPoint="1,0.5">
+            <GradientStop Color="#2a1108" Offset="0" />
+            <GradientStop Color="#502211" Offset="0.2" />
+            <GradientStop Color="#532312" Offset="0.5" />
+            <GradientStop Color="#502211" Offset="0.8" />
+            <GradientStop Color="#2a1108" Offset="1" />
+        </LinearGradientBrush>
+        <LinearGradientBrush x:Key="ButtonTextGradientOver" EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="#fff5d2" Offset="0" />
+            <GradientStop Color="#f3dd9a" Offset="1" />
+            <GradientStop Color="#ebc15c" Offset="2" />
+        </LinearGradientBrush>
+        <LinearGradientBrush x:Key="ButtonTextGradient3" EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="#FFBFB6A5" Offset="0" />
+            <GradientStop Color="#FF494742" Offset="1" />
+        </LinearGradientBrush>
+        <Style TargetType="{x:Type Button}" x:Key="hcCreator">
+            <Setter Property="Margin" Value="0,10,0,0" />
+            <Setter Property="Height" Value="80" />
+            <Setter Property="Width" Value="550" />
+            <Setter Property="Background" Value="#FF595959" />
+        </Style>
+    </Window.Resources>
+    <Viewbox Style="{StaticResource ViewboxMain}">
+        <Grid Width="1920" Height="1080">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <ContentControl Grid.Row="0" Grid.RowSpan="2" Template="{StaticResource ScreenBlur}" Focusable="False" />
+
+            <ContentControl Grid.Row="1" Template="{StaticResource PanelBG_Titled}" HorizontalAlignment="Center" VerticalAlignment="Top" Width="1450" Height="1000" Focusable="False" />
+
+            <!--Base Grid-->
+            <Grid Grid.Row="1" x:Name="ManageHCDlg_Create_Dlg" HorizontalAlignment="Center" VerticalAlignment="Top" Height="935" Width="1420">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="75" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <!--Title-->
+                <TextBlock x:Name="ManageHCDlg_Create_Label" Grid.Row="1" Style="{StaticResource ConfirmationTitlesStyle}" FontSize="51" TextAlignment="Center" VerticalAlignment="Center" Margin="0,20,0,0">
+                    $$71362$$Edit Home City
+                </TextBlock>
+
+                <!--Column Grid-->
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="15" />
+                        <ColumnDefinition Width="500" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="15" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,15,0,0">
+                        <TextBlock x:Name="ManageHCDlg_Create_CivLabel" Style="{StaticResource PageTitleStyle}" FontSize="30" Foreground="White" TextAlignment="Center" VerticalAlignment="Bottom">
+                            $$71120$$Civilization:
+                        </TextBlock>
+                        <Grid>
+                            <Rectangle Grid.Row="1" Margin="10" Style="{StaticResource PanelBGSection}" />
+                            <ListView Grid.Row="1" x:Name="CivPicker_CivList" Margin="20" ItemContainerStyle="{StaticResource hcCreateListItem}" BorderBrush="Transparent" BorderThickness="0" ScrollViewer.CanContentScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" Height="730" SelectionMode="Single" Background="#FF787878" TabIndex="1">
+                                <ListView.Resources>
+                                    <Style TargetType="GridViewColumnHeader">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                    </Style>
+                                </ListView.Resources>
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn Header="Name" Width="500" DisplayMemberBinding="{Binding Name}" />
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                        </Grid>
+                    </StackPanel>
+
+                    <!--Right Column-->
+                    <Grid Grid.Column="2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="350" />
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Image Grid.Row="0" Name="CivPicker_CivFlag" Source="/resources/images/icons/history/histories/h_pc_chinese.png" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,-10,0,-10"/>
+                        <StackPanel Grid.Row="1">
+                            <Grid>
+                                <Rectangle Grid.Row="1" Margin="20,0,20,0" Style="{StaticResource PanelBGSection}" />
+                                <ScrollViewer Grid.Row="1" Height="260" Margin="30,10,30,10" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                                    <TextBlock x:Name="ManageHCDlg_Create_CivDetails" Style="{StaticResource hcCreatorBio}" Margin="5" TextWrapping="Wrap">
+                                        Civilization bonus:
+                                        <LineBreak/>
+                                        Most shipments will give you additional villagers. Villagers cost wood instead of food, cannot gather food from livestock.
+                                        <LineBreak/>
+                                        Unique units:
+                                        <LineBreak/>
+                                        Brahmin, Flail Elephant, Gurkha, Howah, Mahout Lancer, Rajput, Siege Elephant, Sepoy, Sowar and Zamburak.
+                                        <LineBreak/>
+                                        Unique buildings:
+                                        <LineBreak/>
+                                        Sacred Field generates more exp when tasked with livestock and also trains cows. Mango Grove is a resource for wood. Caravanserai fulfils a similar role to stables.
+                                        <LineBreak/>
+                                        Wonders:
+                                        <LineBreak/>
+                                        Agra Fort, Charminar Gate, Karni Mata, Taj Mahal, Tower of Victory
+                                        <LineBreak/>
+                                        <LineBreak/>
+                                        The Mughal Empire was an early-modern empire in South Asia. It was known as one of the largest empires in the history of South Asia.
+                                    </TextBlock>
+                                </ScrollViewer>
+                            </Grid>
+
+                            <StackPanel Margin="30,5,10,0">
+                                <StackPanel Orientation="Horizontal">
+                                    <!--HC Label-->
+                                    <TextBlock x:Name="ManageHCDlg_Create_HCNameLabel" Style="{StaticResource hcInfoTitle}" Width="390">
+                                    $$36438$$City Name:
+                                    </TextBlock>
+                                    <!--HC Name-->
+                                    <TextBox x:Name="ManageHCDlg_Create_HCNameText" Style="{StaticResource hcInfoName}" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Width="450" TabIndex="2">
+                                        Testing
+                                    </TextBox>
+                                </StackPanel>
+
+                                <StackPanel Margin="0,5,0,0" Orientation="Horizontal">
+                                    <!--Explorer Name Label-->
+                                    <TextBlock x:Name="ManageHCDlg_Create_ExplorerNameLabel" Style="{StaticResource hcInfoTitle}" Width="390" VerticalAlignment="Center">
+                                    $$36439$$Explorer Name:
+                                    </TextBlock>
+                                    <!--Explorer Name-->
+                                    <TextBox x:Name="ManageHCDlg_Create_ExplorerNameText" Style="{StaticResource hcInfoName}" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Width="450" TabIndex="3">
+                                        Testing
+                                    </TextBox>
+                                </StackPanel>
+
+                                <!--ONLY DISPLAY FOR JAPANESE AND INDIAN CIVS-->
+                                <StackPanel x:Name="extraMonkName" Margin="0,5,0,0" Orientation="Horizontal" Visibility="Visible">
+                                    <!--Explorer Name Label-->
+                                    <TextBlock x:Name="ManageHCDlg_Create_Monk00NameLabel" Style="{StaticResource hcInfoTitle}" Width="390" VerticalAlignment="Center">
+                                    $$69202$$Monk Name:
+                                    </TextBlock>
+                                    <!--Explorer Name-->
+                                    <TextBox x:Name="ManageHCDlg_Create_Monk00NameText" Style="{StaticResource hcInfoName}" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Width="450" TabIndex="4">
+                                        Testing
+                                    </TextBox>
+                                </StackPanel>
+                            </StackPanel>
+                        </StackPanel>
+                    </Grid>
+
+                    <!--Buttons-->
+                    <StackPanel Grid.Column="2" Grid.Row="1" Margin="15" HorizontalAlignment="Center" VerticalAlignment="Bottom" Orientation="Horizontal">
+                        <local:Age3Button x:Name="ManageHCDlg_Create_SaveButton" Style="{StaticResource MainMenuButton}" Margin="0,0,0,0" Width="350" Content="$$18442$$Save" TabIndex="5"  />
+                        <local:Age3Button x:Name="ManageHCDlg_Create_CancelButton" Style="{StaticResource MainMenuButton}" Margin="50,0,0,0" Width="350" Content="$$18466$$Cancel" TabIndex="6"  IsCancel="True" />
+                    </StackPanel>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Viewbox>
+</Window>

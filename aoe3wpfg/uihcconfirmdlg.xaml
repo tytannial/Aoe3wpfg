@@ -1,0 +1,79 @@
+﻿<Window x:Class="aoe3wpfg.uihcconfirmdlg" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:local="clr-namespace:aoe3wpfg" mc:Ignorable="d" Title="uihcconfirmdlg" Style="{StaticResource WindowStyle}">
+    <Window.Resources>
+        <Style TargetType="TextBlock" x:Key="ConfirmationDescStyle">
+            <Setter Property="FontFamily" Value="Trajan Pro" />
+            <Setter Property="FontSize" Value="25" />
+            <Setter Property="Foreground" Value="{StaticResource ButtonTextGradient}" />
+            <Setter Property="VerticalAlignment" Value="Top" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="Margin" Value="0,80,0,0" />
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect BlurRadius="2" Color="Black" Direction="-90" ShadowDepth="1" RenderingBias="Quality" />
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Viewbox Style="{StaticResource ViewboxMain}">
+        <Grid x:Name="mainGridPanel" Width="1920" Height="1080">
+
+            <ContentControl Template="{StaticResource ScreenBlur}" />
+
+            <Grid Width="1050" Height="400" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,20">
+                <local:Age3PanelBG Stroke="Black" StrokeThickness="8" Margin="18,18,12,14">
+
+                    <local:Age3PanelBG.Fill>
+                        <ImageBrush ImageSource="/resources/wood.png" />
+                    </local:Age3PanelBG.Fill>
+                    <local:Age3PanelBG.Effect>
+                        <DropShadowEffect Color="Black" Direction="-90" ShadowDepth="3" BlurRadius="30" />
+                    </local:Age3PanelBG.Effect>
+                </local:Age3PanelBG>
+                <Rectangle Height="128" VerticalAlignment="Top" Margin="26,110,28,0">
+                    <Rectangle.Fill>
+                        <ImageBrush ImageSource="/resources/wood_shadow.png" />
+                    </Rectangle.Fill>
+                </Rectangle>
+                <local:Age3PanelBG Fill="Transparent" Stroke="{StaticResource PanelBGStrokeGradient}" StrokeThickness="3" Margin="20" />
+            </Grid>
+
+            <Grid x:Name="mainWindow" Height="400" Width="1075">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="75" />
+                    <RowDefinition Height="250" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <TextBlock Name="HCConfirmDlg_Title" Style="{StaticResource ConfirmationTitlesStyle}" FontSize="40" VerticalAlignment="Center" Grid.Row="1">
+                    $$35398$$Choose This Card?
+                </TextBlock>
+
+                <StackPanel Grid.Row="2" Margin="0,20,0,0">
+
+                    <StackPanel Orientation="Horizontal" Height="100" Width="700" Margin="0,20,0,0">
+
+                        <Image Name="HCConfirmDlg_TechBtn" Height="100" Width="100" Source="/resources/hc_profile.png" />
+
+                        <StackPanel Width="600">
+                            <TextBlock Name="HCConfirmDlg_TechName" Grid.Row="2" Style="{StaticResource ConfirmationDescStyle}" HorizontalAlignment="Left" FontWeight="Bold" FontSize="25" Margin="20,0,0,0">
+                                4 Settlers
+                            </TextBlock>
+
+                            <TextBlock Name="HCConfirmDlg_TechDetails" Grid.Row="2" Style="{StaticResource RegularTextBlockStyle}" HorizontalAlignment="Left" TextWrapping="Wrap" FontSize="18" Margin="20,0,0,0">
+                                Villagers that constructs buildings and gathers resources.
+                            </TextBlock>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,0">
+                        <local:Age3Button x:Name="HCConfirmDlg_OkBtn" Style="{StaticResource MainMenuButton}" Width="300" Content="$$18451$$Yes" />
+                        <local:Age3Button x:Name="HCConfirmDlg_CancelBtn" Style="{StaticResource MainMenuButton}" Width="300" Margin="50,0,0,0" Content="$$18452$$No" />
+                    </StackPanel>
+
+                </StackPanel>
+
+            </Grid>
+        </Grid>
+    </Viewbox>
+</Window>

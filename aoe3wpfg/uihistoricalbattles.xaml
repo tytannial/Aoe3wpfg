@@ -1,0 +1,411 @@
+﻿<Window x:Class="aoe3wpfg.uihistoricalbattles"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:aoe3wpfg"
+        mc:Ignorable="d"
+        Style="{StaticResource WindowStyle}"
+        Title="uihistoricalbattles">
+
+    <Window.Resources>
+        <Style x:Key="{x:Type local:Age3KeyboardFocusBorder}" TargetType="local:Age3KeyboardFocusBorder">
+            <Style.Setters>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="local:Age3KeyboardFocusBorder">
+                            <Grid>
+                                <Border Name="FocusBorder" Margin="-10" BorderThickness="2" CornerRadius="5" BorderBrush="NavajoWhite" Grid.RowSpan="3"/>
+                                <ContentPresenter Name="PART_Content"/>
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style.Setters>
+        </Style>
+
+        <Style TargetType="TextBlock" x:Key="MainTitleTextBlockStyle">
+            <Setter Property="FontFamily" Value="Trajan Pro" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="FontSize" Value="40" />
+            <Setter Property="Foreground" Value="{StaticResource TitleGradient}" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="TextAlignment" Value="Center"/>
+            <Setter Property="Width" Value="470"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect BlurRadius="3" Color="Black" Direction="-90" ShadowDepth="3" RenderingBias="Quality" />
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="TextBlock" x:Key="RegularTextBlockStyle">
+            <Setter Property="FontFamily" Value="Trajan Pro" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="FontSize" Value="20" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="TextAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="5,0,0,0"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="Width" Value="450"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect BlurRadius="3" Color="Black" Direction="-90" ShadowDepth="3" RenderingBias="Quality" />
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="TextBlock" x:Key="hb_selected_desc">
+            <Setter Property="FontFamily" Value="Trajan Pro" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="FontSize" Value="30" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="TextAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="5,0,0,0"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="Width" Value="450"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect BlurRadius="3" Color="Black" Direction="-90" ShadowDepth="3" RenderingBias="Quality" />
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="TextBlock" x:Key="hb_list_text">
+            <Setter Property="FontFamily" Value="Trajan Pro" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="FontSize" Value="20" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="TextAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="0,0,0,0"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="Width" Value="560"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect BlurRadius="3" Color="Black" Direction="-90" ShadowDepth="3" RenderingBias="Quality" />
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="ListViewItem" x:Key="hb_list">
+            <Setter Property="Padding" Value="5" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Top"/>
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+            <Setter Property="Margin" Value="0,3,0,3"/>
+
+            <Setter Property="RenderTransformOrigin" Value="0.5, 0.5" />
+            <Setter Property="RenderTransform">
+                <Setter.Value>
+                    <ScaleTransform ScaleX="1" ScaleY="1" />
+                </Setter.Value>
+            </Setter>
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ListViewItem}">
+                        <Grid>
+                            <Grid Name="BackgroundObjects" Width="560" MinHeight="130" RenderTransformOrigin="0.5, 0.5">
+                                <Grid.RenderTransform>
+                                    <ScaleTransform ScaleX="0.98" ScaleY="0.98" />
+                                </Grid.RenderTransform>
+                                <Rectangle Name="imagebg" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                                    <Rectangle.Fill>
+                                        <ImageBrush ImageSource="{Binding Banner}" />
+                                    </Rectangle.Fill>
+                                </Rectangle>
+
+                                <Grid>
+                                    <Grid.OpacityMask>
+                                        <ImageBrush ImageSource="/resources/images/historicalbattles/Historical Battles/button_mask.png" />
+                                    </Grid.OpacityMask>
+
+                                    <Rectangle Name="textbg"  Width="560" Height="37" HorizontalAlignment="Stretch" VerticalAlignment="Bottom">
+                                        <Rectangle.Fill>
+                                            <ImageBrush ImageSource="/resources/images/historicalbattles/Historical Battles/textbg.png" />
+                                        </Rectangle.Fill>
+                                    </Rectangle>
+
+                                    <Image Height="50" Width="50" Margin="10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Source="/resources/images/icons/eso/awards/award_01.png" Visibility="{Binding BronzeUnlocked}"/>
+                                    <Image Height="50" Width="50" Margin="10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Source="/resources/images/icons/eso/awards/award_02.png" Visibility="{Binding SilverUnlocked}"/>
+                                    <Image Height="50" Width="50" Margin="10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Source="/resources/images/icons/eso/awards/award_03.png" Visibility="{Binding GoldUnlocked}"/>
+                                </Grid>
+
+                                <Rectangle Name="highlight" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Opacity="0">
+                                    <Rectangle.Fill>
+                                        <ImageBrush ImageSource="/resources/images/historicalbattles/Historical Battles/glow1.png" />
+                                    </Rectangle.Fill>
+                                </Rectangle>
+
+                                <Grid>
+                                    <Grid.OpacityMask>
+                                        <ImageBrush ImageSource="/resources/images/historicalbattles/Historical Battles/button_mask.png" />
+                                    </Grid.OpacityMask>
+
+                                    <TextBlock Name="Text" Style="{StaticResource hb_list_text}" VerticalAlignment="Bottom" Margin="0,0,0,5" Text="{Binding Text}"/>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsMouseOver" Value="True" />
+                                    <Condition Property="IsSelected" Value="False" />
+                                    <Condition Property="IsFocused" Value="False" />
+                                </MultiTrigger.Conditions>
+                                <MultiTrigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="BackgroundObjects" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)" To="1.02" Duration="0:0:.2" />
+                                            <DoubleAnimation Storyboard.TargetName="BackgroundObjects" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)" To="1.02" Duration="0:0:.2" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </MultiTrigger.EnterActions>
+                                <MultiTrigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard FillBehavior="Stop">
+                                            <DoubleAnimation Storyboard.TargetName="BackgroundObjects" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)" To="1" Duration="0:0:.2" />
+                                            <DoubleAnimation Storyboard.TargetName="BackgroundObjects" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)" To="1" Duration="0:0:.2" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </MultiTrigger.ExitActions>
+                            </MultiTrigger>
+
+                            <Trigger Property="IsSelected" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="BackgroundObjects" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)" To="1" Duration="0:0:.025" />
+                                            <DoubleAnimation Storyboard.TargetName="BackgroundObjects" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)" To="1" Duration="0:0:.025" />
+                                            <DoubleAnimation Storyboard.TargetName="highlight" Storyboard.TargetProperty="Opacity" From="0.5" To="1" Duration="0:0:1"  RepeatBehavior="Forever" AutoReverse="True" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                    <SoundPlayerAction Source="resources/audio/bigbutton.wav" />
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard FillBehavior="Stop">
+                                            <DoubleAnimation Storyboard.TargetName="BackgroundObjects" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)" To="0.99" Duration="0:0:.025" />
+                                            <DoubleAnimation Storyboard.TargetName="BackgroundObjects" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)" To="0.99" Duration="0:0:.025" />
+                                            <DoubleAnimation Storyboard.TargetName="highlight" Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:.05" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+
+                            <Trigger Property="IsFocused" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="BackgroundObjects" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)" To="1.02" Duration="0:0:.2" />
+                                            <DoubleAnimation Storyboard.TargetName="BackgroundObjects" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)" To="1.02" Duration="0:0:.2" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                    <SoundPlayerAction Source="resources/audio/mouseover_campaign.wav" />
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard FillBehavior="Stop">
+                                            <DoubleAnimation Storyboard.TargetName="BackgroundObjects" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)" To="1" Duration="0:0:.2" />
+                                            <DoubleAnimation Storyboard.TargetName="BackgroundObjects" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)" To="1" Duration="0:0:.2" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Trigger.EnterActions>
+                                    <SoundPlayerAction Source="resources/audio/mouseover_campaign.wav" />
+                                </Trigger.EnterActions>
+                            </Trigger>
+
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="Text" Property="Foreground" Value="{StaticResource ButtonTextGradient3}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </Window.Resources>
+
+    <Viewbox Style="{StaticResource ViewboxMain}">
+        <Grid x:Name="mainGridPanel" Width="1920" Height="1080" Focusable="False">
+            <Grid Background="{StaticResource marble_bg2}" Focusable="False">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <!--Back BTN-->
+                <Grid Grid.Row="0">
+                    <ContentControl Template="{StaticResource Titlebar}" Focusable="False"/>
+                    <local:Age3Button x:Name="btn_back" Style="{StaticResource SubMenuBackButton}" IsCancel="true" VerticalAlignment="Center" HorizontalAlignment="Left" Content="$$42451$$Back">
+                        <Button.ToolTip>$$42451$$Back</Button.ToolTip>
+                    </local:Age3Button>
+                </Grid>
+
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="640"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!--Historical Battle Picker-->
+                    <Grid Grid.Column="0" Background="{StaticResource wood_tile}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="10"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="80"/>
+                            <RowDefinition Height="80"/>
+                        </Grid.RowDefinitions>
+
+                        <Rectangle Grid.Row="0" Grid.RowSpan="6" Fill="Black" Width="4" HorizontalAlignment="Right" Opacity="1" Margin="0"></Rectangle>
+                        <Rectangle Grid.Row="0" Grid.RowSpan="6" Fill="#fcdd94" Width="2" HorizontalAlignment="Right" Margin="0" Opacity="1"></Rectangle>
+
+                        <!--Title-->
+                        <TextBlock Style="{StaticResource MainTitleTextBlockStyle}" Grid.Row="1">
+                            $$71396$$Historical Battles
+                        </TextBlock>
+
+                        <!--Background Panel-->
+                        <Rectangle Grid.Row="2" Style="{StaticResource PanelBGSection}" Margin="15,5,15,5"/>
+
+                        <local:Age3KeyboardFocusBorder Grid.Row="2" Margin="25,15,25,15" VerticalAlignment="Top">
+                            <ListView x:Name="hb_list" ItemContainerStyle="{StaticResource hb_list}" BorderBrush="Transparent" BorderThickness="0" ScrollViewer.CanContentScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" Height="Auto" SelectionMode="Single" Background="#FF787878" TabIndex="1">
+                                <ListView.Resources>
+                                    <Style TargetType="GridViewColumnHeader">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                    </Style>
+                                </ListView.Resources>
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn Header="Name" Width="460" DisplayMemberBinding="{Binding Name}" />
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                        </local:Age3KeyboardFocusBorder>
+
+                        <!--Dropdown-->
+                        <local:Age3KeyboardFocusBorder Grid.Row="3" Margin="20,5,20,5">
+                            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <TextBlock x:Name="hb_difficulty_label" Width="590" Style="{StaticResource RegularTextBlockStyle}">
+                                    $$36147$$Difficulty
+                                    <TextBlock.ToolTip>$$41644$$</TextBlock.ToolTip>
+                                </TextBlock>
+                                <ComboBox x:Name="hb_difficulty_dropdown" Height="40" Width="600" FontSize="20" Padding="8" Style="{StaticResource RegularCombobox}" TabIndex="2">
+                                    <ComboBoxItem Content="$$79879$$ Standard" IsSelected="True"/>
+                                    <ComboBoxItem Content="$$79880$$ Moderate"/>
+                                    <ComboBoxItem Content="$$79881$$ Hard"/>
+                                    <ComboBox.ToolTip>$$41644$$</ComboBox.ToolTip>
+                                </ComboBox>
+                            </StackPanel>
+                        </local:Age3KeyboardFocusBorder>
+
+
+                        <!--Start button-->
+                        <local:Age3Button x:Name="hb_begin_btn" Grid.Row="4"  VerticalAlignment="Center" Style="{StaticResource MainMenuButton}" Width="600" Content="$$70690$$Begin" TabIndex="3">
+                            <Button.ToolTip>$$19939$$Start the game!</Button.ToolTip>
+                        </local:Age3Button>
+                    </Grid>
+
+                    <Grid Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition MinHeight="100" Height="auto"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="300"/>
+                        </Grid.RowDefinitions>
+
+                        <Rectangle Grid.Row="0" Grid.RowSpan="3" Width="210" HorizontalAlignment="Left" Margin="210,0,0,0" Opacity="0.9">
+                            <Rectangle.Fill>
+                                <ImageBrush ImageSource="/resources/chdivider_shadow.png"/>
+                            </Rectangle.Fill>
+                            <Rectangle.RenderTransform>
+                                <ScaleTransform ScaleX="-1"/>
+                            </Rectangle.RenderTransform>
+                        </Rectangle>
+
+                        <Rectangle Grid.Row="0" Grid.RowSpan="3" Width="210" HorizontalAlignment="Right" Margin="210,0,0,0" Opacity="0.9">
+                            <Rectangle.Fill>
+                                <ImageBrush ImageSource="/resources/chdivider_shadow.png"/>
+                            </Rectangle.Fill>
+                        </Rectangle>
+
+                        <Rectangle Grid.Row="0" Grid.RowSpan="2" Height="100" VerticalAlignment="Top" Margin="0,100,0,0" Opacity="0.75">
+                            <Rectangle.RenderTransform>
+                                <ScaleTransform ScaleY="-1"/>
+                            </Rectangle.RenderTransform>
+                            <Rectangle.Fill>
+                                <ImageBrush ImageSource="/resources/chdivider_shadowv.png"/>
+                            </Rectangle.Fill>
+                        </Rectangle>
+
+                        <Rectangle Grid.Row="8" VerticalAlignment="Bottom" Height="100" Opacity="0.75">
+                            <Rectangle.Fill>
+                                <ImageBrush ImageSource="/resources/chdivider_shadowv.png"/>
+                            </Rectangle.Fill>
+                        </Rectangle>
+
+                        <!--Title-->
+                        <TextBlock x:Name="hb_selected_label" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center" Width="1300" FontSize="50" Style="{StaticResource MainTitleTextBlockStyle}">
+                            $$71410$$Battle of Chuvash Cape (1582)
+                        </TextBlock>
+
+                        <Image x:Name="hb_selected_image" Width="1200" Height="625" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Source="resources/images/historicalbattles/Historical Battles/age3zhb1.png"/>
+
+                        <Grid Grid.Row="2" Width="1150">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="40"/>
+                                <RowDefinition Height="40"/>
+                                <RowDefinition Height="40"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="420"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="300"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Rectangle Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" VerticalAlignment="Bottom" Height="1" Width="1200" Fill="White"/>
+                            <Rectangle Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" VerticalAlignment="Bottom" Height="1" Width="1200" Fill="White"/>
+                            <Rectangle Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" VerticalAlignment="Bottom" Height="1" Width="1200" Fill="White"/>
+
+                            <TextBlock x:Name="hb_selected_civ_label" Grid.Row="0" Grid.Column="0" Style="{StaticResource MainTitleTextBlockStyle}" FontSize="20" HorizontalAlignment="Left" TextAlignment="Left" Width="400" Text="$$19814$$Civilization:"/>
+                            <TextBlock x:Name="hb_selected_prot_label" Grid.Row="1" Grid.Column="0" Style="{StaticResource MainTitleTextBlockStyle}" FontSize="20" HorizontalAlignment="Left" TextAlignment="Left" Width="400" Text="$$71397$$Protagonist:"/>
+                            <TextBlock x:Name="hb_selected_enemy_label" Grid.Row="2" Grid.Column="0" Style="{StaticResource MainTitleTextBlockStyle}" FontSize="20" HorizontalAlignment="Left" TextAlignment="Left" Width="400" Text="$$71398$$Enemy civilization(s):"/>
+
+                            <TextBlock x:Name="hb_selected_civ" Grid.Row="0" Grid.Column="1" Style="{StaticResource RegularTextBlockStyle}" TextAlignment="Left" Width="750" Text="Russian"/>
+                            <TextBlock x:Name="hb_selected_prot"  Grid.Row="1" Grid.Column="1" Style="{StaticResource RegularTextBlockStyle}" TextAlignment="Left" Width="750" Text="Yermak Timofeyevich"/>
+                            <TextBlock x:Name="hb_selected_enemy" Grid.Row="2" Grid.Column="1" Style="{StaticResource RegularTextBlockStyle}" TextAlignment="Left" Width="750" Text="Khanate of Sibir"/>
+
+                            <StackPanel Grid.Row="0" Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                                <TextBlock x:Name="hb_selected_civ_award" Style="{StaticResource MainTitleTextBlockStyle}" FontSize="20" HorizontalAlignment="Left" TextAlignment="Left" Width="auto" Text="$$72522$$Completed:"/>
+                                <Grid Margin="5,0,5,0">
+                                    <TextBlock x:Name="hb_selected_noaward" Width="auto" Style="{StaticResource hb_list_text}" Text="-"/>
+                                    <Image x:Name="hb_selected_bronze" Height="30" Width="30" Source="/resources/images/icons/eso/awards/award_01.png"/>
+                                    <Image x:Name="hb_selected_silver" Height="30" Width="30" Source="/resources/images/icons/eso/awards/award_02.png"/>
+                                    <Image x:Name="hb_selected_gold"   Height="30" Width="30" Source="/resources/images/icons/eso/awards/award_03.png"/>
+                                </Grid>
+                            </StackPanel>
+
+                            <TextBlock x:Name="hb_selected_desc"  Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" Style="{StaticResource RegularTextBlockStyle}" FontFamily="Arial" FontWeight="Normal" TextAlignment="Left" VerticalAlignment="Top" Width="1150" Margin="0,10,0,0">
+                                Foraying dauntlessly into the bitter cold, the Cossack Yermak leads an expedition of several hundred men to aid the people of Perm, who are being brutally raided by their Tatar neighbors. The journey is perilous, and the intrepid Cossacks soon find themselves mercilessly harassed as they navigate down the Tura river. Can an army of hundreds prevail against a ruthless horde five times its size? Can gunpowder weaponry put an end to the 2,000 year dominance of nomadic cavalry armies in the field?
+                            </TextBlock>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Viewbox>
+</Window>

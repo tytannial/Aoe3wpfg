@@ -1,0 +1,93 @@
+﻿<Window x:Class="aoe3wpfg.uicutscenes"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:aoe3wpfg"
+        mc:Ignorable="d"
+        Title="uicutscenes"
+        Style="{StaticResource WindowStyle}"
+        Background="Transparent">
+
+    <Window.Resources>
+        <Style TargetType="TextBlock" BasedOn="{StaticResource ConfirmationTitlesStyle}" x:Key="ConfirmationTitlesStyleSmall">
+            <Setter Property="FontFamily" Value="Trajan Pro" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="FontSize" Value="25" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="Foreground" Value="{StaticResource ButtonTextGradient}" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="TextAlignment" Value="Left"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect BlurRadius="2" Color="Black" Direction="-90" ShadowDepth="1" RenderingBias="Quality" />
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="TextBlock" x:Key="LoadScreenTextBlockStyle">
+            <Setter Property="FontFamily" Value="Arial" />
+            <Setter Property="FontSize" Value="20" />
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="TextWrapping" Value="Wrap" />
+            <Setter Property="TextAlignment" Value="Left" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="0,0,0,6"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect BlurRadius="2" Color="Black" Direction="-90" ShadowDepth="1" RenderingBias="Quality" />
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Viewbox Style="{StaticResource ViewboxMain}">
+
+        <Grid x:Name="mainGridPanel" Width="1920" Height="1080">
+            <!--Defining Grid-->
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="150"/>
+            </Grid.RowDefinitions>
+
+            <Image x:Name="campaignPlaque" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Source="{Binding imagePlaque}" Visibility="Collapsed"/>
+
+            <Grid x:Name="SubtitleSection" Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                
+                <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10,0,0">
+                    <Image x:Name="SubtitlePortrait" Width="128" Height="128" Margin="20,0,0,0" Visibility="{Binding displayPortrait}"/>
+                    <Rectangle x:Name="SubtitleDivider" Width="2" Height="128" Fill="White" Opacity="0.2" Margin="20,0,20,0" Visibility="{Binding displayDivider}"/>
+                    <StackPanel Width="auto" MaxWidth="1400">
+                        <TextBlock x:Name="SubtitleName" Style="{StaticResource ConfirmationTitlesStyleSmall}">Amelia</TextBlock>    
+                        <TextBlock x:Name="SubtitleText" Style="{StaticResource LoadScreenTextBlockStyle}">
+                        En esta lección, te guiaremos proporcionándote un orden de construcción para que tu colonia dé sus primeros pasos de forma rápida. Tomarás el control de los franceses, una civilización que a mediados de la Edad Colonial puede hacer uso de algunas estrategias poderosas gracias a las unidades especiales coureurs des bois. Este tipo de colono es más fuerte y mejor que los demás a la hora de obtener recursos, pero también cuesta más. Usa estos colonos franceses especiales para recolectar y avanzar rápidamente.
+                        </TextBlock>
+                    </StackPanel>
+                    <StackPanel.Background>
+                        <SolidColorBrush Color="Black" Opacity="0.5"/>
+                    </StackPanel.Background>
+                </StackPanel>
+            </Grid>
+
+            <Grid x:Name="SkipCutsceneSection" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                <Grid.Background>
+                    <SolidColorBrush Color="Black" Opacity="0.5"/>
+                </Grid.Background>
+                <!--Skip-->
+                <StackPanel Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Orientation="Horizontal" Height="25" Margin="10,10,15,0">
+                    <local:Age3CircularProgressBar x:Name="SkipLoadingBar" Width="20" Height="20" Stroke="LightGreen" StrokeThickness="6" Fill="Transparent" VerticalAlignment="Top"/>
+                    <TextBlock x:Name="SkipText" FontFamily="Arial" Style="{StaticResource LoadScreenTextBlockStyle}" VerticalAlignment="Center" TextAlignment="Center" FontSize="18" Foreground="White" Text="$$70550$$Hold Space to Skip" />
+                </StackPanel>
+            </Grid>
+        </Grid>
+    </Viewbox>
+</Window>

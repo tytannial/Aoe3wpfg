@@ -1,0 +1,238 @@
+﻿<Window x:Class="aoe3wpfg.uimpprofilepage" 
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:local="clr-namespace:aoe3wpfg" 
+        mc:Ignorable="d"
+        Title="uimpprofilepage"
+        Style="{StaticResource WindowStyle}"
+        local:Age3Accessibility.Text="$$91588$$Profile Screen. View statistics. Use mouse and click, or arrow keys and enter to select options" 
+        local:Age3Accessibility.Mode="Menu"
+        local:Age3Navigation.WindowGroupID="Multiplayer">
+
+    <Window.Resources>
+        <local:Age3ProfilePageViewModel x:Key="ViewModel"/>
+        <LinearGradientBrush x:Key="MainMenuButtonStrokeGradientDisabled" StartPoint="0,0.5" EndPoint="1,0.5">
+            <GradientStop Color="#5b5b5b" Offset="0" />
+            <GradientStop Color="#c0c0c0" Offset="0.25" />
+            <GradientStop Color="#f9f9f9" Offset="0.5" />
+            <GradientStop Color="#c0c0c0" Offset="0.25" />
+            <GradientStop Color="#5b5b5b" Offset="1" />
+        </LinearGradientBrush>
+        
+        <LinearGradientBrush x:Key="MainMenuButtonStrokeGradient" StartPoint="0,0.5" EndPoint="1,0.5">
+            <GradientStop Color="#755f22" Offset="0" />
+            <GradientStop Color="#ceb165" Offset="0.25" />
+            <GradientStop Color="#ffe6a6" Offset="0.5" />
+            <GradientStop Color="#ceb165" Offset="0.25" />
+            <GradientStop Color="#755f22" Offset="1" />
+        </LinearGradientBrush>
+
+        <ImageBrush x:Key="skirmish_titlebarbg" ImageSource="/resources/images/skirmish/skirmish_titlebarbg.png" Stretch="Fill" />
+
+        <Style TargetType="TextBlock" x:Key="profileTitles">
+            <Setter Property="FontFamily" Value="Trajan Pro" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="FontSize" Value="25" />
+            <Setter Property="Foreground" Value="{StaticResource ButtonTextGradient}" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="Margin" Value="30,0,0,0"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect BlurRadius="4" Color="Black" Direction="-90" ShadowDepth="4" RenderingBias="Quality" />
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Viewbox Style="{StaticResource ViewboxMain}" DataContext="{StaticResource ViewModel}">
+        <Grid x:Name="mainGridPanel" Width="1920" Height="1080">
+            <!--Defining Grid-->
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <!--Only turn on when players are viewing either their profile or other players-->
+            <Grid Grid.Row="0" x:Name="Persona_topbar" Background="{StaticResource skirmish_titlebarbg}" Margin="0,0,0,0" Visibility="Collapsed">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <!--Back Button-->
+                <Grid Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left">
+                    <local:Age3Button x:Name="Persona_ExitButton" Style="{StaticResource SubMenuBackButton}">$$42451$$Back</local:Age3Button>
+                </Grid>
+
+                <!--Display these only if the player is in a game setup-->
+                <Grid Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,50,0">
+                    <TextBlock x:Name="Persona_Ready" Style="{StaticResource RegularTextBlockStyle}" VerticalAlignment="Center" Text="$$70925$$Players ready: 8/8" Visibility="Visible" />
+                    <TextBlock x:Name="Persona_Begin" Style="{StaticResource RegularTextBlockStyle}" VerticalAlignment="Center" Text="$$70926$$Match Beginning..." Visibility="Collapsed" />
+                </Grid>
+            </Grid>
+
+            <Grid Grid.Row="1" Background="{StaticResource wood_tile}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="280" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <!--Player information-->
+                <Grid Grid.Row="0" Width="1920" HorizontalAlignment="Center" Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <TextBlock x:Name="Persona_PlayerLabel" Grid.Row="0" Style="{StaticResource profileTitles}">
+                        $$38169$$Player Information
+                    </TextBlock>
+                    <Border Grid.Row="1" Width="1860">
+                        <Border.Style>
+                            <Style TargetType="Border" BasedOn="{StaticResource PanelBGSectionAsBorder}">
+                                <Setter Property="TextBlock.Opacity" Value="1"/>
+                            </Style>
+                        </Border.Style>
+                        <UniformGrid Columns="2">
+                            <TextBlock Style="{StaticResource subInfoLeft}" VerticalAlignment="Center" Text="$$38264$$Username:"/>
+                            <TextBlock x:Name="Persona_Alias" Style="{StaticResource RegularTextBlockStyle}" VerticalAlignment="Center" Text="{Binding Current.Alias}"/>
+                        </UniformGrid>
+                    </Border>
+                    <TextBlock x:Name="Persona_ClanLabel" Grid.Row="2" Style="{StaticResource profileTitles}">
+                        $$38172$$Clan Information
+                    </TextBlock>
+                    <Border Grid.Row="3" Width="1860">
+                        <Border.Style>
+                            <Style TargetType="Border" BasedOn="{StaticResource PanelBGSectionAsBorder}">
+                                <Setter Property="TextBlock.Opacity" Value="1"/>
+                            </Style>
+                        </Border.Style>
+                        <UniformGrid Columns="2">
+                            <TextBlock Style="{StaticResource subInfoLeft}" VerticalAlignment="Center" Text="$$38259$$Name:"/>
+                            <TextBlock x:Name="Persona_Clan" Style="{StaticResource RegularTextBlockStyle}" VerticalAlignment="Center" Text="{Binding Clan.ClanName, FallbackValue='---'}"/>
+                            <TextBlock Style="{StaticResource subInfoLeft}" VerticalAlignment="Center" Text="$$38260$$Abbreviation:"/>
+                            <TextBlock x:Name="Persona_Abr" Style="{StaticResource RegularTextBlockStyle}" VerticalAlignment="Center" Text="{Binding Clan.Abbreviation, FallbackValue='---'}"/>
+                        </UniformGrid>
+                    </Border>
+                </Grid>
+
+                <!--Statistics-->
+                <Grid Grid.Row="1" Width="1920" HorizontalAlignment="Center" Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <TextBlock x:Name="Persona_StatsLabel" Grid.Row="0" Style="{StaticResource profileTitles}">
+                        $$38168$$Statistics
+                    </TextBlock>
+                    <Border Grid.Row="1" Width="1860">
+                        <Border.Style>
+                            <Style TargetType="Border" BasedOn="{StaticResource PanelBGSectionAsBorder}">
+                                <Setter Property="TextBlock.Opacity" Value="1"/>
+                            </Style>
+                        </Border.Style>
+                        <Grid>
+                            <Grid.Resources>
+                                <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource RegularTextBlockStyle}"/>
+                                <DataTemplate x:Key="Headers">
+                                    <Grid Width="1830">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="280"/>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Column="1" Style="{StaticResource subInfoLeft}" VerticalAlignment="Center" HorizontalAlignment="Center" Text="$$34117$$Rank" />
+                                        <TextBlock Grid.Column="2" Style="{StaticResource subInfoLeft}" VerticalAlignment="Center" HorizontalAlignment="Center" Text="$$71508$$Rating" />
+                                        <TextBlock Grid.Column="3" Style="{StaticResource subInfoLeft}" VerticalAlignment="Center" HorizontalAlignment="Center" Text="$$70823$$Wins" />
+                                        <TextBlock Grid.Column="4" Style="{StaticResource subInfoLeft}" VerticalAlignment="Center" HorizontalAlignment="Center" Text="$$70824$$Loses" />
+                                        <TextBlock Grid.Column="5" Style="{StaticResource subInfoLeft}" VerticalAlignment="Center" HorizontalAlignment="Center" Text="$$71509$$Streak" />
+                                    </Grid>
+                                </DataTemplate>
+
+                                <DataTemplate DataType="{x:Type local:Age3LadderEntry}">
+                                    <Grid>
+                                        <Grid.Resources>
+                                            <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource RegularTextBlockStyle}"/>
+                                        </Grid.Resources>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <ContentPresenter Content="{Binding Ranking}" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                            <ContentPresenter.Resources>
+                                                <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource RegularTextBlockStyle}"/>
+                                            </ContentPresenter.Resources>
+                                        </ContentPresenter>
+                                        <ContentPresenter Content="{Binding Rating}" Grid.Column="1"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        <ContentPresenter Content="{Binding Wins}"  Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        <ContentPresenter Content="{Binding Losses}"  Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        <ContentPresenter Content="{Binding Streak}" Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                            <ContentPresenter.Resources>
+                                                <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource RegularTextBlockStyle}"/>
+                                            </ContentPresenter.Resources>
+                                        </ContentPresenter>
+                                    </Grid>
+                                </DataTemplate>
+                            </Grid.Resources>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="280"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Rectangle Opacity="0.5" Fill="White" VerticalAlignment="Stretch" HorizontalAlignment="Right" Width="2"/>
+                            <UniformGrid Grid.Column="0" Columns="1" Grid.ColumnSpan="2">
+                                <ContentPresenter x:Name="TestLadderHeaders" ContentTemplate="{StaticResource Headers}"/>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="280"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Rectangle Grid.ColumnSpan="2" Opacity="0.5" Fill="White" VerticalAlignment="Top" Height="2"/>
+                                    <TextBlock Text="$$71487$$Supremacy 1v1" Style="{StaticResource subInfoLeft}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    <ContentPresenter Grid.Column="1" Content="{Binding LadderSup1v1}" />
+                                </Grid>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="280"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Rectangle Grid.ColumnSpan="2" Opacity="0.5" Fill="White" VerticalAlignment="Top" Height="2"/>
+                                    <TextBlock Text="$$71488$$Supremacy Team" Style="{StaticResource subInfoLeft}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    <ContentPresenter Grid.Column="1" Content="{Binding LadderSupTeam}"/>
+                                </Grid>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="280"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Rectangle Grid.ColumnSpan="2" Opacity="0.5" Fill="White" VerticalAlignment="Top" Height="2"/>
+                                    <TextBlock Text="$$71506$$Treaty (All)" Style="{StaticResource subInfoLeft}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    <ContentPresenter Grid.Column="1" Content="{Binding LadderTreaty}"/>
+                                </Grid>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="280"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Rectangle Grid.ColumnSpan="2" Opacity="0.5" Fill="White" VerticalAlignment="Top" Height="2"/>
+                                    <TextBlock Text="$$71507$$Deathmatch (All)" Style="{StaticResource subInfoLeft}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    <ContentPresenter Grid.Column="1" Content="{Binding LadderDeathmatch}"/>
+                                </Grid>
+                            </UniformGrid>
+                        </Grid>
+                    </Border>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Viewbox>
+</Window>

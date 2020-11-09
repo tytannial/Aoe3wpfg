@@ -1,0 +1,410 @@
+﻿<Page x:Class="aoe3wpfg.pages.uioptions.uigameoptions"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:aoe3wpfg"
+      mc:Ignorable="d" 
+      Title="uigameoptions" Width="1920" Height="1080">
+
+    <Grid Height="1080" Width="1920">
+
+        <Grid Width="1380" Height="950" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0">
+            <local:Age3PanelBG Stroke="Black" StrokeThickness="8" Margin="18,18,12,14">
+                <local:Age3PanelBG.Fill>
+                    <ImageBrush ImageSource="/resources/wood.png"/>
+                </local:Age3PanelBG.Fill>
+                <local:Age3PanelBG.Effect>
+                    <DropShadowEffect Color="Black" Direction="-90" ShadowDepth="3" BlurRadius="30" />
+                </local:Age3PanelBG.Effect>
+            </local:Age3PanelBG>
+            <Rectangle Height="128" VerticalAlignment="Top" Margin="26,90,28,0">
+                <Rectangle.Fill>
+                    <ImageBrush ImageSource="/resources/wood_shadow.png" />
+                </Rectangle.Fill>
+            </Rectangle>
+            <local:Age3PanelBG Fill="Transparent" Stroke="{StaticResource PanelBGStrokeGradient}" StrokeThickness="3" Margin="20"/>
+        </Grid>
+
+        <!--Buttons-->
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="55" Width="630" Margin="0,0,335,160">
+            <!--NOTE: This button needs to be grayed out until a player has made changes to the settings.-->
+            <Button x:Name="RevertButton" Style="{StaticResource MainMenuButton}" Width="200" Content="$$70696$$Revert" Margin="10,0,0,0" TabIndex="20" >
+                <Button.ToolTip>$$70804$$Undo changes in this menu.</Button.ToolTip>
+            </Button>
+            <!--Methods to Apply settings: 1.Select the Apply button. 2.Select the Back button 3.Selectin any other tabs-->
+            <Button x:Name="ApplyButton" Style="{StaticResource MainMenuButton}" Width="200" Content="$$70697$$Apply" Margin="10,0,0,0" TabIndex="21" >
+                <Button.ToolTip>$$41541$$Apply the current options settings.</Button.ToolTip>
+            </Button>
+            <Button x:Name="CancelButton" Style="{StaticResource MainMenuButton}" Width="200" Content="$$18466$$Cancel" Margin="10, 0, 0, 0">
+                <Button.ToolTip>$$90174$$Close this dialog.</Button.ToolTip>
+            </Button>
+        </StackPanel>
+
+        <Grid Width="1380" Height="950" DataContext="{StaticResource optionsProxy}" Margin="0,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="25"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="28"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="65"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="70"/>
+            </Grid.RowDefinitions>
+
+            <!--Title-->
+            <TextBlock Style="{StaticResource ConfirmationTitlesStyle}" Grid.Row="1" Grid.ColumnSpan="4" VerticalAlignment="Center" FontSize="40">
+            $$37068$$Game Options
+            </TextBlock>
+
+            <!--Panel Background-->
+            <Rectangle HorizontalAlignment="Left" Height="690" Margin="28,70,0,0" Grid.Row="2" VerticalAlignment="Top" Width="625" Grid.Column="1" Style="{StaticResource PanelBGSection}"/>
+
+            <Rectangle HorizontalAlignment="Left" Height="410" Margin="2,70,0,0" Grid.Row="2" VerticalAlignment="Top" Width="625" Grid.Column="2" Style="{StaticResource PanelBGSection}"/>
+
+            <Rectangle HorizontalAlignment="Left" Height="160" Margin="665,540,0,0" Grid.Row="2" VerticalAlignment="Top" Width="625" Grid.ColumnSpan="2" Grid.Column="1" Style="{StaticResource PanelBGSection}"/>
+
+            <!--In Game Panel-->
+            <Grid Grid.Row="2" Grid.Column="1" Margin="19,0,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="70"/>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="20"/>
+                </Grid.RowDefinitions>
+
+                <!--Title-->
+                <TextBlock Style="{StaticResource PageTitleStyle}" Grid.Row="0" FontSize="30" Margin="0,20,0,0" Foreground="White">$$37069$$In-Game</TextBlock>
+
+                <Grid Grid.Row="2" Margin="20,0,20,10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="2"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="2"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="2"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="2"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="2"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="2"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="2"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="2"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="2"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Rectangle Grid.Row="1"  Style="{StaticResource filemanager_dividingline}"/>
+                    <Rectangle Grid.Row="3"  Style="{StaticResource filemanager_dividingline}"/>
+                    <Rectangle Grid.Row="5"  Style="{StaticResource filemanager_dividingline}"/>
+                    <Rectangle Grid.Row="7"  Style="{StaticResource filemanager_dividingline}"/>
+                    <Rectangle Grid.Row="9"  Style="{StaticResource filemanager_dividingline}"/>
+                    <Rectangle Grid.Row="11"  Style="{StaticResource filemanager_dividingline}"/>
+                    <Rectangle Grid.Row="13"  Style="{StaticResource filemanager_dividingline}"/>
+                    <Rectangle Grid.Row="15"  Style="{StaticResource filemanager_dividingline}"/>
+                    <Rectangle Grid.Row="17"  Style="{StaticResource filemanager_dividingline}"/>
+
+                    <local:Age3KeyboardFocusBorder Grid.Row="0">
+                        <CheckBox Name="OptionEasyDragMilitary" Style="{StaticResource Checkbox_Options}" HorizontalAlignment="Left" VerticalAlignment="Center" FlowDirection="RightToLeft" Width="600" Height="60" TabIndex="8" IsChecked="{Binding Path=OptionEasyDragMilitary}">
+                            <TextBlock Text="$$37070$$Enable Easy Drag Military" TextWrapping="Wrap" FlowDirection="LeftToRight" Width="550"/>
+                            <CheckBox.ToolTip>
+                                <ToolTip FlowDirection="LeftToRight">
+                                    $$37071$$Drag select will only select military units.
+                                </ToolTip>
+                            </CheckBox.ToolTip>
+                        </CheckBox>
+                    </local:Age3KeyboardFocusBorder>
+
+                    <local:Age3KeyboardFocusBorder Grid.Row="2">
+                        <CheckBox Name="OptionDisableRightClickCameraDrag" Style="{StaticResource Checkbox_Options}" HorizontalAlignment="Left" VerticalAlignment="Center" FlowDirection="RightToLeft" Width="600" Height="60" TabIndex="9" IsChecked="{Binding Path=OptionRightClickCameraDrag}" >
+                            <TextBlock Text="$$71034$$Enable Right Click Camera Drag" TextWrapping="Wrap" FlowDirection="LeftToRight" Width="550" />
+                            <CheckBox.ToolTip>
+                                <ToolTip FlowDirection="LeftToRight">
+                                    $$71035$$Right-click and hold and pan the camera by dragging the mouse.
+                                </ToolTip>
+                            </CheckBox.ToolTip>
+                        </CheckBox>
+                    </local:Age3KeyboardFocusBorder>
+
+                    <local:Age3KeyboardFocusBorder Grid.Row="4">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Style="{StaticResource subInfoLeft}" Margin="0,0,0,0" VerticalAlignment="Center" Width="300">
+                            $$37072$$Scroll Speed
+                                <TextBlock.ToolTip>$$37073$$Adjust the scroll speed of your camera.</TextBlock.ToolTip>
+                            </TextBlock>
+                            <StackPanel Orientation="Vertical" Grid.Column="1" VerticalAlignment="Center">
+                                <Slider Name="OptionScrollSpeed" Height="20" Width="300" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,10,0,0" Value="{Binding Path=OptionScrollSpeed}" Minimum="0.05" Maximum="0.5" SmallChange="0.01" LargeChange="0.1" TabIndex="9">
+                                    <Slider.ToolTip>$$37073$$Adjust the scroll speed of your camera.</Slider.ToolTip>
+                                </Slider>
+                                <Grid Height="auto">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" Style="{StaticResource subInfoLeft}" HorizontalAlignment="Left" VerticalAlignment="Top" Opacity="0.75">$$70615$$Min</TextBlock>
+                                    <TextBlock Name="OptionScrollSpeedAmount" Grid.Column="1" Style="{StaticResource subInfoLeft}" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="White">50%</TextBlock>
+                                    <TextBlock Grid.Column="2" Style="{StaticResource subInfoLeft}" HorizontalAlignment="Right" VerticalAlignment="Top" Opacity="0.75">$$70616$$Max</TextBlock>
+                                </Grid>
+                            </StackPanel>
+                        </Grid>
+                    </local:Age3KeyboardFocusBorder>
+
+                    <local:Age3KeyboardFocusBorder Grid.Row="6">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Style="{StaticResource subInfoLeft}" Margin="0,0,0,0" VerticalAlignment="Center" Width="300">
+                            $$37080$$Camera Zoom
+                                <TextBlock.ToolTip>$$37081$$Control the in game zoom of the camera.</TextBlock.ToolTip>
+                            </TextBlock>
+                            <ComboBox Name="OptionCameraZoom" Style="{StaticResource OptionsCombobox}" Grid.Column="1" Height="30" Margin="10,0,0,0" VerticalAlignment="Center" SelectedIndex="{Binding Path=OptionCameraZoom}" TabIndex="10">
+                                <ComboBox.ToolTip>$$37081$$Control the in game zoom of the camera.</ComboBox.ToolTip>
+                                <ComboBoxItem Content="$$37167$$Near"/>
+                                <ComboBoxItem Content="$$37168$$Normal" IsSelected="True"/>
+                                <ComboBoxItem Content="$$37169$$Far"/>
+                                <ComboBoxItem Content="$$37170$$Very Far"/>
+                            </ComboBox>
+                        </Grid>
+                    </local:Age3KeyboardFocusBorder>
+
+                    <local:Age3KeyboardFocusBorder Grid.Row="8">
+                        <CheckBox Grid.Row="8" Name="OptionCameraRotation" Style="{StaticResource Checkbox_Options}" HorizontalAlignment="Left" VerticalAlignment="Center" FlowDirection="RightToLeft" Width="600" Height="60" TabIndex="11"  IsChecked="{Binding Path=OptionCameraRotation}">
+                            <TextBlock Text="$$70582$$Camera Rotation" TextWrapping="Wrap" FlowDirection="LeftToRight" Width="550"/>
+                            <CheckBox.ToolTip>
+                                <ToolTip FlowDirection="LeftToRight">
+                                    $$18435$$Allows you to rotate the game camera with the keyboard or mouse.\nKeyboard: Hold Ctrl + Left/Right Keys.\nMouse: Hold Shift + Mouse Wheel.
+                                </ToolTip>
+                            </CheckBox.ToolTip>
+                        </CheckBox>
+                    </local:Age3KeyboardFocusBorder>
+
+                    <local:Age3KeyboardFocusBorder Grid.Row="10">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Style="{StaticResource subInfoLeft}" Margin="0,0,0,0" VerticalAlignment="Center" Width="300"
+                                       >
+                            $$70583$$Camera Acceleration
+                                <TextBlock.ToolTip>$$43201$$Adjust the time for the camera to accelerate to full speed when scrolling.</TextBlock.ToolTip>
+                            </TextBlock>
+
+                            <StackPanel Orientation="Vertical" Grid.Column="1" VerticalAlignment="Center">
+                                <Slider Name="OptionCameraInertiaRampTime" Height="20" Width="300" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,10,0,0" Value="{Binding Path=OptionCameraInertiaRampTime}" Minimum="0.0" Maximum="500.0" SmallChange="1.0" LargeChange="100.0" TabIndex="12">
+                                    <Slider.ToolTip>$$43201$$Adjust the time for the camera to accelerate to full speed when scrolling.</Slider.ToolTip>
+                                </Slider>
+                                <Grid Height="auto">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" Style="{StaticResource subInfoLeft}" HorizontalAlignment="Left" VerticalAlignment="Top" Opacity="0.75">$$42086$$Short</TextBlock>
+                                    <TextBlock Name="OptionCameraAccelerationAmount" Grid.Column="1" Style="{StaticResource subInfoLeft}" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="White">50%</TextBlock>
+                                    <TextBlock Grid.Column="2" Style="{StaticResource subInfoLeft}" HorizontalAlignment="Right" VerticalAlignment="Top" Opacity="0.75">$$42087$$Long</TextBlock>
+                                </Grid>
+                            </StackPanel>
+                        </Grid>
+                    </local:Age3KeyboardFocusBorder>
+
+                    <local:Age3KeyboardFocusBorder Grid.Row="12">
+                        <CheckBox Grid.Row="8" Name="OptionCameraShake" Style="{StaticResource Checkbox_Options}" HorizontalAlignment="Left" VerticalAlignment="Center" FlowDirection="RightToLeft" Width="600" Height="60" TabIndex="13"  IsChecked="{Binding Path=OptionCameraShake}">
+                            <TextBlock Text="$$72314$$Camera Shake" TextWrapping="Wrap" FlowDirection="LeftToRight" Width="550"/>
+                            <CheckBox.ToolTip>
+                                <ToolTip FlowDirection="LeftToRight">
+                                    $$72314$$Camera will shake in reaction to the explosions.
+                                </ToolTip>
+                            </CheckBox.ToolTip>
+                        </CheckBox>
+                    </local:Age3KeyboardFocusBorder>
+
+                    <local:Age3KeyboardFocusBorder Grid.Row="14">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Style="{StaticResource subInfoLeft}" Margin="0,0,0,0" VerticalAlignment="Center" Width="300">
+                            $$70584$$Economy Gather Point
+                                <TextBlock.ToolTip>$$42387$$Makes a right-click set only the economic unit gather point. Otherwise, right-click will set the military and economic unit gather points.</TextBlock.ToolTip>
+                            </TextBlock>
+                            <ComboBox Name="OptionRightClickEconOnly" Style="{StaticResource OptionsCombobox}" Grid.Column="1" Height="30" Margin="10,0,0,0" VerticalAlignment="Center" SelectedIndex="{Binding Path=OptionRightClickEconOnly}" TabIndex="14">
+                                <ComboBox.ToolTip>$$42387$$Makes a right-click set only the economic unit gather point. Otherwise, right-click will set the military and economic unit gather points.</ComboBox.ToolTip>
+                                <ComboBoxItem Content="$$18547$$Off"/>
+                                <ComboBoxItem Content="$$66092$$All Buildings" IsSelected="True"/>
+                                <ComboBoxItem Content="$$66093$$Only Town Centers"/>
+                            </ComboBox>
+                        </Grid>
+                    </local:Age3KeyboardFocusBorder>
+
+                    <local:Age3KeyboardFocusBorder Grid.Row="16">
+                        <CheckBox Name="OptionAICanChat" Style="{StaticResource Checkbox_Options}" HorizontalAlignment="Left" VerticalAlignment="Center" FlowDirection="RightToLeft" Width="600" Height="60" TabIndex="15"  IsChecked="{Binding Path=OptionAICanChat}">
+                            <TextBlock Text="$$38270$$Allow Chats" TextWrapping="Wrap" FlowDirection="LeftToRight" Width="550"/>
+                            <CheckBox.ToolTip>
+                                <ToolTip FlowDirection="LeftToRight">
+                                    $$38271$$Allows the AI to chat to you.
+                                </ToolTip>
+                            </CheckBox.ToolTip>
+                        </CheckBox>
+                    </local:Age3KeyboardFocusBorder>
+
+                    <local:Age3KeyboardFocusBorder Grid.Row="18">
+                        <CheckBox Name="OptionEnableMouseClamp" Style="{StaticResource Checkbox_Options}" HorizontalAlignment="Left" VerticalAlignment="Center" FlowDirection="RightToLeft" Width="600" Height="60" TabIndex="16"  IsChecked="{Binding Path=OptionEnableMouseClamp}">
+                            <TextBlock Text="$$71115$$Clamp mouse to window" TextWrapping="Wrap" FlowDirection="LeftToRight" Width="550"/>
+                            <CheckBox.ToolTip>
+                                <ToolTip FlowDirection="LeftToRight">
+                                    $$71115$$This will confine the mouse to the game window.
+                                </ToolTip>
+                            </CheckBox.ToolTip>
+                        </CheckBox>
+                    </local:Age3KeyboardFocusBorder>
+                </Grid>
+
+            </Grid>
+
+            <!--Multplayer, AI, Buttons-->
+            <Grid Grid.Row="2" Grid.Column="2" Margin="0,0,20,37">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="70"/>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="150"/>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="37"/>
+                </Grid.RowDefinitions>
+
+                <!--Multiplayer-->
+                <Grid Grid.Row="2" Margin="15,0,25,5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="2"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="2"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="2"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Rectangle Grid.Row="1"  Style="{StaticResource filemanager_dividingline}"/>
+                    <Rectangle Grid.Row="3"  Style="{StaticResource filemanager_dividingline}"/>
+                    <Rectangle Grid.Row="5"  Style="{StaticResource filemanager_dividingline}"/>
+
+                    <local:Age3KeyboardFocusBorder Grid.Row="0">
+                        <CheckBox Name="OptionESOPrivacy" Style="{StaticResource Checkbox_Options}" HorizontalAlignment="Left" VerticalAlignment="Center" FlowDirection="RightToLeft" Width="600" Height="60" TabIndex="17"  IsChecked="{Binding Path=OptionESOPrivacy}">
+                            <TextBlock Text="$$43216$$Online Privacy" TextWrapping="Wrap" FlowDirection="LeftToRight" Width="550"/>
+                            <CheckBox.ToolTip>
+                                <ToolTip FlowDirection="LeftToRight">
+                                    $$43217$$Disables all incoming invites and whispers from users who are not in your Friend or Clan lists.
+                                </ToolTip>
+                            </CheckBox.ToolTip>
+                        </CheckBox>
+                    </local:Age3KeyboardFocusBorder>
+
+                    <local:Age3KeyboardFocusBorder Grid.Row="2">
+                        <CheckBox Name="OptionShowChatNotifications" Style="{StaticResource Checkbox_Options}" HorizontalAlignment="Left" VerticalAlignment="Center" FlowDirection="RightToLeft" Width="600" Height="60" TabIndex="18"  IsChecked="{Binding Path=OptionShowChatNotifications}">
+                            <TextBlock Text="$$70586$$Show notifications" TextWrapping="Wrap" FlowDirection="LeftToRight" Width="550"/>
+                            <CheckBox.ToolTip>
+                                <ToolTip FlowDirection="LeftToRight">
+                                    $$43383$$A chat message is displayed when a user enters or exits the chat lobby.
+                                </ToolTip>
+                            </CheckBox.ToolTip>
+                        </CheckBox>
+                    </local:Age3KeyboardFocusBorder>
+
+                    <local:Age3KeyboardFocusBorder Grid.Row="4">
+                        <CheckBox Name="OptionSaveFilterSettings" Style="{StaticResource Checkbox_Options}" HorizontalAlignment="Left" VerticalAlignment="Center" FlowDirection="RightToLeft" Width="600" Height="60" TabIndex="19"  IsChecked="{Binding Path=OptionSaveFilterSettings}">
+                            <TextBlock Text="$$70587$$Save Filter Settings" TextWrapping="Wrap" FlowDirection="LeftToRight" Width="550"/>
+                            <CheckBox.ToolTip>
+                                <ToolTip FlowDirection="LeftToRight">
+                                    $$45736$$Stores the last selection Game List filter settings.
+                                </ToolTip>
+                            </CheckBox.ToolTip>
+                        </CheckBox>
+                    </local:Age3KeyboardFocusBorder>
+
+                    <local:Age3KeyboardFocusBorder Grid.Row="6">
+                        <CheckBox Name="OptionSortChatByClan" Style="{StaticResource Checkbox_Options}" HorizontalAlignment="Left" VerticalAlignment="Center" FlowDirection="RightToLeft" Width="600" Height="60" TabIndex="20"  IsChecked="{Binding Path=OptionSortChatByClan}">
+                            <TextBlock Text="$$70588$$Sort by Clan" TextWrapping="Wrap" FlowDirection="LeftToRight" Width="550"/>
+                            <CheckBox.ToolTip>
+                                <ToolTip FlowDirection="LeftToRight">
+                                    $$46636$$This sorts people in clans together in the chat player list.
+                                </ToolTip>
+                            </CheckBox.ToolTip>
+                        </CheckBox>
+                    </local:Age3KeyboardFocusBorder>
+                </Grid>
+
+                <TextBlock Style="{StaticResource PageTitleStyle}" Grid.Row="0" FontSize="30" Margin="0,20,0,0" Foreground="White">$$37163$$Multiplayer</TextBlock>
+
+                <TextBlock Style="{StaticResource PageTitleStyle}" Grid.Row="3" FontSize="30" Margin="0,20,0,0" Foreground="White">$$70793$$Platform Settings</TextBlock>
+
+                <!--Platform Settings-->
+                <Grid Grid.Row="5" Margin="15,0,25,5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="2"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <local:Age3KeyboardFocusBorder Grid.Row="0">
+                        <CheckBox Name="OptionCrossplay" Style="{StaticResource Checkbox_Options}" HorizontalAlignment="Left" VerticalAlignment="Center" FlowDirection="RightToLeft" Width="600" Height="60" TabIndex="21"  IsChecked="{Binding Path=OptionCrossplay}">
+                            <TextBlock Text="$$70794$$Allow Cross-Network Play" TextWrapping="Wrap" FlowDirection="LeftToRight" Width="550"/>
+                            <CheckBox.ToolTip>
+                                <ToolTip FlowDirection="LeftToRight">
+                                    $$70799$$Enable/Disable Cross-Network play with other platforms.
+                                </ToolTip>
+                            </CheckBox.ToolTip>
+                        </CheckBox>
+                    </local:Age3KeyboardFocusBorder>
+
+                    <local:Age3KeyboardFocusBorder Grid.Row="2">
+                        <Grid Visibility="Hidden">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="360"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Style="{StaticResource subInfoLeft}" Margin="0,0,0,0" VerticalAlignment="Center" Width="230">
+                            $$70795$$Microsoft Account:
+                                <TextBlock.ToolTip>$$70800$$Login with your Microsoft Account.</TextBlock.ToolTip>
+                            </TextBlock>
+
+                            <!--Buttons-->
+                            <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0">
+                                <Button x:Name="Accountlogin" Style="{StaticResource MainMenuButton}" Width="170" Content="$$70796$$Login" Margin="5,0,0,0" Visibility="Collapsed">
+                                    <Button.ToolTip>$$70802$$Click to login with your Microsoft Account.</Button.ToolTip>
+                                </Button>
+                                <Button x:Name="Accountprofile" Style="{StaticResource MainMenuButton}" Width="170" Content="$$70798$$Profile" Margin="5,0,0,0" Visibility="Visible">
+                                    <Button.ToolTip>$$70801$$Click to view your player profile.</Button.ToolTip>
+                                </Button>
+                                <Button x:Name="Accountlogout" Style="{StaticResource MainMenuButton}" Width="170" Content="$$70797$$Logout" Margin="5,0,0,0" Visibility="Visible">
+                                    <Button.ToolTip>$$70803$$Click to logout of your Microsoft Account.</Button.ToolTip>
+                                </Button>
+                            </StackPanel>
+                        </Grid>
+                    </local:Age3KeyboardFocusBorder>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Grid>
+</Page>

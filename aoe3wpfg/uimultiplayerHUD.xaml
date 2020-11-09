@@ -1,0 +1,287 @@
+﻿<Window x:Class="aoe3wpfg.uimultiplayerHUD"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:aoe3wpfg"
+        xmlns:collections="clr-namespace:System.Collections;assembly=mscorlib"
+        mc:Ignorable="d"
+        Title="uimultiplayerHUD"
+        Style="{StaticResource WindowStyle}"
+        Topmost="True"
+        local:Age3Navigation.WindowGroupID="Multiplayer">
+
+    <Window.Resources>
+        <local:Age3MPHudViewModel x:Key="ViewModel"/>
+        <collections:ArrayList x:Key="PopoverPages">
+            <local:Age3PopoverPage FrameUri="uiclanbrowser.xaml"
+                                   IsEnabled="{Binding EnabledWhenOnlineForBeta, Source={StaticResource uiSettings}}"
+                                   Icon="{StaticResource multiplayer_quickicon_clanbrowse}"
+                                   DescriptionId="70702"                                   
+                                   NotificationCount="0"/>
+            <local:Age3PopoverPage FrameUri="uiladderview.xaml"
+                                   Icon="{StaticResource multiplayer_quickicon_ladder}" 
+                                   DescriptionId="70703"
+                                   NotificationCount="0"/>
+            <local:Age3PopoverPage FrameUri="uichatbrowser.xaml" 
+                                   IsEnabled="{Binding EnabledWhenOnlineForBeta, Source={StaticResource uiSettings}}"
+                                   Icon="{StaticResource multiplayer_quickicon_chat}" 
+                                   DescriptionId="70704"
+                                   NotificationCount="0"/>
+            <local:Age3PopoverPage FrameUri="uimpesofriends.xaml" 
+                                   IsEnabled="{Binding EnabledWhenOnlineForBeta, Source={StaticResource uiSettings}}"
+                                   Icon="{StaticResource multiplayer_quickicon_friends}" 
+                                   DescriptionId="70705"
+                                   NotificationCount="0"/>
+        </collections:ArrayList>
+
+        <!--divider that sits ontop of those multiplayerButtons-->
+        <ControlTemplate x:Key="titleDivider">
+            <Grid Height="50" VerticalAlignment="Top">
+                <Rectangle Height="5" Fill="Black" VerticalAlignment="Bottom"></Rectangle>
+                <Rectangle Height="3" Fill="{StaticResource ButtonStrokeGradient}" VerticalAlignment="Bottom" Margin="0,0,0,1"></Rectangle>
+            </Grid>
+        </ControlTemplate>
+ 
+        <!--Multiplayer buttons as toggle buttons-->
+        <Style x:Key="toggleButtons" TargetType="{x:Type ToggleButton}">
+            <Setter Property="FontFamily" Value="Trajan Pro" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="Foreground" Value="{StaticResource ButtonTextGradient2}"/>
+            <Setter Property="Height" Value="40" />
+            <Setter Property="KeyboardNavigation.AcceptsReturn" Value="True"/>
+            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+            <Setter Property="Background" Value="{StaticResource MainMenuButtonInnerGradient}" />
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ToggleButton">
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Foreground" Value="{StaticResource ButtonTextGradient3}" />
+                                <Setter Property="Background" Value="{StaticResource MainMenuButtonInnerGradientDisabled}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                        <StackPanel>
+                            <StackPanel.Resources>
+                                <!--black border-->
+                                <Style TargetType="Border">
+                                    <Setter Property="BorderBrush" Value="Black"/>
+                                    <Setter Property="BorderThickness" Value="4"/>
+                                    <Setter Property="CornerRadius" Value="5"/>
+                                </Style>
+                                <!--gold border-->
+                                <Style TargetType="Rectangle">
+                                    <Setter Property="Stroke" Value="{StaticResource ButtonStrokeGradient}"/>
+                                    <Setter Property="StrokeThickness" Value="2"/>
+                                    <Setter Property="RadiusX" Value="5"/>
+                                    <Setter Property="RadiusY" Value="5"/>
+
+                                    <Style.Triggers>
+                                        <Trigger Property="IsEnabled" Value="false">
+                                            <Setter Property="Stroke" Value="{StaticResource MainMenuButtonStrokeGradientDisabled}" />
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </StackPanel.Resources>
+
+                            <Border Name="border" Height="40" Background="{TemplateBinding Background}">
+                                <Grid>
+                                    <Rectangle Margin="-3"/>
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Grid>
+                            </Border>
+                        </StackPanel>
+
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="true">
+                    <Setter Property="Foreground" Value="{StaticResource ButtonTextGradientOver}" />
+                    <Setter Property="Background" Value="{StaticResource MainMenuButtonInnerGradientOver}" />
+                    <Setter Property="BorderBrush" Value="{StaticResource MainMenuButtonStrokeGradientOver}"/>
+                    <Trigger.EnterActions>
+                        <SoundPlayerAction Source="resources/audio/mouseover_00.wav" />
+                    </Trigger.EnterActions>
+                </Trigger>
+
+                <Trigger Property="IsChecked" Value="true">
+                    <Setter Property="Foreground" Value="{StaticResource ButtonTextGradient}" />
+                    <Setter Property="Background" Value="{StaticResource MainMenuButtonInnerGradientPress}" />
+                    <Setter Property="BorderBrush" Value="{StaticResource MainMenuButtonStrokeGradientOver}"/>
+                    <Trigger.EnterActions>
+                        <SoundPlayerAction Source="resources/audio/bigbutton.wav" />
+                    </Trigger.EnterActions>
+                </Trigger>
+
+                <Trigger Property="IsFocused" Value="True">
+                    <Setter Property="Background">
+                        <Setter.Value>
+                            <SolidColorBrush Color="#5d451e" />
+                        </Setter.Value>
+                    </Setter>
+                    <Trigger.EnterActions>
+                        <SoundPlayerAction Source="resources/audio/mouseover_00.wav" />
+                    </Trigger.EnterActions>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
+    <Viewbox Style="{StaticResource ViewboxMain}" DataContext="{StaticResource ViewModel}">
+        <Grid x:Name="mainGridPanel" Width="1920" Height="1080" KeyboardNavigation.TabNavigation="Cycle">
+            <!--Defining Grid-->
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!--Top Bar-->
+            <Grid Grid.Row="0" x:Name="MultiplayerHUD">
+                <ContentControl Template="{StaticResource Titlebar}" Focusable="False" />
+
+                <Grid Height="50" VerticalAlignment="Top">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <local:Age3Button x:Name="mphud_exit" Grid.Column="0" Width="450" Style="{StaticResource SubMenuBackButton}" IsCancel="True" TabIndex="8" >
+                        $$70985$$Main Menu
+                        <Button.ToolTip>$$70985$$Main Menu</Button.ToolTip>
+                    </local:Age3Button>
+
+                    <!--Main Menu Buttons-->
+                    <StackPanel Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+                        <StackPanel.Resources>
+                            <Style TargetType="RadioButton" BasedOn="{StaticResource toggleButtons}">
+                                <Setter Property="Width" Value="350"/>
+                                <Setter Property="Margin" Value="10,0,0,0"/>
+                                <Setter Property="GroupName" Value="multiplayerMenu"/>
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </Style>
+                        </StackPanel.Resources>
+                        <RadioButton x:Name="mphud_lobby" TabIndex="1" Visibility="Collapsed">
+                            <StackPanel Width="330" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+                                <TextBlock x:Name="Lobby_Name" Style="{StaticResource RegularTextBlockStyle}" Width="180" TextTrimming="CharacterEllipsis" Text="{Binding LobbyName}"/>
+                                <TextBlock x:Name="Lobby_PlayerStatus" Style="{StaticResource RegularTextBlockStyle}" TextAlignment="Right" Width="100" TextTrimming="CharacterEllipsis" Text="{Binding PlayerStatus}"/>
+                                <TextBlock x:Name="Lobby_LobbyStatus" Style="{StaticResource RegularTextBlockStyle}" TextAlignment="Right" Width="45" TextTrimming="CharacterEllipsis" Text="{Binding LobbyStatus}"/>
+                            </StackPanel>
+                            <RadioButton.ToolTip>
+                                <ToolTip Content="{Binding LobbyTooltip}"/>
+                            </RadioButton.ToolTip>
+                        </RadioButton>
+                        <RadioButton x:Name="mphud_browse" Content="$$70644$$Browse Games" TabIndex="2" Visibility="Collapsed">
+                            <RadioButton.ToolTip>$$71087$$Browse available multiplayer games. You can also join as a spectator.</RadioButton.ToolTip>
+                        </RadioButton>
+                        <RadioButton x:Name="mphud_play" Content="$$18593$$Play" TabIndex="3" IsChecked="True">
+                            <RadioButton.ToolTip>$$70827$$Play ranked or casual matches against other players.</RadioButton.ToolTip>
+                        </RadioButton>
+                        <RadioButton x:Name="mphud_profile" TabIndex="4">
+                            <RadioButton.Content>
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                    <Image Source="{StaticResource multiplayer_profile}" Width="30" Height='30'/>
+                                    <TextBlock VerticalAlignment="Center" Text="$$70798$$Profile" Margin="0,5,0,0"/>
+                                </StackPanel>
+                            </RadioButton.Content>
+                            <RadioButton.ToolTip>$$70801$$Click to view your player profile.</RadioButton.ToolTip>
+                        </RadioButton>
+                        <RadioButton x:Name="mphud_clan" TabIndex="5">
+                            <RadioButton.Content>
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                    <Image Source="{StaticResource multiplayer_quickicon_clanbrowse}" Width="30" Height='30'/>
+                                    <TextBlock VerticalAlignment="Center" Text="$$31991$$Clan" Margin="0,5,0,0"/>
+                                </StackPanel>
+                            </RadioButton.Content>
+                            <RadioButton.ToolTip>$$70830$$View your clan information. If you are not in a clan you can either join or create one.</RadioButton.ToolTip>
+                        </RadioButton>
+                    </StackPanel>
+
+                    <!--placed on top of multiplayerButtons to make it look like tabs-->
+                    <ContentControl Grid.Column="0" Grid.ColumnSpan="6" Template="{StaticResource titleDivider}" Focusable="False"/>
+
+                    <Grid Grid.Column="3" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,90,15" Visibility="Hidden">
+                        <Ellipse Width="25" Height="25" Fill="Red"/>
+                        <TextBlock FontFamily="Arial" FontWeight="Bold" Width="22" Height="23" FontSize="20" Foreground="White" TextAlignment="Center" Text="!" />
+                        <Grid.ToolTip>
+                            $$72465$$You have %d unread messages.  
+                        </Grid.ToolTip>
+                    </Grid>
+                    
+                    <!--Social Buttons-->
+                    <StackPanel Grid.Column="5" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,2">
+                        <ItemsControl x:Name="mphud_popoverpages" ItemsSource="{StaticResource PopoverPages}"  Focusable="False">
+                            <ItemsControl.Resources>
+                                <Style TargetType="{x:Type Button}">
+                                    <Setter Property="Command" Value="{Binding ShowPopover}"/>
+                                    <Setter Property="Background" Value="Red"/>
+                                </Style>
+                            </ItemsControl.Resources>
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Horizontal" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate DataType="{x:Type local:Age3PopoverPage}">
+                                    <Grid>
+                                        <Button x:Name="PopBtn" Height="40" Width="40" TabIndex="6"
+                                            ToolTipService.ShowOnDisabled="True" 
+                                            ToolTip="{Binding DescriptionId, Converter={StaticResource StringDB}}"
+                                            IsEnabled="{Binding IsEnabled}"
+                                            Command="{Binding Path=ShowPopover, Source={StaticResource ViewModel}}" CommandParameter="{Binding}"
+                                            local:Age3Accessibility.Text="{Binding DescriptionId, Converter={StaticResource StringDB}}">
+                                            <Image Source="{Binding Icon}" Width="35" Height="35" Margin="0,-3,0,0"/>
+                                            <Button.Style>
+                                                <Style TargetType="{x:Type Button}" BasedOn="{StaticResource HUDButton}"/>
+                                            </Button.Style>
+                                        </Button>
+                                        <Grid x:Name="NotificationIcon" IsHitTestVisible="false" Grid.Column="0" HorizontalAlignment="Right" Visibility="Visible" Grid.ToolTip="{Binding NotificationText}">
+                                            <Ellipse Width="20" Height="20" Fill="Red"/>
+                                            <TextBlock FontFamily="Arial" FontWeight="Bold" Width="22" Height="23" FontSize="20" Foreground="White" TextAlignment="Center" Text="!" />
+                                        </Grid>
+                                    </Grid>
+                                    <DataTemplate.Triggers>
+                                        <DataTrigger Binding="{Binding NotificationCount}" Value="0">
+                                            <Setter TargetName="NotificationIcon" Property="Visibility" Value="Collapsed" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding IsEnabled}" Value="False">
+                                            <Setter TargetName="PopBtn" Property="ToolTip" Value="This feature is currently disabled."/>
+                                        </DataTrigger>
+                                    </DataTemplate.Triggers>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                        <!--NOTE: The Options button was originally in Home Cities Screen (which is super weird). So we changed the design and relocated it here for easier access.-->
+                        <Button Name="mphud_options" Height="40" Width="40" Margin="0,0,5,0" Style="{StaticResource HUDButton}" TabIndex="7" >
+                            <Image Source="{StaticResource multiplayer_quickicon_settings}" Width="35" Height="35" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,-3,0,0"></Image>
+                            <Button.ToolTip>$$70706$$Click to open options.</Button.ToolTip>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+
+
+            <ContentControl Grid.Row="1" Template="{StaticResource ScreenBlur}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Visibility="Collapsed"  
+              Focusable="False" />
+
+            <ItemsControl Focusable="False" Grid.Row="1" Width="0" HorizontalAlignment="Right" 
+                          ItemsSource="{StaticResource PopoverPages}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <Grid IsItemsHost="True"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate DataType="{x:Type local:Age3PopoverPage}">
+                        <local:Age3PopoverControl IsPopoverOpen="{Binding IsOpen, Mode=TwoWay}" Placement="Left" PopoverPage="{Binding FrameUri}" Focusable="False" />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </Grid>
+    </Viewbox>
+</Window>

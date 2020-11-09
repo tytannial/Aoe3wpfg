@@ -1,0 +1,81 @@
+﻿<Window x:Class="aoe3wpfg.uispcloadscreen"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:aoe3wpfg"
+        mc:Ignorable="d"
+        Title="uispcloadscreen"        
+        Style="{StaticResource WindowStyle}">
+
+    <Viewbox Style="{StaticResource ViewboxMain}">
+        <Grid x:Name="mainGridPanel" Width="1920" Height="1080">
+            <Grid x:Name="SPCLoad" Background="{StaticResource demo_bg}">
+                <!--Defining Grid-->
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="100"/>
+                </Grid.RowDefinitions>
+
+
+                <Image x:Name="SPCLoad_Background" Grid.RowSpan="4" Height="1150" Width="2500" Opacity="0" Margin="0,-50,0,0" Source="/resources/images/icons/singleplayer/SPC_load_screen_01.png"/>
+
+                
+
+                <Image x:Name="SPCLoad_CharLeft" Grid.RowSpan="4" VerticalAlignment="Bottom" HorizontalAlignment="Left" Height="1024" Width="1024" Opacity="0"/>
+                <Image x:Name="SPCLoad_CharRight" Grid.RowSpan="4" VerticalAlignment="Bottom" HorizontalAlignment="Right" Height="1024" Width="1024" Opacity="0" Source="/resources/images/icons/singleplayer/SPC_load_screen_01b.png"/>
+
+                <Grid Grid.RowSpan="4" VerticalAlignment="Bottom" Height="512" Background="{StaticResource loadscreen_smoke}"></Grid>
+                
+                <!--Subtitle Container-->
+                <Grid Grid.Row="2" Height="{Binding ElementName=SPCLoad_DescriptionText, Path=ActualHeight}">
+                    <Rectangle x:Name="SubtitleBackground" Margin="0,-10,0,-10" Visibility="Visible">
+                        <Rectangle.Fill>
+                            <SolidColorBrush x:Name="BackgroundColor" Color="Black" Opacity="0.6"/>
+                        </Rectangle.Fill>
+                    </Rectangle>
+
+                    <Rectangle x:Name="SubtitleBackgroundBorder1" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="6" Margin="0,0,0,-13">
+                        <Rectangle.Fill>
+                            <ImageBrush ImageSource="{StaticResource border_h}"/>
+                        </Rectangle.Fill>
+                    </Rectangle>
+
+                    <Rectangle x:Name="SubtitleBackgroundBorder2" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="6" Margin="0,-13,0,0">
+                        <Rectangle.Fill>
+                            <ImageBrush ImageSource="{StaticResource border_h}"/>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                </Grid>
+                
+                
+                <!--
+                <Rectangle x:Name="SubtitleBackgroundBorder1" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="6">
+                    <Rectangle.Fill>
+                        <ImageBrush ImageSource="{StaticResource border_h}"/>
+                    </Rectangle.Fill>
+                </Rectangle>
+
+                <Rectangle x:Name="SubtitleBackgroundBorder2" Grid.Row="3" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="6">
+                    <Rectangle.Fill>
+                        <ImageBrush ImageSource="{StaticResource border_h}"/>
+                    </Rectangle.Fill>
+                </Rectangle>
+                -->
+
+                <TextBlock x:Name="SPCLoad_Continue" Grid.Row="3" HorizontalAlignment="Center" Width="1000" Height="50" TextAlignment="Center" Padding="10" FontSize="25" Style="{StaticResource hcName}" Text="$$70554$$Press Any Key to Continue"/>
+
+                <TextBlock x:Name="SPCLoad_DescriptionText" Grid.Row="2" Width="1400" Style="{StaticResource LoadScreenTextBlockStyle}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" Visibility="Visible">
+                    In the late sixteenth century, the Knights of St. John defended their last stronghold on the Mediterranean island of Malta from an ottoman invasion. In the late sixteenth century, the Knights of St. John defended their last stronghold on the Mediterranean island of Malta from an ottoman invasion.
+                </TextBlock>
+
+                <Image x:Name="Demo_Map" Grid.RowSpan="4" Height="1080" Width="1920" Margin="0,0,0,0" Opacity="0" Source="/resources/images/demo/demo_map.png"/>
+
+                <ProgressBar x:Name="DefaultProgressBar" Grid.Row="3" Height="35" Width="1000" Value="30" Foreground="Black"/>
+
+            </Grid>
+        </Grid>
+    </Viewbox>
+</Window>

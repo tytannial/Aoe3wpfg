@@ -1,0 +1,47 @@
+﻿<Window x:Class="aoe3wpfg.pages.uimainnew.RestartDialog"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:aoe3wpfg"
+      mc:Ignorable="d" 
+      Title="RestartDialog" Height="1080" Width="1920"
+        Style="{StaticResource WindowStyle}">
+    <Viewbox Style="{StaticResource ViewboxMain}">
+
+        <Grid x:Name="mainGridPanel" Height="1080" Width="1920">
+
+            <ContentControl Template="{StaticResource ScreenBlur}" />
+
+            <Grid Width="850" Height="{Binding ElementName=ContentStack, Path=ActualHeight}" Style="{StaticResource PopupGrid}">
+                <ContentControl Template="{StaticResource PanelBG_Titled}" Margin="-10,-50,-10,-90" />
+                <StackPanel x:Name="ContentStack" HorizontalAlignment="Center" VerticalAlignment="Center" Width="800">
+
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Grid Width="750" Margin="0,0">
+                            <TextBlock x:Name="title_label" Style="{StaticResource ConfirmationTitlesStyle}" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,-12,0,0" MaxWidth="750" Text="$$20142$$Restart"/>
+                        </Grid>
+                    </StackPanel>
+
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,20">
+                        <Grid Width="750" Margin="0,20">
+                            <Rectangle Grid.Row="2" Style="{StaticResource PanelBGSection}" Margin="-10,-20"/>
+                            <TextBlock x:Name="RestartDialog_text" Style="{StaticResource CampaignRegularTextBlockStyle}" TextAlignment="Center" FontSize="24" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,0" MaxWidth="750" TextWrapping="Wrap"
+                                   Text="$$21141$$Restart Current Game?" />
+                        </Grid>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <local:Age3Button x:Name="RestartDialog_YesButton" Style="{StaticResource MainMenuButton}" Width="350" Content="$$18451$$Yes" ConsoleCommand="gadgetUnreal(&quot;RestartDialog&quot;) restartCurrentGame" TabIndex="1">
+                            <Button.ToolTip>$$71263$$>Restart the current game.</Button.ToolTip>
+                        </local:Age3Button>
+                        <local:Age3Button x:Name="RestartDialog_NoButton" Style="{StaticResource MainMenuButton}" Width="350" Margin="50,0,0,0" Content="$$18452$$No" ConsoleCommand="gadgetUnreal(&quot;RestartDialog&quot;)" TabIndex="2">
+                            <Button.ToolTip>$$90162$$Cancel current action.</Button.ToolTip>
+                        </local:Age3Button>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+
+        </Grid>
+    </Viewbox>
+</Window>

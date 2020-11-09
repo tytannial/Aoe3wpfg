@@ -1,0 +1,440 @@
+﻿<Page x:Class="aoe3wpfg.uimpesofriends" 
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:local="clr-namespace:aoe3wpfg"
+        xmlns:componentmodel="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+        mc:Ignorable="d" 
+        Title="uimpesofriends" >
+
+    <Page.Resources>
+        <local:Age3FriendsViewModel x:Key="ViewModel" />
+
+        <Style x:Key="{x:Type TabPanel}" TargetType="TabPanel">
+            <Setter Property="HorizontalAlignment" Value="Center" />
+        </Style>
+
+        <Style x:Key="{x:Type TabControl}" TargetType="{x:Type TabControl}">
+            <Setter Property="SnapsToDevicePixels" Value="True" />
+            <Setter Property="Background" Value="#800e0b0b" />
+            <Setter Property="BorderBrush" Value="#8049381f" />
+            <Setter Property="BorderThickness" Value="4" />
+            <Setter Property="Padding" Value="10"/>
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TabControl}">
+                        <Grid KeyboardNavigation.TabNavigation="Local" Background="Transparent" HorizontalAlignment="Stretch">
+                            <Grid x:Name="templateRoot" ClipToBounds="True" SnapsToDevicePixels="True" KeyboardNavigation.TabNavigation="Local">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition x:Name="ColumnDefinition0"/>
+                                    <ColumnDefinition x:Name="ColumnDefinition1" Width="0"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition x:Name="RowDefinition0" Height="Auto"/>
+                                    <RowDefinition x:Name="RowDefinition1" Height="*"/>
+                                </Grid.RowDefinitions>
+                                <TabPanel x:Name="HeaderPanel" Background="Transparent" Grid.Column="0" IsItemsHost="True" Margin="2,2,2,0" Grid.Row="0" KeyboardNavigation.TabIndex="1" Panel.ZIndex="1"/>
+                                <Border x:Name="ContentPanel" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" 
+                                    Background="{TemplateBinding Background}" Grid.Column="0" Grid.Row="1" CornerRadius="5"
+                                    KeyboardNavigation.DirectionalNavigation="Contained" KeyboardNavigation.TabIndex="2" KeyboardNavigation.TabNavigation="Local">
+                                    <ContentPresenter x:Name="PART_SelectedContentHost" 
+                                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                        ContentTemplate="{TemplateBinding SelectedContentTemplate}" Content="{TemplateBinding SelectedContent}" 
+                                        ContentStringFormat="{TemplateBinding SelectedContentStringFormat}" ContentSource="SelectedContent" 
+                                        Margin="{TemplateBinding Padding}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                                </Border>
+                            </Grid>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="TextElement.Foreground" TargetName="templateRoot" Value="{StaticResource DisabledForegroundBrush}"/>
+                                <Setter TargetName="ContentPanel" Property="BorderBrush" Value="{StaticResource DisabledBorderBrush}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="TabItem" x:Key="{x:Type TabItem}" >
+            <Setter Property="Margin" Value="0,3,0,0" />
+            <Setter Property="FontFamily" Value="Trajan Pro" />
+            <Setter Property="Height" Value="35" />
+            <Setter Property="FontSize" Value="18" />
+            <Setter Property="Foreground" Value="{StaticResource ButtonTextGradient}" />
+            <Setter Property="Width" Value="250" />
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect BlurRadius="10" Color="Black" Direction="-90" ShadowDepth="1.5" RenderingBias="Quality" />
+                </Setter.Value>
+            </Setter>
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TabItem}">
+                        <Grid>
+                            <Border Name="Border" Margin="5,0,0,0" Background="Transparent" BorderThickness="2" CornerRadius="4">
+                                <ContentPresenter x:Name="ContentSite" VerticalAlignment="Center" HorizontalAlignment="Center" ContentSource="Header" Margin="12,2,12,2" RecognizesAccessKey="True"/>
+                                <Border.BorderBrush>
+                                    <LinearGradientBrush StartPoint="0,0.5" EndPoint="1,0.5">
+                                        <LinearGradientBrush.GradientStops>
+                                            <GradientStopCollection>
+                                                <GradientStop Color="#4f4731" Offset="0.0" />
+                                                <GradientStop Color="#b79f66" Offset="0.5" />
+                                                <GradientStop Color="#4f4731" Offset="1.0" />
+                                            </GradientStopCollection>
+                                        </LinearGradientBrush.GradientStops>
+                                    </LinearGradientBrush>
+                                </Border.BorderBrush>
+                            </Border>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Panel.ZIndex" Value="100" />
+                                <Setter TargetName="Border" Property="Background" Value="#5c441d" />
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="False">
+                                <Setter Property="Panel.ZIndex" Value="-100" />
+                                <Setter TargetName="Border" Property="Background" Value="#36270f" />
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="Border" Property="Background" Value="DarkRed" />
+                                <Setter TargetName="Border" Property="BorderBrush" Value="Black" />
+                                <Setter Property="Foreground" Value="DarkGray" />
+                            </Trigger>
+                            <EventTrigger RoutedEvent="PreviewMouseDown">
+                                <SoundPlayerAction Source="resources/audio/smallbutton.wav" />
+                            </EventTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        
+        <!-- Friend Template-->
+        <DataTemplate x:Key="FriendTemplate" DataType="{x:Type local:Age3ProfileInfo}">
+            <local:Age3KeyboardFocusBorder>
+                <Border x:Name="Border" CornerRadius="4" Margin="0,1" >
+                    <Border.ContextMenu>
+                        <ContextMenu Tag="{Binding }" Style="{StaticResource ProfileContextMenu}"/>
+                    </Border.ContextMenu>
+                    <Border.Resources>
+                        <Style x:Key="{x:Type TextBlock}" TargetType="TextBlock" BasedOn="{StaticResource RegularTextBlockStyle}">
+                            <Setter Property="Foreground" Value="White"/>
+                        </Style>
+                        <Style x:Key="{x:Type Image}" TargetType="Image">
+                            <Setter Property="Width" Value="25"/>
+                            <Setter Property="Height" Value="25"/>
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                        </Style>
+                    </Border.Resources>
+                    <Grid Height="45">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Button Grid.Column="0" Content="{Binding ViewProfile}" Style="{StaticResource ProfileActionButton}"/>
+                        <TextBlock Text="{Binding Alias}" Grid.Column="1" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                        <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0">
+                            <StackPanel Name="Commands" Orientation="Horizontal" >
+                                <!-- these buttons automatically appear when they are allowed actions, other actions may be available 
+                                on the context menu -->
+                                <Button Content="{Binding SendFriendReq}" Style="{StaticResource ProfileActionButton}"/>
+                                <Button Content="{Binding CancelFriendReq}" Style="{StaticResource ProfileActionButton}"/>
+                                <Button Content="{Binding AcceptFriendReq}" Style="{StaticResource ProfileActionButton}"/>
+                                <Button Content="{Binding DeclineFriendReq}" Style="{StaticResource ProfileActionButton}"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+            </local:Age3KeyboardFocusBorder>
+        </DataTemplate>
+
+        <!-- Blocked Template-->
+        <DataTemplate x:Key="BlockedTemplate" DataType="{x:Type local:Age3ProfileInfo}">
+            <local:Age3KeyboardFocusBorder>
+                <Border x:Name="Border" CornerRadius="4" Margin="0,1" >
+                    <Border.ContextMenu>
+                        <ContextMenu Tag="{Binding }" Style="{StaticResource ProfileContextMenu}"/>
+                    </Border.ContextMenu>
+                    <Border.Resources>
+                        <Style x:Key="{x:Type TextBlock}" TargetType="TextBlock" BasedOn="{StaticResource RegularTextBlockStyle}">
+                            <Setter Property="Foreground" Value="White"/>
+                        </Style>
+                        <Style x:Key="{x:Type Image}" TargetType="Image">
+                            <Setter Property="Width" Value="25"/>
+                            <Setter Property="Height" Value="25"/>
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                        </Style>
+                    </Border.Resources>
+                    <Grid Height="45">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Button Grid.Column="0" Content="{Binding ViewProfile}"  Style="{StaticResource ProfileActionButton}"/>
+                        <TextBlock Text="{Binding Alias}" Grid.Column="1" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                        <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0">
+                            <StackPanel Name="Commands" Orientation="Horizontal" >
+                                <!-- these buttons automatically appear when they are allowed actions, other actions may be available 
+                            on the context menu -->
+                                <Button Content="{Binding UnblockUser}" Style="{StaticResource ProfileActionButton}"/>
+                                <Button Content="{Binding UnmuteUser}" Style="{StaticResource ProfileActionButton}"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+            </local:Age3KeyboardFocusBorder>
+        </DataTemplate>
+
+        <!-- Last Played Template-->
+        <DataTemplate x:Key="LastPlayedTemplate" DataType="{x:Type local:Age3ProfileInfo}">
+            <local:Age3KeyboardFocusBorder>
+                <Border x:Name="Border" CornerRadius="4" Margin="0,1" >
+                    <Border.ContextMenu>
+                        <ContextMenu Tag="{Binding }" Style="{StaticResource ProfileContextMenu}"/>
+                    </Border.ContextMenu>
+                    <Border.Resources>
+                        <Style x:Key="{x:Type TextBlock}" TargetType="TextBlock" BasedOn="{StaticResource RegularTextBlockStyle}">
+                            <Setter Property="Foreground" Value="White"/>
+                        </Style>
+                        <Style x:Key="{x:Type Image}" TargetType="Image">
+                            <Setter Property="Width" Value="25"/>
+                            <Setter Property="Height" Value="25"/>
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                        </Style>
+                    </Border.Resources>
+                    <Grid Height="45">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Button Grid.Column="0" Content="{Binding ViewProfile}" Style="{StaticResource ProfileActionButton}"/>
+                        <TextBlock Text="{Binding Alias}" Grid.Column="1" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                        <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0">
+                            <StackPanel Name="Commands" Orientation="Horizontal" >
+                                <!-- these buttons automatically appear when they are allowed actions, other actions may be available 
+                            on the context menu -->
+                                <Button Content="{Binding SendFriendReq}" Style="{StaticResource ProfileActionButton}"/>
+                                <Button Content="{Binding MuteUser}" Style="{StaticResource ProfileActionButton}"/>
+                                <Button Content="{Binding UnmuteUser}" Style="{StaticResource ProfileActionButton}"/>
+                                <Button Content="{Binding BlockUser}" Style="{StaticResource ProfileActionButton}"/>
+                                <Button Content="{Binding UnblockUser}" Style="{StaticResource ProfileActionButton}"/>
+                                <Button Content="{Binding ReportUser}" Style="{StaticResource ProfileActionButton}"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+            </local:Age3KeyboardFocusBorder>
+        </DataTemplate>
+
+        <!-- all lists display profiles -->
+        <Style x:Key="{x:Type ItemsControl}" TargetType="ItemsControl">
+            <Setter Property="ItemTemplate" Value="{StaticResource FriendTemplate}"/>
+            <Setter Property="Focusable" Value="False"/>
+        </Style>
+
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+
+        <!-- any groups start expanded -->
+        <Style x:Key="{x:Type Expander}" TargetType="Expander" BasedOn="{StaticResource {x:Type Expander}}">
+            <Setter Property="IsExpanded" Value="True"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Count}" Value="0">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </Page.Resources>
+
+    <Grid DataContext="{StaticResource ViewModel}">
+        <ContentControl Grid.Row="0" Template="{StaticResource ScreenBlur}" />
+        <!--Friends List-->
+        <Grid Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Stretch" Width="800" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="10" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="10" />
+            </Grid.RowDefinitions>
+
+            <!--LOADING-->
+            <StackPanel Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="{Binding LoadingVisible}" >
+                <StackPanel Orientation="Horizontal">
+                    <StackPanel.Triggers>
+                        <EventTrigger RoutedEvent="Rectangle.Loaded">
+                            <BeginStoryboard>
+                                <Storyboard Name="loadAnimation" RepeatBehavior="Forever">
+                                    <DoubleAnimation Storyboard.TargetName="Dot1" BeginTime="0:0:0.1" Storyboard.TargetProperty="Opacity" From=".1" To="1" AutoReverse="True" Duration="0:0:0.5"/>
+                                    <DoubleAnimation Storyboard.TargetName="Dot2" BeginTime="0:0:0.2" Storyboard.TargetProperty="Opacity" From=".1" To="1" AutoReverse="True" Duration="0:0:0.5"/>
+                                    <DoubleAnimation Storyboard.TargetName="Dot3" BeginTime="0:0:0.3" Storyboard.TargetProperty="Opacity" From=".1" To="1" AutoReverse="True" Duration="0:0:0.5"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </StackPanel.Triggers>
+
+                    <TextBlock TextAlignment="Center" HorizontalAlignment="Center" Style="{StaticResource CampaignTitleTextBlockStyle}">
+                        <TextBlock.Text>$$22605$$Loading</TextBlock.Text>
+                    </TextBlock>
+
+                    <Ellipse Name="Dot1" VerticalAlignment="Bottom" Fill="{StaticResource ButtonTextGradient}" Opacity=".1" Width="6" Height="6" Margin="4,0,0,8"/>
+                    <Ellipse Name="Dot2" VerticalAlignment="Bottom" Fill="{StaticResource ButtonTextGradient}" Opacity=".1" Width="6" Height="6" Margin="2,0,0,8"/>
+                    <Ellipse Name="Dot3" VerticalAlignment="Bottom" Fill="{StaticResource ButtonTextGradient}" Opacity=".1" Width="6" Height="6" Margin="2,0,0,8"/>
+                </StackPanel>
+
+                <StackPanel Visibility="{Binding ErrorVisible}">
+                    <TextBlock TextAlignment="Center" HorizontalAlignment="Center" Style="{StaticResource CampaignTitleTextBlockStyle}">
+                        <TextBlock.Text>$$22644$$An error has occurred.</TextBlock.Text>
+                    </TextBlock>
+                    <Button Style="{StaticResource MainMenuButton}" Margin="10" Width="300">$$21130$$Refresh</Button>
+                </StackPanel>
+            </StackPanel>
+
+            <!--ERROR-->
+            <StackPanel Grid.Row="1" Visibility="{Binding ErrorVisible}" VerticalAlignment="Center">
+                <TextBlock TextAlignment="Center" HorizontalAlignment="Center" Style="{StaticResource CampaignTitleTextBlockStyle}">
+                    <TextBlock.Text>$$22644$$An error has occurred.</TextBlock.Text>
+                </TextBlock>
+                <Button Style="{StaticResource MainMenuButton}" Margin="10" Width="300">$$21130$$Refresh</Button>
+            </StackPanel>
+
+            <!--Tab Panels-->
+            <TabControl Grid.Row="1" Visibility="{Binding ResultsVisible}" Margin="8,0,8,0">
+                <TabControl.Resources>
+                    <Style x:Key="{x:Type TabPanel}" TargetType="TabPanel">
+                        <Setter Property="HorizontalAlignment" Value="Center" />
+                    </Style>
+                    <Style x:Key="{x:Type TextBlock}" TargetType="TextBlock" BasedOn="{StaticResource RegularTextBlockStyle}"/>
+                </TabControl.Resources>
+                <!--Friends-->
+                <TabItem>
+                    <TabItem.Header>
+                        <TextBlock Text="$$20022$$Friends" ToolTip="$$70818$$View all players from your friends list." Style="{StaticResource RegularTextBlockStyle}"/>
+                    </TabItem.Header>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <Grid Grid.Row="0" >
+                            <ScrollViewer VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled">
+                                <StackPanel DataContext="{StaticResource ViewModel}">
+                                    <!-- margin to indent names -->
+                                    <Expander DataContext="{Binding SentFriendRequests}">
+                                        <Expander.Header>
+                                            <TextBlock Text="$$71476$$Sent Requests">
+                                                <TextBlock.ToolTip>$$71477$$</TextBlock.ToolTip>
+                                            </TextBlock>
+                                        </Expander.Header>
+                                        <ItemsControl Margin="40,0,0,0" ItemsSource="{Binding }"/>
+                                    </Expander>
+                                    <Expander DataContext="{Binding FriendRequests}">
+                                        <Expander.Header>
+                                            <TextBlock Text="$$71478$$Friend Requests" >
+                                                <TextBlock.ToolTip>$$71479$$</TextBlock.ToolTip>
+                                            </TextBlock>
+                                        </Expander.Header>
+                                        <ItemsControl Margin="40,0,0,0" ItemsSource="{Binding }"/>
+                                    </Expander>
+                                    <Expander DataContext="{Binding Friends}">
+                                        <Expander.Header>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="$$71480$$Friends" >
+                                                    <TextBlock.ToolTip>$$71481$$</TextBlock.ToolTip>
+                                                </TextBlock>
+                                            </StackPanel>
+                                        </Expander.Header>
+                                        <ItemsControl Margin="40,0,0,0" ItemsSource="{Binding }"/>
+                                    </Expander>
+                                    <Expander DataContext="{Binding XBL}">
+                                        <Expander.Header>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="$$71482$$Xbox Live" />
+                                                <Image Width="20" Height="20" Margin="5,0,0,0" Source="/resources/images/logo/Xbox_logo.png"/>
+                                                <StackPanel.ToolTip>$$71483$$</StackPanel.ToolTip>
+                                            </StackPanel>
+                                        </Expander.Header>
+                                        <ItemsControl Margin="40,0,0,0" ItemsSource="{Binding }"/>
+                                    </Expander>
+                                    <Expander DataContext="{Binding Steam}">
+                                        <Expander.Header>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="$$71484$$Steam" />
+                                                <Image Width="20" Height="20" Margin="5,0,0,0" Source="/resources/images/logo/Web_logo.png"/>
+                                                <StackPanel.ToolTip>$$71485$$</StackPanel.ToolTip>
+                                            </StackPanel>
+                                        </Expander.Header>
+                                        <ItemsControl Margin="40,0,0,0" ItemsSource="{Binding }"/>
+                                    </Expander>
+                                </StackPanel>
+                            </ScrollViewer>
+                        </Grid>
+                    </Grid>
+                </TabItem>
+
+                <!--Pest-->
+                <TabItem>
+                    <TabItem.Header>
+                        <TextBlock Text="$$70816$$Blocked" ToolTip="$$70819$$View all muted/blocked players from your pest list." Style="{StaticResource RegularTextBlockStyle}"/>
+                    </TabItem.Header>
+                    <Grid Grid.Row="0" >
+                        <ScrollViewer VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled">
+                            <ItemsControl ItemsSource="{Binding Blocked}" ItemTemplate="{StaticResource BlockedTemplate}"/>
+                        </ScrollViewer>
+                    </Grid>
+                </TabItem>
+
+                <!--Last Played-->
+                <TabItem x:Name="LastPlayed_Button">
+                    <TabItem.Header>
+                        <TextBlock Text="$$70807$$Last Played" ToolTip="$$70820$$View all players who you recently played with." Style="{StaticResource RegularTextBlockStyle}" />
+                    </TabItem.Header>
+                    <TabItem.Content>
+                        <ScrollViewer VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled">
+                            <ItemsControl ItemsSource="{Binding RecentlyPlayed}" ItemTemplate="{StaticResource LastPlayedTemplate}"/>
+                        </ScrollViewer>
+                    </TabItem.Content>
+                </TabItem>
+            </TabControl>
+
+        </Grid>
+
+        <!--Invalid player popup-->
+        <Grid x:Name="invalidPlayer" Height="400" Visibility="Hidden">
+            <Grid.Background>
+                <ImageBrush ImageSource="/resources/message_bg.png" />
+            </Grid.Background>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30" />
+                <RowDefinition Height="75" />
+                <RowDefinition Height="240" />
+                <RowDefinition Height="40" />
+            </Grid.RowDefinitions>
+
+            <TextBlock Style="{StaticResource ConfirmationTitlesStyle}" VerticalAlignment="Center">
+                    $$70808$$Unable to find player
+            </TextBlock>
+
+            <StackPanel Grid.Row="2">
+                <TextBlock FontFamily="Trajan Pro" FontSize="25" TextAlignment="Center" Padding="10" Margin="0,50,0,0" Foreground="White">
+                        $$70809$$Player ID does not exist, please try again.
+                </TextBlock>
+                <Button x:Name="btn_confirm" Style="{StaticResource MainMenuButton}" Margin="0,50,0,0" Width="400" Content="$$18465$$OK" />
+            </StackPanel>
+        </Grid>
+    </Grid>
+
+</Page>

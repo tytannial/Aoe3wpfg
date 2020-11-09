@@ -1,0 +1,538 @@
+﻿<Window x:Class="aoe3wpfg.uiartofwar"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:aoe3wpfg"
+        mc:Ignorable="d"
+        Style="{StaticResource WindowStyle}">
+
+    <Window.Resources>
+        <Style TargetType="TextBlock" x:Key="MainTitleTextBlockStyle">
+            <Setter Property="FontFamily" Value="Trajan Pro" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="FontSize" Value="50" />
+            <Setter Property="Foreground" Value="{StaticResource TitleGradient}" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect BlurRadius="3" Color="Black" Direction="-90" ShadowDepth="3" RenderingBias="Quality" />
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="TextBlock" x:Key="subTitle">
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="TextAlignment" Value="Center"/>
+            <Setter Property="Width" Value="320"/>
+            <Setter Property="FontFamily" Value="Trajan Pro" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="Foreground" Value="#dbd5c3" />
+            <Setter Property="FontSize" Value="25" />
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="Margin" Value="0,20,0,0"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect BlurRadius="3" Color="Black" Direction="-90" ShadowDepth="3" RenderingBias="Quality" />
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="TextBlock" x:Key="RegularTextBlockStyle">
+            <Setter Property="FontFamily" Value="Trajan Pro" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="FontSize" Value="20" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="TextAlignment" Value="Left"/>
+            <Setter Property="Margin" Value="5,0,0,0"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="Width" Value="260"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect BlurRadius="3" Color="Black" Direction="-90" ShadowDepth="3" RenderingBias="Quality" />
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="{x:Type Button}" x:Key="movieButton">
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="FontFamily" Value="Trajan Pro"/>
+            <Setter Property="FontFamily" Value="Trajan Pro"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="RenderTransformOrigin" Value="0.5, 0.5" />
+            <Setter Property="RenderTransform">
+                <Setter.Value>
+                    <ScaleTransform ScaleX="1" ScaleY="1" />
+                </Setter.Value>
+            </Setter>
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Grid Height="50" Width="280" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="230"/>
+                                <ColumnDefinition Width="50"/>
+                            </Grid.ColumnDefinitions>
+                            
+                            <Grid Grid.Column="0" Grid.ColumnSpan="2" Name="buttoncontainer" RenderTransformOrigin="0.5, 0.5">
+                                <Grid.RenderTransform>
+                                    <ScaleTransform ScaleX="1" ScaleY="1" />
+                                </Grid.RenderTransform>
+                                <Rectangle Name="glow1" Fill="Yellow" Opacity="0"/>
+                                <Rectangle Name="background" Fill="{Binding BackgroundImage}"/>
+                                <Rectangle Name="glow2" Fill="White" Opacity="0"/>
+
+                                <Rectangle Name="disableoverlay" Fill="#FF9C9C9C" Opacity="0"/>
+                            </Grid>
+                            <TextBlock Grid.Column="0" Name="ButtonText" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" Foreground="{StaticResource ButtonTextGradient}" Width="230" TextWrapping="Wrap" Text="{TemplateBinding Content}">
+                                <TextBlock.Effect>
+                                    <DropShadowEffect BlurRadius="3" Color="Black" Direction="-90" ShadowDepth="1.7" RenderingBias="Quality" />
+                                </TextBlock.Effect>
+                            </TextBlock>
+                            <Image Grid.Column="1" HorizontalAlignment="Right" Source="/resources/images/campaignmenu/levels/lvltype_2.png"/>
+                        </Grid>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="buttoncontainer" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)" To="1.04" Duration="0:0:.2" />
+                                            <DoubleAnimation Storyboard.TargetName="buttoncontainer" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)" To="1.04" Duration="0:0:.2" />
+                                            <DoubleAnimation Storyboard.TargetName="glow1" Storyboard.TargetProperty="Opacity" To="1"/>
+                                            <DoubleAnimation Storyboard.TargetName="glow2" Storyboard.TargetProperty="Opacity" To="0.1" Duration="0:0:.6" RepeatBehavior="Forever" AutoReverse="True" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                    <SoundPlayerAction Source="resources/audio/mouseover_campaign.wav" />
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="buttoncontainer" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)" To="1" Duration="0:0:.2" />
+                                            <DoubleAnimation Storyboard.TargetName="buttoncontainer" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)" To="1" Duration="0:0:.2" />
+                                            <DoubleAnimation Storyboard.TargetName="glow1" Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:.2" />
+                                            <DoubleAnimation Storyboard.TargetName="glow2" Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:.2" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                                <Setter TargetName="ButtonText" Property="Foreground" Value="{StaticResource ButtonTextGradientOver}" />
+                            </Trigger>
+
+                            <Trigger Property="IsPressed" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="buttoncontainer" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)" To="1" Duration="0:0:.05" />
+                                            <DoubleAnimation Storyboard.TargetName="buttoncontainer" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)" To="1" Duration="0:0:.05" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                    <SoundPlayerAction Source="resources/audio/bigbutton.wav" />
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="buttoncontainer" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)" To="1.03" Duration="0:0:.05" />
+                                            <DoubleAnimation Storyboard.TargetName="buttoncontainer" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)" To="1.03" Duration="0:0:.05" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                                <Setter TargetName="ButtonText" Property="Foreground" Value="{StaticResource ButtonTextGradientOver}" />
+                            </Trigger>
+
+                            <Trigger Property="Button.IsFocused" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="buttoncontainer" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)" To="1.03" Duration="0:0:.2" />
+                                            <DoubleAnimation Storyboard.TargetName="buttoncontainer" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)" To="1.03" Duration="0:0:.2" />
+                                            <DoubleAnimation Storyboard.TargetName="glow1" Storyboard.TargetProperty="Opacity" To="1"/>
+                                            <DoubleAnimation Storyboard.TargetName="glow2" Storyboard.TargetProperty="Opacity" To="0.1" Duration="0:0:.6" RepeatBehavior="Forever" AutoReverse="True" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                    <SoundPlayerAction Source="resources/audio/mouseover_campaign.wav" />
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="buttoncontainer" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)" To="1" Duration="0:0:.2" />
+                                            <DoubleAnimation Storyboard.TargetName="buttoncontainer" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)" To="1" Duration="0:0:.2" />
+                                            <DoubleAnimation Storyboard.TargetName="glow1" Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:.2" />
+                                            <DoubleAnimation Storyboard.TargetName="glow2" Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:.2" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                                <Setter TargetName="ButtonText" Property="Foreground" Value="{StaticResource ButtonTextGradientOver}" />
+                            </Trigger>
+
+                            <Trigger Property="Button.IsPressed" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="buttoncontainer" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)" To="1" Duration="0:0:.05" />
+                                            <DoubleAnimation Storyboard.TargetName="buttoncontainer" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)" To="1" Duration="0:0:.05" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                    <SoundPlayerAction Source="resources/audio/bigbutton.wav" />
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="buttoncontainer" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)" To="1.03" Duration="0:0:.05" />
+                                            <DoubleAnimation Storyboard.TargetName="buttoncontainer" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)" To="1.03" Duration="0:0:.05" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                                <Setter TargetName="ButtonText" Property="Foreground" Value="{StaticResource ButtonTextGradientOver}" />
+                            </Trigger>
+
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="ButtonText" Property="Foreground" Value="{StaticResource ButtonTextGradient3}" />
+                            </Trigger>
+
+                            <DataTrigger Binding="{Binding IsAvailable}" Value="False">
+                                <Setter TargetName="disableoverlay" Property="Fill" Value="Black" />
+                                <Setter TargetName="disableoverlay" Property="Opacity" Value="0.4" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding IsForceDisabled}" Value="True">
+                                <Setter TargetName="disableoverlay" Property="Fill" Value="Gray" />
+                                <Setter TargetName="disableoverlay" Property="Opacity" Value="0.5" />
+                                <Setter Property="IsHitTestVisible" Value="False" />
+                            </DataTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="{x:Type Button}" x:Key="missionButton">
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="FontFamily" Value="Trajan Pro"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="RenderTransformOrigin" Value="0.5, 0.5" />
+            <Setter Property="RenderTransform">
+                <Setter.Value>
+                    <ScaleTransform ScaleX="1" ScaleY="1" />
+                </Setter.Value>
+            </Setter>
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Grid Height="300" Width="280" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="70"/>
+                            </Grid.RowDefinitions>
+
+                            <Grid Name="buttoncontainer" Grid.Row="0" Grid.RowSpan="2" RenderTransformOrigin="0.5, 0.5">
+                                <Grid.RenderTransform>
+                                    <ScaleTransform ScaleX="1" ScaleY="1" />
+                                </Grid.RenderTransform>
+
+                                <Rectangle Name="glow1" Fill="Yellow" Opacity="0"/>
+                                <Rectangle Name="background" Fill="{Binding BackgroundImage}"/>
+                                <Rectangle Name="glow2" Fill="White" Opacity="0"/>
+                             
+                                <Rectangle Name="disableoverlay" Fill="#FF9C9C9C" Opacity="0"/>
+                                
+                                <Rectangle Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="280" Height="70" Fill="Black" Opacity="0.5"/>
+
+                                <Rectangle Grid.Row="0" Height="3" Fill="{StaticResource ButtonStrokeGradient}" VerticalAlignment="Bottom" Margin="0,0,0,70"/>
+                            </Grid>
+
+                            <Image Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Top" Height="50" Width="50" Source="/resources/images/campaignmenu/levels/lvltype_1.png"/>
+                            <Image HorizontalAlignment="Left" VerticalAlignment="Top" Height="50" Width="50" Source="/resources/images/icons/eso/awards/award_01.png" Visibility="{Binding BronzeUnlocked}"/>
+                            <Image HorizontalAlignment="Left" VerticalAlignment="Top" Height="50" Width="50" Source="/resources/images/icons/eso/awards/award_02.png" Visibility="{Binding SilverUnlocked}"/>
+                            <Image HorizontalAlignment="Left" VerticalAlignment="Top" Height="50" Width="50" Source="/resources/images/icons/eso/awards/award_03.png" Visibility="{Binding GoldUnlocked}"/>
+
+                            <TextBlock x:Name="challengeTitle" Grid.Row="1" Width="260" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" Margin="0,0,0,0" TextWrapping="Wrap" Foreground="{StaticResource ButtonTextGradient}" Text="{TemplateBinding Content}">
+                                <TextBlock.Effect>
+                                    <DropShadowEffect BlurRadius="3" Color="Black" Direction="-90" ShadowDepth="1.7" RenderingBias="Quality" />
+                                </TextBlock.Effect>
+                            </TextBlock>
+                        </Grid>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="Button.IsMouseOver" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="buttoncontainer" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)" To="1.02" Duration="0:0:.2" />
+                                            <DoubleAnimation Storyboard.TargetName="buttoncontainer" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)" To="1.02" Duration="0:0:.2" />
+                                            <DoubleAnimation Storyboard.TargetName="glow1" Storyboard.TargetProperty="Opacity" To="1"/>
+                                            <DoubleAnimation Storyboard.TargetName="glow2" Storyboard.TargetProperty="Opacity" To="0.1" Duration="0:0:.6" RepeatBehavior="Forever" AutoReverse="True" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                    <SoundPlayerAction Source="resources/audio/mouseover_campaign.wav" />
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="buttoncontainer" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)" To="1" Duration="0:0:.2" />
+                                            <DoubleAnimation Storyboard.TargetName="buttoncontainer" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)" To="1" Duration="0:0:.2" />
+                                            <DoubleAnimation Storyboard.TargetName="glow1" Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:.2" />
+                                            <DoubleAnimation Storyboard.TargetName="glow2" Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:.2" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                                <Setter TargetName="challengeTitle" Property="Foreground" Value="{StaticResource ButtonTextGradientOver}" />
+                            </Trigger>
+
+                            <Trigger Property="Button.IsPressed" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="buttoncontainer" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)" To="1" Duration="0:0:.05" />
+                                            <DoubleAnimation Storyboard.TargetName="buttoncontainer" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)" To="1" Duration="0:0:.05" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                    <SoundPlayerAction Source="resources/audio/bigbutton.wav" />
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="buttoncontainer" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)" To="1.02" Duration="0:0:.05" />
+                                            <DoubleAnimation Storyboard.TargetName="buttoncontainer" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)" To="1.02" Duration="0:0:.05" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                                <Setter TargetName="challengeTitle" Property="Foreground" Value="{StaticResource ButtonTextGradientOver}" />
+                            </Trigger>
+
+                            <Trigger Property="Button.IsFocused" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="buttoncontainer" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)" To="1.02" Duration="0:0:.2" />
+                                            <DoubleAnimation Storyboard.TargetName="buttoncontainer" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)" To="1.02" Duration="0:0:.2" />
+                                            <DoubleAnimation Storyboard.TargetName="glow1" Storyboard.TargetProperty="Opacity" To="1"/>
+                                            <DoubleAnimation Storyboard.TargetName="glow2" Storyboard.TargetProperty="Opacity" To="0.1" Duration="0:0:.6" RepeatBehavior="Forever" AutoReverse="True" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                    <SoundPlayerAction Source="resources/audio/mouseover_campaign.wav" />
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="buttoncontainer" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)" To="1" Duration="0:0:.2" />
+                                            <DoubleAnimation Storyboard.TargetName="buttoncontainer" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)" To="1" Duration="0:0:.2" />
+                                            <DoubleAnimation Storyboard.TargetName="glow1" Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:.2" />
+                                            <DoubleAnimation Storyboard.TargetName="glow2" Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:.2" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                                <Setter TargetName="challengeTitle" Property="Foreground" Value="{StaticResource ButtonTextGradientOver}" />
+                            </Trigger>
+
+                            <DataTrigger Binding="{Binding IsAvailable}" Value="False">
+                                <Setter TargetName="challengeTitle" Property="Foreground" Value="{StaticResource ButtonTextGradient3}" />
+                                <Setter TargetName="disableoverlay" Property="Fill" Value="Black" />
+                                <Setter TargetName="disableoverlay" Property="Opacity" Value="0.4" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding IsForceDisabled}" Value="True">
+                                <Setter TargetName="challengeTitle" Property="Foreground" Value="{StaticResource ButtonTextGradient3}" />
+                                <Setter TargetName="disableoverlay" Property="Fill" Value="Gray" />
+                                <Setter TargetName="disableoverlay" Property="Opacity" Value="0.5" />
+                                <Setter Property="IsHitTestVisible" Value="False" />
+                            </DataTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="Rectangle" x:Key="SmokeRect">
+            <Setter Property="Height" Value="512" />
+            <Setter Property="Width" Value="3840" />
+            <Setter Property="Margin" Value="0,50" />
+            <Setter Property="RenderTransformOrigin" Value="0.5, 0.5" />
+            <Setter Property="RenderTransform">
+                <Setter.Value>
+                    <ScaleTransform ScaleX="1" ScaleY="1" />
+                </Setter.Value>
+            </Setter>
+            <Setter Property="RenderTransform">
+                <Setter.Value>
+                    <TranslateTransform X="0" Y="0" />
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <ControlTemplate TargetType="ContentControl" x:Key="SmokeyBG">
+            <Grid Width="5760" Height="1080">
+                <Rectangle x:Name="Smoke1" Style="{StaticResource SmokeRect}" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="5760" Margin="0" Opacity="0.2">
+                    <Rectangle.Fill>
+                        <ImageBrush ImageSource="/resources/images/campaignmenu/smoke.png" Stretch="UniformToFill" TileMode="Tile" Viewport="0,0,1920,512" ViewportUnits="Absolute" />
+                    </Rectangle.Fill>
+                </Rectangle>
+
+                <Rectangle x:Name="Smoke2" Style="{StaticResource SmokeRect}" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="5760" Margin="0" Opacity="0.1">
+                    <Rectangle.Fill>
+                        <ImageBrush ImageSource="/resources/images/campaignmenu/smoke.png" Stretch="UniformToFill" TileMode="Tile" Viewport="0,0,1920,512" ViewportUnits="Absolute" />
+                    </Rectangle.Fill>
+                </Rectangle>
+
+                <Rectangle x:Name="Smoke3" Style="{StaticResource SmokeRect}" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="5760" Margin="0,0,0,-150" Opacity="0.3">
+                    <Rectangle.Fill>
+                        <ImageBrush ImageSource="/resources/images/campaignmenu/smoke.png" Stretch="UniformToFill" TileMode="Tile" Viewport="0,0,1920,512" ViewportUnits="Absolute" />
+                    </Rectangle.Fill>
+                </Rectangle>
+
+            </Grid>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsEnabled" Value="True">
+                    <Trigger.EnterActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetName="Smoke1" Storyboard.TargetProperty="RenderTransform.(TranslateTransform.X)" From="0" BeginTime="0:0:0" To="-1920" Duration="0:1:0" RepeatBehavior="Forever" />
+                                <DoubleAnimation Storyboard.TargetName="Smoke2" Storyboard.TargetProperty="RenderTransform.(TranslateTransform.X)" From="0" BeginTime="-0:2:0" To="-1920" Duration="0:5:0" RepeatBehavior="Forever" />
+                                <DoubleAnimation Storyboard.TargetName="Smoke3" Storyboard.TargetProperty="RenderTransform.(TranslateTransform.X)" From="-1920" BeginTime="0:0:0" To="0" Duration="0:1:0" RepeatBehavior="Forever" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.EnterActions>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+    </Window.Resources>
+
+    <Viewbox Style="{StaticResource ViewboxMain}">
+        <Grid x:Name="mainGridPanel" Width="1920" Height="1080">
+            <Grid Background="{StaticResource campaign_bg1}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0" x:Name="CampaignTitleBar">
+                    <ContentControl Template="{StaticResource Titlebar}" />
+                    <local:Age3Button x:Name="CampaignClose" Style="{StaticResource SubMenuBackButton}" IsCancel="true" VerticalAlignment="Center" HorizontalAlignment="Left">
+                        $$42451$$Back
+                        <Button.ToolTip>$$42451$$Back</Button.ToolTip>
+                    </local:Age3Button>
+                </Grid>
+
+                <ContentControl Grid.Row="1" VerticalAlignment="Bottom" Template="{StaticResource SmokeyBG}" />
+
+                <Grid Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="155"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Style="{StaticResource MainTitleTextBlockStyle}" Grid.Row="0">
+                        $$71323$$Art of War
+                    </TextBlock>
+
+                    <Grid Grid.Row="1" Margin="50,0,50,50">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="360"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Grid Grid.Column="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <!--IF FE are only planning 10 challenges then we can just leave it like this and add the proper text in manually. And then add in the x:name to bind them to code.-->
+                            <StackPanel Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Button x:Name="moveButton1"    Style="{StaticResource movieButton}">Movie Name</Button>
+                                <Button x:Name="missionButton1" Style="{StaticResource missionButton}">2. Treasure and treasure guardians</Button>
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Button x:Name="moveButton2"    Style="{StaticResource movieButton}">Movie Name</Button>
+                                <Button x:Name="missionButton2" Style="{StaticResource missionButton}">3. Home city shipments and trading posts</Button>
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="2" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Button x:Name="moveButton3"    Style="{StaticResource movieButton}">Movie Name</Button>
+                                <Button x:Name="missionButton3" Style="{StaticResource missionButton}">Challenge name Challenge name</Button>
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="3" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Button x:Name="moveButton4"    Style="{StaticResource movieButton}">Movie Name</Button>
+                                <Button x:Name="missionButton4" Style="{StaticResource missionButton}">Challenge name Challenge name</Button>
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="4" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Button x:Name="moveButton5"    Style="{StaticResource movieButton}">Movie Name</Button>
+                                <Button x:Name="missionButton5" Style="{StaticResource missionButton}">Challenge name Challenge name</Button>
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Button x:Name="moveButton6"    Style="{StaticResource movieButton}">Movie Name</Button>
+                                <Button x:Name="missionButton6" Style="{StaticResource missionButton}">Challenge name Challenge name</Button>
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Button x:Name="moveButton7"    Style="{StaticResource movieButton}">Movie Name</Button>
+                                <Button x:Name="missionButton7" Style="{StaticResource missionButton}">Challenge name Challenge name</Button>
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="2" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Button x:Name="moveButton8"    Style="{StaticResource movieButton}">Movie Name</Button>
+                                <Button x:Name="missionButton8" Style="{StaticResource missionButton}">Challenge name Challenge name</Button>
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="3" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Button x:Name="moveButton9"    Style="{StaticResource movieButton}">Movie Name</Button>
+                                <Button x:Name="missionButton9" Style="{StaticResource missionButton}">Challenge name Challenge name</Button>
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="4" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Button x:Name="moveButton10"    Style="{StaticResource movieButton}">Movie Name</Button>
+                                <Button x:Name="missionButton10" Style="{StaticResource missionButton}">Challenge name Challenge name</Button>
+                            </StackPanel>
+                        </Grid>
+
+                        <StackPanel Grid.Column="1" Margin="0,25,0,0">
+                            <Rectangle x:Name="thumbnail" Width="336" Height="400">
+                                <Rectangle.Fill>
+                                    <ImageBrush ImageSource="/resources/images/artofwar/Challenges/Carl_von_Clausewitz.png" Stretch="UniformToFill" TileMode="Tile" Viewport="0,0,336,400" ViewportUnits="Absolute" />
+                                </Rectangle.Fill>
+                            </Rectangle>
+
+                            <TextBlock x:Name="challengeName" Style="{StaticResource subTitle}" Text="Challenge Name"/>
+                            <Rectangle Height="1" Width="320" Fill="White" Margin="0,20,0,20"/>
+
+                            <!--These challenge text will definetly need bindings as it will constant update when players select different challenges.-->
+                            <StackPanel x:Name="goldSection" Width="320" Orientation="Horizontal">
+                                <Image x:Name="goldImage" Width="50" Height="50" Source="/resources/images/icons/eso/awards/award_03.png"/>
+                                <TextBlock x:Name="goldText" Style="{StaticResource RegularTextBlockStyle}">Lose less than 2 units</TextBlock>
+                            </StackPanel>
+                            
+                            <StackPanel x:Name="silverSection" Width="320" Margin="0,20,0,0" Orientation="Horizontal">
+                                <Image x:Name="silverImage" Width="50" Height="50" Source="/resources/images/icons/eso/awards/award_02.png"/>
+                                <TextBlock x:Name="silverText" Style="{StaticResource RegularTextBlockStyle}">Lose less than 6 units</TextBlock>
+                            </StackPanel>
+
+                            <StackPanel x:Name="bronzeSection" Width="320" Margin="0,20,0,0" Orientation="Horizontal">
+                                <Image x:Name="bronzeImage" Width="50" Height="50" Source="/resources/images/icons/eso/awards/award_01.png"/>
+                                <TextBlock x:Name="bronzeText" Style="{StaticResource RegularTextBlockStyle}">Lose less than 10 units</TextBlock>
+                            </StackPanel>
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Viewbox>
+</Window>

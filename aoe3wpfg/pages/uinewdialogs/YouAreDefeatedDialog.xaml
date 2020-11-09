@@ -1,0 +1,34 @@
+﻿<Page x:Class="aoe3wpfg.YouAreDefeatedDialog"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:aoe3wpfg"
+      mc:Ignorable="d" 
+      Title="YouAreDefeatedDialog">
+
+    <Grid Width="1920" Height="1080">
+
+        <ContentControl Template="{StaticResource ScreenBlur}" />
+
+        <Grid Width="850" Height="{Binding ElementName=ContentStack, Path=ActualHeight}">
+            <ContentControl Template="{StaticResource PanelBG_Titled}" Margin="-10,-50,-10,-90" />
+            <StackPanel x:Name="ContentStack" HorizontalAlignment="Center" VerticalAlignment="Center" Width="800">
+
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Grid Width="750" Margin="0,0">
+                        <TextBlock x:Name="YouAreDefeatedDialog_DefeatedText" Style="{StaticResource ConfirmationTitlesStyle}" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,-12,0,0" MaxWidth="750" 
+                                   Text="$$20167$$You Are Defeated"/>
+                    </Grid>
+                </StackPanel>
+
+                <StackPanel Orientation="Vertical" Margin="0,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <local:Age3Button x:Name="YouAreDefeatedDialog_ReplayButton" Style="{StaticResource MainMenuButton}" Width="400" Margin="0,20,0,0" Content="$$20168$$Replay Scenario" ConsoleCommand="gadgetUnreal(&quot;YouAreDefeatedDialog&quot;) restartCurrentGame"/>
+                    <local:Age3Button x:Name="YouAreDefeatedDialog_LoadSavedButton" Style="{StaticResource MainMenuButton}" Width="400" Margin="0,10,0,0" Content="$$19837$$Load Saved Game" ConsoleCommand=""/>
+                    <local:Age3Button x:Name="YouAreDefeatedDialog_MainMenuButton" Style="{StaticResource MainMenuButton}" Width="400" Margin="0,10,0,0" Content="$$18582$$Main Menu" ConsoleCommand="gadgetUnreal(&quot;YouAreDefeatedDialog&quot;) leaveGame"/>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+
+    </Grid>
+</Page>

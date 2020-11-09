@@ -1,0 +1,125 @@
+﻿<Window x:Class="aoe3wpfg.uireportplayer"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:aoe3wpfg"
+        mc:Ignorable="d"
+        Title="uireportplayer"
+        Style="{StaticResource WindowStyle}">
+
+    <Viewbox Style="{StaticResource ViewboxMain}">
+
+        <Grid x:Name="mainGridPanel" Width="1920" Height="1080" Background="{StaticResource multiplayer_bg1}">
+
+            <Grid Width="1920" Height="1080" HorizontalAlignment="Center" VerticalAlignment="Center">
+
+                <!--Screen blur here, this should stay on top of uimultiplayerHUD until the player has selected Cancel Button-->
+                <ContentControl Template="{StaticResource ScreenBlur}" Visibility="Visible"/>
+
+                <ContentControl x:Name="Panel" Template="{StaticResource PanelBG_Titled}" Margin="0,30,0,0" Height="900" Width="1500" />
+
+                <Grid x:Name="ReportPlayer_Container" Height="{Binding Height, ElementName=Panel}" Width="{Binding Width, ElementName=Panel}">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="45" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="50" />
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="35" />
+                        <RowDefinition Height="75" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="200" />
+                        <RowDefinition Height="15"/>
+                        <RowDefinition Height="70" />
+                        <RowDefinition Height="60" />
+                    </Grid.RowDefinitions>
+
+                    <!--Titles-->
+                    <TextBlock x:Name="ReportPlayer_PanelTitle" Style="{StaticResource ConfirmationTitlesStyle}" Grid.Row="1" Grid.Column="1" FontSize="36" VerticalAlignment="Center" Text="$$72244$$ Report Player" Margin="239,21,239,10"/>
+                    <TextBlock x:Name="ReportPlayer_SpecificHeading" Style="{StaticResource ConfirmationTitlesStyle}" Grid.Row="2" Grid.Column="1" FontSize="24" Width="900" TextWrapping="Wrap" TextAlignment="Center" Text="$$72243$$ I would like to report %S for ..." Margin="3,10,2,0"/>
+
+                    <!--Settings-->
+                    <WrapPanel Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" Margin="40,0" HorizontalAlignment="Center">
+                        <WrapPanel.Resources>
+                            <Style TargetType="CheckBox" BasedOn="{StaticResource Checkbox_Medium}">
+                                <Setter Property="Margin" Value="15,0,0,0"/>
+                                <Setter Property="FontSize" Value="21"/>
+                                <Setter Property="Width" Value="600"/>
+                            </Style>
+                        </WrapPanel.Resources>
+
+                        <!-- checkboxes are shown/hidden in code -->
+                        <CheckBox x:Name="ReportPlayer_cbCheating" TabIndex="1">
+                            <TextBlock Text="$$72238$$ cheating"/>
+                        </CheckBox>
+                        <CheckBox x:Name="ReportPlayer_cbGriefing" TabIndex="2">
+                            <TextBlock Text="$$72239$$ griefing"/>
+                        </CheckBox>
+                        <CheckBox x:Name="ReportPlayer_cbInactivity" TabIndex="3">
+                            <TextBlock Text="$$72240$$ inactivity"/>
+                        </CheckBox>
+                        <CheckBox x:Name="ReportPlayer_cbAbuse" TabIndex="4">
+                            <TextBlock Text="$$72241$$ verbal abuse"/>
+                        </CheckBox>
+                        <CheckBox x:Name="ReportPlayer_cbLobbyName" TabIndex="5">
+                            <TextBlock Text="$$72607$$ lobby name"/>
+                        </CheckBox>
+                        <CheckBox x:Name="ReportPlayer_cbPlayerName" TabIndex="6">
+                            <TextBlock Text="$$72609$$ Player Name"/>
+                        </CheckBox>
+                        <CheckBox x:Name="ReportPlayer_cbClanName" TabIndex="7">
+                            <TextBlock Text="$$72604$$ clan name"/>
+                        </CheckBox>
+                        <CheckBox x:Name="ReportPlayer_cbClanTag" TabIndex="8">
+                            <TextBlock Text="$$72605$$ clan tag"/>
+                        </CheckBox>
+                        <CheckBox x:Name="ReportPlayer_cbClanDescription" TabIndex="9">
+                            <TextBlock Text="$$72606$$ clan description"/>
+                        </CheckBox>
+                        <CheckBox x:Name="ReportPlayer_cbChildExploit" TabIndex="10">
+                            <TextBlock Text="$$79916$$ Child sexual exploitation or abuse"/>
+                        </CheckBox>
+                        <CheckBox x:Name="ReportPlayer_cbTerrorism" TabIndex="11">
+                            <TextBlock Text="$$79917$$ Terrorism or violent extremism"/>
+                        </CheckBox>
+                        <CheckBox x:Name="ReportPlayer_cbHateSpeech" TabIndex="12">
+                            <TextBlock Text="$$79918$$ Hate speech"/>
+                        </CheckBox>
+                        <CheckBox x:Name="ReportPlayer_cbHarm" TabIndex="13">
+                            <TextBlock Text="$$79919$$ Imminent harm to persons or property"/>
+                        </CheckBox>
+                        <CheckBox x:Name="ReportPlayer_cbNonConsensual" TabIndex="14">
+                            <TextBlock Text="$$79920$$Non-consensual intimate imagery"/>
+                        </CheckBox>
+
+                        <CheckBox x:Name="ReportPlayer_cbOther" TabIndex="11">
+                            <TextBlock Text="$$72242$$ other"/>
+                        </CheckBox>
+                    </WrapPanel>
+
+                    <local:PreviewTextBox Grid.Row="4" Grid.Column="1" x:Name="ReportPlayer_textOther" Width="1000" Height="150" MaxLength="250" 
+                                          PreviewText="$$70713$$Enter mesage here..." TabIndex="11" 
+                                          VerticalContentAlignment="Top"
+                                          VerticalScrollBarVisibility="Auto"
+                                          Padding="12,8,8,8" 
+                                          AcceptsReturn="True" TextWrapping="Wrap"/>
+
+                    <!--Buttons-->
+                    <Grid Grid.Row="6" Grid.Column="1" VerticalAlignment="Center" Margin="0,10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="40"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Button Grid.Column="0" HorizontalAlignment="Right" x:Name="ReportPlayer_CancelButton" Style="{StaticResource MainMenuButton}" Width="350" Content="$$71992$$Cancel" Margin="0,10,0,0" ToolTip="$$90174$$ Close this dialog." TabIndex="12"/>
+                        <Button Grid.Column="2" HorizontalAlignment="Left" x:Name="ReportPlayer_ConfirmButton" Style="{StaticResource MainMenuButton}" Width="350" Content="$$70980$$Confirm" Margin="0,10,0,0" IsCancel="True" ToolTip="$$72237$$ Confirm report." TabIndex="13"/>
+                    </Grid>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Viewbox>
+</Window>

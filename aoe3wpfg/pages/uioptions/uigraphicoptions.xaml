@@ -1,0 +1,510 @@
+﻿<Page x:Class="aoe3wpfg.pages.uioptions.uigraphicoptions"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:aoe3wpfg"
+      mc:Ignorable="d" 
+      Title="uigraphicoptions" Width="1920" Height="1080">
+
+    <Grid Height="1080" Width="1920">
+
+        <Grid Width="1380" Height="950" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0">
+            <local:Age3PanelBG Stroke="Black" StrokeThickness="8" Margin="18,18,12,14">
+
+                <local:Age3PanelBG.Fill>
+                    <ImageBrush ImageSource="/resources/wood.png"/>
+                </local:Age3PanelBG.Fill>
+                <local:Age3PanelBG.Effect>
+                    <DropShadowEffect Color="Black" Direction="-90" ShadowDepth="3" BlurRadius="30" />
+                </local:Age3PanelBG.Effect>
+            </local:Age3PanelBG>
+            <Rectangle Height="128" VerticalAlignment="Top" Margin="26,90,28,0">
+                <Rectangle.Fill>
+                    <ImageBrush ImageSource="/resources/wood_shadow.png" />
+                </Rectangle.Fill>
+            </Rectangle>
+            <local:Age3PanelBG Fill="Transparent" Stroke="{StaticResource PanelBGStrokeGradient}" StrokeThickness="3" Margin="20"/>
+        </Grid>
+
+        <!--Buttons-->
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="55" Width="630" Margin="0,0,335,160">
+            <!--NOTE: This button needs to be grayed out until a player has made changes to the settings.-->
+            <Button x:Name="RevertButton" Style="{StaticResource MainMenuButton}" Width="200" Content="$$70696$$Revert" Margin="10,0,0,0" TabIndex="25" >
+                <Button.ToolTip>$$70804$$Undo changes in this menu.</Button.ToolTip>
+            </Button>
+            <!--Methods to Apply settings: 1.Select the Apply button. 2.Select the Back button 3.Selectin any other tabs-->
+            <Button x:Name="ApplyButton" Style="{StaticResource MainMenuButton}" Width="200" Content="$$70697$$Apply" Margin="10,0,0,0" TabIndex="26" >
+                <Button.ToolTip>$$41541$$Apply the current options settings.</Button.ToolTip>
+            </Button>
+            <Button x:Name="CancelButton" Style="{StaticResource MainMenuButton}" Width="200" Content="$$18466$$Cancel" Margin="10, 0, 0, 0">
+                <Button.ToolTip>$$90174$$Close this dialog.</Button.ToolTip>
+            </Button>
+        </StackPanel>
+
+        <Grid Width="1380" Height="950" DataContext="{StaticResource optionsProxy}">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="25"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="28"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="65"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="70"/>
+            </Grid.RowDefinitions>
+
+            <!--Title-->
+            <TextBlock Style="{StaticResource ConfirmationTitlesStyle}" Grid.Row="1" Grid.ColumnSpan="4" FontSize="40" VerticalAlignment="Center">
+            $$37086$$Graphics Options
+            </TextBlock>
+
+            <!--Background Panel-->
+            <Rectangle HorizontalAlignment="Left" Height="245" Margin="28,65,0,0" Grid.Row="2" VerticalAlignment="Top" Width="625" Grid.Column="1" Style="{StaticResource PanelBGSection}"/>
+
+            <Rectangle HorizontalAlignment="Left" Height="390" Margin="28,370,0,0" Grid.Row="2" VerticalAlignment="Top" Width="625" Grid.Column="1" Style="{StaticResource PanelBGSection}"/>
+
+            <Rectangle HorizontalAlignment="Left" Height="171" Margin="2,65,0,0" Grid.Row="2" VerticalAlignment="Top" Width="625" Grid.Column="2" Style="{StaticResource PanelBGSection}"/>
+
+            <Rectangle HorizontalAlignment="Left" Height="392" Margin="2,313,0,0" Grid.Row="2" VerticalAlignment="Top" Width="625" Grid.Column="2" Style="{StaticResource PanelBGSection}"/>
+
+
+            <!--Display and Shader Settings-->
+            <Grid Grid.Row="2" Grid.Column="1" Margin="35,0,20,10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="250"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="380"/>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="20"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Style="{StaticResource PageTitleStyle}" Grid.Row="0" FontSize="30" Margin="0,20,0,0" Foreground="White">
+                    $$70766$$Display
+                </TextBlock>
+
+                <TextBlock Style="{StaticResource PageTitleStyle}" Grid.Row="3" FontSize="30" Margin="0,10,0,0" Foreground="White">
+                    $$70768$$Detail
+                </TextBlock>
+
+                <!--Display Settings-->
+                <Grid Grid.Row="2" Margin="10,12,10,8">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="2"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="2"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="2"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Rectangle Grid.Row="1"  Style="{StaticResource filemanager_dividingline}"/>
+                    <Rectangle Grid.Row="3"  Style="{StaticResource filemanager_dividingline}"/>
+                    <Rectangle Grid.Row="5"  Style="{StaticResource filemanager_dividingline}"/>
+
+                    <local:Age3KeyboardFocusBorder Grid.Row="0">
+                        <Grid Height="55">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Style="{StaticResource subInfoLeft}" Margin="0,0,0,0" VerticalAlignment="Center" Width="280" Height="25">
+                            $$37123$$Windowed Mode
+                                <TextBlock.ToolTip>$$37124$$Select to run the game in a window instead of full screen.</TextBlock.ToolTip>
+                            </TextBlock>
+                            <ComboBox Name="WindowModeComboBox" Style="{StaticResource OptionsCombobox}" Grid.Column="1" Height="28" Margin="10,0,0,0" VerticalAlignment="Center" SelectedIndex="{Binding Path=OptionGrfxWindowMode}" TabIndex="8">
+                                <ComboBox.ToolTip>$$37124$$Select to run the game in a window instead of full screen.</ComboBox.ToolTip>
+                                <ComboBoxItem Content="$$90184$$Windowed"/>
+                                <ComboBoxItem Content="$$90186$$Full screen" IsSelected="True"/>
+                            </ComboBox>
+                        </Grid>
+                    </local:Age3KeyboardFocusBorder>
+
+                    <local:Age3KeyboardFocusBorder Grid.Row="2" x:Name="OptionGrfxResolution" Visibility="Collapsed">
+                        <Grid Height="55">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Style="{StaticResource subInfoLeft}" Margin="0,0,0,0"  FlowDirection="LeftToRight" Width="280" Height="25" HorizontalAlignment="Left" VerticalAlignment="Center" >
+                                $$70897$$Resolution
+                                <TextBlock.ToolTip>$$37126$$High resolutions have greater detail but may reduce performance.</TextBlock.ToolTip>
+                            </TextBlock>
+                            <ComboBox Name="ResolutionComboBox" Style="{StaticResource OptionsCombobox}" Grid.Column="1" Height="28" MaxDropDownHeight="500" Margin="10,0,0,0" VerticalAlignment="Center" TabIndex="9">
+                                <ComboBox.ToolTip>$$37126$$High resolutions have greater detail but may reduce performance.</ComboBox.ToolTip>
+                                <ComboBoxItem Content="800 x 600 (32bit) 60Hz"/>
+                                <ComboBoxItem Content="1024 x 768 (32bit) 60Hz"/>
+                                <ComboBoxItem Content="1152 x 864 (32bit) 60Hz"/>
+                                <ComboBoxItem Content="1176 x 664 (32bit) 60Hz"/>
+                                <ComboBoxItem Content="1280 x 720 (32bit) 60Hz"/>
+                                <ComboBoxItem Content="1280 x 768 (32bit) 60Hz"/>
+                                <ComboBoxItem Content="1280 x 800 (32bit) 60Hz"/>
+                                <ComboBoxItem Content="1280 x 960 (32bit) 60Hz"/>
+                                <ComboBoxItem Content="1280 x 1024 (32bit) 60Hz"/>
+                                <ComboBoxItem Content="1360 x 768 (32bit) 60Hz"/>
+                                <ComboBoxItem Content="1366 x 768 (32bit) 60Hz"/>
+                                <ComboBoxItem Content="1600 x 900 (32bit) 60Hz"/>
+                                <ComboBoxItem Content="1600 x 1024 (32bit) 60Hz"/>
+                                <ComboBoxItem Content="1680 x 1050 (32bit) 60Hz"/>
+                                <ComboBoxItem Content="1768 x 992 (32bit) 60Hz"/>
+                                <ComboBoxItem Content="1920 x 1080 (32bit) 60Hz" IsSelected="True"/>
+                            </ComboBox>
+                        </Grid>
+                    </local:Age3KeyboardFocusBorder>
+
+                    <local:Age3KeyboardFocusBorder Grid.Row="2" x:Name="OptionGrfxResolutionScale" Visibility="Visible">
+                        <Grid Height="55">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Style="{StaticResource subInfoLeft}" Margin="0,0,0,0"  FlowDirection="LeftToRight" Width="280" Height="25" HorizontalAlignment="Left" VerticalAlignment="Center" >
+                                $$72526$$Resolution Scale
+                                <TextBlock.ToolTip>$$72527$$High scales have greater detail but may reduce performance</TextBlock.ToolTip>
+                            </TextBlock>
+                            <ComboBox Name="ResolutionScaleComboBox" Style="{StaticResource OptionsCombobox}" Grid.Column="1" Height="28" MaxDropDownHeight="500" Margin="10,0,0,0" VerticalAlignment="Center" TabIndex="9">
+                                <ComboBox.ToolTip>$$72527$$High resolutions have greater detail but may reduce performance.</ComboBox.ToolTip>
+                                <ComboBoxItem Content="75%"/>
+                                <ComboBoxItem Content="88%"/>
+                                <ComboBoxItem Content="100%" IsSelected="True"/> 
+                            </ComboBox>
+                        </Grid>
+                    </local:Age3KeyboardFocusBorder>
+                    
+                    <local:Age3KeyboardFocusBorder Grid.Row="4" x:Name="OptionGrfxSuperSampling" Visibility="Collapsed">
+                        <Grid Height="55">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Style="{StaticResource subInfoLeft}" Margin="0,0,0,0"  FlowDirection="LeftToRight" Width="280" Height="25" HorizontalAlignment="Left" VerticalAlignment="Center" >
+                                $$70698$$Super Sampling
+                                <TextBlock.ToolTip>$$79859$$If you experience an overheating GPU, reduce the supersampling to 100%. Turning VSYNC on may also help reduce overheating.</TextBlock.ToolTip>
+                            </TextBlock>
+                            <ComboBox Name="SuperSamplingComboBox" Style="{StaticResource OptionsCombobox}" Grid.Column="1" Height="28" MaxDropDownHeight="500" Margin="10,0,0,0" VerticalAlignment="Center" TabIndex="9">
+                                <ComboBox.ToolTip>$$79859$$If you experience an overheating GPU, reduce the supersampling to 100%. Turning VSYNC on may also help reduce overheating.</ComboBox.ToolTip>
+                                <ComboBoxItem Content="100%" IsSelected="True"/>
+                                <ComboBoxItem Content="150%"/>
+                                <ComboBoxItem Content="200%"/>
+                            </ComboBox>
+                        </Grid>
+                    </local:Age3KeyboardFocusBorder>
+
+                    <local:Age3KeyboardFocusBorder Grid.Row="6">
+                        <CheckBox Name="OptionEnableVsync" Style="{StaticResource Checkbox_Options}" HorizontalAlignment="Left" VerticalAlignment="Center" FlowDirection="RightToLeft" Width="590" Height="55" TabIndex="11"  IsChecked="{Binding Path=OptionEnableVsync}">
+                            <TextBlock Text="$$37140$$VSync" TextWrapping="Wrap" FlowDirection="LeftToRight" Width="540"/>
+                            <CheckBox.ToolTip>
+                                <ToolTip FlowDirection="LeftToRight">
+                                    $$37141$$Enable to sync to vertical retrace. Disabling VSync may increase frame rate but cause tearing.
+                                </ToolTip>
+                            </CheckBox.ToolTip>
+                        </CheckBox>
+                    </local:Age3KeyboardFocusBorder>
+                </Grid>
+
+                <!--Shader Settings-->
+                <Grid Grid.Row="5" Margin="10,10,10,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="2"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="2"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="2"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="2"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Rectangle Grid.Row="1"  Style="{StaticResource filemanager_dividingline}"/>
+                    <Rectangle Grid.Row="3"  Style="{StaticResource filemanager_dividingline}"/>
+                    <Rectangle Grid.Row="5"  Style="{StaticResource filemanager_dividingline}"/>
+                    <Rectangle Grid.Row="7"  Style="{StaticResource filemanager_dividingline}"/>
+
+                    <local:Age3KeyboardFocusBorder Grid.Row="0">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Style="{StaticResource subInfoLeft}" Margin="0,0,0,0" VerticalAlignment="Center" Width="280">
+                            $$37095$$Particle Quality
+                                <TextBlock.ToolTip>$$37096$$High quality settings will produce more detailed particle effects, like smoke and splashes, while low settings will increase performance.</TextBlock.ToolTip>
+                            </TextBlock>
+                            <ComboBox Name="OptionGrfxParticleQuality" Style="{StaticResource OptionsCombobox}" Grid.Column="1" Height="25" Margin="10,0,0,0" VerticalAlignment="Center" SelectedIndex="{Binding Path=OptionGrfxParticleQuality}" TabIndex="12">
+                                <ComboBox.ToolTip>$$37096$$High quality settings will produce more detailed particle effects, like smoke and splashes, while low settings will increase performance.</ComboBox.ToolTip>
+                                <ComboBoxItem Content="$$37174$$Low"/>
+                                <ComboBoxItem Content="$$37175$$Normal" IsSelected="True"/>
+                            </ComboBox>
+                        </Grid>
+                    </local:Age3KeyboardFocusBorder>
+
+                    <local:Age3KeyboardFocusBorder Grid.Row="2">
+                        <CheckBox Name="OptionGrfxParticleTracers" Style="{StaticResource Checkbox_Options}" HorizontalAlignment="Left" VerticalAlignment="Center" FlowDirection="RightToLeft" Width="590" Height="60" TabIndex="13"  IsChecked="{Binding Path=OptionGrfxParticleTracers}">
+                            <TextBlock Text="$$37099$$Tracer Effects" TextWrapping="Wrap" FlowDirection="LeftToRight" Width="540"/>
+                            <CheckBox.ToolTip>
+                                <ToolTip FlowDirection="LeftToRight">
+                                    $$37100$$Displays ballistic tracer effects. Disabling may increase performance.
+                                </ToolTip>
+                            </CheckBox.ToolTip>
+                        </CheckBox>
+                    </local:Age3KeyboardFocusBorder>
+
+                    <local:Age3KeyboardFocusBorder Grid.Row="4">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Style="{StaticResource subInfoLeft}" Margin="0,0,0,0" VerticalAlignment="Center" Width="280">
+                            $$37074$$Obscured Units Alpha
+                                <TextBlock.ToolTip>$$37075$$Controls the transparency of units obscured behind other objects.</TextBlock.ToolTip>
+                            </TextBlock>
+                            <StackPanel Orientation="Vertical" Grid.Column="1" VerticalAlignment="Center">
+                                <Slider Name="OptionObscuredUnitAlpha" Height="20" Width="280" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,10,0,0" Value="{Binding Path=OptionObscuredUnitAlpha}" Minimum="0.0" Maximum="100.0" SmallChange="1.0" LargeChange="10.0" TabIndex="14">
+                                    <Slider.ToolTip>$$37075$$Controls the transparency of units obscured behind other objects.</Slider.ToolTip>
+                                </Slider>
+                                <Grid Height="auto">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" Style="{StaticResource subInfoLeft}" HorizontalAlignment="Left" VerticalAlignment="Top" Opacity="0.75">
+                                $$42084$$Min
+                                    </TextBlock>
+                                    <TextBlock Name="OptionObscuredUnitAlphaAmount" Grid.Column="1" Style="{StaticResource subInfoLeft}" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="White">
+                                50%
+                                    </TextBlock>
+                                    <TextBlock Grid.Column="2" Style="{StaticResource subInfoLeft}" HorizontalAlignment="Right" VerticalAlignment="Top" Opacity="0.75">
+                                $$42085$$Max
+                                    </TextBlock>
+                                </Grid>
+                            </StackPanel>
+                        </Grid>
+                    </local:Age3KeyboardFocusBorder>
+
+                    <local:Age3KeyboardFocusBorder Grid.Row="6">
+                        <CheckBox Name="OptionGrfxDynamicLights" Style="{StaticResource Checkbox_Options}" HorizontalAlignment="Left" VerticalAlignment="Center" FlowDirection="RightToLeft" Width="590" Height="60" TabIndex="15"  IsChecked="{Binding Path=OptionGrfxDynamicLights}">
+                            <TextBlock Text="$$70771$$Dynamic Lights" TextWrapping="Wrap" FlowDirection="LeftToRight" Width="540"/>
+                            <CheckBox.ToolTip>
+                                <ToolTip FlowDirection="LeftToRight">
+                                    $$70863$$Enables Dynamic lighting such as torches, lamps and other lighting objects.
+                                </ToolTip>
+                            </CheckBox.ToolTip>
+                        </CheckBox>
+                    </local:Age3KeyboardFocusBorder>
+
+                    <local:Age3KeyboardFocusBorder Grid.Row="8">
+                        <CheckBox Name="OptionGrfxClouds" Style="{StaticResource Checkbox_Options}" HorizontalAlignment="Left" VerticalAlignment="Center" FlowDirection="RightToLeft" Width="590" Height="60" TabIndex="16"  IsChecked="{Binding Path=OptionGrfxClouds}">
+                            <TextBlock Text="$$70772$$Clouds" TextWrapping="Wrap" FlowDirection="LeftToRight" Width="540"/>
+                            <CheckBox.ToolTip>
+                                <ToolTip FlowDirection="LeftToRight">
+                                    $$70864$$Enables clouds displaying shadow effects.
+                                </ToolTip>
+                            </CheckBox.ToolTip>
+                        </CheckBox>
+                    </local:Age3KeyboardFocusBorder>
+                </Grid>
+            </Grid>
+
+            <!--Detail + Texture + Buttons-->
+            <Grid Grid.Row="2" Grid.Column="2" Margin="0,0,20,37">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="180"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="400"/>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="80"/>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="2" Margin="15,12,20,8">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="2"/>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="2"/>
+                        <RowDefinition Height="50"/>
+
+                    </Grid.RowDefinitions>
+
+                    <Rectangle Grid.Row="1"  Style="{StaticResource filemanager_dividingline}"/>
+                    <Rectangle Grid.Row="3"  Style="{StaticResource filemanager_dividingline}"/>
+
+                    <local:Age3KeyboardFocusBorder Grid.Row="0">
+                        <CheckBox Name="OptionEnableBlooms" Style="{StaticResource Checkbox_Options}" HorizontalAlignment="Left" VerticalAlignment="Center" FlowDirection="RightToLeft" Width="590" Height="60" TabIndex="18"  IsChecked="{Binding Path=OptionEnableBlooms}">
+                            <TextBlock Text="$$37144$$Bloom Effect" TextWrapping="Wrap" FlowDirection="LeftToRight" Width="540"/>
+                            <CheckBox.ToolTip>
+                                <ToolTip FlowDirection="LeftToRight">
+                                    $$37145$$Enable to enhance bright areas of world.  Disabling may increase performance.
+                                </ToolTip>
+                            </CheckBox.ToolTip>
+                        </CheckBox>
+                    </local:Age3KeyboardFocusBorder>
+
+                    <local:Age3KeyboardFocusBorder Grid.Row="2">
+                        <CheckBox Name="OptionGrfxSSAO" Style="{StaticResource Checkbox_Options}" HorizontalAlignment="Left" VerticalAlignment="Center" FlowDirection="RightToLeft" Width="590" Height="60" TabIndex="19"  IsChecked="{Binding Path=OptionGrfxSSAO}">
+                            <TextBlock Text="$$70774$$SSAO" TextWrapping="Wrap" FlowDirection="LeftToRight" Width="540"/>
+                            <CheckBox.ToolTip>
+                                <ToolTip FlowDirection="LeftToRight">
+                                    $$70867$$Enables screen space ambient occlusion which allows global illumination in real time.
+                                </ToolTip>
+                            </CheckBox.ToolTip>
+                        </CheckBox>
+                    </local:Age3KeyboardFocusBorder>
+                    <local:Age3KeyboardFocusBorder Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Center" Width="590">
+                        <Grid Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Style="{StaticResource subInfoLeft}" Margin="0,0,0,0" VerticalAlignment="Center" Width="280">
+                            $$72621$$Anti-Aliasing
+                                <TextBlock.ToolTip>$$41679$$High quality anti-alias settings will reduce more jagged edges but also reduce performance. Turn off for best performance.</TextBlock.ToolTip>
+                            </TextBlock>
+                            <ComboBox Name="OptionGrfxAntiAliasing" Style="{StaticResource OptionsCombobox}" Grid.Column="1" Height="25" Margin="10,0,0,0" VerticalAlignment="Center" SelectedIndex="{Binding Path=OptionAntiAliasing}" TabIndex="20">
+                                <ComboBoxItem Content="$$18302$$None"/>
+                                <ComboBoxItem Content="$$72619$$FXAA"/>
+                                <ComboBoxItem Content="$$72620$$Temporal Anti-Aliasing" IsSelected="True"/>
+                            </ComboBox>
+                        </Grid>
+                    </local:Age3KeyboardFocusBorder>
+                </Grid>
+
+                <TextBlock Style="{StaticResource PageTitleStyle}" Grid.Row="0" FontSize="30" Margin="0,20,0,0" Foreground="White">
+                    $$70767$$Post Processing
+                </TextBlock>
+
+                <TextBlock Style="{StaticResource PageTitleStyle}" Grid.Row="3" FontSize="30" Margin="0,15,0,0" Foreground="White">
+                    $$70769$$Quality
+                </TextBlock>
+
+                <Grid Grid.Row="5" Margin="20,10,30,5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="2"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="2"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="2"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="2"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Rectangle Grid.Row="1"  Style="{StaticResource filemanager_dividingline}"/>
+                    <Rectangle Grid.Row="3"  Style="{StaticResource filemanager_dividingline}"/>
+                    <Rectangle Grid.Row="5"  Style="{StaticResource filemanager_dividingline}"/>
+                    <Rectangle Grid.Row="7"  Style="{StaticResource filemanager_dividingline}"/>
+
+                    <local:Age3KeyboardFocusBorder Grid.Row="0">
+                        <Grid Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Style="{StaticResource subInfoLeft}" Margin="0,0,0,0" VerticalAlignment="Center" Width="280">
+                            $$70775$$Foliage
+                                <TextBlock.ToolTip>$$70865$$High quality settings provide more details in plantation, while lower quality settings increase performance.</TextBlock.ToolTip>
+                            </TextBlock>
+                            <ComboBox Name="OptionGrfxFoliageQuality" Style="{StaticResource OptionsCombobox}" Grid.Column="1" Height="25" Margin="10,0,0,0" VerticalAlignment="Center" SelectedIndex="{Binding Path=OptionGrfxFoliageQuality}" TabIndex="20">
+                                <ComboBox.ToolTip>$$70865$$High quality settings provide more details in plantation, while lower quality settings increase performance.</ComboBox.ToolTip>
+                                <ComboBoxItem Content="$$37171$$Low"/>
+                                <ComboBoxItem Content="$$37172$$Medium"/>
+                                <ComboBoxItem Content="$$37173$$High" IsSelected="True"/>
+                            </ComboBox>
+                        </Grid>
+                    </local:Age3KeyboardFocusBorder>
+
+                    <local:Age3KeyboardFocusBorder Grid.Row="2">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Style="{StaticResource subInfoLeft}" Margin="0,0,0,0" VerticalAlignment="Center" Width="280">
+                            $$70776$$Shaders
+                                <TextBlock.ToolTip>$$41648$$High quality settings provide more graphical detail and effects, while lower quality settings increase performance.</TextBlock.ToolTip>
+                            </TextBlock>
+                            <ComboBox Name="OptionGrfxShaderQuality" Style="{StaticResource OptionsCombobox}" Grid.Column="1" Height="25" Margin="10,0,0,0" VerticalAlignment="Center" SelectedIndex="{Binding Path=OptionGrfxShaderQuality}" TabIndex="21">
+                                <ComboBox.ToolTip>$$41648$$High quality settings provide more graphical detail and effects, while lower quality settings increase performance.</ComboBox.ToolTip>
+                                <ComboBoxItem Content="$$37171$$Low"/>
+                                <ComboBoxItem Content="$$37172$$Medium"/>
+                                <ComboBoxItem Content="$$37173$$High" IsSelected="True"/>
+                            </ComboBox>
+                        </Grid>
+                    </local:Age3KeyboardFocusBorder>
+
+                    <local:Age3KeyboardFocusBorder Grid.Row="4">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Style="{StaticResource subInfoLeft}" Margin="0,0,0,0" VerticalAlignment="Center" Width="280">
+                            $$70777$$Water
+                                <TextBlock.ToolTip>$$70866$$High quality settings provide more details in rivers, lakes and oceans, while lower quality settings increase performance.</TextBlock.ToolTip>
+                            </TextBlock>
+                            <ComboBox Name="OptionGrfxWaterQuality" Style="{StaticResource OptionsCombobox}" Grid.Column="1" Height="25" Margin="10,0,0,0" VerticalAlignment="Center" SelectedIndex="{Binding Path=OptionGrfxWaterQuality}" TabIndex="22">
+                                <ComboBox.ToolTip>$$70866$$High quality settings provide more details in rivers, lakes and oceans, while lower quality settings increase performance.</ComboBox.ToolTip>
+                                <ComboBoxItem Content="$$37171$$Low"/>
+                                <ComboBoxItem Content="$$37172$$Medium"/>
+                                <ComboBoxItem Content="$$37173$$High" IsSelected="True"/>
+                            </ComboBox>
+                        </Grid>
+                    </local:Age3KeyboardFocusBorder>
+
+                    <local:Age3KeyboardFocusBorder Grid.Row="6">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Style="{StaticResource subInfoLeft}" Margin="0,0,0,0" VerticalAlignment="Center" Width="280">
+                            $$70778$$Shadows
+                                <TextBlock.ToolTip>$$37107$$High quality settings provide more detailed shadows, while lower quality settings increase performance.</TextBlock.ToolTip>
+                            </TextBlock>
+                            <ComboBox Name="OptionGrfxShadowDetail" Style="{StaticResource OptionsCombobox}" Grid.Column="1" Height="25" Margin="10,0,0,0" VerticalAlignment="Center" SelectedIndex="{Binding Path=OptionGrfxShadowDetail}" TabIndex="23">
+                                <ComboBox.ToolTip>$$37107$$High quality settings provide more detailed shadows, while lower quality settings increase performance.</ComboBox.ToolTip>
+                                <ComboBoxItem Content="$$18547$$Off"/>
+                                <ComboBoxItem Content="$$37172$$Medium"/>
+                                <ComboBoxItem Content="$$37173$$High" IsSelected="True"/>
+                                <ComboBoxItem Content="$$41647$$Very High"/>
+                            </ComboBox>
+                        </Grid>
+                    </local:Age3KeyboardFocusBorder>
+
+                    <local:Age3KeyboardFocusBorder Grid.Row="8">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Style="{StaticResource subInfoLeft}" Margin="0,0,0,0" VerticalAlignment="Center" Width="280">
+                            $$70779$$Textures
+                                <TextBlock.ToolTip>$$37093$$High-resolution textures have more detail, while low-resolution increases performance.</TextBlock.ToolTip>
+                            </TextBlock>
+                            <ComboBox Name="OptionGrfxTextureQuality" Style="{StaticResource OptionsCombobox}" Grid.Column="1" Height="25" Margin="10,0,0,0" VerticalAlignment="Center" SelectedIndex="{Binding Path=OptionGrfxTextureQuality}" TabIndex="24">
+                                <ComboBox.ToolTip>$$37093$$High-resolution textures have more detail, while low-resolution increases performance.</ComboBox.ToolTip>
+                                <ComboBoxItem Content="$$37171$$Low"/>
+                                <ComboBoxItem Content="$$37172$$Medium"/>
+                                <ComboBoxItem Content="$$37173$$High" IsSelected="True"/>
+                            </ComboBox>
+                        </Grid>
+                    </local:Age3KeyboardFocusBorder>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Grid>
+</Page>

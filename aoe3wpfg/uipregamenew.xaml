@@ -1,0 +1,55 @@
+﻿<Window x:Class="aoe3wpfg.uipregamenew" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:local="clr-namespace:aoe3wpfg" mc:Ignorable="d" Style="{StaticResource WindowStyle}">
+    <Window.Resources>
+        <LinearGradientBrush x:Key="DarkGradient" StartPoint="0,1" EndPoint="0,0">
+            <GradientStop Color="#80000000" Offset="0" />
+            <GradientStop Color="#00000000" Offset="0.2" />
+            <GradientStop Color="#00000000" Offset="0.8" />
+            <GradientStop Color="#80000000" Offset="1" />
+        </LinearGradientBrush>
+    </Window.Resources>
+    <Viewbox Style="{StaticResource ViewboxMain}" KeyboardNavigation.DirectionalNavigation="Contained">
+        <Grid x:Name="mainGridPanel" Width="1920" Height="1080">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="245"/>
+                <ColumnDefinition Width="7"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="420"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="0" x:Name="menuStrip">
+                <Rectangle Fill="{StaticResource main_menu_bg}" />
+
+                <Rectangle Fill="{StaticResource DarkGradient}" HorizontalAlignment="Left" Width="245" />
+
+                <Frame Name="ButtonFrame" HorizontalAlignment="Left" Width="250" Grid.Column="0" Focusable="False" NavigationUIVisibility="Hidden" Source="/pages/uipregamenew/MainMenuOptions.xaml" />
+
+                <Image x:Name="Mainmenu_Logo" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,20,0,0" Height="285" Width="230" Source="/resources/aoe3_de_logo.png" />
+
+                <TextBlock x:Name="VersionText" VerticalAlignment="Bottom" HorizontalAlignment="Center" Padding="10" FontFamily="Trajan Pro" FontSize="20" Foreground="#888">Version Number</TextBlock>
+            </Grid>
+            <Grid Grid.Column="1">
+                <Rectangle Width="6" HorizontalAlignment="Left" Margin="0,-5,0,-5" Fill="{StaticResource PanelBGStrokeGradientVertical}" Stroke="Black" StrokeThickness="2" />
+            </Grid>
+            <Grid Grid.Column="3">
+              <Grid VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,0,0,0" Width="420" Height="200">
+                <Grid.RowDefinitions>
+                  <RowDefinition Height="60"/>
+                  <RowDefinition Height="60"/>
+                </Grid.RowDefinitions>
+                <local:Age3Button Grid.Row="0" x:Name="XBLSignIn" Style="{StaticResource MainMenuButton}" HorizontalAlignment="Center" Width="380" Margin="10,10,10,10" Content="$$71031$$Xbox Live Sign In" ConsoleCommand="XBLSignInOut">
+                  <Button.ToolTip>$$71032$$Sign in to Xbox Live.</Button.ToolTip>
+                </local:Age3Button>
+                <StackPanel Grid.Row="1" x:Name="BanMessageTextBox" Visibility="Hidden">
+                  <Rectangle Fill="{StaticResource main_menu_bg}" Margin="10,10,10,10" />
+                  <TextBlock x:Name="BanMessageText" Style="{StaticResource MainTitleTextBlockStyle}" Text="" VerticalAlignment="Center" HorizontalAlignment="Center" Width="380" Margin="10,10,10,10" Foreground="#fff" FontSize="16" TextWrapping="Wrap"/>
+                </StackPanel>
+              </Grid>
+            </Grid>
+            <Grid Grid.Column="2" Grid.ColumnSpan="2" x:Name="demoMessage" Margin="700,880,0,0" Visibility="Hidden">
+                <Rectangle Fill="{StaticResource main_menu_bg}" />
+                <TextBlock x:Name="demoMessageText" Style="{StaticResource MainTitleTextBlockStyle}" VerticalAlignment="Center" MaxWidth="750" TextWrapping="Wrap"
+                                       Text="$$71040$$Pre-Release Software. This game is in a pre-release stage of development. This means that some parts of the game, including features (like chat and multiplayer), might not function as expected (or might not function at all). The game might even crash. Because this is a pre-release game, Microsoft and the developer do not commit to providing customer support for the game." />
+            </Grid>
+        </Grid>
+    </Viewbox>
+</Window>

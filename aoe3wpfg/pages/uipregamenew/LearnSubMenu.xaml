@@ -1,0 +1,48 @@
+﻿<Page x:Class="aoe3wpfg.LearnSubMenu"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:aoe3wpfg"
+      mc:Ignorable="d" 
+      MinHeight="1080"
+      Title="LearnSubMenu">
+
+    <Grid>
+
+        <!--Title-->
+        <local:Age3StackPanel Width="245" Fade="True" VerticalAlignment="Center" Margin="0,0,0,575">
+            <Grid Width="245" Height="128">
+                <Rectangle Height="128" VerticalAlignment="Top" Margin="0,0,0,0">
+                    <Rectangle.Fill>
+                        <ImageBrush ImageSource="/resources/wood_shadow_bottom.png" />
+                    </Rectangle.Fill>
+                </Rectangle>
+                <StackPanel Orientation="Vertical" VerticalAlignment="Bottom" Margin="0,0,0,0" Width="245">
+                    <TextBlock Style="{StaticResource MainMenuHeaders}" Width="240" TextWrapping="Wrap" TextAlignment="Center">
+                $$19876$$Tutorial
+                    </TextBlock>
+                </StackPanel>
+            </Grid>
+        </local:Age3StackPanel>
+
+        <StackPanel VerticalAlignment="Center" Margin="0,0,0,340" Width="245">
+            <local:Age3StackPanel Width="245" Margin="0,10,0,0" Fade="true">
+                <!--Master the Basics-->
+                <local:Age3Button x:Name="Learn_TutorialButton" Style="{StaticResource MainMenuButton}" IsDefault="true" Width="220" Margin="0,10,0,0" Content="$$19825$$Master the Basics" ConsoleCommand="loadTutorialWpf('age 3 tutorial\age3tutorial1', 0, 'resources\images\campaignmenu\campaign_bg1.png', 43013, true)" TabIndex="1" >
+                    <Button.ToolTip>$$35543$$Learn core game features.</Button.ToolTip>
+                </local:Age3Button>
+                <!--Try a Game-->
+                <local:Age3Button x:Name="Learn_CustomButton" Style="{StaticResource MainMenuButton}" Width="220" Margin="0,15,0,0" Content="$$35544$$Try a Game" ConsoleCommand="loadTutorialWpf('age 3 tutorial\age3tutorial2', 0, 'resources\images\campaignmenu\campaign_bg1.png', 43014, true)" TabIndex="2" >
+                    <Button.ToolTip>$$35545$$Learn new game features.</Button.ToolTip>
+                </local:Age3Button>
+            </local:Age3StackPanel>
+        </StackPanel>
+
+        
+        <!--Back-->
+        <local:Age3Button x:Name="btn_tutorial_back" IsCancel="true" Style="{StaticResource MainMenuButton}" Width="220" VerticalAlignment="Bottom" Margin="0,0,0,50" Content="$$42451$$Back" ConsoleCommand="wpfNavigateFrame('/pages/uipregamenew/HelpAndToolsSubMenu',ButtonFrame)" TabIndex="3" >
+            <Button.ToolTip>$$72101$$Return To Help And Tools."</Button.ToolTip>
+        </local:Age3Button>
+    </Grid>
+</Page>

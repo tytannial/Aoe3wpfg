@@ -1,0 +1,95 @@
+﻿<Window x:Class="aoe3wpfg.pages.uiclanpage.uiclanpage_create"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:aoe3wpfg.pages.uiclanpage"
+      xmlns:age3="clr-namespace:aoe3wpfg"
+      mc:Ignorable="d" 
+      Title="uiclanpage_create"
+      Style="{StaticResource WindowStyle}"
+      age3:Age3Navigation.WindowGroupID="Multiplayer">
+
+    <Viewbox Style="{StaticResource ViewboxMain}">
+        <Grid x:Name="quickmatch_main" Width="1920" Height="1080" Background="{StaticResource multiplayer_bg1}">
+
+            <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Width="1400" Height="{Binding ElementName=mainWindow, Path=ActualHeight}">
+                <ContentControl Template="{StaticResource PanelBG}" Margin="-10,-50,-10,-90" />
+
+                <Grid x:Name="mainWindow" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="350"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock x:Name="ClanPage_CreateDlg_IntroText" Style="{StaticResource ConfirmationTitlesStyle}" VerticalAlignment="Center" Grid.Row="0" FontSize="40" Margin="0,-10,0,0" Text="$$33930$$Clan Intro"/>
+
+                    <Grid Grid.Row="2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="50"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Row="0" FontFamily="Trajan Pro" FontSize="18" TextAlignment="Center" Padding="15" Foreground="White" TextWrapping="Wrap">
+                            $$34052$$You are currently not in a Clan. You may either create your own, or request to join in the Clan Browser.
+                        </TextBlock>
+
+                        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" ToolTip="$$90170$$ Add an abbreviated clan name.">
+                            <TextBlock x:Name="ClanPage_CreateDlg_ClanAbbrevLabel" FontSize="20" Width="500" Padding="15,22" Style="{StaticResource ConfirmationTitlesStyle}" Margin="0,0,0,0" VerticalAlignment="Center" TextWrapping="Wrap">
+                                $$36625$$Clan Abbreviation (1-5 Letters):
+                            </TextBlock>
+                            <age3:PreviewTextBox x:Name="ClanPage_CreateDlg_ClanAbbrev_Text" Width="600" Height="40" Margin="10,0,0,0" TextAlignment="Left" BorderBrush="Transparent" BorderThickness="0" MaxLength="5" PreviewText="$$70988$$Enter here..." TabIndex="1"
+                                                 Text="{Binding Abbreviation, Mode=TwoWay}"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,5,0,5" ToolTip="$$90171$$ Add a name for your clan.">
+                            <TextBlock x:Name="ClanPage_CreateDlg_ClanNameLabel" FontSize="20" Width="500" Padding="15,22" Style="{StaticResource ConfirmationTitlesStyle}" Margin="0,0,0,0" VerticalAlignment="Center" TextWrapping="Wrap">
+                                $$20001$$Name:
+                            </TextBlock>
+                            <age3:PreviewTextBox x:Name="ClanPage_CreateDlg_ClanName_Text" Width="600" Height="40" Margin="10,0,0,0" TextAlignment="Left" BorderBrush="Transparent" BorderThickness="0" PreviewText="$$70988$$Enter here..." TabIndex="2"
+                                                 Text="{Binding ClanName, Mode=TwoWay}"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,5,0,5" ToolTip="$$90171$$ Add a name for your clan.">
+                            <TextBlock x:Name="ClanPage_CreateDlg_ClanDescLabel" FontSize="20" Width="500" Padding="15,22" Style="{StaticResource ConfirmationTitlesStyle}" Margin="0,0,0,0" VerticalAlignment="Center" TextWrapping="Wrap">
+                                $$72485$$Clan Description:
+                            </TextBlock>
+                            <age3:PreviewTextBox x:Name="ClanPage_CreateDlg_ClanDesc_Text" MaxLength="200" Width="600" Height="40" Margin="10,0,0,0" TextAlignment="Left" BorderBrush="Transparent" BorderThickness="0" PreviewText="$$70988$$Enter here..." TabIndex="2"
+                                                 Text="{Binding Description, Mode=TwoWay}"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,5,0,5" ToolTip="$$90171$$ Add a name for your clan.">
+                            <TextBlock x:Name="ClanPage_CreateDlg_ClanJoinPolicy" FontSize="20" Width="300" Padding="15,22" Style="{StaticResource ConfirmationTitlesStyle}" Margin="0,0,0,0" VerticalAlignment="Center" TextWrapping="Wrap">
+                                $$72486$$Join Policy:
+                            </TextBlock>
+                            <StackPanel Orientation="Horizontal" Width="800" Height="40" Margin="10,0,0,0">
+                                <RadioButton Content="$$21193$$Public" Margin="0,0,5,0" IsChecked="{Binding JoinPolicy, Mode=TwoWay, Converter={StaticResource EnumToBool}, ConverterParameter=Public}" >
+                                    <RadioButton.ToolTip>$$72489$$This policy will allow players to see this clan in the clan browser.</RadioButton.ToolTip>
+                                </RadioButton>
+                                <RadioButton Content="$$72487$$Join by request" Margin="0,0,5,0" IsChecked="{Binding JoinPolicy, Mode=TwoWay, Converter={StaticResource EnumToBool}, ConverterParameter=ByRequest}">
+                                    <RadioButton.ToolTip>$$72490$$This policy will only allow players to join by requst.</RadioButton.ToolTip>
+                                </RadioButton>
+                                <RadioButton Content="$$72488$$Invite only" Margin="0,0,5,0" IsChecked="{Binding JoinPolicy, Mode=TwoWay, Converter={StaticResource EnumToBool}, ConverterParameter=Private}">
+                                    <RadioButton.ToolTip>$$72491$$This policy will only allow invitaitons from the leader and officers.</RadioButton.ToolTip>
+                                </RadioButton>
+                            </StackPanel>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="5" Orientation="Horizontal" Margin="0,5,0,5" HorizontalAlignment="Center">
+                            <Button x:Name="ClanPage_CreateDlg_CreateButton" Style="{StaticResource MainMenuButton}" Margin="20,0,0,0" Width="300" Content="$$33930$$Create Clan" TabIndex="3" ToolTip="$$90172$$ Create clan with given details."/>
+                            <Button x:Name="ClanPage_CreateDlg_BrowserButton" Style="{StaticResource MainMenuButton}" Margin="20,0,0,0" Width="300" Content="$$70653$$Clan Browser" TabIndex="4" ToolTip="$$90173$$ Browse for clans."/>
+                            <Button x:Name="ClanPage_CreateDlg_CloseButton" Style="{StaticResource MainMenuButton}" Margin="20,0,0,0" Width="300" Content="$$18457$$Close" TabIndex="5" IsCancel="True" ToolTip="$$90174$$ Close this dialog."/>
+                            <local:Age3Button Grid.Row="0" x:Name="XBLSignIn" Style="{StaticResource MainMenuButton}" Margin="20,0,0,0" Width="300" Content="$$71031$$Xbox Live Sign In" TabIndex="6" ConsoleCommand="XBLSignInOut">
+                                <Button.ToolTip>$$71032$$Sign in to Xbox Live.</Button.ToolTip>
+                            </local:Age3Button>
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Viewbox>
+</Window>

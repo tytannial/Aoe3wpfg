@@ -1,0 +1,1240 @@
+﻿<Window x:Class="aoe3wpfg.uimods"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:aoe3wpfg"
+        mc:Ignorable="d"
+        Title="uimods" 
+        Style="{StaticResource WindowStyle}">
+
+    <Window.Resources>
+        <Style TargetType="{x:Type TabItem}" x:Key="ModsTab">
+            <Setter Property="FontFamily" Value="Trajan Pro" />
+            <Setter Property="Height" Value="35" />
+            <Setter Property="FontSize" Value="25" />
+            <Setter Property="Foreground" Value="{StaticResource ButtonTextGradient}" />
+            <Setter Property="Width" Value="400" />
+            <Setter Property="Height" Value="50" />
+            <Setter Property="Margin" Value="0,0,0,0"/>
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect BlurRadius="10" Color="Black" Direction="-90" ShadowDepth="1.5" RenderingBias="Quality" />
+                </Setter.Value>
+            </Setter>
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TabItem}">
+                        <Grid>
+                            <Border Name="Border" Margin="10,0,0,0" Background="Transparent" BorderThickness="2" CornerRadius="4">
+                                <ContentPresenter x:Name="ContentSite" VerticalAlignment="Center" HorizontalAlignment="Center" ContentSource="Header" Margin="12,2,12,2" RecognizesAccessKey="True">
+                                </ContentPresenter>
+                                <Border.BorderBrush>
+                                    <LinearGradientBrush StartPoint="0,0.5" EndPoint="1,0.5">
+                                        <LinearGradientBrush.GradientStops>
+                                            <GradientStopCollection>
+                                                <GradientStop Color="#755f22" Offset="0" />
+                                                <GradientStop Color="#ceb165" Offset="0.25" />
+                                                <GradientStop Color="#ffe6a6" Offset="0.5" />
+                                                <GradientStop Color="#ceb165" Offset="0.25" />
+                                                <GradientStop Color="#755f22" Offset="1" />
+                                            </GradientStopCollection>
+                                        </LinearGradientBrush.GradientStops>
+                                    </LinearGradientBrush>
+                                </Border.BorderBrush>
+                            </Border>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Panel.ZIndex" Value="100" />
+                                <Setter TargetName="Border" Property="Background" Value="{StaticResource MainMenuButtonInnerGradientPress}" />
+                                <Setter Property="BorderBrush" Value="{StaticResource MainMenuButtonStrokeGradientOver}"/>
+                                <Trigger.EnterActions>
+                                    <SoundPlayerAction Source="resources/audio/smallbutton.wav" />
+                                </Trigger.EnterActions>
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="False">
+                                <Setter Property="Panel.ZIndex" Value="-100" />
+                                <Setter TargetName="Border" Property="Background" Value="{StaticResource MainMenuButtonInnerGradient}" />
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="Border" Property="Background" Value="DarkRed" />
+                                <Setter TargetName="Border" Property="BorderBrush" Value="Black" />
+                                <Setter Property="Foreground" Value="DarkGray" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="{x:Type Button}" x:Key="LikeButton">
+            <Setter Property="Height" Value="40" />
+            <Setter Property="KeyboardNavigation.AcceptsReturn" Value="True"/>
+            <Setter Property="RenderTransformOrigin" Value="0.5, 0.5" />
+            <Setter Property="RenderTransform">
+                <Setter.Value>
+                    <ScaleTransform ScaleX="1" ScaleY="1" />
+                </Setter.Value>
+            </Setter>
+            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+
+            <Setter Property="ContentTemplate">
+                <Setter.Value>
+                    <DataTemplate>
+                    </DataTemplate>
+                </Setter.Value>
+            </Setter>
+
+            <Setter Property="Background" Value="{StaticResource MainMenuButtonInnerGradient}" />
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid Name="test" Height="40" Width="auto">
+                            <Grid Name="buttoncontainer" RenderTransformOrigin="0.5, 0.5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                    <ColumnDefinition Width="1"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+
+                                <Grid.RenderTransform>
+                                    <ScaleTransform ScaleX="1" ScaleY="1" />
+                                </Grid.RenderTransform>
+
+                                <Rectangle Name="background" Grid.Column="1" Height="38" Fill="{StaticResource ButtonInnerGradient}" RadiusX="5" RadiusY="5"/>
+                                <Rectangle Name="highlightover" Grid.Column="1" Height="38" Fill="{StaticResource MainMenuButtonInnerGradientOver}" RadiusX="5" RadiusY="5" Opacity="0"/>
+                                <Rectangle Name="highlightpress" Grid.Column="1" Height="38" Fill="{StaticResource MainMenuButtonInnerGradientPress}" RadiusX="5" RadiusY="5" Opacity="0"/>
+                                <Rectangle Name="strokeblack" Grid.ColumnSpan="3" Height="40" Fill="Transparent" StrokeThickness="3" Stroke="Black" RadiusX="5" RadiusY="5"/>
+                                <Rectangle Name="strokegold" Grid.Column="1" Height="38" Fill="Transparent" StrokeThickness="2" Stroke="{StaticResource ButtonStrokeGradient}" RadiusX="5" RadiusY="5"/>
+                                <Rectangle Name="strokegoldover" Grid.Column="1" Height="38" Fill="Transparent" StrokeThickness="2" Stroke="{StaticResource MainMenuButtonStrokeGradientOver}" RadiusX="5" RadiusY="5" Opacity="0"/>
+                            </Grid>
+                            <Image Name="icon" Width="25" Height="25" HorizontalAlignment="Center" VerticalAlignment="Center" Source="/resources/thumbsup.png"/>
+                        </Grid>
+
+                        <ControlTemplate.Triggers>
+
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Trigger.EnterActions>
+                                    <StopStoryboard BeginStoryboardName="FocusStoryBoard" />
+                                    <StopStoryboard BeginStoryboardName="FocusStoryBoard2" />
+                                    <StopStoryboard BeginStoryboardName="IsPressedStoryBoard" />
+                                    <StopStoryboard BeginStoryboardName="IsPressedStoryBoard2" />
+                                    <BeginStoryboard Name="MouseOverStoryBoard">
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="buttoncontainer" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)" To="1.05" Duration="0:0:.2" />
+                                            <DoubleAnimation Storyboard.TargetName="buttoncontainer" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)" To="1.05" Duration="0:0:.2" />
+                                            <DoubleAnimation Storyboard.TargetName="highlightpress" Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:.6" RepeatBehavior="Forever" AutoReverse="True" />
+                                            <DoubleAnimation Storyboard.TargetName="strokegoldover" Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:.6" RepeatBehavior="Forever" AutoReverse="True" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                    <SoundPlayerAction Source="resources/audio/mouseover_00.wav" />
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <StopStoryboard BeginStoryboardName="FocusStoryBoard" />
+                                    <StopStoryboard BeginStoryboardName="FocusStoryBoard2" />
+                                    <StopStoryboard BeginStoryboardName="IsPressedStoryBoard" />
+                                    <StopStoryboard BeginStoryboardName="IsPressedStoryBoard2" />
+                                    <BeginStoryboard Name="MouseOverStoryBoard2">
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="buttoncontainer" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)" To="1" Duration="0:0:.2" />
+                                            <DoubleAnimation Storyboard.TargetName="buttoncontainer" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)" To="1" Duration="0:0:.2" />
+                                            <DoubleAnimation Storyboard.TargetName="highlightpress" Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:.2" />
+                                            <DoubleAnimation Storyboard.TargetName="strokegoldover" Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:.2" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+
+                            <Trigger Property="Button.IsFocused" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard Name="FocusStoryBoard">
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="buttoncontainer" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)" To="1.05" Duration="0:0:.2" />
+                                            <DoubleAnimation Storyboard.TargetName="buttoncontainer" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)" To="1.05" Duration="0:0:.2" />
+                                            <DoubleAnimation Storyboard.TargetName="highlightpress" Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:.6" RepeatBehavior="Forever" AutoReverse="True" />
+                                            <DoubleAnimation Storyboard.TargetName="strokegoldover" Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:.6" RepeatBehavior="Forever" AutoReverse="True" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                    <SoundPlayerAction Source="resources/audio/mouseover_00.wav" />
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard Name="FocusStoryBoard2">
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="buttoncontainer" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)" To="1" Duration="0:0:.2" />
+                                            <DoubleAnimation Storyboard.TargetName="buttoncontainer" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)" To="1" Duration="0:0:.2" />
+                                            <DoubleAnimation Storyboard.TargetName="highlightpress" Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:.2" />
+                                            <DoubleAnimation Storyboard.TargetName="strokegoldover" Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:.2" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+
+                            <Trigger Property="IsPressed" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard Name="IsPressedStoryBoard">
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="buttoncontainer" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)" To="1" Duration="0:0:.05" />
+                                            <DoubleAnimation Storyboard.TargetName="buttoncontainer" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)" To="1" Duration="0:0:.05" />
+                                            <DoubleAnimation Storyboard.TargetName="highlightpress" Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:.05" />
+                                            <DoubleAnimation Storyboard.TargetName="strokegoldover" Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:.05" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                    <SoundPlayerAction Source="resources/audio/bigbutton.wav" />
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard Name="IsPressedStoryBoard2">
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="buttoncontainer" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)" To="1.05" Duration="0:0:.05" />
+                                            <DoubleAnimation Storyboard.TargetName="buttoncontainer" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)" To="1.05" Duration="0:0:.05" />
+                                            <DoubleAnimation Storyboard.TargetName="buttoncontainer" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)" To="1.05" Duration="0:0:.05" />
+                                            <DoubleAnimation Storyboard.TargetName="highlightpress" Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:.6" RepeatBehavior="Forever" AutoReverse="True" />
+                                            <DoubleAnimation Storyboard.TargetName="strokegoldover" Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:.6" RepeatBehavior="Forever" AutoReverse="True" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="background" Property="Fill" Value="{StaticResource MainMenuButtonInnerGradientDisabled}" />
+                                <Setter TargetName="strokegold" Property="Stroke" Value="{StaticResource MainMenuButtonStrokeGradientDisabled}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Viewbox Style="{StaticResource ViewboxMain}">
+        <Grid x:Name="mainGridPanel" Height="1080" Width="1920">
+            <Grid x:Name="Mods_MainGrid" Background="{StaticResource wood_tile}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0">
+                    <ContentControl Template="{StaticResource Titlebar}" />
+                    <local:Age3Button x:Name="Mods_BackButton" Style="{StaticResource SubMenuBackButton}" IsCancel="true" VerticalAlignment="Center" HorizontalAlignment="Left" Content="$$42451$$Back">
+                        <Button.ToolTip>$$42451$$Back</Button.ToolTip>
+                    </local:Age3Button>
+
+                    <local:Age3Button x:Name="Mods_XBLSigninButton" Style="{StaticResource MainMenuButton}" HorizontalAlignment="Right" VerticalAlignment="Center" Width="380" Content="$$71031$$Xbox Live Sign In" ConsoleCommand="XBLSignInOut">
+                        <Button.ToolTip>$$71032$$Sign in to Xbox Live.</Button.ToolTip>
+                    </local:Age3Button>
+                </Grid>
+
+                <TabControl x:Name="MainTabControl" Grid.Row="1" Background="Transparent" BorderBrush="Transparent" BorderThickness="0" Margin="0,9,0,0">
+                    <TabControl.Resources>
+                        <Style TargetType="{x:Type TabPanel}">
+                            <Setter Property="HorizontalAlignment" Value="Center" />
+                        </Style>
+                    </TabControl.Resources>
+
+                    <TabItem x:Name="InstalledModsTab" Style="{StaticResource ModsTab}" Header="$$71185$$Installed Mods">
+                        <TabItem.ToolTip>$$71188$$View all installed mods.</TabItem.ToolTip>
+                        <Grid Height="950" Width="1800" Margin="0,0,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="500"/>
+                            </Grid.ColumnDefinitions>
+
+                            <!--BG Panel-->
+                            <Rectangle Grid.Column="0" Style="{StaticResource PanelBGSection}" Margin="10,102,10,94"/>
+                            <Rectangle Grid.Column="1" Style="{StaticResource PanelBGSection}" Margin="10,10,10,10"/>
+
+                            <Grid Grid.Column="0" Margin="0,10,0,10">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="50"/>
+                                    <RowDefinition Height="40"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="90"/>
+                                </Grid.RowDefinitions>
+
+                                <!--Search-->
+                                <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Left" Width="1257" Margin="20,0,0,0">
+                                    <local:PreviewTextBox x:Name="Mods_InstalledModsSearch" HorizontalAlignment="Left" Width="490" PreviewText="$$70729$$Search..."/>
+
+                                    <ComboBox x:Name="Mods_InstalledModsTypeDropdown" HorizontalAlignment="Right" Margin="10,0,0,0" Height="40" Width="350" FontSize="20" Padding="8" MaxDropDownHeight="450" Style="{StaticResource RegularCombobox}">
+                                        <ComboBoxItem Content="$$71347$$Any" IsSelected="True"/>
+                                        <ComboBoxItem Content="$$71348$$AI"/>
+                                        <ComboBoxItem Content="$$71349$$Campaign"/>
+                                        <ComboBoxItem Content="$$71350$$Data Mod"/>
+                                        <ComboBoxItem Content="$$71351$$Graphic"/>
+                                        <ComboBoxItem Content="$$71352$$Movie"/>
+                                        <ComboBoxItem Content="$$71353$$Music"/>
+                                        <ComboBoxItem Content="$$71354$$Random Map"/>
+                                        <ComboBoxItem Content="$$71355$$Scenario"/>
+                                        <ComboBoxItem Content="$$71356$$Sound"/>
+                                        <ComboBoxItem Content="$$71357$$Taunt"/>
+                                        <ComboBoxItem Content="$$71358$$Terrian"/>
+                                        <ComboBoxItem Content="$$71359$$Menu Background"/>
+                                        <ComboBoxItem Content="$$71360$$User Interface"/>
+                                        <ComboBoxItem Content="$$71361$$Text"/>
+                                        <ComboBox.ToolTip>$$71218$$Select to filter mods.</ComboBox.ToolTip>
+                                    </ComboBox>
+
+                                    <local:Age3KeyboardFocusBorder Margin="10,0,0,0">
+                                        <CheckBox x:Name="Mods_InstalledModsSubscribedFilterCheckbox" Style="{StaticResource Checkbox_Medium}" Content="$$71192$$Subscribed">
+                                            <CheckBox.ToolTip>$$71202$$Display mods that you have subscribed to and hiding My Mods.</CheckBox.ToolTip>
+                                        </CheckBox>
+                                    </local:Age3KeyboardFocusBorder>
+                                </StackPanel>
+
+                                <!--Sort By-->
+                                <Grid Grid.Row="1" VerticalAlignment="Bottom" Margin="20,0,30,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="50"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="200"/>
+                                        <ColumnDefinition Width="200"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <local:Age3KeyboardFocusBorder Margin="0,0,10,0">
+                                        <CheckBox x:Name="Mods_InstalledModsEnableAllCheckbox" Grid.Column="0" Style="{StaticResource Checkbox_Medium}" HorizontalAlignment="Left">
+                                            <CheckBox.ToolTip>$$71193$$Select to turn on/off all mods.</CheckBox.ToolTip>
+                                        </CheckBox>
+                                    </local:Age3KeyboardFocusBorder>
+                                    <Button x:Name="Mods_InstalledModsNameOrderButton" Grid.Column="1" Style="{StaticResource SubMenuButton}" Margin="2,0,2,0" Content="$$20509$$Name"/>
+                                    <Button x:Name="Mods_InstalledModsPriorityOrderButton" Grid.Column="2" Style="{StaticResource SubMenuButton}" Margin="2,0,2,0" Content="$$71191$$Prioity"/>
+                                    <Button x:Name="Mods_InstalledModsSubscribedOrderButton" Grid.Column="3" Style="{StaticResource SubMenuButton}" Margin="2,0,2,0" Content="$$71192$$Subscribed"/>
+                                </Grid>
+
+                                <!--List Container-->
+                                <local:Age3KeyboardFocusBorder Grid.Row="2" Height="730" Width="1260" Margin="0,0,0,0">
+                                    <ListView x:Name="Mods_InstalledModsModList" Margin="0,10,0,0" KeyDown="OnKeyDownHandler">
+                                        <ListView.Resources>
+                                            <Style TargetType="GridViewColumnHeader">
+                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                            </Style>
+                                        </ListView.Resources>
+
+                                        <ListView.View>
+                                            <GridView>
+                                                <GridViewColumn Header="Tick" Width="40" DisplayMemberBinding="{Binding Tick}"/>
+                                                <GridViewColumn Header="Name" Width="800" DisplayMemberBinding="{Binding Name}"/>
+                                                <GridViewColumn Header="Priority" Width="200" DisplayMemberBinding="{Binding Priority}"/>
+                                                <GridViewColumn Header="Subsribed" Width="200" DisplayMemberBinding="{Binding Subscribed}"/>
+                                            </GridView>
+                                        </ListView.View>
+
+                                        <ListView.ItemContainerStyle>
+                                            <Style TargetType="ListViewItem">
+                                                <Setter Property="FontSize" Value="18" />
+                                                <Setter Property="Foreground" Value="#e7e7e7" />
+                                                <Setter Property="FontFamily" Value="Trajan Pro" />
+                                                <Setter Property="Background" Value="Transparent"/>
+                                                <Setter Property="Height" Value="40"/>
+                                                <Setter Property="Padding" Value="0"/>
+                                                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                                                <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                                                <Setter Property="Visibility" Value="{Binding Shown}" />
+                                                <Setter Property="Focusable" Value="{Binding CanSelect}" />
+                                                <Setter Property="Template">
+                                                    <Setter.Value>
+                                                        <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                                            <Grid>
+                                                                <Grid.ColumnDefinitions>
+                                                                    <ColumnDefinition Width="50"/>
+                                                                    <ColumnDefinition Width="*"/>
+                                                                    <ColumnDefinition Width="200"/>
+                                                                    <ColumnDefinition Width="200"/>
+                                                                </Grid.ColumnDefinitions>
+
+                                                                <Border Grid.Column="0" Grid.ColumnSpan="11" Background="{TemplateBinding Background}" CornerRadius="4"/>
+
+                                                                <!--Checkbox-->
+                                                                <CheckBox Grid.Column="0" Focusable="False" Visibility="{Binding ShowSubCheckbox}" Style="{StaticResource Checkbox_Options}" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding Tick, Mode=TwoWay, UpdateSourceTrigger=Explicit}" Command="{Binding InstallChecked}"/>
+
+                                                                <!--Name-->
+                                                                <TextBlock Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Text="{Binding Name}" Margin="0,0,0,0">
+                                                                    <TextBlock.Effect>
+                                                                        <DropShadowEffect BlurRadius="5" Color="Black" Direction="-90" ShadowDepth="1" RenderingBias="Quality"/>
+                                                                    </TextBlock.Effect>
+                                                                </TextBlock>
+
+                                                                <!--Priority-->
+                                                                <TextBlock Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Priority}">
+                                                                    <TextBlock.Effect>
+                                                                        <DropShadowEffect BlurRadius="5" Color="Black" Direction="-90" ShadowDepth="1" RenderingBias="Quality"/>
+                                                                    </TextBlock.Effect>
+                                                                </TextBlock>
+
+                                                                <!--Subsribed-->
+                                                                <TextBlock Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Text="✔">
+                                                                    <TextBlock.Effect>
+                                                                        <DropShadowEffect BlurRadius="5" Color="Black" Direction="-90" ShadowDepth="1" RenderingBias="Quality"/>
+                                                                    </TextBlock.Effect>
+                                                                    <TextBlock.Style>
+                                                                        <Style TargetType="TextBlock" BasedOn="{StaticResource RegularTextBlockStyle}">
+                                                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                                                            <Style.Triggers>
+                                                                                <!--IF player is Subbed to the mod-->
+                                                                                <DataTrigger Binding="{Binding IsSubbed}" Value="true">
+                                                                                    <Setter Property="Visibility" Value="Visible"/>
+                                                                                </DataTrigger>
+                                                                            </Style.Triggers>
+                                                                        </Style>
+                                                                    </TextBlock.Style>
+                                                                </TextBlock>
+                                                            </Grid>
+                                                        </ControlTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+
+                                                <Style.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Trigger.EnterActions>
+                                                            <SoundPlayerAction Source="resources/audio/mouseover_00.wav"/>
+                                                        </Trigger.EnterActions>
+                                                        <Setter Property="Background" Value="{StaticResource ListViewItemGradientOver}" />
+                                                        <Setter Property="Foreground" Value="#f6f6f6" />
+                                                    </Trigger>
+
+                                                    <Trigger Property="IsFocused" Value="True">
+                                                        <Trigger.EnterActions>
+                                                            <SoundPlayerAction Source="resources/audio/mouseover_00.wav"/>
+                                                        </Trigger.EnterActions>
+                                                        <Setter Property="Background" Value="{StaticResource ListViewItemGradientOver}" />
+                                                        <Setter Property="Foreground" Value="#f6f6f6" />
+                                                    </Trigger>
+
+                                                    <Trigger Property="IsSelected" Value="True">
+                                                        <Setter Property="Background" Value="{StaticResource ListViewItemGradientSelected}" />
+                                                        <Setter Property="Foreground" Value="#ffffff" />
+                                                    </Trigger>
+
+                                                    <EventTrigger RoutedEvent="PreviewMouseDown">
+                                                        <SoundPlayerAction Source="resources/audio/smallbutton.wav" />
+                                                    </EventTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </ListView.ItemContainerStyle>
+                                    </ListView>
+                                </local:Age3KeyboardFocusBorder>
+                                <StackPanel Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <local:Age3Button x:Name="Mods_InstalledModsPriorityUpButton" Style="{StaticResource MainMenuButton}" Width="350" Margin="15,0,0,0" Content="$$71194$$Priority Up">
+                                            <Button.ToolTip>$$71197$$Move this mod up.</Button.ToolTip>
+                                        </local:Age3Button>
+                                        <local:Age3Button x:Name="Mods_InstalledModsPriorityDownButton" Style="{StaticResource MainMenuButton}" Width="350" Margin="15,0,0,0" Content="$$71195$$Priority Down">
+                                            <Button.ToolTip>$$71198$$Move this mod down.</Button.ToolTip>
+                                        </local:Age3Button>
+                                    </StackPanel>
+                                    <TextBlock x:Name="Mods_InstalledModsRestartText" Style="{StaticResource ConfirmationTitlesStyle}" FontSize="20" HorizontalAlignment="Center" Margin="0,10,0,0">
+                                        $$71475$$You may need to restart your game for all changes to take effect
+                                    </TextBlock>
+                                </StackPanel>
+                            </Grid>
+
+                            <Grid Grid.Column="1" Margin="25">
+                                <StackPanel>
+                                    <Image x:Name="Mods_InstalledModsThumbnailImage" Width="430" Height="200" Margin="0,5,0,0" Source="/aoe3wpfg;component/resources/images/icons/random_map/amazon/amazon_ss_01.png" Stretch="Fill"/>
+
+                                    <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,15,10,0">
+                                        <TextBlock Style="{StaticResource subInfoLeft}" TextAlignment="Left" Width="420">$$20001$$Name:</TextBlock>
+                                        <TextBlock x:Name="Mods_InstalledModsModName" Style="{StaticResource RegularTextBlockStyle}" TextAlignment="Right" Width="420" TextWrapping="Wrap">Mod's Name</TextBlock>
+                                        <Rectangle Style="{StaticResource filemanager_dividingline}" Width="420" Margin="0,5,0,5" />
+                                    </StackPanel>
+
+                                    <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,10,10,0">
+                                        <TextBlock  Style="{StaticResource subInfoLeft}" TextAlignment="Left" Width="420">$$71199$$Author:</TextBlock>
+                                        <TextBlock x:Name="Mods_InstalledModsModAuthor" Style="{StaticResource RegularTextBlockStyle}" TextAlignment="Right" Width="420" TextWrapping="Wrap">Author Name</TextBlock>
+                                        <Rectangle Style="{StaticResource filemanager_dividingline}" Width="420" Margin="0,5,0,5" />
+                                    </StackPanel>
+
+                                    <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,10,10,0">
+                                        <TextBlock Style="{StaticResource subInfoLeft}" TextAlignment="Left" Width="420">$$71200$$Tags:</TextBlock>
+                                        <TextBlock x:Name="Mods_InstalledModsModTags" Style="{StaticResource RegularTextBlockStyle}" TextAlignment="Right" Width="420" TextWrapping="Wrap">Tag 1, Tag 2, Tag 3, Tag 4, Tag 5, Tag 6, Tag 7, Tag 8, Tag 9, Tag 10</TextBlock>
+                                        <Rectangle Style="{StaticResource filemanager_dividingline}" Width="420" Margin="0,5,0,5" />
+                                    </StackPanel>
+
+                                    <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,10,10,0">
+                                        <TextBlock Style="{StaticResource subInfoLeft}" TextAlignment="Left" Width="420">$$71201$$Size:</TextBlock>
+                                        <TextBlock x:Name="Mods_InstalledModsModSize" Style="{StaticResource RegularTextBlockStyle}" TextAlignment="Right" Width="420" TextWrapping="Wrap">99.99 MB</TextBlock>
+                                        <Rectangle Style="{StaticResource filemanager_dividingline}" Width="420" Margin="0,5,0,5" />
+                                    </StackPanel>
+
+                                    <ScrollViewer Height="160" ScrollViewer.VerticalScrollBarVisibility="Auto" Margin="0,10,0,10">
+                                        <TextBlock x:Name="Mods_InstalledModsModDesc" FontFamily="arial" FontSize="18" Foreground="White" TextWrapping="Wrap" Width="420" TextAlignment="Left">
+                                            Napoleonic Era is and has been one of the most popular mods for Age of Empires III and its expansions for over 8 years (founded in 2006). In 2014 we still managed to rank among the top100 mods of the year on ModDB. It greatly expands and reworks the game with new units, buildings, maps, sounds, music, civilizations and a better AI.
+                                            <LineBreak/>
+                                            <LineBreak/>
+                                            Napoleonic Era is and has been one of the most popular mods for Age of Empires III and its expansions for over 8 years (founded in 2006). In 2014 we still managed to rank among the top100 mods of the year on ModDB. It greatly expands and reworks the game with new units, buildings, maps, sounds, music, civilizations and a better AI.
+                                        </TextBlock>
+                                    </ScrollViewer>
+                                </StackPanel>
+
+                                <StackPanel VerticalAlignment="Bottom" Margin="0,0,0,10">
+                                    <local:Age3Button x:Name="Mods_InstalledModsCheckForUpdatesButton" Style="{StaticResource MainMenuButton}" Width="380" Margin="0,5,0,0" Content="$$71196$$Check for Update">
+                                        <Button.ToolTip>$$71206$$Check for latest update.</Button.ToolTip>
+                                    </local:Age3Button>
+                                    <local:Age3Button x:Name="Mods_InstalledModsOpenDirectoryButton" Style="{StaticResource MainMenuButton}" Width="380" Margin="0,5,0,0" Content="$$71203$$Open Directory">
+                                        <Button.ToolTip>$$71207$$Open directory folder where the mods are located.</Button.ToolTip>
+                                    </local:Age3Button>
+                                    <local:Age3Button x:Name="Mods_InstalledModsMoreInfoButton" Style="{StaticResource MainMenuButton}" Width="380" Margin="0,5,0,0" Content="$$71204$$More Info">
+                                        <Button.ToolTip>$$71208$$Open the page for this Mod in Age of Empires website.</Button.ToolTip>
+                                    </local:Age3Button>
+                                    <local:Age3Button x:Name="Mods_InstalledModsUnsubscribeButton" Style="{StaticResource MainMenuButton}" Width="380" Margin="0,5,0,0" Content="$$71205$$Unsubscribe">
+                                        <Button.ToolTip>$$71209$$Unsubscribe and uninstall this mod.</Button.ToolTip>
+                                    </local:Age3Button>
+                                </StackPanel>
+                            </Grid>
+                        </Grid>
+                    </TabItem>
+
+                    <TabItem x:Name="BrowseModsTab" Style="{StaticResource ModsTab}" Header="$$71186$$Browse Mods">
+                        <TabItem.ToolTip>$$71189$$View all avaialbe mods to download.</TabItem.ToolTip>
+                        <Grid Height="950" Width="1800" Margin="0,0,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="500"/>
+                            </Grid.ColumnDefinitions>
+
+                            <!--BG Panel-->
+                            <Rectangle Grid.Column="0" Style="{StaticResource PanelBGSection}" Margin="10,102,10,49"/>
+                            <Rectangle Grid.Column="1" Style="{StaticResource PanelBGSection}" Margin="10,10,10,10"/>
+
+                            <Grid Grid.Column="0" Margin="0,10,0,10">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="50"/>
+                                    <RowDefinition Height="40"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="40"/>
+                                </Grid.RowDefinitions>
+
+                                <!--Search-->
+                                <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Left" Width="1257" Margin="20,0,0,0">
+                                    <local:PreviewTextBox x:Name="Mods_BrowseModsSearch" HorizontalAlignment="Left" Width="490" PreviewText="$$70729$$Search..."/>
+
+                                    <ComboBox x:Name="Mods_BrowseModsTypeDropdown" Margin="10,0,0,0" HorizontalAlignment="Right" Height="40" Width="350" FontSize="20" Padding="8" MaxDropDownHeight="450" Style="{StaticResource RegularCombobox}">
+                                        <ComboBoxItem Content="$$71347$$Any" IsSelected="True"/>
+                                        <ComboBoxItem Content="$$71348$$AI"/>
+                                        <ComboBoxItem Content="$$71349$$Campaign"/>
+                                        <ComboBoxItem Content="$$71350$$Data Mod"/>
+                                        <ComboBoxItem Content="$$71351$$Graphic"/>
+                                        <ComboBoxItem Content="$$71352$$Movie"/>
+                                        <ComboBoxItem Content="$$71353$$Music"/>
+                                        <ComboBoxItem Content="$$71354$$Random Map"/>
+                                        <ComboBoxItem Content="$$71355$$Scenario"/>
+                                        <ComboBoxItem Content="$$71356$$Sound"/>
+                                        <ComboBoxItem Content="$$71357$$Taunt"/>
+                                        <ComboBoxItem Content="$$71358$$Terrian"/>
+                                        <ComboBoxItem Content="$$71359$$Menu Background"/>
+                                        <ComboBoxItem Content="$$71360$$User Interface"/>
+                                        <ComboBoxItem Content="$$71361$$Text"/>
+                                        <ComboBox.ToolTip>$$71218$$Select to filter mods.</ComboBox.ToolTip>
+                                    </ComboBox>
+                                
+                                    <local:Age3KeyboardFocusBorder Margin="10,0,0,0">
+                                        <CheckBox x:Name="Mods_BrowseModsUnsubscribedFilterCheckbox" Style="{StaticResource Checkbox_Medium}" Content="$$71205$$Unsubscribed">
+                                            <CheckBox.ToolTip>$$71210$$Display mods you are not subscribed to.</CheckBox.ToolTip>
+                                        </CheckBox>
+                                    </local:Age3KeyboardFocusBorder>
+                                </StackPanel>
+
+                                <!--Sort By-->
+                                <Grid Grid.Row="1" VerticalAlignment="Bottom" Margin="15,0,30,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="180"/>
+                                        <ColumnDefinition Width="180"/>
+                                        <ColumnDefinition Width="180"/>
+                                        <ColumnDefinition Width="180"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Button x:Name="Mods_BrowseModsNameOrderButton" Grid.Column="0" Style="{StaticResource SubMenuButton}" Margin="2,0,2,0" Content="$$20509$$Name"/>
+                                    <Button x:Name="Mods_BrowseModsCreateOrderButton" Grid.Column="1" Style="{StaticResource SubMenuButton}" Margin="2,0,2,0" Content="$$71211$$Created"/>
+                                    <Button x:Name="Mods_BrowseModsUpdatedOrderButton" Grid.Column="2" Style="{StaticResource SubMenuButton}" Margin="2,0,2,0" Content="$$71212$$Updated"/>
+                                    <Button x:Name="Mods_BrowseModsLikesOrderButton" Grid.Column="3" Style="{StaticResource SubMenuButton}" Margin="2,0,2,0" Content="$$71213$$Likes"/>
+                                    <Button x:Name="Mods_BrowseModsDownloadsOrderButton" Grid.Column="4" Style="{StaticResource SubMenuButton}" Margin="2,0,2,0" Content="$$71214$$Downloads"/>
+                                </Grid>
+
+                                <!--List Container-->
+                                <local:Age3KeyboardFocusBorder Grid.Row="2" Height="780" Width="1255" Margin="0,0,0,0">
+                                    <ListView x:Name="Mods_BrowseModsModList" Margin="0,10,0,0">
+                                        <ListView.Resources>
+                                            <Style TargetType="GridViewColumnHeader">
+                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                            </Style>
+                                        </ListView.Resources>
+
+                                        <ListView.View>
+                                            <GridView>
+                                                <GridViewColumn Header="Name" Width="800" DisplayMemberBinding="{Binding Name}"/>
+                                                <GridViewColumn Header="Created" Width="200" DisplayMemberBinding="{Binding Created}"/>
+                                                <GridViewColumn Header="Updated" Width="200" DisplayMemberBinding="{Binding Updated}"/>
+                                                <GridViewColumn Header="Likes" Width="200" DisplayMemberBinding="{Binding Likes}"/>
+                                                <GridViewColumn Header="Downloads" Width="200" DisplayMemberBinding="{Binding Downloads}"/>
+                                            </GridView>
+                                        </ListView.View>
+
+                                        <ListView.ItemContainerStyle>
+                                            <Style TargetType="ListViewItem">
+                                                <Setter Property="FontSize" Value="18" />
+                                                <Setter Property="Foreground" Value="#e7e7e7" />
+                                                <Setter Property="FontFamily" Value="Trajan Pro" />
+                                                <Setter Property="Background" Value="Transparent"/>
+                                                <Setter Property="Height" Value="40"/>
+                                                <Setter Property="Padding" Value="0"/>
+                                                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                                                <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                                                <Setter Property="Visibility" Value="{Binding Shown}" />
+
+                                                <Setter Property="Template">
+                                                    <Setter.Value>
+                                                        <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                                            <Grid>
+                                                                <Grid.ColumnDefinitions>
+                                                                    <ColumnDefinition Width="*"/>
+                                                                    <ColumnDefinition Width="180"/>
+                                                                    <ColumnDefinition Width="180"/>
+                                                                    <ColumnDefinition Width="180"/>
+                                                                    <ColumnDefinition Width="180"/>
+                                                                </Grid.ColumnDefinitions>
+
+                                                                <Border Grid.Column="0" Grid.ColumnSpan="11" Background="{TemplateBinding Background}" CornerRadius="4"/>
+
+                                                                <!--Name-->
+                                                                <TextBlock Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Text="{Binding Name}" Margin="10,0,0,0">
+                                                                    <TextBlock.Effect>
+                                                                        <DropShadowEffect BlurRadius="5" Color="Black" Direction="-90" ShadowDepth="1" RenderingBias="Quality"/>
+                                                                    </TextBlock.Effect>
+                                                                </TextBlock>
+
+                                                                <!--Created-->
+                                                                <TextBlock Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Created}">
+                                                                    <TextBlock.Effect>
+                                                                        <DropShadowEffect BlurRadius="5" Color="Black" Direction="-90" ShadowDepth="1" RenderingBias="Quality"/>
+                                                                    </TextBlock.Effect>
+                                                                </TextBlock>
+
+                                                                <!--Updated-->
+                                                                <TextBlock Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Updated}">
+                                                                    <TextBlock.Effect>
+                                                                        <DropShadowEffect BlurRadius="5" Color="Black" Direction="-90" ShadowDepth="1" RenderingBias="Quality"/>
+                                                                    </TextBlock.Effect>
+                                                                </TextBlock>
+
+                                                                <StackPanel Grid.Column="3" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                                    <!--Likes-->
+                                                                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Likes}">
+                                                                        <TextBlock.Effect>
+                                                                            <DropShadowEffect BlurRadius="5" Color="Black" Direction="-90" ShadowDepth="1" RenderingBias="Quality"/>
+                                                                        </TextBlock.Effect>
+                                                                        <TextBlock.Style>
+                                                                            <Style TargetType="TextBlock" BasedOn="{StaticResource RegularTextBlockStyle}">
+                                                                                <Style.Triggers>
+                                                                                    <!--IF player LIKED this mod-->
+                                                                                    <DataTrigger Binding="{Binding IsLiked}" Value="true">
+                                                                                        <Setter Property="Foreground" Value="LawnGreen"/>
+                                                                                    </DataTrigger>
+                                                                                </Style.Triggers>
+                                                                            </Style>
+                                                                        </TextBlock.Style>
+                                                                    </TextBlock>
+                                                                    <!--In sync with top-->
+                                                                    <Image Width="20" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center" Source="/resources/thumbsup.png" Margin="5,0,0,5">
+                                                                        <Image.Style>
+                                                                            <Style TargetType="{x:Type Image}">
+                                                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                                                                <Style.Triggers>
+                                                                                    <DataTrigger Binding="{Binding IsLiked}" Value="true">
+                                                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                                                    </DataTrigger>
+                                                                                </Style.Triggers>
+                                                                            </Style>
+                                                                        </Image.Style>
+                                                                    </Image>
+                                                                </StackPanel>
+
+                                                                <!--Downloads-->
+                                                                <TextBlock Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Downloads}">
+                                                                    <TextBlock.Effect>
+                                                                        <DropShadowEffect BlurRadius="5" Color="Black" Direction="-90" ShadowDepth="1" RenderingBias="Quality"/>
+                                                                    </TextBlock.Effect>
+                                                                </TextBlock>
+                                                            </Grid>
+                                                        </ControlTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+
+                                                <Style.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Trigger.EnterActions>
+                                                            <SoundPlayerAction Source="resources/audio/mouseover_00.wav"/>
+                                                        </Trigger.EnterActions>
+                                                        <Setter Property="Background" Value="{StaticResource ListViewItemGradientOver}" />
+                                                        <Setter Property="Foreground" Value="#f6f6f6" />
+                                                    </Trigger>
+
+                                                    <Trigger Property="IsFocused" Value="True">
+                                                        <Trigger.EnterActions>
+                                                            <SoundPlayerAction Source="resources/audio/mouseover_00.wav"/>
+                                                        </Trigger.EnterActions>
+                                                        <Setter Property="Background" Value="{StaticResource ListViewItemGradientOver}" />
+                                                        <Setter Property="Foreground" Value="#f6f6f6" />
+                                                    </Trigger>
+
+                                                    <Trigger Property="IsSelected" Value="True">
+                                                        <Setter Property="Background" Value="{StaticResource ListViewItemGradientSelected}" />
+                                                        <Setter Property="Foreground" Value="#ffffff" />
+                                                    </Trigger>
+
+                                                    <EventTrigger RoutedEvent="PreviewMouseDown">
+                                                        <SoundPlayerAction Source="resources/audio/smallbutton.wav" />
+                                                    </EventTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </ListView.ItemContainerStyle>
+                                    </ListView>
+                                </local:Age3KeyboardFocusBorder>
+
+                                <TextBlock x:Name="Mods_BrowseModsRestartText" Style="{StaticResource ConfirmationTitlesStyle}" Grid.Row="3" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,10,0,0">
+                                    $$71475$$You may need to restart your game for all changes to take effect
+                                </TextBlock>
+                            </Grid>
+
+                            <Grid Grid.Column="1" Margin="25">
+                                <StackPanel>
+                                    <Image x:Name="Mods_BrowseModsThumbnailImage" Width="430" Height="200" Margin="0,5,0,0" Source="/aoe3wpfg;component/resources/images/icons/random_map/amazon/amazon_ss_01.png" Stretch="Fill"/>
+
+                                    <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,15,10,0">
+                                        <TextBlock Style="{StaticResource subInfoLeft}" TextAlignment="Left" Width="420">$$20001$$Name:</TextBlock>
+                                        <TextBlock x:Name="Mods_BrowseModsModName" Style="{StaticResource RegularTextBlockStyle}" TextAlignment="Right" Width="420" TextWrapping="Wrap">Mod's Name</TextBlock>
+                                        <Rectangle Style="{StaticResource filemanager_dividingline}" Width="420" Margin="0,5,0,5" />
+                                    </StackPanel>
+
+                                    <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,10,10,0">
+                                        <TextBlock Style="{StaticResource subInfoLeft}" TextAlignment="Left" Width="420">$$71199$$Author:</TextBlock>
+                                        <TextBlock x:Name="Mods_BrowseModsModAuthor" Style="{StaticResource RegularTextBlockStyle}" TextAlignment="Right" Width="420" TextWrapping="Wrap">Author Name</TextBlock>
+                                        <Rectangle Style="{StaticResource filemanager_dividingline}" Width="420" Margin="0,5,0,5" />
+                                    </StackPanel>
+
+                                    <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,10,10,0">
+                                        <TextBlock Style="{StaticResource subInfoLeft}" TextAlignment="Left" Width="420">$$71200$$Tags:</TextBlock>
+                                        <TextBlock x:Name="Mods_BrowseModsModTags" Style="{StaticResource RegularTextBlockStyle}" TextAlignment="Right" Width="420" TextWrapping="Wrap">Tag 1, Tag 2, Tag 3, Tag 4, Tag 5, Tag 6, Tag 7, Tag 8, Tag 9, Tag 10</TextBlock>
+                                        <Rectangle Style="{StaticResource filemanager_dividingline}" Width="420" Margin="0,5,0,5" />
+                                    </StackPanel>
+
+                                    <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,10,10,0">
+                                        <TextBlock Style="{StaticResource subInfoLeft}" TextAlignment="Left" Width="420">$$71201$$Size:</TextBlock>
+                                        <TextBlock x:Name="Mods_BrowseModsModSize" Style="{StaticResource RegularTextBlockStyle}" TextAlignment="Right" Width="420" TextWrapping="Wrap">99.99 MB</TextBlock>
+                                        <Rectangle Style="{StaticResource filemanager_dividingline}" Width="420" Margin="0,5,0,5" />
+                                    </StackPanel>
+
+                                    <ScrollViewer Height="160" ScrollViewer.VerticalScrollBarVisibility="Auto" Margin="0,10,0,10">
+                                        <TextBlock x:Name="Mods_BrowseModsModDesc" FontFamily="arial" FontSize="18" Foreground="White" TextWrapping="Wrap" Width="420" TextAlignment="Left">
+                                            Napoleonic Era is and has been one of the most popular mods for Age of Empires III and its expansions for over 8 years (founded in 2006). In 2014 we still managed to rank among the top100 mods of the year on ModDB. It greatly expands and reworks the game with new units, buildings, maps, sounds, music, civilizations and a better AI.
+                                            <LineBreak/>
+                                            <LineBreak/>
+                                            Napoleonic Era is and has been one of the most popular mods for Age of Empires III and its expansions for over 8 years (founded in 2006). In 2014 we still managed to rank among the top100 mods of the year on ModDB. It greatly expands and reworks the game with new units, buildings, maps, sounds, music, civilizations and a better AI.
+                                        </TextBlock>
+                                    </ScrollViewer>
+                                </StackPanel>
+
+                                <StackPanel VerticalAlignment="Bottom" Margin="0,0,0,10">
+                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                        <!--Switches between Subsribed and Unsubsribed-->
+                                        <local:Age3Button x:Name="Mods_BrowseModsSubscribeButton" Style="{StaticResource MainMenuButton}" Width="320" Margin="0,5,0,0" Content="$$71215$$Subscribe">
+                                            <Button.ToolTip>$$71216$$Subscribe and download this mod.</Button.ToolTip>
+                                        </local:Age3Button>
+                                        <local:Age3Button x:Name="Mods_BrowseModsLikeButton" Style="{StaticResource LikeButton}" Width="50" Margin="10,5,0,0">
+                                            <Button.ToolTip>$$71219$$Select to like this mod.</Button.ToolTip>
+                                        </local:Age3Button>
+                                    </StackPanel>
+                                    <local:Age3Button x:Name="Mods_BrowseModsReportButton" Style="{StaticResource MainMenuButton}" Width="380" Margin="0,5,0,0" Content="$$70817$$Report">
+                                        <Button.ToolTip>$$71217$$Select to report this mod.</Button.ToolTip>
+                                    </local:Age3Button>
+                                    <local:Age3Button x:Name="Mods_BrowseModsOpenDirectoryButton" Style="{StaticResource MainMenuButton}" Width="380" Margin="0,5,0,0" Content="$$71203$$Open Directory">
+                                        <Button.ToolTip>$$71207$$Open directory folder where the mods are located.</Button.ToolTip>
+                                    </local:Age3Button>
+                                    <local:Age3Button x:Name="Mods_BrowseModsMoreInfoButton" Style="{StaticResource MainMenuButton}" Width="380" Margin="0,5,0,0" Content="$$71204$$More Info">
+                                        <Button.ToolTip>$$71208$$Open the page for this Mod in Age of Empires website.</Button.ToolTip>
+                                    </local:Age3Button>
+                                </StackPanel>
+                            </Grid>
+                        </Grid>
+                    </TabItem>
+
+                    <TabItem x:Name="MyModsTab" Style="{StaticResource ModsTab}" Header="$$71187$$My Mods">
+                        <TabItem.ToolTip>$$71190$$View all your mods in progress to publish.</TabItem.ToolTip>
+                        <Grid Height="950" Width="1800" Margin="0,0,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="500"/>
+                            </Grid.ColumnDefinitions>
+
+                            <!--BG Panel-->
+                            <Rectangle Grid.Column="0" Style="{StaticResource PanelBGSection}" Margin="10,102,10,96"/>
+                            <Rectangle Grid.Column="1" Style="{StaticResource PanelBGSection}" Margin="10,10,10,10"/>
+
+                            <Grid Grid.Column="0" Margin="0,10,0,10">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="50"/>
+                                    <RowDefinition Height="40"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="80"/>
+                                </Grid.RowDefinitions>
+
+                                <!--Search-->
+                                <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Left" Width="1257" Margin="20,0,0,0">
+                                    <local:PreviewTextBox x:Name="Mods_MyModsSearch" HorizontalAlignment="Left" Width="490" PreviewText="$$70729$$Search..."/>
+
+
+                                    <ComboBox x:Name="Mods_MyModsTypeDropDown" Margin="10,0,0,0" HorizontalAlignment="Right" Height="40" Width="350" FontSize="20" Padding="8" MaxDropDownHeight="450" Style="{StaticResource RegularCombobox}">
+                                        <ComboBoxItem Content="$$71347$$Any" IsSelected="True"/>
+                                        <ComboBoxItem Content="$$71348$$AI"/>
+                                        <ComboBoxItem Content="$$71349$$Campaign"/>
+                                        <ComboBoxItem Content="$$71350$$Data Mod"/>
+                                        <ComboBoxItem Content="$$71351$$Graphic"/>
+                                        <ComboBoxItem Content="$$71352$$Movie"/>
+                                        <ComboBoxItem Content="$$71353$$Music"/>
+                                        <ComboBoxItem Content="$$71354$$Random Map"/>
+                                        <ComboBoxItem Content="$$71355$$Scenario"/>
+                                        <ComboBoxItem Content="$$71356$$Sound"/>
+                                        <ComboBoxItem Content="$$71357$$Taunt"/>
+                                        <ComboBoxItem Content="$$71358$$Terrian"/>
+                                        <ComboBoxItem Content="$$71359$$Menu Background"/>
+                                        <ComboBoxItem Content="$$71360$$User Interface"/>
+                                        <ComboBoxItem Content="$$71361$$Text"/>
+                                        <ComboBox.ToolTip>$$71218$$Select to filter mods.</ComboBox.ToolTip>
+                                    </ComboBox>
+                                
+                                    <local:Age3KeyboardFocusBorder Margin="10,0,0,0">
+                                        <CheckBox x:Name="Mods_MyModsPublishedFilterCheckbox" Style="{StaticResource Checkbox_Medium}" Content="$$71220$$Published">
+                                            <CheckBox.ToolTip>$$71221$$Display mods you have already published.</CheckBox.ToolTip>
+                                        </CheckBox>
+                                    </local:Age3KeyboardFocusBorder>
+                                </StackPanel>
+
+                                <!--Sort By-->
+                                <Grid Grid.Row="1" VerticalAlignment="Bottom" Margin="20,0,30,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="180"/>
+                                        <ColumnDefinition Width="180"/>
+                                        <ColumnDefinition Width="180"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Button x:Name="Mods_MyModsNameOrderButton" Grid.Column="0" Style="{StaticResource SubMenuButton}" Margin="2,0,2,0" Content="$$20509$$Name"/>
+                                    <Button x:Name="Mods_MyModsFileContentOrderButton" Grid.Column="1" Style="{StaticResource SubMenuButton}" Margin="2,0,2,0" Content="$$71222$$File Count"/>
+                                    <Button x:Name="Mods_MyModsSizeOrderButton" Grid.Column="2" Style="{StaticResource SubMenuButton}" Margin="2,0,2,0" Content="$$71223$$Size"/>
+                                    <Button x:Name="Mods_MyModsPublishedOrderButton" Grid.Column="3" Style="{StaticResource SubMenuButton}" Margin="2,0,2,0" Content="$$71220$$Published"/>
+                                </Grid>
+
+                                <!--List Container-->
+                                <local:Age3KeyboardFocusBorder Grid.Row="2" Height="720" Width="1260">
+                                    <ListView x:Name="Mods_MyModsModList" Margin="0,10,0,0">
+                                        <ListView.Resources>
+                                            <Style TargetType="GridViewColumnHeader">
+                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                            </Style>
+                                        </ListView.Resources>
+
+                                        <ListView.View>
+                                            <GridView>
+                                                <GridViewColumn Header="Published" Width="180" DisplayMemberBinding="{Binding Published}"/>
+                                                <GridViewColumn Header="Name" Width="700" DisplayMemberBinding="{Binding Name}"/>
+                                                <GridViewColumn Header="Count" Width="180" DisplayMemberBinding="{Binding Count}"/>
+                                                <GridViewColumn Header="Size" Width="180" DisplayMemberBinding="{Binding Size}"/>
+                                            </GridView>
+                                        </ListView.View>
+
+                                        <ListView.ItemContainerStyle>
+                                            <Style TargetType="ListViewItem">
+                                                <Setter Property="FontSize" Value="18" />
+                                                <Setter Property="Foreground" Value="#e7e7e7" />
+                                                <Setter Property="FontFamily" Value="Trajan Pro" />
+                                                <Setter Property="Background" Value="Transparent"/>
+                                                <Setter Property="Height" Value="40"/>
+                                                <Setter Property="Padding" Value="0"/>
+                                                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                                                <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                                                <Setter Property="Visibility" Value="{Binding Shown}"/>
+
+                                                <Setter Property="Template">
+                                                    <Setter.Value>
+                                                        <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                                            <Grid>
+                                                                <Grid.ColumnDefinitions>
+                                                                    <ColumnDefinition Width="*"/>
+                                                                    <ColumnDefinition Width="180"/>
+                                                                    <ColumnDefinition Width="180"/>
+                                                                    <ColumnDefinition Width="180"/>
+                                                                </Grid.ColumnDefinitions>
+
+                                                                <Border Grid.Column="0" Grid.ColumnSpan="11" Background="{TemplateBinding Background}" CornerRadius="4"/>
+
+                                                                <!--Name-->
+                                                                <TextBlock Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Text="{Binding Name}" Margin="10,0,0,0">
+                                                                    <TextBlock.Effect>
+                                                                        <DropShadowEffect BlurRadius="5" Color="Black" Direction="-90" ShadowDepth="1" RenderingBias="Quality"/>
+                                                                    </TextBlock.Effect>
+                                                                </TextBlock>
+
+                                                                <!--Count-->
+                                                                <TextBlock Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Count}">
+                                                                    <TextBlock.Effect>
+                                                                        <DropShadowEffect BlurRadius="5" Color="Black" Direction="-90" ShadowDepth="1" RenderingBias="Quality"/>
+                                                                    </TextBlock.Effect>
+                                                                </TextBlock>
+
+                                                                <!--Size-->
+                                                                <TextBlock Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Size}">
+                                                                    <TextBlock.Effect>
+                                                                        <DropShadowEffect BlurRadius="5" Color="Black" Direction="-90" ShadowDepth="1" RenderingBias="Quality"/>
+                                                                    </TextBlock.Effect>
+                                                                </TextBlock>
+
+                                                                <!--Published-->
+                                                                <TextBlock Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Text="✔">
+                                                                    <TextBlock.Effect>
+                                                                        <DropShadowEffect BlurRadius="5" Color="Black" Direction="-90" ShadowDepth="1" RenderingBias="Quality"/>
+                                                                    </TextBlock.Effect>
+                                                                    <TextBlock.Style>
+                                                                        <Style TargetType="TextBlock" BasedOn="{StaticResource RegularTextBlockStyle}">
+                                                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                                                            <Style.Triggers>
+                                                                                <!--IF player has Published-->
+                                                                                <DataTrigger Binding="{Binding IsPublished}" Value="true">
+                                                                                    <Setter Property="Visibility" Value="Visible"/>
+                                                                                </DataTrigger>
+                                                                            </Style.Triggers>
+                                                                        </Style>
+                                                                    </TextBlock.Style>
+                                                                </TextBlock>
+                                                            </Grid>
+                                                        </ControlTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+
+                                                <Style.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Trigger.EnterActions>
+                                                            <SoundPlayerAction Source="resources/audio/mouseover_00.wav"/>
+                                                        </Trigger.EnterActions>
+                                                        <Setter Property="Background" Value="{StaticResource ListViewItemGradientOver}" />
+                                                        <Setter Property="Foreground" Value="#f6f6f6" />
+                                                    </Trigger>
+
+                                                    <Trigger Property="IsFocused" Value="True">
+                                                        <Trigger.EnterActions>
+                                                            <SoundPlayerAction Source="resources/audio/mouseover_00.wav"/>
+                                                        </Trigger.EnterActions>
+                                                        <Setter Property="Background" Value="{StaticResource ListViewItemGradientOver}" />
+                                                        <Setter Property="Foreground" Value="#f6f6f6" />
+                                                    </Trigger>
+
+                                                    <Trigger Property="IsSelected" Value="True">
+                                                        <Setter Property="Background" Value="{StaticResource ListViewItemGradientSelected}" />
+                                                        <Setter Property="Foreground" Value="#ffffff" />
+                                                    </Trigger>
+
+                                                    <EventTrigger RoutedEvent="PreviewMouseDown">
+                                                        <SoundPlayerAction Source="resources/audio/smallbutton.wav" />
+                                                    </EventTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </ListView.ItemContainerStyle>
+                                    </ListView>
+                                </local:Age3KeyboardFocusBorder>
+
+                                <StackPanel Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                            <local:Age3Button x:Name="Mods_MyModsImportLocalModsButton"  Style="{StaticResource MainMenuButton}" Width="450" Margin="15,0,0,0" Content="$$71224$$Refresh Local Mods">
+                                                <Button.ToolTip>$$71225$$Click to refresh mods that are in you local mods directory.</Button.ToolTip>
+                                            </local:Age3Button>
+                                            <local:Age3Button x:Name="Mods_MyModsOpenLocalModsDirectory"  Style="{StaticResource MainMenuButton}" Width="450" Margin="15,0,0,0" Content="$$71517$$Open Local Mods Directory">
+                                                <Button.ToolTip>$$71518$$Click to open your local mods directory.</Button.ToolTip>
+                                            </local:Age3Button>
+                                        </StackPanel>
+                                    </StackPanel>
+                                    <TextBlock x:Name="Mods_MyModsRestartText" Style="{StaticResource ConfirmationTitlesStyle}" Grid.Row="3" FontSize="20" HorizontalAlignment="Center" Margin="0,10,0,0">
+                                        $$71475$$You may need to restart your game for all changes to take effect
+                                    </TextBlock>
+                                </StackPanel>
+
+                            </Grid>
+
+                            <Grid Grid.Column="1" Margin="25">
+                                <StackPanel>
+                                    <Image x:Name="Mods_MyModsThumbnailImage"  Width="430" Height="200" Margin="0,5,0,0" Source="/aoe3wpfg;component/resources/images/icons/random_map/amazon/amazon_ss_01.png" Stretch="Fill"/>
+
+                                    <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,15,10,0">
+                                        <TextBlock Style="{StaticResource subInfoLeft}" TextAlignment="Left" Width="420">$$20001$$Name</TextBlock>
+                                        <TextBlock x:Name="Mods_MyModsModName" Style="{StaticResource RegularTextBlockStyle}" TextAlignment="Right" Width="420" TextWrapping="Wrap">Mod's Name</TextBlock>
+                                        <Rectangle Style="{StaticResource filemanager_dividingline}" Width="420" Margin="0,5,0,5" />
+                                    </StackPanel>
+
+                                    <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,10,10,0">
+                                        <TextBlock Style="{StaticResource subInfoLeft}" TextAlignment="Left" Width="420">$$71199$$Author:</TextBlock>
+                                        <TextBlock x:Name="Mods_MyModsModAuthor" Style="{StaticResource RegularTextBlockStyle}" TextAlignment="Right" Width="420" TextWrapping="Wrap">Author Name</TextBlock>
+                                        <Rectangle Style="{StaticResource filemanager_dividingline}" Width="420" Margin="0,5,0,5" />
+                                    </StackPanel>
+
+                                    <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,10,10,0">
+                                        <TextBlock Style="{StaticResource subInfoLeft}" TextAlignment="Left" Width="420">$$71200$$Tags:</TextBlock>
+                                        <TextBlock x:Name="Mods_MyModsModTags" Style="{StaticResource RegularTextBlockStyle}" TextAlignment="Right" Width="420" TextWrapping="Wrap">Tag 1, Tag 2, Tag 3, Tag 4, Tag 5, Tag 6, Tag 7, Tag 8, Tag 9, Tag 10</TextBlock>
+                                        <Rectangle Style="{StaticResource filemanager_dividingline}" Width="420" Margin="0,5,0,5" />
+                                    </StackPanel>
+
+                                    <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,10,10,0">
+                                        <TextBlock Style="{StaticResource subInfoLeft}" TextAlignment="Left" Width="420">$$71201$$Size:</TextBlock>
+                                        <TextBlock x:Name="Mods_MyModsModSize" Style="{StaticResource RegularTextBlockStyle}" TextAlignment="Right" Width="420" TextWrapping="Wrap">99.99 MB</TextBlock>
+                                        <Rectangle Style="{StaticResource filemanager_dividingline}" Width="420" Margin="0,5,0,5" />
+                                    </StackPanel>
+
+                                    <ScrollViewer Height="160" ScrollViewer.VerticalScrollBarVisibility="Auto" Margin="0,10,0,10">
+                                        <TextBlock x:Name="Mods_MyModsModDesc" FontFamily="arial" FontSize="18" Foreground="White" TextWrapping="Wrap" Width="420" TextAlignment="Left">
+                                            Napoleonic Era is and has been one of the most popular mods for Age of Empires III and its expansions for over 8 years (founded in 2006). In 2014 we still managed to rank among the top100 mods of the year on ModDB. It greatly expands and reworks the game with new units, buildings, maps, sounds, music, civilizations and a better AI.
+                                            <LineBreak/>
+                                            <LineBreak/>
+                                            Napoleonic Era is and has been one of the most popular mods for Age of Empires III and its expansions for over 8 years (founded in 2006). In 2014 we still managed to rank among the top100 mods of the year on ModDB. It greatly expands and reworks the game with new units, buildings, maps, sounds, music, civilizations and a better AI.
+                                        </TextBlock>
+                                    </ScrollViewer>
+                                </StackPanel>
+
+                                <StackPanel VerticalAlignment="Bottom" Margin="0,0,0,10">
+                                    <!--Switches between Publish and Unpublished-->
+                                    <local:Age3Button x:Name="Mods_MyModsPublishButton" Style="{StaticResource MainMenuButton}" Width="380" Margin="0,5,0,0" Content="$$71226$$Publish">
+                                        <Button.ToolTip>$$71227$$Select to publish this mod.</Button.ToolTip>
+                                    </local:Age3Button>
+                                    <local:Age3Button x:Name="Mods_MyModsUpdateButton" Style="{StaticResource MainMenuButton}" Width="380" Margin="0,5,0,0" Content="$$20512$$Update">
+                                        <Button.ToolTip>$$71469$$Select to update this mod.</Button.ToolTip>
+                                    </local:Age3Button>
+                                    <local:Age3Button x:Name="Mods_MyModsOpenDirectoryButton" Style="{StaticResource MainMenuButton}" Width="380" Margin="0,5,0,0" Content="$$71203$$Open Directory">
+                                        <Button.ToolTip>$$71207$$Open directory folder where the mods are located.</Button.ToolTip>
+                                    </local:Age3Button>
+                                    <local:Age3Button x:Name="Mods_MyModsMoreInfoButton" Style="{StaticResource MainMenuButton}" Width="380" Margin="0,5,0,0" Content="$$71204$$More Info">
+                                        <Button.ToolTip>$$71208$$Open the page for this Mod in Age of Empires website.</Button.ToolTip>
+                                    </local:Age3Button>
+                                </StackPanel>
+                            </Grid>
+                        </Grid>
+                    </TabItem>
+                </TabControl>
+
+                <!--Report Popup-->
+                <Grid x:Name="modsReporting" Grid.Row="0" Grid.RowSpan="2" Visibility="Collapsed">
+                    <ContentControl Template="{StaticResource ScreenBlur}" />
+
+                    <Grid Width="1000" Height="500">
+                        <ContentControl Template="{StaticResource PanelBG_Titled}"/>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="45" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="50" />
+                            </Grid.ColumnDefinitions>
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="75" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="70" />
+                                <RowDefinition Height="70" />
+                                <RowDefinition Height="70" />
+                            </Grid.RowDefinitions>
+
+                            <!--Title-->
+                            <TextBlock Style="{StaticResource ConfirmationTitlesStyle}" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,0">
+                                $$71228$$Report Mod
+                            </TextBlock>
+
+                            <Grid Grid.Row="2" Grid.Column="1" Margin="50,0,50,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+
+                                <local:Age3KeyboardFocusBorder Grid.Row="0" Grid.Column="0" Margin="0,0,10,0">
+                                    <RadioButton GroupName="ReportReason" x:Name="ReportCheckInaccurate" >
+                                        <TextBlock TextWrapping="Wrap" Width="350">
+                                            $$71229$$Inaccurate Description
+                                        </TextBlock>
+                                    </RadioButton>
+                                </local:Age3KeyboardFocusBorder>
+                                <local:Age3KeyboardFocusBorder Grid.Row="1" Grid.Column="0" Margin="0,0,10,0">
+                                    <RadioButton GroupName="ReportReason" x:Name="ReportCheckAdvertisement" >
+                                        <TextBlock TextWrapping="Wrap" Width="350">
+                                            $$71230$$Advertisement
+                                        </TextBlock>
+                                    </RadioButton>
+                                </local:Age3KeyboardFocusBorder>
+                                <local:Age3KeyboardFocusBorder Grid.Row="2" Grid.Column="0" Margin="0,0,10,0">
+                                    <RadioButton GroupName="ReportReason" x:Name="ReportCheckTermViolation">
+                                        <TextBlock TextWrapping="Wrap" Width="350">
+                                            $$71232$$Violates Terms of Services
+                                        </TextBlock>
+                                    </RadioButton>
+                                </local:Age3KeyboardFocusBorder>
+                                <local:Age3KeyboardFocusBorder Grid.Row="0" Grid.Column="1" Margin="0,0,10,0">
+                                    <RadioButton GroupName="ReportReason" x:Name="ReportCheckOffensive">
+                                        <TextBlock TextWrapping="Wrap" Width="350">
+                                            $$71233$$Offensive Content
+                                        </TextBlock>
+                                    </RadioButton>
+                                </local:Age3KeyboardFocusBorder>
+                                <local:Age3KeyboardFocusBorder Grid.Row="1" Grid.Column="1" Margin="0,0,10,0">
+                                    <RadioButton GroupName="ReportReason" x:Name="ReportCheckMiscategorized">
+                                        <TextBlock TextWrapping="Wrap" Width="350">
+                                            $$71234$$Miscatergorized
+                                        </TextBlock>
+                                    </RadioButton>
+                                </local:Age3KeyboardFocusBorder>
+                                <local:Age3KeyboardFocusBorder Grid.Row="2" Grid.Column="1" Margin="0,0,10,0">
+                                    <RadioButton GroupName="ReportReason" x:Name="ReportCheckOther">
+                                        <TextBlock TextWrapping="Wrap" Width="350">
+                                            $$71235$$Other:
+                                        </TextBlock>
+                                    </RadioButton>
+                                </local:Age3KeyboardFocusBorder>
+                            </Grid>
+
+                            <local:PreviewTextBox Grid.Row="3" Grid.Column="1" x:Name="ReportMessageText" Width="880" VerticalContentAlignment="Center" PreviewText="Write message here..." MaxLength="250">
+                                <local:PreviewTextBox.Style>
+                                    <Style TargetType="{x:Type local:PreviewTextBox}" BasedOn="{StaticResource {x:Type local:PreviewTextBox}}">
+                                        <Setter Property="IsEnabled" Value="False"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsChecked, ElementName=ReportCheckOther}" Value="True">
+                                                <Setter Property="IsEnabled" Value="True"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </local:PreviewTextBox.Style>
+                            </local:PreviewTextBox>
+
+                            <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                <local:Age3Button x:Name="ReportConfirmButton" Style="{StaticResource MainMenuButton}" Width="350" Content="$$70817$$Report" Margin="0,0,0,0" />
+                                <local:Age3Button x:Name="ReportCancelButton" Style="{StaticResource MainMenuButton}" Width="350" Content="$$18466$$Cancel" Margin="50,0,0,0" />
+                            </StackPanel>
+                        </Grid>
+                    </Grid>
+                </Grid>
+
+                <!--Publishing Mod-->
+                <Grid x:Name="modsPublishing" Grid.Row="0" Grid.RowSpan="2" Visibility="Collapsed">
+                    <ContentControl Template="{StaticResource ScreenBlur}" />
+
+                    <Grid Width="1200" Height="800">
+                        <ContentControl Template="{StaticResource PanelBG_Titled}"/>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="45" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="50" />
+                            </Grid.ColumnDefinitions>
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="75" />
+                                <RowDefinition Height="40" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="230" />
+                                <RowDefinition Height="60" />
+                                <RowDefinition Height="75" />
+                            </Grid.RowDefinitions>
+
+                            <!--Title-->
+                            <TextBlock x:Name="Publishing_PublishTitle" Style="{StaticResource ConfirmationTitlesStyle}" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,0">
+                                $$71455$$Publishing Mod
+                            </TextBlock>
+
+                            <TextBlock x:Name="Publishing_RestartText" Style="{StaticResource ConfirmationTitlesStyle}" Grid.Column="1" Grid.Row="2" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,0">
+                                $$71475$$You may need to restart your game for all changes to take effect
+                            </TextBlock>
+
+                            <Grid Grid.Row="3" Grid.Column="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="450"/>
+                                </Grid.ColumnDefinitions>
+
+                                <StackPanel Grid.Column="0" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10">
+                                    <StackPanel.Resources>
+                                        <Style TargetType="StackPanel">
+                                            <Setter Property="HorizontalAlignment" Value="Left"/>
+                                            <Setter Property="VerticalAlignment" Value="Top"/>
+                                            <Setter Property="Width" Value="630"/>
+                                            <Setter Property="Height" Value="auto"/>
+                                        </Style>
+                                    </StackPanel.Resources>
+                                    <Grid>
+                                        <TextBlock Style="{StaticResource subInfoLeft}" TextAlignment="Left" HorizontalAlignment="Left" VerticalAlignment="Center" Width="220">$$20001$$Name:</TextBlock>
+                                        <local:PreviewTextBox x:Name="Publishing_ModNameField" HorizontalAlignment="Right" Width="350" VerticalContentAlignment="Center" MaxLength="50"/>
+                                        <Grid.ToolTip>$$71456$$Enter name of mod.</Grid.ToolTip>
+                                    </Grid>
+                                    <Rectangle Style="{StaticResource filemanager_dividingline}" Width="630" Margin="0,8,0,8" />
+                                    <Grid>
+                                        <TextBlock Style="{StaticResource subInfoLeft}" TextAlignment="Left" HorizontalAlignment="Left" VerticalAlignment="Center" Width="220">$$71199$$Author:</TextBlock>
+                                        <TextBlock x:Name="Publishing_Author" Style="{StaticResource RegularTextBlockStyle}" HorizontalAlignment="Right" Width="350" TextWrapping="Wrap">Mod's Name</TextBlock>
+                                    </Grid>
+                                    <Rectangle Style="{StaticResource filemanager_dividingline}" Width="630" Margin="0,8,0,8" />
+                                    <Grid>
+                                        <TextBlock Style="{StaticResource subInfoLeft}" TextAlignment="Left" HorizontalAlignment="Left" VerticalAlignment="Center" Width="220">$$71459$$File Details:</TextBlock>
+                                        <TextBlock x:Name="Publishing_File" Style="{StaticResource RegularTextBlockStyle}" HorizontalAlignment="Right" Width="350" TextWrapping="Wrap">9999.99 MB (9999 files)</TextBlock>
+                                    </Grid>
+                                    <Rectangle Style="{StaticResource filemanager_dividingline}" Width="630" Margin="0,8,0,8" />
+                                    <Grid>
+                                        <TextBlock Style="{StaticResource subInfoLeft}" TextAlignment="Left" HorizontalAlignment="Left" VerticalAlignment="Center" Width="220">$$19123$$Visibility:</TextBlock>
+                                        <ComboBox Name="Publishing_Visibility" Style="{StaticResource OptionsCombobox}" Height="40" HorizontalAlignment="Right" VerticalAlignment="Center" Width="350">
+                                            <ComboBox.ToolTip>$$71460$$Public will allow all players to see your published mod. Unlisted will not appear visible to other players.</ComboBox.ToolTip>
+                                            <ComboBoxItem Content="$$71461$$Public" IsSelected="True"/>
+                                            <ComboBoxItem Content="$$71462$$Unlisted"/>
+                                        </ComboBox>
+                                        <Grid.ToolTip>$$71460$$Public will allow all players to see your published mod. Unlisted will not appear visible to other players.</Grid.ToolTip>
+                                    </Grid>
+                                </StackPanel>
+
+                                <StackPanel Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Center">
+                                    <Image x:Name="Publishing_ThumbnailImage" Width="430" Height="200" Margin="0,5,0,0" Source="/aoe3wpfg;component/resources/images/icons/random_map/amazon/amazon_ss_01.png" Stretch="Fill"/>
+                                    <local:Age3Button x:Name="Publishing_ChangeButton" Style="{StaticResource MainMenuButton}" Width="410" Margin="0,10,0,0" Content="$$71463$$Change Thumbnail">
+                                        <Button.ToolTip>$$71464$$Select to change thumbnail.</Button.ToolTip>
+                                    </local:Age3Button>
+                                </StackPanel>
+                            </Grid>
+
+                            <StackPanel Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top">
+                                <TextBlock Style="{StaticResource subInfoLeft}" Margin="0,0,0,10">$$71465$$Description: Write a description about your mod.</TextBlock>
+                                <TextBox x:Name="Publishing_DescriptionField" FontFamily="arial" FontSize="20" Width="1090" Height="190" VerticalAlignment="Top" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" MaxLength="500"/>
+                            </StackPanel>
+
+                            <Grid Grid.Row="5" Grid.Column="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <local:Age3Button x:Name="Publishing_PublishButton" Grid.Column="0" Style="{StaticResource MainMenuButton}" Width="410" Content="$$71466$$Publish Now">
+                                    <Button.ToolTip>$$71467$$Select to publish this mod.</Button.ToolTip>
+                                </local:Age3Button>
+
+                                <local:Age3Button x:Name="Publishing_CancelButton" Grid.Column="1" Style="{StaticResource MainMenuButton}" Width="410" Content="$$18466$$Cancel">
+                                    <Button.ToolTip>$$71474$$Select to update this mod.</Button.ToolTip>
+                                </local:Age3Button>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </Grid>
+                
+            </Grid>
+        </Grid>
+    </Viewbox>
+</Window>

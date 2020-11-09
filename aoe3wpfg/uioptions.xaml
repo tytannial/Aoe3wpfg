@@ -1,0 +1,38 @@
+﻿<Window x:Class="aoe3wpfg.uioptions"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:aoe3wpfg"
+        mc:Ignorable="d"
+        Topmost="True"
+        Title="uioptions"
+        Style="{StaticResource WindowStyle}">
+    <Viewbox Style="{StaticResource ViewboxMain}">
+        <Grid x:Name="mainWindow" Width="1920" Height="1080" DataContext="{StaticResource optionsProxy}">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="245"/>
+                <ColumnDefinition Width="7"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <ContentControl Grid.ColumnSpan="3" Template="{StaticResource ScreenBlur}" Focusable="False" />
+
+            <Grid Grid.Column="0" x:Name="menuStrip">
+                <Rectangle Fill="{StaticResource main_menu_bg}" />
+                <Frame Name="Options_ButtonFrame" Width="245" Grid.Column="0" Focusable="False" NavigationUIVisibility="Hidden" Source="/pages/uipregamenew/OptionsSubMenu.xaml" />
+            </Grid>
+
+
+            <Grid Grid.Column="0" Grid.ColumnSpan="3" x:Name="contentStrip" Width="1920" Height="1080" Margin="0,30,0,0">
+                <Frame Name="Options_RightPanel" HorizontalAlignment="Center" VerticalAlignment="Center"  Width="1920" Height="1080" Grid.Column="1" Margin="0,-30,0,0" Focusable="False" NavigationUIVisibility="Hidden" Source="/pages/uioptions/uigraphicoptions.xaml" />
+            </Grid>
+
+            <Grid Grid.Column="1">
+                <Rectangle Width="6" HorizontalAlignment="Left" Margin="0,-5,0,-5" Fill="{StaticResource PanelBGStrokeGradientVertical}" Stroke="Black" StrokeThickness="2" />
+            </Grid>
+
+        </Grid>
+    </Viewbox>
+</Window>

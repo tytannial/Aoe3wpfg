@@ -1,0 +1,92 @@
+﻿<Window x:Class="aoe3wpfg.uiabout"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:aoe3wpfg"
+        mc:Ignorable="d"
+        Title="uiabout"
+	    Name="AboutBox"
+        Style="{StaticResource WindowStyle}">
+
+    <Viewbox Style="{StaticResource ViewboxMain}">
+
+        <Grid x:Name="mainGridPanel" Width="1920" Height="1080">
+
+            <ContentControl Template="{StaticResource ScreenBlur}" />
+
+            <Grid Width="1350" Height="900" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0">
+                <local:Age3PanelBG Stroke="Black" StrokeThickness="8" Margin="18,18,12,14">
+
+                    <local:Age3PanelBG.Fill>
+                        <ImageBrush ImageSource="/resources/wood.png"/>
+                    </local:Age3PanelBG.Fill>
+                    <local:Age3PanelBG.Effect>
+                        <DropShadowEffect Color="Black" Direction="-90" ShadowDepth="3" BlurRadius="30" />
+                    </local:Age3PanelBG.Effect>
+                </local:Age3PanelBG>
+                <Rectangle Height="128" VerticalAlignment="Top" Margin="26,90,28,0">
+                    <Rectangle.Fill>
+                        <ImageBrush ImageSource="/resources/wood_shadow.png" />
+                    </Rectangle.Fill>
+                </Rectangle>
+                <local:Age3PanelBG Fill="Transparent" Stroke="{StaticResource PanelBGStrokeGradient}" StrokeThickness="3" Margin="20"/>
+            </Grid>
+
+            <Grid Height="888" Width="1337" HorizontalAlignment="Center">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="40"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="40"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="70"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="40"/>
+            </Grid.RowDefinitions>
+
+            <!--Titles-->
+                <TextBlock Style="{StaticResource ConfirmationTitlesStyle}" Grid.Row="1" Grid.Column="1" FontSize="36" VerticalAlignment="Center">
+                $$35562$$About
+                </TextBlock>
+
+                <Rectangle Grid.ColumnSpan="3" Grid.Row="2" HorizontalAlignment="Center" Height="640" Width="1260" VerticalAlignment="Top" Margin="0,25,0,0" Style="{StaticResource PanelBGSection}" />
+                <!--Text Source-->
+            <!--NOTE: The text (insert build number here) is special text, make sure it is present and DO NOT LOCALISE!!! -->
+            <ScrollViewer Grid.Column="1" Grid.Row="2" VerticalAlignment="Top" Margin="0,50,0,0" Width="1200" Height="600" VerticalScrollBarVisibility="Auto">
+                <local:Age3TextBlockFormatted x:Name="AboutText" PermissionLevel="EnableAllFormatting" TextWrapping="Wrap" Padding="20" FontFamily="Trajan Pro" FontSize="19" Foreground="White">               
+                PLACEHOLDER TEXT EXPECTED TO CHANGE
+                <LineBreak/>
+                <LineBreak/>
+                Age of Empires(R) III: Definitive Edition, version (insert build number here)
+                <LineBreak/>
+                <LineBreak/>
+                (c) and (P) 2007 Microsoft Corporation. All rights reserved. 
+                <LineBreak/>
+                Microsoft, Age of Empires, DirectX, Ensemble Studios, the Microsoft Game Studio logo, The Age of Kings, and Windows are either registered trademarks or trademarks of Microsoft Corporation in the United States and/or other countries.
+                <LineBreak/>
+                <LineBreak/>
+                Warning: This computer program is protected by copyright law and international treaties. Unauthorized reproduction or distribution of this program, or any portion of it, may result in servere civil and criminal penalties and will be prosecuted to the maximum extent possible under the law. 
+                <LineBreak/>
+                <LineBreak/>
+                Uses Granny Animation: (c) 1997-2007 RAD Game Tools, Inc.
+                <LineBreak/>
+                <LineBreak/>
+                Uses Bink Video. (c) 1997-2007 RAD Game Tools, Inc.
+                <LineBreak/>
+                <LineBreak/>
+                (c) 2007 Havok and Havok 3 are registered trademarks of Havok and Telekinesys Research Limtied. All other products, company names and logos are trademarks or registered trademarks of their respective owners. 
+                 <LineBreak/>
+                <LineBreak/>
+                This software is based in part on the work of the Independent JPEG Group. 
+                </local:Age3TextBlockFormatted>
+            </ScrollViewer>
+
+            <local:Age3Button x:Name="AboutBox_Close" Grid.Row="2" Grid.Column="1" Margin="0,0,0,40" Style="{StaticResource MainMenuButton}" Width="280" Content="$$18457$$Close" ConsoleCommand="gadgetUnreal(&quot;AboutBox&quot;)" VerticalAlignment="Bottom" />
+            </Grid>
+        </Grid>
+    </Viewbox>
+</Window>

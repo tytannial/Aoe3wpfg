@@ -1,0 +1,919 @@
+﻿<Window x:Class="aoe3wpfg.uiplayersummarydlg" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:local="clr-namespace:aoe3wpfg" mc:Ignorable="d" Title="uiplayersummarydlg" Style="{StaticResource WindowStyle}" Topmost="True"
+        local:Age3Accessibility.Mode="Game">
+    <Window.Resources>
+        <Style TargetType="{x:Type Button}" x:Key="playersummaryFlagbutton">
+            <Setter Property="FontFamily" Value="Trajan Pro" />
+            <Setter Property="RenderTransformOrigin" Value="0.5, 0.5" />
+            <Setter Property="RenderTransform">
+                <Setter.Value>
+                    <ScaleTransform ScaleX="1" ScaleY="1" />
+                </Setter.Value>
+            </Setter>
+
+            <Setter Property="Background" Value="{StaticResource flag_thin_random}" />
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Name="border" BorderThickness="2" CornerRadius="4" BorderBrush="Transparent" Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)" To="1.10" Duration="0:0:.2" />
+                                            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)" To="1.10" Duration="0:0:.2" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                    <SoundPlayerAction Source="resources/audio/mouseover_00.wav" />
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)" To="1" Duration="0:0:.2" />
+                                            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)" To="1" Duration="0:0:.2" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+
+                            </Trigger>
+                            <EventTrigger RoutedEvent="PreviewMouseDown">
+                                <SoundPlayerAction Source="resources/audio/smallbutton.wav" />
+                            </EventTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="{x:Type Button}" x:Key="playersummaryPlusMinus">
+            <Setter Property="Height" Value="30" />
+            <Setter Property="Width" Value="30" />
+            <Setter Property="Background" Value="#36270f" />
+            <Setter Property="FontFamily" Value="Traja Pro"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Name="border" BorderThickness="3" CornerRadius="4" Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            <Border.BorderBrush>
+                                <LinearGradientBrush StartPoint="0,0.5" EndPoint="1,0.5">
+                                    <LinearGradientBrush.GradientStops>
+                                        <GradientStopCollection>
+                                            <GradientStop Color="#4f4731" Offset="0.0" />
+                                            <GradientStop Color="#b79f66" Offset="0.5" />
+                                            <GradientStop Color="#4f4731" Offset="1.0" />
+                                        </GradientStopCollection>
+                                    </LinearGradientBrush.GradientStops>
+                                </LinearGradientBrush>
+                            </Border.BorderBrush>
+                            <Border.Effect>
+                                <DropShadowEffect BlurRadius="5" Color="Black" Direction="-90" ShadowDepth="0" RenderingBias="Quality" />
+                            </Border.Effect>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)" To="1.05" Duration="0:0:.2" />
+                                            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)" To="1.05" Duration="0:0:.2" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                    <SoundPlayerAction Source="resources/audio/mouseover_00.wav" />
+                                </Trigger.EnterActions>
+                                <Setter Property="Background" TargetName="border">
+                                    <Setter.Value>
+                                        <SolidColorBrush Color="#5d451e" />
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" TargetName="border">
+                                    <Setter.Value>
+                                        <SolidColorBrush Color="#855c1b" />
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                            <EventTrigger RoutedEvent="PreviewMouseDown">
+                                <SoundPlayerAction Source="resources/audio/smallbutton.wav" />
+                            </EventTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <BitmapImage x:Key="playersummary_plus" UriSource="/resources/images/hud/icon_plus.png" />
+        <BitmapImage x:Key="playersummary_minus" UriSource="/resources/images/hud/icon_minus.png" />
+    </Window.Resources>
+    <Viewbox Style="{StaticResource ViewboxMain}">
+        <Grid x:Name="mainGridPanel" Height="1080" Width="1920">
+
+            <ContentControl Template="{StaticResource ScreenBlur}" Margin="2,-4,-2,4" />
+
+            <ContentControl Template="{StaticResource PanelBG_Titled}" Width="1060" Height="740" Margin="0,40,0,0" >
+                <ContentControl.LayoutTransform>
+                    <ScaleTransform
+                        CenterX="0"
+                        CenterY="0"
+                        ScaleX="{Binding OptionUIHudScale, Source={StaticResource optionsProxy}}"
+                        ScaleY="{Binding OptionUIHudScale, Source={StaticResource optionsProxy}}" />
+                </ContentControl.LayoutTransform>
+            </ContentControl>
+
+            <Rectangle HorizontalAlignment="Center" VerticalAlignment="Center" Height="470" Width="990" Margin="0,40,0,0" Style="{StaticResource PanelBGSection}" >
+                <Rectangle.LayoutTransform>
+                    <ScaleTransform
+                        CenterX="0"
+                        CenterY="0"
+                        ScaleX="{Binding OptionUIHudScale, Source={StaticResource optionsProxy}}"
+                        ScaleY="{Binding OptionUIHudScale, Source={StaticResource optionsProxy}}" />
+                </Rectangle.LayoutTransform>
+            </Rectangle>
+
+            <!--Table-->
+            <Grid Grid.Column="1" Grid.Row="2" Height="650" Width="1000" Visibility="Visible">
+                <Grid.LayoutTransform>
+                    <ScaleTransform
+                        CenterX="0"
+                        CenterY="0"
+                        ScaleX="{Binding OptionUIHudScale, Source={StaticResource optionsProxy}}"
+                        ScaleY="{Binding OptionUIHudScale, Source={StaticResource optionsProxy}}" />
+                </Grid.LayoutTransform>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="70" />
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="70" />
+                </Grid.RowDefinitions>
+
+                <!--Title-->
+                <TextBlock x:Name="playersummarydlg_ScreenLabel" Grid.Row="0" Style="{StaticResource ConfirmationTitlesStyle}" Height="40" Margin="0,15,0,0">
+                    $$29329$$Player Summary
+                </TextBlock>
+
+                <Grid Grid.Column="1" Grid.Row="1" Margin="22,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="478" />
+                        <ColumnDefinition Width="*" />
+
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Column="0" Style="{StaticResource ConfirmationTitlesStyleSmall}" HorizontalAlignment="Left" Margin="45,0,0,0" FontSize="21">
+                        $$70572$$Players and Teams
+                    </TextBlock>
+
+                    <TextBlock Grid.Column="1" Style="{StaticResource ConfirmationTitlesStyleSmall}" Margin="20,0,0,0" FontSize="21">
+                        $$29360$$Tribute
+                    </TextBlock>
+                </Grid>
+
+                <Grid Grid.Row="2" Width="980" Height="460" Margin="0,5,0,0" VerticalAlignment="Top" HorizontalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="5" />
+                        <ColumnDefinition Width="150" />
+                        <ColumnDefinition Width="5" />
+                        <ColumnDefinition Width="150" />
+                        <ColumnDefinition Width="5" />
+                        <ColumnDefinition Width="150" />
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="35" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <!--Vertical Dividers-->
+                    <Rectangle x:Name="Divider1" Grid.Column="1" Grid.Row="0" Grid.RowSpan="11" Fill="#b9b4a5" Width="2" Opacity="0.5" Margin="0,10,0,0"/>
+                    <Rectangle x:Name="Divider2" Grid.Column="3" Grid.Row="0" Grid.RowSpan="11" Fill="#b9b4a5" Width="2" Opacity="0.5" Margin="0,10,0,0"/>
+                    <Rectangle x:Name="Divider3" Grid.Column="5" Grid.Row="0" Grid.RowSpan="11" Fill="#b9b4a5" Width="2" Opacity="0.5" Margin="0,10,0,0"/>
+                    
+
+                    <!--Top Row-->
+                    <TextBlock x:Name="team1_HeadingText" Grid.Column="0" Style="{StaticResource ConfirmationTitlesStyleSmall}" FontSize="21" HorizontalAlignment="Left" Margin="10,0,0,0" Text="$$36141$$Team 1" />
+                    <!--Food-->
+                    <Rectangle x:Name="FoodIcon" Grid.Column="2" Height="40" Width="50">
+                        <Rectangle.Fill>
+                            <ImageBrush ImageSource="{StaticResource resource_food}" />
+                        </Rectangle.Fill>
+                    </Rectangle>
+                    <!--Wood-->
+                    <Rectangle x:Name="WoodIcon" Grid.Column="4" Height="40" Width="50">
+                        <Rectangle.Fill>
+                            <ImageBrush ImageSource="{StaticResource resource_wood}" />
+                        </Rectangle.Fill>
+                    </Rectangle>
+                    <!--Coin-->
+                    <Rectangle x:Name="GoldIcon" Grid.Column="6" Height="40" Width="50">
+                        <Rectangle.Fill>
+                            <ImageBrush ImageSource="{StaticResource resource_gold}" />
+                        </Rectangle.Fill>
+                    </Rectangle>
+
+                    <!--Had to restructure this screen from Grid to StackPanel because this screen actually dynamically changes according to team sizes. Having a Grid would have actually fixed the sizes and unable to do team sizes such as 1v7-->
+                    <StackPanel Grid.Row="1" Grid.ColumnSpan="7">
+                        <StackPanel.Resources>
+                            <Style TargetType="TextBlock" BasedOn="{StaticResource playerSummaryTextStyles}">
+                                <Setter Property="Height" Value="30"/>
+                                <Setter Property="Width" Value="330"/>
+                                <Setter Property="FontWeight" Value="Bold"/>
+                                <Setter Property="FontSize" Value="19"/>
+                                <Setter Property="TextAlignment" Value="Center"/>
+                                <Setter Property="Margin" Value="0,5"/>
+                            </Style>
+                        </StackPanel.Resources>
+
+                        <!--Player 1-->
+                        <StackPanel x:Name="team1_Player1Row" Orientation="Horizontal" Height="40" Visibility="Visible">
+                            <!--Player-->
+                            <Button x:Name="team1_Player1ViewHC" Height="30" Width="110" Style="{StaticResource playersummaryFlagbutton}" />
+                            <TextBlock x:Name="team1_Player1Name" TextAlignment="Left" >Player #1</TextBlock>
+                            <Button x:Name="team1_Player1Report" Height="25" Width="25" Margin="10,0,0,0" Style="{StaticResource HUDButton}" Visibility="{Binding IsMultiplayer}">
+                                <Image Source="{StaticResource friends_report}"/>
+                            </Button>
+                            <!--Mute button-->
+                            <ToggleButton x:Name="team1_Player1Mute" Margin="10,0,0,0" Width="25" Height="25" Style="{StaticResource Mutebutton}" Visibility="Visible" Command="{Binding Mute}"/>
+                            <!--Food-->
+                            <StackPanel Height="30" Width="140" Orientation="Horizontal" Margin="15,0,0,0">
+                                <Button x:Name="cmdDown_P1F" Style="{StaticResource playersummaryPlusMinus}">
+                                    <Image Source="{StaticResource playersummary_minus}" />
+                                </Button>
+                                <TextBlock x:Name="txtNum_P1F" Width="80" Margin="0" HorizontalAlignment="Center">999999</TextBlock>
+                                <Button x:Name="cmdUp_P1F" Style="{StaticResource playersummaryPlusMinus}">
+                                    <Image Source="{StaticResource playersummary_plus}" />
+                                </Button>
+                            </StackPanel>
+                            <!--Wood-->
+                            <StackPanel Height="30" Width="140" Orientation="Horizontal" Margin="15,0,0,0">
+                                <Button x:Name="cmdDown_P1W" Style="{StaticResource playersummaryPlusMinus}">
+                                    <Image Source="{StaticResource playersummary_minus}" />
+                                </Button>
+                                <TextBlock x:Name="txtNum_P1W" Width="80" Margin="0" HorizontalAlignment="Center">999999</TextBlock>
+                                <Button x:Name="cmdUp_P1W" Style="{StaticResource playersummaryPlusMinus}">
+                                    <Image Source="{StaticResource playersummary_plus}" />
+                                </Button>
+                            </StackPanel>
+                            <!--Coin-->
+                            <StackPanel Height="30" Width="140" Orientation="Horizontal" Margin="15,0,0,0">
+                                <Button x:Name="cmdDown_P1G" Style="{StaticResource playersummaryPlusMinus}">
+                                    <Image Source="{StaticResource playersummary_minus}" />
+                                </Button>
+                                <TextBlock x:Name="txtNum_P1G" Width="80" Margin="0" HorizontalAlignment="Center">999999</TextBlock>
+                                <Button x:Name="cmdUp_P1G" Style="{StaticResource playersummaryPlusMinus}">
+                                    <Image Source="{StaticResource playersummary_plus}" />
+                                </Button>
+                            </StackPanel>
+                        </StackPanel>
+
+                        <!--Player 2-->
+                        <StackPanel x:Name="team1_Player2Row" Orientation="Horizontal" Height="40" Visibility="Collapsed">
+                            <!--Player-->
+                            <Button x:Name="team1_Player2ViewHC" Height="30" Width="110" Style="{StaticResource playersummaryFlagbutton}" />
+                            <TextBlock x:Name="team1_Player2Name" TextAlignment="Left">Player #2</TextBlock>
+                            <Button x:Name="team1_Player2Report" Height="25" Width="25" Margin="10,0,0,0" Style="{StaticResource HUDButton}" Visibility="{Binding IsMultiplayer}">
+                                <Image Source="{StaticResource friends_report}"/>
+                            </Button>
+                            <!--Mute button-->
+                            <ToggleButton x:Name="team1_Player2Mute" Margin="10,0,0,0" Height="25" Width="25" Style="{StaticResource Mutebutton}" Visibility="Visible" Command="{Binding Mute}"/>
+                            <!--Food-->
+                            <StackPanel Height="30" Width="140" Orientation="Horizontal" Margin="15,0,0,0">
+                                <Button x:Name="cmdDown_P2F" Style="{StaticResource playersummaryPlusMinus}">
+                                    <Image Source="{StaticResource playersummary_minus}" />
+                                </Button>
+                                <TextBlock x:Name="txtNum_P2F" Width="80" Margin="0" HorizontalAlignment="Center">999999</TextBlock>
+                                <Button x:Name="cmdUp_P2F" Style="{StaticResource playersummaryPlusMinus}">
+                                    <Image Source="{StaticResource playersummary_plus}" />
+                                </Button>
+                            </StackPanel>
+                            <!--Wood-->
+                            <StackPanel Height="30" Width="140" Orientation="Horizontal" Margin="15,0,0,0">
+                                <Button x:Name="cmdDown_P2W" Style="{StaticResource playersummaryPlusMinus}">
+                                    <Image Source="{StaticResource playersummary_minus}" />
+                                </Button>
+                                <TextBlock x:Name="txtNum_P2W" Width="80" Margin="0" HorizontalAlignment="Center">999999</TextBlock>
+                                <Button x:Name="cmdUp_P2W" Style="{StaticResource playersummaryPlusMinus}">
+                                    <Image Source="{StaticResource playersummary_plus}" />
+                                </Button>
+                            </StackPanel>
+                            <!--Coin-->
+                            <StackPanel Height="30" Width="140" Orientation="Horizontal" Margin="15,0,0,0">
+                                <Button x:Name="cmdDown_P2G" Style="{StaticResource playersummaryPlusMinus}">
+                                    <Image Source="{StaticResource playersummary_minus}" />
+                                </Button>
+                                <TextBlock x:Name="txtNum_P2G" Width="80" Margin="0" HorizontalAlignment="Center">999999</TextBlock>
+                                <Button x:Name="cmdUp_P2G" Style="{StaticResource playersummaryPlusMinus}">
+                                    <Image Source="{StaticResource playersummary_plus}" />
+                                </Button>
+                            </StackPanel>
+                        </StackPanel>
+
+                        <!--Player 3-->
+                        <StackPanel x:Name="team1_Player3Row" Orientation="Horizontal" Height="40" Visibility="Collapsed">
+                            <!--Player-->
+                            <Button x:Name="team1_Player3ViewHC" Height="30" Width="110" Style="{StaticResource playersummaryFlagbutton}" />
+                            <TextBlock x:Name="team1_Player3Name" TextAlignment="Left">Player #3</TextBlock>
+                            <Button x:Name="team1_Player3Report" Height="25" Width="25" Margin="10,0,0,0" Style="{StaticResource HUDButton}" Visibility="{Binding IsMultiplayer}">
+                                <Image Source="{StaticResource friends_report}"/>
+                            </Button>
+                            <!--Mute button-->
+                            <ToggleButton x:Name="team1_Player3Mute" Margin="10,0,0,0" Height="25" Width="25" Style="{StaticResource Mutebutton}" Visibility="Visible" Command="{Binding Mute}"/>
+                            <!--Food-->
+                            <StackPanel Height="30" Width="140" Orientation="Horizontal" Margin="15,0,0,0">
+                                <Button x:Name="cmdDown_P3F" Style="{StaticResource playersummaryPlusMinus}">
+                                    <Image Source="{StaticResource playersummary_minus}" />
+                                </Button>
+                                <TextBlock x:Name="txtNum_P3F" Width="80" Margin="0" HorizontalAlignment="Center">999999</TextBlock>
+                                <Button x:Name="cmdUp_P3F" Style="{StaticResource playersummaryPlusMinus}">
+                                    <Image Source="{StaticResource playersummary_plus}" />
+                                </Button>
+                            </StackPanel>
+                            <!--Wood-->
+                            <StackPanel Height="30" Width="140" Orientation="Horizontal" Margin="15,0,0,0">
+                                <Button x:Name="cmdDown_P3W" Style="{StaticResource playersummaryPlusMinus}">
+                                    <Image Source="{StaticResource playersummary_minus}" />
+                                </Button>
+                                <TextBlock x:Name="txtNum_P3W" Width="80" Margin="0" HorizontalAlignment="Center">999999</TextBlock>
+                                <Button x:Name="cmdUp_P3W" Style="{StaticResource playersummaryPlusMinus}">
+                                    <Image Source="{StaticResource playersummary_plus}" />
+                                </Button>
+                            </StackPanel>
+                            <!--Coin-->
+                            <StackPanel Height="30" Width="140" Orientation="Horizontal" Margin="15,0,0,0">
+                                <Button x:Name="cmdDown_P3G" Style="{StaticResource playersummaryPlusMinus}">
+                                    <Image Source="{StaticResource playersummary_minus}" />
+                                </Button>
+                                <TextBlock x:Name="txtNum_P3G" Width="80" Margin="0" HorizontalAlignment="Center">999999</TextBlock>
+                                <Button x:Name="cmdUp_P3G" Style="{StaticResource playersummaryPlusMinus}">
+                                    <Image Source="{StaticResource playersummary_plus}" />
+                                </Button>
+                            </StackPanel>
+                        </StackPanel>
+
+                        <!--Player 4-->
+                        <StackPanel x:Name="team1_Player4Row" Orientation="Horizontal" Height="40" Visibility="Collapsed">
+                            <!--Player-->
+                            <Button x:Name="team1_Player4ViewHC" Height="30" Width="110" Style="{StaticResource playersummaryFlagbutton}" />
+                            <TextBlock x:Name="team1_Player4Name" TextAlignment="Left">Player #4</TextBlock>
+                            <Button x:Name="team1_Player4Report" Height="25" Width="25" Margin="10,0,0,0" Style="{StaticResource HUDButton}" Visibility="{Binding IsMultiplayer}">
+                                <Image Source="{StaticResource friends_report}"/>
+                            </Button>
+                            <!--Mute button-->
+                            <ToggleButton x:Name="team1_Player4Mute" Margin="10,0,0,0" Height="25" Width="25" Style="{StaticResource Mutebutton}" Visibility="Visible" Command="{Binding Mute}"/>
+                            <!--Food-->
+                            <StackPanel Height="30" Width="140" Orientation="Horizontal" Margin="15,0,0,0">
+                                <Button x:Name="cmdDown_P4F" Style="{StaticResource playersummaryPlusMinus}">
+                                    <Image Source="{StaticResource playersummary_minus}" />
+                                </Button>
+                                <TextBlock x:Name="txtNum_P4F" Width="80" Margin="0" HorizontalAlignment="Center">999999</TextBlock>
+                                <Button x:Name="cmdUp_P4F" Style="{StaticResource playersummaryPlusMinus}">
+                                    <Image Source="{StaticResource playersummary_plus}" />
+                                </Button>
+                            </StackPanel>
+                            <!--Wood-->
+                            <StackPanel Height="30" Width="140" Orientation="Horizontal" Margin="15,0,0,0">
+                                <Button x:Name="cmdDown_P4W" Style="{StaticResource playersummaryPlusMinus}">
+                                    <Image Source="{StaticResource playersummary_minus}" />
+                                </Button>
+                                <TextBlock x:Name="txtNum_P4W" Width="80" Margin="0" HorizontalAlignment="Center">999999</TextBlock>
+                                <Button x:Name="cmdUp_P4W" Style="{StaticResource playersummaryPlusMinus}">
+                                    <Image Source="{StaticResource playersummary_plus}" />
+                                </Button>
+                            </StackPanel>
+                            <!--Coin-->
+                            <StackPanel Height="30" Width="140" Orientation="Horizontal" Margin="15,0,0,0">
+                                <Button x:Name="cmdDown_P4G" Style="{StaticResource playersummaryPlusMinus}">
+                                    <Image Source="{StaticResource playersummary_minus}" />
+                                </Button>
+                                <TextBlock x:Name="txtNum_P4G" Width="80" Margin="0" HorizontalAlignment="Center">999999</TextBlock>
+                                <Button x:Name="cmdUp_P4G" Style="{StaticResource playersummaryPlusMinus}">
+                                    <Image Source="{StaticResource playersummary_plus}" />
+                                </Button>
+                            </StackPanel>
+                        </StackPanel>
+
+                        <!--Player 5-->
+                        <StackPanel x:Name="team1_Player5Row" Orientation="Horizontal" Height="40" Visibility="Collapsed">
+                            <!--Player-->
+                            <Button x:Name="team1_Player5ViewHC" Height="30" Width="110" Style="{StaticResource playersummaryFlagbutton}" />
+                            <TextBlock x:Name="team1_Player5Name" TextAlignment="Left">Player #5</TextBlock>
+                            <Button x:Name="team1_Player5Report" Height="25" Width="25" Margin="10,0,0,0" Style="{StaticResource HUDButton}" Visibility="{Binding IsMultiplayer}">
+                                <Image Source="{StaticResource friends_report}"/>
+                            </Button>
+                            <!--Mute button-->
+                            <ToggleButton x:Name="team1_Player5Mute" Margin="10,0,0,0" Height="25" Width="25" Style="{StaticResource Mutebutton}" Visibility="Visible" Command="{Binding Mute}"/>
+                            <!--Food-->
+                            <StackPanel Height="30" Width="140" Orientation="Horizontal" Margin="15,0,0,0">
+                                <Button x:Name="cmdDown_P5F" Style="{StaticResource playersummaryPlusMinus}">
+                                    <Image Source="{StaticResource playersummary_minus}" />
+                                </Button>
+                                <TextBlock x:Name="txtNum_P5F" Width="80" Margin="0" HorizontalAlignment="Center">999999</TextBlock>
+                                <Button x:Name="cmdUp_P5F" Style="{StaticResource playersummaryPlusMinus}">
+                                    <Image Source="{StaticResource playersummary_plus}" />
+                                </Button>
+                            </StackPanel>
+                            <!--Wood-->
+                            <StackPanel Height="30" Width="140" Orientation="Horizontal" Margin="15,0,0,0">
+                                <Button x:Name="cmdDown_P5W" Style="{StaticResource playersummaryPlusMinus}">
+                                    <Image Source="{StaticResource playersummary_minus}" />
+                                </Button>
+                                <TextBlock x:Name="txtNum_P5W" Width="80" Margin="0" HorizontalAlignment="Center">999999</TextBlock>
+                                <Button x:Name="cmdUp_P5W" Style="{StaticResource playersummaryPlusMinus}">
+                                    <Image Source="{StaticResource playersummary_plus}" />
+                                </Button>
+                            </StackPanel>
+                            <!--Coin-->
+                            <StackPanel Height="30" Width="140" Orientation="Horizontal" Margin="15,0,0,0">
+                                <Button x:Name="cmdDown_P5G" Style="{StaticResource playersummaryPlusMinus}">
+                                    <Image Source="{StaticResource playersummary_minus}" />
+                                </Button>
+                                <TextBlock x:Name="txtNum_P5G" Width="80" Margin="0" HorizontalAlignment="Center">999999</TextBlock>
+                                <Button x:Name="cmdUp_P5G" Style="{StaticResource playersummaryPlusMinus}">
+                                    <Image Source="{StaticResource playersummary_plus}" />
+                                </Button>
+                            </StackPanel>
+                        </StackPanel>
+
+                        <!--Player 6-->
+                        <StackPanel x:Name="team1_Player6Row" Orientation="Horizontal" Height="40" Visibility="Collapsed">
+                            <!--Player-->
+                            <Button x:Name="team1_Player6ViewHC" Height="30" Width="110" Style="{StaticResource playersummaryFlagbutton}" />
+                            <TextBlock x:Name="team1_Player6Name" TextAlignment="Left">Player #6</TextBlock>
+                            <Button x:Name="team1_Player6Report" Height="25" Width="25" Margin="10,0,0,0" Style="{StaticResource HUDButton}" Visibility="{Binding IsMultiplayer}">
+                                <Image Source="{StaticResource friends_report}"/>
+                            </Button>
+                            <!--Mute button-->
+                            <ToggleButton x:Name="team1_Player6Mute" Margin="10,0,0,0" Height="25" Width="25" Style="{StaticResource Mutebutton}" Visibility="Visible" Command="{Binding Mute}"/>
+                            <!--Food-->
+                            <StackPanel Height="30" Width="140" Orientation="Horizontal" Margin="15,0,0,0">
+                                <Button x:Name="cmdDown_P6F" Style="{StaticResource playersummaryPlusMinus}">
+                                    <Image Source="{StaticResource playersummary_minus}" />
+                                </Button>
+                                <TextBlock x:Name="txtNum_P6F" Width="80" Margin="0" HorizontalAlignment="Center">999999</TextBlock>
+                                <Button x:Name="cmdUp_P6F" Style="{StaticResource playersummaryPlusMinus}">
+                                    <Image Source="{StaticResource playersummary_plus}" />
+                                </Button>
+                            </StackPanel>
+                            <!--Wood-->
+                            <StackPanel Height="30" Width="140" Orientation="Horizontal" Margin="15,0,0,0">
+                                <Button x:Name="cmdDown_P6W" Style="{StaticResource playersummaryPlusMinus}">
+                                    <Image Source="{StaticResource playersummary_minus}" />
+                                </Button>
+                                <TextBlock x:Name="txtNum_P6W" Width="80" Margin="0" HorizontalAlignment="Center">999999</TextBlock>
+                                <Button x:Name="cmdUp_P6W" Style="{StaticResource playersummaryPlusMinus}">
+                                    <Image Source="{StaticResource playersummary_plus}" />
+                                </Button>
+                            </StackPanel>
+                            <!--Coin-->
+                            <StackPanel Height="30" Width="140" Orientation="Horizontal" Margin="15,0,0,0">
+                                <Button x:Name="cmdDown_P6G" Style="{StaticResource playersummaryPlusMinus}">
+                                    <Image Source="{StaticResource playersummary_minus}" />
+                                </Button>
+                                <TextBlock x:Name="txtNum_P6G" Width="80" Margin="0" HorizontalAlignment="Center">999999</TextBlock>
+                                <Button x:Name="cmdUp_P6G" Style="{StaticResource playersummaryPlusMinus}">
+                                    <Image Source="{StaticResource playersummary_plus}" />
+                                </Button>
+                            </StackPanel>
+                        </StackPanel>
+
+                        <!--Player 7-->
+                        <StackPanel x:Name="team1_Player7Row" Orientation="Horizontal" Height="40" Visibility="Collapsed">
+                            <!--Player-->
+                            <Button x:Name="team1_Player7ViewHC" Height="30" Width="110" Style="{StaticResource playersummaryFlagbutton}" />
+                            <TextBlock x:Name="team1_Player7Name" TextAlignment="Left">Player #7</TextBlock>
+                            <Button x:Name="team1_Player7Report" Height="25" Width="25" Margin="10,0,0,0" Style="{StaticResource HUDButton}" Visibility="{Binding IsMultiplayer}">
+                                <Image Source="{StaticResource friends_report}"/>
+                            </Button>
+                            <!--Mute button-->
+                            <ToggleButton x:Name="team1_Player7Mute" Margin="10,0,0,0" Height="25" Width="25" Style="{StaticResource Mutebutton}" Visibility="Visible" Command="{Binding Mute}"/>
+                            <!--Food-->
+                            <StackPanel Height="30" Width="140" Orientation="Horizontal" Margin="15,0,0,0">
+                                <Button x:Name="cmdDown_P7F" Style="{StaticResource playersummaryPlusMinus}">
+                                    <Image Source="{StaticResource playersummary_minus}" />
+                                </Button>
+                                <TextBlock x:Name="txtNum_P7F" Width="80" Margin="0" HorizontalAlignment="Center">999999</TextBlock>
+                                <Button x:Name="cmdUp_P7F" Style="{StaticResource playersummaryPlusMinus}">
+                                    <Image Source="{StaticResource playersummary_plus}" />
+                                </Button>
+                            </StackPanel>
+                            <!--Wood-->
+                            <StackPanel Height="30" Width="140" Orientation="Horizontal" Margin="15,0,0,0">
+                                <Button x:Name="cmdDown_P7W" Style="{StaticResource playersummaryPlusMinus}">
+                                    <Image Source="{StaticResource playersummary_minus}" />
+                                </Button>
+                                <TextBlock x:Name="txtNum_P7W" Width="80" Margin="0" HorizontalAlignment="Center">999999</TextBlock>
+                                <Button x:Name="cmdUp_P7W" Style="{StaticResource playersummaryPlusMinus}">
+                                    <Image Source="{StaticResource playersummary_plus}" />
+                                </Button>
+                            </StackPanel>
+                            <!--Coin-->
+                            <StackPanel Height="30" Width="140" Orientation="Horizontal" Margin="15,0,0,0">
+                                <Button x:Name="cmdDown_P7G" Style="{StaticResource playersummaryPlusMinus}">
+                                    <Image Source="{StaticResource playersummary_minus}" />
+                                </Button>
+                                <TextBlock x:Name="txtNum_P7G" Width="80" Margin="0" HorizontalAlignment="Center">999999</TextBlock>
+                                <Button x:Name="cmdUp_P7G" Style="{StaticResource playersummaryPlusMinus}">
+                                    <Image Source="{StaticResource playersummary_plus}" />
+                                </Button>
+                            </StackPanel>
+                        </StackPanel>
+
+                        <!--Player 8-->
+                        <StackPanel x:Name="team1_Player8Row" Orientation="Horizontal" Height="40" Visibility="Collapsed">
+                            <!--Player-->
+                            <Button x:Name="team1_Player8ViewHC" Height="30" Width="110" Style="{StaticResource playersummaryFlagbutton}" />
+                            <TextBlock x:Name="team1_Player8Name" TextAlignment="Left">Player #8</TextBlock>
+                            <Button x:Name="team1_Player8Report" Height="25" Width="25" Margin="10,0,0,0" Style="{StaticResource HUDButton}" Visibility="{Binding IsMultiplayer}">
+                                <Image Source="{StaticResource friends_report}"/>
+                            </Button>
+                            <!--Mute button-->
+                            <ToggleButton x:Name="team1_Player8Mute" Margin="10,0,0,0" Height="25" Width="25" Style="{StaticResource Mutebutton}" Visibility="Visible" Command="{Binding Mute}"/>
+                            <!--Food-->
+                            <StackPanel Height="30" Width="140" Orientation="Horizontal" Visibility="Visible" Margin="15,0,0,0">
+                                <Button x:Name="cmdDown_P8F" Style="{StaticResource playersummaryPlusMinus}">
+                                    <Image Source="{StaticResource playersummary_minus}" />
+                                </Button>
+                                <TextBlock x:Name="txtNum_P8F" Width="80" Margin="0" HorizontalAlignment="Center">999999</TextBlock>
+                                <Button x:Name="cmdUp_P8F" Style="{StaticResource playersummaryPlusMinus}">
+                                    <Image Source="{StaticResource playersummary_plus}" />
+                                </Button>
+                            </StackPanel>
+                            <!--Wood-->
+                            <StackPanel Height="30" Width="140" Orientation="Horizontal" Visibility="Visible" Margin="15,0,0,0">
+                                <Button x:Name="cmdDown_P8W" Style="{StaticResource playersummaryPlusMinus}">
+                                    <Image Source="{StaticResource playersummary_minus}" />
+                                </Button>
+                                <TextBlock x:Name="txtNum_P8W" Width="80" Margin="0" HorizontalAlignment="Center">999999</TextBlock>
+                                <Button x:Name="cmdUp_P8W" Style="{StaticResource playersummaryPlusMinus}">
+                                    <Image Source="{StaticResource playersummary_plus}" />
+                                </Button>
+                            </StackPanel>
+                            <!--Coin-->
+                            <StackPanel Height="30" Width="140" Orientation="Horizontal" Visibility="Visible" Margin="15,0,0,0">
+                                <Button x:Name="cmdDown_P8G" Style="{StaticResource playersummaryPlusMinus}">
+                                    <Image Source="{StaticResource playersummary_minus}" />
+                                </Button>
+                                <TextBlock x:Name="txtNum_P8G" Width="80" Margin="0" HorizontalAlignment="Center">999999</TextBlock>
+                                <Button x:Name="cmdUp_P8G" Style="{StaticResource playersummaryPlusMinus}">
+                                    <Image Source="{StaticResource playersummary_plus}" />
+                                </Button>
+                            </StackPanel>
+                        </StackPanel>
+
+                        <!--Tribute-->
+                        <StackPanel Orientation="Horizontal" Height="40">
+                            <TextBlock x:Name="playersummarydlg_TributeLabel" Style="{StaticResource ConfirmationTitlesStyleSmall}" TextAlignment="Right" FontSize="21" Margin="0,0,0,0" Width="510">
+                                $$42099$$Total Tribute:
+                            </TextBlock>
+                            <TextBlock x:Name="playersummarydlg_TributeFood" Style="{StaticResource playerSummaryTextStyles}" FontWeight="Bold" FontSize="19" Height="30" Width="140" Margin="15,0,0,0">
+                                99999
+                            </TextBlock>
+                            <TextBlock x:Name="playersummarydlg_TributeWood" Style="{StaticResource playerSummaryTextStyles}" FontWeight="Bold" FontSize="19" Height="30" Width="140" Margin="15,0,0,0">
+                                99999
+                            </TextBlock>
+                            <TextBlock x:Name="playersummarydlg_TributeGold" Style="{StaticResource playerSummaryTextStyles}" FontWeight="Bold" FontSize="19" Height="30" Width="140" Margin="15,0,0,0">
+                                99999
+                            </TextBlock>
+                        </StackPanel>
+
+                        <!--Team 2-->
+                        <StackPanel>
+                            <TextBlock x:Name="team2_HeadingText" Grid.Column="0" Style="{StaticResource ConfirmationTitlesStyleSmall}" FontSize="21" HorizontalAlignment="Left" Margin="10,0,0,0" Width="500" Text="$$36142$$Team 2" />
+                        </StackPanel>
+
+                        <!--Player 1-->
+                        <StackPanel x:Name="team2_Player1Row" Orientation="Horizontal" Height="40" Visibility="Collapsed">
+                            <!--Player-->
+                            <Button x:Name="team2_Player1ViewHC" Height="30" Width="110" Style="{StaticResource playersummaryFlagbutton}" />
+                            <TextBlock x:Name="team2_Player1Name" TextAlignment="Left">Player #1</TextBlock>
+                            <Button x:Name="team2_Player1Report" Height="25" Width="25" Margin="10,0,0,0" Style="{StaticResource HUDButton}" Visibility="{Binding IsMultiplayer}">
+                                <Image Source="{StaticResource friends_report}"/>
+                            </Button>
+                            <!--Mute button-->
+                            <ToggleButton x:Name="team2_Player1Mute" Margin="10,0,0,0" Height="25" Width="25" Style="{StaticResource Mutebutton}" Visibility="Visible" Command="{Binding Mute}"/>
+                        </StackPanel>
+
+                        <!--Player 2-->
+                        <StackPanel x:Name="team2_Player2Row" Orientation="Horizontal" Height="40" Visibility="Collapsed">
+                            <!--Player-->
+                            <Button x:Name="team2_Player2ViewHC" Height="30" Width="110" Style="{StaticResource playersummaryFlagbutton}" />
+                            <TextBlock x:Name="team2_Player2Name" TextAlignment="Left">Player #2</TextBlock>
+                            <Button x:Name="team2_Player2Report" Height="25" Width="25" Margin="10,0,0,0" Style="{StaticResource HUDButton}" Visibility="{Binding IsMultiplayer}">
+                                <Image Source="{StaticResource friends_report}"/>
+                            </Button>
+                            <!--Mute button-->
+                            <ToggleButton x:Name="team2_Player2Mute" Margin="10,0,0,0" Height="25" Width="25" Style="{StaticResource Mutebutton}" Visibility="Visible" Command="{Binding Mute}"/>
+                        </StackPanel>
+
+                        <!--Player 3-->
+                        <StackPanel x:Name="team2_Player3Row" Orientation="Horizontal" Height="40" Visibility="Collapsed">
+                            <!--Player-->
+                            <Button x:Name="team2_Player3ViewHC" Height="30" Width="110" Style="{StaticResource playersummaryFlagbutton}" />
+                            <TextBlock x:Name="team2_Player3Name" TextAlignment="Left">Player #3</TextBlock>
+                            <Button x:Name="team2_Player3Report" Height="25" Width="25" Margin="10,0,0,0" Style="{StaticResource HUDButton}" Visibility="{Binding IsMultiplayer}">
+                                <Image Source="{StaticResource friends_report}"/>
+                            </Button>
+                            <!--Mute button-->
+                            <ToggleButton x:Name="team2_Player3Mute" Margin="10,0,0,0" Height="25" Width="25" Style="{StaticResource Mutebutton}" Visibility="Visible" Command="{Binding Mute}"/>
+                        </StackPanel>
+
+                        <!--Player 4-->
+                        <StackPanel x:Name="team2_Player4Row" Orientation="Horizontal" Height="40" Visibility="Collapsed">
+                            <!--Player-->
+                            <Button x:Name="team2_Player4ViewHC" Height="30" Width="110" Style="{StaticResource playersummaryFlagbutton}" />
+                            <TextBlock x:Name="team2_Player4Name" TextAlignment="Left">Player #4</TextBlock>
+                            <Button x:Name="team2_Player4Report" Height="25" Width="25" Margin="10,0,0,0" Style="{StaticResource HUDButton}" Visibility="{Binding IsMultiplayer}">
+                                <Image Source="{StaticResource friends_report}"/>
+                            </Button>
+                            <!--Mute button-->
+                            <ToggleButton x:Name="team2_Player4Mute" Margin="10,0,0,0" Height="25" Width="25" Style="{StaticResource Mutebutton}" Visibility="Visible" Command="{Binding Mute}"/>
+                        </StackPanel>
+
+                        <!--Player 5-->
+                        <StackPanel x:Name="team2_Player5Row" Orientation="Horizontal" Height="40" Visibility="Collapsed">
+                            <!--Player-->
+                            <Button x:Name="team2_Player5ViewHC" Height="30" Width="110" Style="{StaticResource playersummaryFlagbutton}" />
+                            <TextBlock x:Name="team2_Player5Name" TextAlignment="Left">Player #5</TextBlock>
+                            <Button x:Name="team2_Player5Report" Height="25" Width="25" Margin="10,0,0,0" Style="{StaticResource HUDButton}" Visibility="{Binding IsMultiplayer}">
+                                <Image Source="{StaticResource friends_report}"/>
+                            </Button>
+                            <!--Mute button-->
+                            <ToggleButton x:Name="team2_Player5Mute" Margin="10,0,0,0" Height="25" Width="25" Style="{StaticResource Mutebutton}" Visibility="Visible" Command="{Binding Mute}"/>
+                        </StackPanel>
+
+                        <!--Player 6-->
+                        <StackPanel x:Name="team2_Player6Row" Orientation="Horizontal" Height="40" Visibility="Collapsed">
+                            <!--Player-->
+                            <Button x:Name="team2_Player6ViewHC" Height="30" Width="110" Style="{StaticResource playersummaryFlagbutton}" />
+                            <TextBlock x:Name="team2_Player6Name" TextAlignment="Left">Player #6</TextBlock>
+                            <Button x:Name="team2_Player6Report" Height="25" Width="25" Margin="10,0,0,0" Style="{StaticResource HUDButton}" Visibility="{Binding IsMultiplayer}">
+                                <Image Source="{StaticResource friends_report}"/>
+                            </Button>
+                            <!--Mute button-->
+                            <ToggleButton x:Name="team2_Player6Mute" Margin="10,0,0,0" Height="25" Width="25" Style="{StaticResource Mutebutton}" Visibility="Visible" Command="{Binding Mute}"/>
+                        </StackPanel>
+
+                        <!--Player 7-->
+                        <StackPanel x:Name="team2_Player7Row" Orientation="Horizontal" Height="40" Visibility="Collapsed">
+                            <!--Player-->
+                            <Button x:Name="team2_Player7ViewHC" Height="30" Width="110" Style="{StaticResource playersummaryFlagbutton}" />
+                            <TextBlock x:Name="team2_Player7Name" TextAlignment="Left">Player #7</TextBlock>
+                            <Button x:Name="team2_Player7Report" Height="25" Width="25" Margin="10,0,0,0" Style="{StaticResource HUDButton}" Visibility="{Binding IsMultiplayer}">
+                                <Image Source="{StaticResource friends_report}"/>
+                            </Button>
+                            <!--Mute button-->
+                            <ToggleButton x:Name="team2_Player7Mute" Margin="10,0,0,0" Height="25" Width="25" Style="{StaticResource Mutebutton}" Visibility="Visible" Command="{Binding Mute}"/>
+                        </StackPanel>
+
+                        <!--Player 8-->
+                        <StackPanel x:Name="team2_Player8Row" Orientation="Horizontal" Height="40" Visibility="Collapsed">
+                            <!--Player-->
+                            <Button x:Name="team2_Player8ViewHC" Height="30" Width="110" Style="{StaticResource playersummaryFlagbutton}" />
+                            <TextBlock x:Name="team2_Player8Name" TextAlignment="Left">Player #8</TextBlock>
+                            <Button x:Name="team2_Player8Report" Height="25" Width="25" Margin="10,0,0,0" Style="{StaticResource HUDButton}" Visibility="{Binding IsMultiplayer}">
+                                <Image Source="{StaticResource friends_report}"/>
+                            </Button>
+                            <!--Mute button-->
+                            <ToggleButton x:Name="team2_Player8Mute" Margin="10,0,0,0" Height="25" Width="25" Style="{StaticResource Mutebutton}" Visibility="Visible" Command="{Binding Mute}"/>
+                        </StackPanel>
+
+                        <!--Team 3-->
+                        <StackPanel>
+                            <TextBlock x:Name="team3_HeadingText" Grid.Column="0" Style="{StaticResource ConfirmationTitlesStyleSmall}" FontSize="21" HorizontalAlignment="Left" Margin="10,0,0,0" Width="500" Text="$$36143$$Team 3" Visibility="Collapsed" />
+                        </StackPanel>
+
+                        <!--Player 1-->
+                        <StackPanel x:Name="team3_Player1Row" Orientation="Horizontal" Height="40" Visibility="Collapsed">
+                            <!--Player-->
+                            <Button x:Name="team3_Player1ViewHC" Height="30" Width="110" Style="{StaticResource playersummaryFlagbutton}" />
+                            <TextBlock x:Name="team3_Player1Name" TextAlignment="Left">Player #1</TextBlock>
+                            <Button x:Name="team3_Player1Report" Height="25" Width="25" Margin="10,0,0,0" Style="{StaticResource HUDButton}" Visibility="{Binding IsMultiplayer}">
+                                <Image Source="{StaticResource friends_report}"/>
+                            </Button>
+                            <!--Mute button-->
+                            <ToggleButton x:Name="team3_Player1Mute" Margin="10,0,0,0" Height="25" Width="25" Style="{StaticResource Mutebutton}" Visibility="Visible" Command="{Binding Mute}"/>
+                        </StackPanel>
+
+                        <!--Player 2-->
+                        <StackPanel x:Name="team3_Player2Row" Orientation="Horizontal" Height="40" Visibility="Collapsed">
+                            <!--Player-->
+                            <Button x:Name="team3_Player2ViewHC" Height="30" Width="110" Style="{StaticResource playersummaryFlagbutton}" />
+                            <TextBlock x:Name="team3_Player2Name" TextAlignment="Left">Player #2</TextBlock>
+                            <Button x:Name="team3_Player2Report" Height="25" Width="25" Margin="10,0,0,0" Style="{StaticResource HUDButton}" Visibility="{Binding IsMultiplayer}">
+                                <Image Source="{StaticResource friends_report}"/>
+                            </Button>
+                            <!--Mute button-->
+                            <ToggleButton x:Name="team3_Player2Mute" Margin="10,0,0,0" Height="25" Width="25" Style="{StaticResource Mutebutton}" Visibility="Visible" Command="{Binding Mute}"/>
+                        </StackPanel>
+
+                        <!--Player 3-->
+                        <StackPanel x:Name="team3_Player3Row" Orientation="Horizontal" Height="40" Visibility="Collapsed">
+                            <!--Player-->
+                            <Button x:Name="team3_Player3ViewHC" Height="30" Width="110" Style="{StaticResource playersummaryFlagbutton}" />
+                            <TextBlock x:Name="team3_Player3Name" TextAlignment="Left">Player #3</TextBlock>
+                            <Button x:Name="team3_Player3Report" Height="25" Width="25" Margin="10,0,0,0" Style="{StaticResource HUDButton}" Visibility="{Binding IsMultiplayer}">
+                                <Image Source="{StaticResource friends_report}"/>
+                            </Button>
+                            <!--Mute button-->
+                            <ToggleButton x:Name="team3_Player3Mute" Margin="10,0,0,0" Height="25" Width="25" Style="{StaticResource Mutebutton}" Visibility="Visible" Command="{Binding Mute}"/>
+                        </StackPanel>
+
+                        <!--Player 4-->
+                        <StackPanel x:Name="team3_Player4Row" Orientation="Horizontal" Height="40" Visibility="Collapsed">
+                            <!--Player-->
+                            <Button x:Name="team3_Player4ViewHC" Height="30" Width="110" Style="{StaticResource playersummaryFlagbutton}" />
+                            <TextBlock x:Name="team3_Player4Name" TextAlignment="Left">Player #4</TextBlock>
+                            <Button x:Name="team3_Player4Report" Height="25" Width="25" Margin="10,0,0,0" Style="{StaticResource HUDButton}" Visibility="{Binding IsMultiplayer}">
+                                <Image Source="{StaticResource friends_report}"/>
+                            </Button>
+                            <!--Mute button-->
+                            <ToggleButton x:Name="team3_Player4Mute" Margin="10,0,0,0" Height="25" Width="25" Style="{StaticResource Mutebutton}" Visibility="Visible" Command="{Binding Mute}"/>
+                        </StackPanel>
+
+                        <!--Player 5-->
+                        <StackPanel x:Name="team3_Player5Row" Orientation="Horizontal" Height="40" Visibility="Collapsed">
+                            <!--Player-->
+                            <Button x:Name="team3_Player5ViewHC" Height="30" Width="110" Style="{StaticResource playersummaryFlagbutton}" />
+                            <TextBlock x:Name="team3_Player5Name" TextAlignment="Left">Player #5</TextBlock>
+                            <Button x:Name="team3_Player5Report" Height="25" Width="25" Margin="10,0,0,0" Style="{StaticResource HUDButton}" Visibility="{Binding IsMultiplayer}">
+                                <Image Source="{StaticResource friends_report}"/>
+                            </Button>
+                            <!--Mute button-->
+                            <ToggleButton x:Name="team3_Player5Mute" Margin="10,0,0,0" Height="25" Width="25" Style="{StaticResource Mutebutton}" Visibility="Visible" Command="{Binding Mute}"/>
+                        </StackPanel>
+
+                        <!--Player 6-->
+                        <StackPanel x:Name="team3_Player6Row" Orientation="Horizontal" Height="40" Visibility="Collapsed">
+                            <!--Player-->
+                            <Button x:Name="team3_Player6ViewHC" Height="30" Width="110" Style="{StaticResource playersummaryFlagbutton}" />
+                            <TextBlock x:Name="team3_Player6Name" TextAlignment="Left">Player #6</TextBlock>
+                            <Button x:Name="team3_Player6Report" Height="25" Width="25" Margin="10,0,0,0" Style="{StaticResource HUDButton}" Visibility="{Binding IsMultiplayer}">
+                                <Image Source="{StaticResource friends_report}"/>
+                            </Button>
+                            <!--Mute button-->
+                            <ToggleButton x:Name="team3_Player6Mute" Margin="10,0,0,0" Height="25" Width="25" Style="{StaticResource Mutebutton}" Visibility="Visible" Command="{Binding Mute}"/>
+                        </StackPanel>
+
+                        <!--Player 7-->
+                        <StackPanel x:Name="team3_Player7Row" Orientation="Horizontal" Height="40" Visibility="Collapsed">
+                            <!--Player-->
+                            <Button x:Name="team3_Player7ViewHC" Height="30" Width="110" Style="{StaticResource playersummaryFlagbutton}" />
+                            <TextBlock x:Name="team3_Player7Name" TextAlignment="Left">Player #7</TextBlock>
+                            <Button x:Name="team3_Player7Report" Height="25" Width="25" Margin="10,0,0,0" Style="{StaticResource HUDButton}" Visibility="{Binding IsMultiplayer}">
+                                <Image Source="{StaticResource friends_report}"/>
+                            </Button>
+                            <!--Mute button-->
+                            <ToggleButton x:Name="team3_Player7Mute" Margin="10,0,0,0" Height="25" Width="25" Style="{StaticResource Mutebutton}" Visibility="Visible" Command="{Binding Mute}"/>
+                        </StackPanel>
+
+                        <!--Player 8-->
+                        <StackPanel x:Name="team3_Player8Row" Orientation="Horizontal" Height="40" Visibility="Collapsed">
+                            <!--Player-->
+                            <Button x:Name="team3_Player8ViewHC" Height="30" Width="110" Style="{StaticResource playersummaryFlagbutton}" />
+                            <TextBlock x:Name="team3_Player8Name" TextAlignment="Left">Player #8</TextBlock>
+                            <Button x:Name="team3_Player8Report" Height="25" Width="25" Margin="10,0,0,0" Style="{StaticResource HUDButton}" Visibility="{Binding IsMultiplayer}">
+                                <Image Source="{StaticResource friends_report}"/>
+                            </Button>
+                            <!--Mute button-->
+                            <ToggleButton x:Name="team3_Player8Mute" Margin="10,0,0,0" Height="25" Width="25" Style="{StaticResource Mutebutton}" Visibility="Visible" Command="{Binding Mute}"/>
+                        </StackPanel>
+
+                        <!--Team 4-->
+                        <StackPanel>
+                            <TextBlock x:Name="team4_HeadingText" Grid.Column="0" Style="{StaticResource ConfirmationTitlesStyleSmall}" FontSize="21" HorizontalAlignment="Left" Margin="10,0,0,0" Width="500" Text="$$36144$$Team 4" Visibility="Collapsed" />
+                        </StackPanel>
+
+                        <!--Player 1-->
+                        <StackPanel x:Name="team4_Player1Row" Orientation="Horizontal" Height="40" Visibility="Collapsed">
+                            <!--Player-->
+                            <Button x:Name="team4_Player1ViewHC" Height="30" Width="110" Style="{StaticResource playersummaryFlagbutton}" />
+                            <TextBlock x:Name="team4_Player1Name" TextAlignment="Left">Player #1</TextBlock>
+                            <Button x:Name="team4_Player1Report" Height="25" Width="25" Margin="10,0,0,0" Style="{StaticResource HUDButton}" Visibility="{Binding IsMultiplayer}">
+                                <Image Source="{StaticResource friends_report}"/>
+                            </Button>
+                            <!--Mute button-->
+                            <ToggleButton x:Name="team4_Player1Mute" Margin="10,0,0,0" Height="25" Width="25" Style="{StaticResource Mutebutton}" Visibility="Visible" Command="{Binding Mute}"/>
+                        </StackPanel>
+
+                        <!--Player 2-->
+                        <StackPanel x:Name="team4_Player2Row" Orientation="Horizontal" Height="40" Visibility="Collapsed">
+                            <!--Player-->
+                            <Button x:Name="team4_Player2ViewHC" Height="30" Width="110" Style="{StaticResource playersummaryFlagbutton}" />
+                            <TextBlock x:Name="team4_Player2Name" TextAlignment="Left">Player #2</TextBlock>
+                            <Button x:Name="team4_Player2Report" Height="25" Width="25" Margin="10,0,0,0" Style="{StaticResource HUDButton}" Visibility="{Binding IsMultiplayer}">
+                                <Image Source="{StaticResource friends_report}"/>
+                            </Button>
+                            <!--Mute button-->
+                            <ToggleButton x:Name="team4_Player2Mute" Margin="10,0,0,0" Height="25" Width="25" Style="{StaticResource Mutebutton}" Visibility="Visible" Command="{Binding Mute}"/>
+                        </StackPanel>
+
+                        <!--Player 3-->
+                        <StackPanel x:Name="team4_Player3Row" Orientation="Horizontal" Height="40" Visibility="Collapsed">
+                            <!--Player-->
+                            <Button x:Name="team4_Player3ViewHC" Height="30" Width="110" Style="{StaticResource playersummaryFlagbutton}" />
+                            <TextBlock x:Name="team4_Player3Name" TextAlignment="Left">Player #3</TextBlock>
+                            <Button x:Name="team4_Player3Report" Height="25" Width="25" Margin="10,0,0,0" Style="{StaticResource HUDButton}" Visibility="{Binding IsMultiplayer}">
+                                <Image Source="{StaticResource friends_report}"/>
+                            </Button>
+                            <!--Mute button-->
+                            <ToggleButton x:Name="team4_Player3Mute" Margin="10,0,0,0" Height="25" Width="25" Style="{StaticResource Mutebutton}" Visibility="Visible" Command="{Binding Mute}"/>
+                        </StackPanel>
+
+                        <!--Player 4-->
+                        <StackPanel x:Name="team4_Player4Row" Orientation="Horizontal" Height="40" Visibility="Collapsed">
+                            <!--Player-->
+                            <Button x:Name="team4_Player4ViewHC" Height="30" Width="110" Style="{StaticResource playersummaryFlagbutton}" />
+                            <TextBlock x:Name="team4_Player4Name" TextAlignment="Left">Player #4</TextBlock>
+                            <Button x:Name="team4_Player4Report" Height="25" Width="25" Margin="10,0,0,0" Style="{StaticResource HUDButton}" Visibility="{Binding IsMultiplayer}">
+                                <Image Source="{StaticResource friends_report}"/>
+                            </Button>
+                            <!--Mute button-->
+                            <ToggleButton x:Name="team4_Player4Mute" Margin="10,0,0,0" Height="25" Width="25" Style="{StaticResource Mutebutton}" Visibility="Visible" Command="{Binding Mute}"/>
+                        </StackPanel>
+
+                        <!--Player 5-->
+                        <StackPanel x:Name="team4_Player5Row" Orientation="Horizontal" Height="40" Visibility="Collapsed">
+                            <!--Player-->
+                            <Button x:Name="team4_Player5ViewHC" Height="30" Width="110" Style="{StaticResource playersummaryFlagbutton}" />
+                            <TextBlock x:Name="team4_Player5Name" TextAlignment="Left">Player #5</TextBlock>
+                            <Button x:Name="team4_Player5Report" Height="25" Width="25" Margin="10,0,0,0" Style="{StaticResource HUDButton}" Visibility="{Binding IsMultiplayer}">
+                                <Image Source="{StaticResource friends_report}"/>
+                            </Button>
+                            <!--Mute button-->
+                            <ToggleButton x:Name="team4_Player5Mute" Margin="10,0,0,0" Height="25" Width="25" Style="{StaticResource Mutebutton}" Visibility="Visible" Command="{Binding Mute}"/>
+                        </StackPanel>
+
+                        <!--Player 6-->
+                        <StackPanel x:Name="team4_Player6Row" Orientation="Horizontal" Height="40" Visibility="Collapsed">
+                            <!--Player-->
+                            <Button x:Name="team4_Player6ViewHC" Height="30" Width="110" Style="{StaticResource playersummaryFlagbutton}" />
+                            <TextBlock x:Name="team4_Player6Name" TextAlignment="Left">Player #6</TextBlock>
+                            <Button x:Name="team4_Player6Report" Height="25" Width="25" Margin="10,0,0,0" Style="{StaticResource HUDButton}" Visibility="{Binding IsMultiplayer}">
+                                <Image Source="{StaticResource friends_report}"/>
+                            </Button>
+                            <!--Mute button-->
+                            <ToggleButton x:Name="team4_Player6Mute" Margin="10,0,0,0" Height="25" Width="25" Style="{StaticResource Mutebutton}" Visibility="Visible" Command="{Binding Mute}"/>
+                        </StackPanel>
+
+                        <!--Player 7-->
+                        <StackPanel x:Name="team4_Player7Row" Orientation="Horizontal" Height="40" Visibility="Collapsed">
+                            <!--Player-->
+                            <Button x:Name="team4_Player7ViewHC" Height="30" Width="110" Style="{StaticResource playersummaryFlagbutton}" />
+                            <TextBlock x:Name="team4_Player7Name" TextAlignment="Left">Player #7</TextBlock>
+                            <Button x:Name="team4_Player7Report" Height="25" Width="25" Margin="10,0,0,0" Style="{StaticResource HUDButton}" Visibility="{Binding IsMultiplayer}">
+                                <Image Source="{StaticResource friends_report}"/>
+                            </Button>
+                            <!--Mute button-->
+                            <ToggleButton x:Name="team4_Player7Mute" Margin="10,0,0,0" Height="25" Width="25" Style="{StaticResource Mutebutton}" Visibility="Visible" Command="{Binding Mute}"/>
+                        </StackPanel>
+
+                        <!--Player 8-->
+                        <StackPanel x:Name="team4_Player8Row" Orientation="Horizontal" Height="40" Visibility="Collapsed">
+                            <!--Player-->
+                            <Button x:Name="team4_Player8ViewHC" Height="30" Width="110" Style="{StaticResource playersummaryFlagbutton}" />
+                            <TextBlock x:Name="team4_Player8Name" TextAlignment="Left">Player #8</TextBlock>
+                            <Button x:Name="team4_Player8Report" Height="25" Width="25" Margin="10,0,0,0" Style="{StaticResource HUDButton}" Visibility="{Binding IsMultiplayer}">
+                                <Image Source="{StaticResource friends_report}"/>
+                            </Button>
+                            <!--Mute button-->
+                            <ToggleButton x:Name="team4_Player8Mute" Margin="10,0,0,0" Height="25" Width="25" Style="{StaticResource Mutebutton}" Visibility="Visible" Command="{Binding Mute}"/>
+                        </StackPanel>
+
+                    </StackPanel>
+                </Grid>
+
+                <!--Buttons-->
+                <Grid Grid.Column="1" Grid.Row="3">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <local:Age3Button x:Name="playersummarydlg_closeButton" Grid.Column="2" Style="{StaticResource MainMenuButton}" Margin="0,0,0,0" Width="200" VerticalAlignment="Center">
+                        $$18457$$Close
+                        <local:Age3Button.ToolTip>
+                            <TextBlock FontFamily="arial" FontSize="18" TextWrapping="Wrap" Text="$$41948$$" />
+                        </local:Age3Button.ToolTip>
+                    </local:Age3Button>
+                    <local:Age3Button x:Name="playersummarydlg_clearButton" Grid.Column="1" Style="{StaticResource MainMenuButton}" Margin="0,0,0,0" Width="200" VerticalAlignment="Center">
+                        $$19009$$Clear
+                        <local:Age3Button.ToolTip>
+                            <TextBlock FontFamily="arial" FontSize="18" Text="$$41947$$" />
+                        </local:Age3Button.ToolTip>
+                    </local:Age3Button>
+                    <local:Age3Button x:Name="playersummarydlg_sendButton" Grid.Column="0" Style="{StaticResource MainMenuButton}" Margin="0,0,0,0" Width="200" VerticalAlignment="Center">
+                        $$19008$$Send
+                        <local:Age3Button.ToolTip>
+                            <TextBlock FontFamily="arial" FontSize="18" Text="$$41946$$" />
+                        </local:Age3Button.ToolTip>
+                    </local:Age3Button>
+
+                </Grid>
+            </Grid>
+        </Grid>
+    </Viewbox>
+</Window>

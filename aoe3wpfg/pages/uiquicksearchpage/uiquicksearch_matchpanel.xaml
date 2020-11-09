@@ -1,0 +1,79 @@
+﻿<Window x:Class="aoe3wpfg.uiquicksearch_matchpanel"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:aoe3wpfg"
+        mc:Ignorable="d" 
+      Title="uiquicksearch_matchpanel"
+        Style="{StaticResource WindowStyle}">
+
+    <Viewbox Style="{StaticResource ViewboxMain}">
+
+        <Grid x:Name="mainGridPanel" Width="1920" Height="1080">
+
+            <ContentControl Template="{StaticResource ScreenBlur}" />
+
+            <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Height="400" Width="1000">
+                <local:Age3PanelBG Stroke="Black" StrokeThickness="8" Margin="18,18,12,14">
+
+                    <local:Age3PanelBG.Fill>
+                        <ImageBrush ImageSource="/resources/wood.png"/>
+                    </local:Age3PanelBG.Fill>
+                    <local:Age3PanelBG.Effect>
+                        <DropShadowEffect Color="Black" Direction="-90" ShadowDepth="3" BlurRadius="30" />
+                    </local:Age3PanelBG.Effect>
+                </local:Age3PanelBG>
+                <Rectangle Height="128" VerticalAlignment="Top" Margin="26,90,28,0">
+                    <Rectangle.Fill>
+                        <ImageBrush ImageSource="/resources/wood_shadow.png" />
+                    </Rectangle.Fill>
+                </Rectangle>
+                <local:Age3PanelBG Fill="Transparent" Stroke="{StaticResource PanelBGStrokeGradient}" StrokeThickness="3" Margin="20"/>
+            </Grid>
+
+            <Grid Height="400" Width="1000">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="75"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="80"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="1" x:Name="AMPQuickSearchPage_MatchPanel_Dialog_TextBox_Text" Style="{StaticResource ConfirmationTitlesStyle}" VerticalAlignment="Center" Text="$$35603$$Matchmaking..."/>
+
+                <Grid Grid.Row="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" FontFamily="Trajan Pro" FontSize="25" TextAlignment="Center" Padding="25" Foreground="White">
+                Found 1 of 8...
+                    </TextBlock>
+
+                    <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Image x:Name="AMPQuickSearchPage_MatchPanel_Dialog_Avatar1" Height="55" Width="55" Margin="20,0,0,0" Source="/resources/hc_profile.png"/>
+                        <Image x:Name="AMPQuickSearchPage_MatchPanel_Dialog_Avatar2" Height="55" Width="55" Margin="20,0,0,0" Source="/resources/hc_profile.png"/>
+                        <Image x:Name="AMPQuickSearchPage_MatchPanel_Dialog_Avatar3" Height="55" Width="55" Margin="20,0,0,0" Source="/resources/hc_profile.png"/>
+                        <Image x:Name="AMPQuickSearchPage_MatchPanel_Dialog_Avatar4" Height="55" Width="55" Margin="20,0,0,0" Source="/resources/hc_profile.png"/>
+                        <Image x:Name="AMPQuickSearchPage_MatchPanel_Dialog_Avatar5" Height="55" Width="55" Margin="20,0,0,0" Source="/resources/hc_profile.png"/>
+                        <Image x:Name="AMPQuickSearchPage_MatchPanel_Dialog_Avatar6" Height="55" Width="55" Margin="20,0,0,0" Source="/resources/hc_profile.png"/>
+                        <Image x:Name="AMPQuickSearchPage_MatchPanel_Dialog_Avatar7" Height="55" Width="55" Margin="20,0,0,0" Source="/resources/hc_profile.png"/>
+                        <Image x:Name="AMPQuickSearchPage_MatchPanel_Dialog_Avatar8" Height="55" Width="55" Margin="20,0,0,0" Source="/resources/hc_profile.png"/>
+                    </StackPanel>
+
+                    <Button Grid.Row="2" x:Name="AMPQuickSearchPage_MatchPanel_Dialog_CancelButton" Style="{StaticResource MainMenuButton}" Width="400" Content="$$18466$$Cancel">
+                        <Button.ToolTip>
+                            <TextBlock FontFamily="Formal436 BT" FontSize="15">
+                        $$42275$$Cancel matchmaking
+                            </TextBlock>
+                        </Button.ToolTip>
+                    </Button>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Viewbox>
+</Window>

@@ -1,0 +1,237 @@
+﻿<Page x:Class="aoe3wpfg.pages.uihistory.uihistorycivilians"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:aoe3wpfg"
+      mc:Ignorable="d" 
+      x:Name="HistoryCivilians"
+      Title="uihistorycivilians">
+
+    <Page.Resources>
+        <Style x:Key="{x:Type local:Age3KeyboardFocusBorder}" TargetType="local:Age3KeyboardFocusBorder">
+            <Style.Setters>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="local:Age3KeyboardFocusBorder">
+                            <Grid>
+                                <Border Name="FocusBorder" Margin="-10" BorderThickness="2" CornerRadius="5" BorderBrush="NavajoWhite" Grid.RowSpan="3"/>
+                                <ContentPresenter Name="PART_Content"/>
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style.Setters>
+        </Style>
+    </Page.Resources>
+
+
+    <Grid>
+        <Grid Height="900" Width="1270" HorizontalAlignment="Center" Margin="15,0,0,0" Style="{StaticResource HistoryContentGrid}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10"/>
+                <ColumnDefinition Width="420"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="20"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="10"/>
+                <RowDefinition Height="80"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="20"/>
+            </Grid.RowDefinitions>
+
+            <!--Titles-->
+            <TextBlock x:Name="History_TitleText" Style="{StaticResource ConfirmationTitlesStyle}" Grid.Row="1" Grid.ColumnSpan="4" FontSize="50" VerticalAlignment="Center" Text="$$70758$$Civilians"/>
+
+            <!--Groups Column-->
+            <Grid Grid.Row="2" Grid.Column="1" Grid.RowSpan="3" Margin="0,30,20,90">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="83*"/>
+                    <ColumnDefinition Width="9*"/>
+                </Grid.ColumnDefinitions>
+
+                <local:Age3KeyboardFocusBorder Grid.ColumnSpan="2">
+                    <Grid>
+                        <Rectangle Style="{StaticResource PanelBGSection}" Margin="-10" />
+
+                        <ListBox x:Name="History_List" ItemContainerStyle="{StaticResource historyListItem}" Margin="-20,0,0,0.4" TabIndex="9" KeyboardNavigation.DirectionalNavigation="Once" SelectionMode="Single">
+                            <ListBoxItem IsEnabled="False">Gatherers</ListBoxItem>
+                            <ListBoxItem>Asian Villager</ListBoxItem>
+                            <ListBoxItem>Coureur des Bois</ListBoxItem>
+                            <ListBoxItem>Fishing Boat</ListBoxItem>
+                            <ListBoxItem>Settler</ListBoxItem>
+                            <ListBoxItem>Settler Wagon</ListBoxItem>
+                            <ListBoxItem>Villager</ListBoxItem>
+
+                            <ListBoxItem IsEnabled="False">Healers</ListBoxItem>
+                            <ListBoxItem>Brahmin</ListBoxItem>
+                            <ListBoxItem>Ikko-Ikki</ListBoxItem>
+                            <ListBoxItem>Imam</ListBoxItem>
+                            <ListBoxItem>Medicine Man</ListBoxItem>
+                            <ListBoxItem>Missionary</ListBoxItem>
+                            <ListBoxItem>Priest</ListBoxItem>
+                            <ListBoxItem>Shaolin Master</ListBoxItem>
+                            <ListBoxItem>Surgeon</ListBoxItem>
+                            <ListBoxItem>Warrior Priest</ListBoxItem>
+
+                            <ListBoxItem IsEnabled="False">Special</ListBoxItem>
+                            <ListBoxItem>Advanced Hot Air Balloon</ListBoxItem>
+                            <ListBoxItem>Bank Wagon</ListBoxItem>
+                            <ListBoxItem>Covered Wagon</ListBoxItem>
+                            <ListBoxItem>Envoy</ListBoxItem>
+                            <ListBoxItem>Hot Air Balloon</ListBoxItem>
+                            <ListBoxItem>Native Scout</ListBoxItem>
+                            <ListBoxItem>Rickshaw, Builder</ListBoxItem>
+                            <ListBoxItem>Rickshaw, Coin</ListBoxItem>
+                            <ListBoxItem>Rickshaw, Trade</ListBoxItem>
+                            <ListBoxItem>Stagecoach</ListBoxItem>
+                            <ListBoxItem>Train, Caboose</ListBoxItem>
+                            <ListBoxItem>Train, Engine</ListBoxItem>
+                            <ListBoxItem>Train, Freight Car</ListBoxItem>
+                            <ListBoxItem>Train, Passenger Car</ListBoxItem>
+                            <ListBoxItem>Travois, Builder</ListBoxItem>
+                            <ListBoxItem>Travois, Trade</ListBoxItem>
+                            <ListBoxItem>Treasure</ListBoxItem>
+
+                            <ListBoxItem IsEnabled="False">Buildings</ListBoxItem>
+                            <ListBoxItem>Arsenal</ListBoxItem>
+                            <ListBoxItem>Artillery Foundry</ListBoxItem>
+                            <ListBoxItem>Aztec House</ListBoxItem>
+                            <ListBoxItem>Bank</ListBoxItem>
+                            <ListBoxItem>Barracks</ListBoxItem>
+                            <ListBoxItem>Blockhouse</ListBoxItem>
+                            <ListBoxItem>Capitol</ListBoxItem>
+                            <ListBoxItem>Caravanserai</ListBoxItem>
+                            <ListBoxItem>Castle</ListBoxItem>
+                            <ListBoxItem>Cherry Orchard</ListBoxItem>
+                            <ListBoxItem>Church</ListBoxItem>
+                            <ListBoxItem>Consulate</ListBoxItem>
+                            <ListBoxItem>Corral</ListBoxItem>
+                            <ListBoxItem>Dock</ListBoxItem>
+                            <ListBoxItem>Dojo</ListBoxItem>
+                            <ListBoxItem>Factory</ListBoxItem>
+                            <ListBoxItem>Farm</ListBoxItem>
+                            <ListBoxItem>Field Hospital</ListBoxItem>
+                            <ListBoxItem>Fire Pit</ListBoxItem>
+                            <ListBoxItem>Fort</ListBoxItem>
+                            <ListBoxItem>Gate</ListBoxItem>
+                            <ListBoxItem>House</ListBoxItem>
+                            <ListBoxItem>Livestock Pen</ListBoxItem>
+                            <ListBoxItem>Longhouse</ListBoxItem>
+                            <ListBoxItem>Manor House</ListBoxItem>
+                            <ListBoxItem>Market</ListBoxItem>
+                            <ListBoxItem>Mill</ListBoxItem>
+                            <ListBoxItem>Monastery</ListBoxItem>
+                            <ListBoxItem>Mosque</ListBoxItem>
+                            <ListBoxItem>Native Embassy</ListBoxItem>
+                            <ListBoxItem>Nobles Hut</ListBoxItem>
+                            <ListBoxItem>Outpost</ListBoxItem>
+                            <ListBoxItem>Plantation</ListBoxItem>
+                            <ListBoxItem>Rice Paddy</ListBoxItem>
+                            <ListBoxItem>Sacred Field</ListBoxItem>
+                            <ListBoxItem>Saloon</ListBoxItem>
+                            <ListBoxItem>Shrine</ListBoxItem>
+                            <ListBoxItem>Stable</ListBoxItem>
+                            <ListBoxItem>Teepee</ListBoxItem>
+                            <ListBoxItem>Town Center</ListBoxItem>
+                            <ListBoxItem>Trading Post</ListBoxItem>
+                            <ListBoxItem>Village</ListBoxItem>
+                            <ListBoxItem>Wall</ListBoxItem>
+                            <ListBoxItem>War Hut</ListBoxItem>
+                            <ListBoxItem>War Academy</ListBoxItem>
+
+                            <ListBoxItem IsEnabled="False">Wonders</ListBoxItem>
+                            <ListBoxItem>Agra Fort</ListBoxItem>
+                            <ListBoxItem>Charming Gate</ListBoxItem>
+                            <ListBoxItem>Confucian Academy</ListBoxItem>
+                            <ListBoxItem>Golden Pavilion</ListBoxItem>
+                            <ListBoxItem>Great Buddha</ListBoxItem>
+                            <ListBoxItem>Karni Mata</ListBoxItem>
+                            <ListBoxItem>Porcelain Tower</ListBoxItem>
+                            <ListBoxItem>The Shogunate</ListBoxItem>
+                            <ListBoxItem>Summer Palace</ListBoxItem>
+                            <ListBoxItem>Taj Mahal</ListBoxItem>
+                            <ListBoxItem>Temple of Heaven</ListBoxItem>
+                            <ListBoxItem>Torii Gates</ListBoxItem>
+                            <ListBoxItem>Toshogu Shrine</ListBoxItem>
+                            <ListBoxItem>Tower of Victory</ListBoxItem>
+                            <ListBoxItem>White Pagoda</ListBoxItem>
+                        </ListBox>
+                    </Grid>
+                    
+                </local:Age3KeyboardFocusBorder>
+                
+            </Grid>
+
+            <Grid Grid.Row="2" Grid.Column="2">
+                <StackPanel Name="LayoutHoriz" Visibility="Visible" Margin="0,0,20,0">
+                    <StackPanel Orientation="Vertical" Height="auto" VerticalAlignment="Top" Margin="0,0,0,0">
+                        <TextBlock Name="LayoutHoriz_Title" Style="{StaticResource ConfirmationTitlesStyle}" FontSize="35" Width="780" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Top">
+                            British
+                        </TextBlock>
+                        <Rectangle Height="2" Fill="#dbc564" Margin="10,-5"></Rectangle>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Vertical" Margin="0,0,0,0">
+                        <!--Image Source-->
+                        <Grid Height="325" Width="750">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="319*"/>
+                                <ColumnDefinition Width="431*"/>
+                            </Grid.ColumnDefinitions>
+                            <Image Name="LayoutHoriz_Pic" Source="/resources/images/icons/history/geography/g_andes.png" Grid.ColumnSpan="2"></Image>
+                        </Grid>
+
+                        <!--Text Source-->
+                        <local:Age3KeyboardFocusBorder Margin="20,20" >
+                            <ScrollViewer Height="300" VerticalAlignment="Top" ScrollViewer.VerticalScrollBarVisibility="Auto" TabIndex="10">
+                                <TextBlock Name="LayoutHoriz_Text" TextWrapping="Wrap" Padding="15,0" FontFamily="arial" FontSize="18" Foreground="White" Focusable="True">               
+                                In 1492 England was a modest agricultural nation recovering from the effects of long wars in which its kings attempted to retain inherited control of large parts of France. By the early eighteenth century the English ruled Great Britain, having united all the British Isles and established important colonies and outposts around the world. By the nineteenth century they controlled the world's largest empire and were the first nation to industrialize. These transformations were the result of their favorable position as an island nation, a high relative degree of personal and economic freedom, a large literate middle class, financial acumen, and a culture that encouraged action, progress, and achievement.
+                                <LineBreak/>
+                                <LineBreak/>
+                                Critical to Britain's empire building was the rise of its military, especially its navy. Beginning as raiders and privateers preying on Spanish shipping from the New World, by 1588 their sea rogues were able to defeat the immense Spanish Armada in the English Channel. Recurring European naval wars established Royal Navy standards and traditions that allowed Britain to project its trade and empire to India, Australia, China, and North America. On land, the relatively small British army earned a reputation for disciplined musketry, an excellent officer corps, and occasionally brilliant generalship.
+                                <LineBreak/>
+                                <LineBreak/>
+                                Britain established colonies on Caribbean islands and the North American continent in the early seventeenth century. The islands were the real prize at first, as sugar plantations proved enormously profitable. The small settlements in Virginia and Massachusetts expanded gradually as an accelerating flood of farmers and laborers came to North America looking for land, religious freedom, and opportunity. The colonies welcomed the poor and dispossessed not only from the home country and Ireland, but also from mainland Europe. The British colonies were bordered by the French in Canada, a small Spanish presence in Florida, and Native Americans across the mountains to the west. Victory in a middle eighteenth century world war with France, disputed from India to Europe to North America, made Canada British and opened the door to western expansion. One of Britain's few setbacks in this period was the loss of its American colonies in the revolution of 1776.
+                                </TextBlock>
+                            </ScrollViewer>
+                        </local:Age3KeyboardFocusBorder>
+
+                    </StackPanel>
+                </StackPanel>
+
+                <StackPanel Name="LayoutVert" Visibility="Collapsed" Margin="-15,10,0,0">
+                    <StackPanel Orientation="Vertical" Height="auto" VerticalAlignment="Top" Margin="0,-15,0,0">
+                        <TextBlock Name="LayoutVert_Title" Style="{StaticResource ConfirmationTitlesStyle}" FontSize="35" Width="780" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Top">
+                            British
+                        </TextBlock>
+                        <Rectangle Height="2" Fill="#dbc564" Margin="20,-5"></Rectangle>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Height="730" Width="800" Margin="0,10,0,0">
+                        <!--Image Source-->
+                        <Image VerticalAlignment="Top" Margin="0,0,0,0" Height="660" Width="300" Name="LayoutVert_Pic" Source="/resources/images/icons/history/militaries/m_a_siege elephant.png"></Image>
+
+                        <!--Text Source-->
+                        <local:Age3KeyboardFocusBorder Margin="0,0,0,75">
+                            <ScrollViewer Width="500" VerticalAlignment="Top" ScrollViewer.VerticalScrollBarVisibility="Auto" TabIndex="11">
+                                <TextBlock Name="LayoutVert_Text" TextWrapping="Wrap" Padding="15" FontFamily="arial" FontSize="18" Foreground="White" Focusable="True" Margin="0,0,10,0">               
+                                In 1492 England was a modest agricultural nation recovering from the effects of long wars in which its kings attempted to retain inherited control of large parts of France. By the early eighteenth century the English ruled Great Britain, having united all the British Isles and established important colonies and outposts around the world. By the nineteenth century they controlled the world's largest empire and were the first nation to industrialize. These transformations were the result of their favorable position as an island nation, a high relative degree of personal and economic freedom, a large literate middle class, financial acumen, and a culture that encouraged action, progress, and achievement.
+                                <LineBreak/>
+                                <LineBreak/>
+                                Critical to Britain's empire building was the rise of its military, especially its navy. Beginning as raiders and privateers preying on Spanish shipping from the New World, by 1588 their sea rogues were able to defeat the immense Spanish Armada in the English Channel. Recurring European naval wars established Royal Navy standards and traditions that allowed Britain to project its trade and empire to India, Australia, China, and North America. On land, the relatively small British army earned a reputation for disciplined musketry, an excellent officer corps, and occasionally brilliant generalship.
+                                <LineBreak/>
+                                <LineBreak/>
+                                Britain established colonies on Caribbean islands and the North American continent in the early seventeenth century. The islands were the real prize at first, as sugar plantations proved enormously profitable. The small settlements in Virginia and Massachusetts expanded gradually as an accelerating flood of farmers and laborers came to North America looking for land, religious freedom, and opportunity. The colonies welcomed the poor and dispossessed not only from the home country and Ireland, but also from mainland Europe. The British colonies were bordered by the French in Canada, a small Spanish presence in Florida, and Native Americans across the mountains to the west. Victory in a middle eighteenth century world war with France, disputed from India to Europe to North America, made Canada British and opened the door to western expansion. One of Britain's few setbacks in this period was the loss of its American colonies in the revolution of 1776.
+                                </TextBlock>
+                            </ScrollViewer>
+                        </local:Age3KeyboardFocusBorder>
+
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+        </Grid>
+    </Grid>
+</Page>

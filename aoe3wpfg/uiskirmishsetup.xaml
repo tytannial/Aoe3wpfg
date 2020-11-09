@@ -1,0 +1,1024 @@
+﻿<Window x:Class="aoe3wpfg.uiskirmishsetup"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:aoe3wpfg"
+        mc:Ignorable="d"
+        Title="uiskirmishsetup"
+        Style="{StaticResource WindowStyle}">
+
+    <Window.Resources>
+        <Style x:Key="{x:Type local:Age3KeyboardFocusBorder}" TargetType="local:Age3KeyboardFocusBorder">
+            <Style.Setters>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="local:Age3KeyboardFocusBorder">
+                            <Grid>
+                                <Border Name="FocusBorder" Style="{StaticResource Age3FocusBorderStyle}" Margin="5,0,5,0"/>
+                                <ContentPresenter Name="PART_Content"/>
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style.Setters>
+        </Style>
+
+        <Style TargetType="TextBlock" x:Key="PlayerNameStyle">
+            <Setter Property="FontFamily" Value="Trajan Pro" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="FontSize" Value="26" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="15,0,0,0"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect BlurRadius="5" Color="Black" Direction="-90" ShadowDepth="3" RenderingBias="Quality" />
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="Rectangle" x:Key="ConflictColors">
+            <Setter Property="Height" Value="85"/>
+            <Setter Property="Width" Value="105"/>
+            <Setter Property="RadiusX" Value="5"/>
+            <Setter Property="RadiusY" Value="5"/>
+            <Setter Property="Fill" Value="Red"/>
+            <Setter Property="Visibility" Value="Collapsed"/>
+        </Style>
+    </Window.Resources>
+
+    <Viewbox Style="{StaticResource ViewboxMain}">
+        <Grid x:Name="mainGridPanel" Height="1080" Width="1920">
+            <Grid x:Name="SinglePlayerSetup" Background="{StaticResource wood_tile}">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="60"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="40,10,0,0">
+                        <TextBlock x:Name="SinglePlayerSetup_LabelCenter" FontSize="40" Style="{StaticResource ConfirmationTitlesStyle}" Margin="0,0,0,0">$$35898$$Single Player Skirmish</TextBlock>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                        <local:Age3KeyboardFocusBorder>
+                            <RadioButton x:Name="toggleSupremacy" GroupName="Mode" IsChecked="True" Margin="20,0,20,0">
+                                <TextBlock Foreground="White" FontSize="25" Text="$$18864$$Supremacy">
+                                    <TextBlock.ToolTip>$$38299$$Supremacy: the standard way to play. Start small and build up.</TextBlock.ToolTip>
+                                </TextBlock>
+                            </RadioButton>
+                        </local:Age3KeyboardFocusBorder>
+                        <local:Age3KeyboardFocusBorder Margin="10,0,50,0">
+                            <RadioButton x:Name="toggleDeathmatch" GroupName="Mode" Margin="20,0,20,0">
+                                <TextBlock Foreground="White" FontSize="25" Text="$$18867$$Deathmatch">
+                                    <TextBlock.ToolTip>$$38300$$Deathmatch: start with high resources for a fast-paced game.</TextBlock.ToolTip>
+                                </TextBlock>
+                            </RadioButton>
+                        </local:Age3KeyboardFocusBorder>
+                    </StackPanel>
+
+                    <Grid Grid.Row="1" Margin="20,10,30,20">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="10"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="10"/>
+                            <ColumnDefinition Width="500"/>
+                            <ColumnDefinition Width="10"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Grid Grid.Column="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <Rectangle Grid.Row="0" Grid.RowSpan="8"
+                                   Width="{Binding ActualWidth, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Grid}}}"
+                                   Height="{Binding ActualHeight, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Grid}}}"
+                                   HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Style="{StaticResource PanelBGSection}" />
+
+                            <!--Player #1-->
+                            <Grid x:Name="SPS_Player1Row" Grid.Row="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="525"/>
+                                    <ColumnDefinition Width="150"/>
+                                    <ColumnDefinition Width="255"/>
+                                    <ColumnDefinition Width="140"/>
+                                    <ColumnDefinition Width="255"/>
+                                </Grid.ColumnDefinitions>
+
+                                <StackPanel Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal" Margin="20,0,0,0">
+                                    <Image x:Name="SPS_P1Portrait" Height="80" Source="/resources/hc_profile.png"/>
+                                    <Grid HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="400">
+                                        <Rectangle x:Name="SPS_Player1_Banner" Fill="Green" Opacity="1">
+                                            <Rectangle.OpacityMask>
+                                                <ImageBrush ImageSource="resources/images/icons/post_game/playertitle_mask.png" />
+                                            </Rectangle.OpacityMask>
+                                            <Rectangle.Effect>
+                                                <DropShadowEffect Color="Black" Direction="-90" ShadowDepth="8" BlurRadius="10" />
+                                            </Rectangle.Effect>
+                                        </Rectangle>
+                                        <Rectangle>
+                                            <Rectangle.Fill>
+                                                <ImageBrush ImageSource="resources/images/icons/post_game/playertitle_gradient.png" />
+                                            </Rectangle.Fill>
+                                            <Rectangle.OpacityMask>
+                                                <ImageBrush ImageSource="resources/images/icons/post_game/playertitle_mask.png" />
+                                            </Rectangle.OpacityMask>
+                                        </Rectangle>
+                                        <Rectangle VerticalAlignment="Bottom" Height="6" Margin="0,0,0,-1">
+                                            <Rectangle.Fill>
+                                                <ImageBrush ImageSource="resources/images/icons/post_game/playertitle_deco.png"/>
+                                            </Rectangle.Fill>
+                                        </Rectangle>
+                                        <TextBlock x:Name="SPS_P1Name" Style="{StaticResource PlayerNameStyle}" Text="Player Name Here."/>
+                                    </Grid>
+                                </StackPanel>
+
+                                <!--Flag-->
+                                <Button x:Name="SPS_P1HomeCityFlag" Grid.Column="1" ToolTipService.ShowDuration="120000" Height="80" Width="118" VerticalAlignment="Center" Background="{StaticResource flag_square_random}" Style="{StaticResource ImageButton}" Content="20" />
+
+                                <!--Team & Handicapped-->
+                                <ComboBox x:Name="SPS_P1Team" Grid.Column="2" Height="35" Width="240" Style="{StaticResource RegularCombobox}">
+                                    <ComboBoxItem Content="$$36141$$Team 1" IsSelected="True"/>
+                                    <ComboBoxItem Content="$$36142$$Team 2"/>
+                                    <ComboBoxItem Content="$$36143$$Team 3"/>
+                                    <ComboBoxItem Content="$$36144$$Team 4"/>
+                                    <ComboBoxItem Content="$$36145$$Team ?"/>
+                                    <ComboBox.ToolTip>
+                                        <TextBlock Text="$$41640$$"/>
+                                    </ComboBox.ToolTip>
+                                </ComboBox>
+                                
+                                <!--Colours & Ready-->
+                                <Grid Grid.Column="3">
+                                    <Rectangle x:Name="SPS_P1Conflict" Style="{StaticResource ConflictColors}"/>
+                                    <ComboBox x:Name="SPS_P1Color" Height="80" Width="100" VerticalAlignment="Center" MaxDropDownHeight="380" Style="{StaticResource RegularCombobox}">
+                                        <ComboBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Orientation="Horizontal" Width="50">
+                                                    <Rectangle Fill="{Binding Name}" Width="40" Height="40" Margin="0,2.5,0,0"/>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </ComboBox.ItemTemplate>
+                                        <ComboBox.ToolTip>
+                                            <TextBlock Text="$$41641$$"/>
+                                        </ComboBox.ToolTip>
+                                    </ComboBox>
+                                </Grid>
+
+                                <local:Age3KeyboardFocusBorder Margin="0,30,0,30" Grid.Column="4">
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="30">
+                                        <TextBlock x:Name="SPS_P1HandicapLabel" Padding="5" FontSize="20" FontFamily="Trajan Pro" FontWeight="Bold" TextAlignment="Right" Width="75" Text="+100%" Foreground="White"/>
+                                        <Slider x:Name="SPS_P1Handicap" Margin="5,4,0,4" Height="20" Width="150" Minimum="0" Maximum="100" IsSnapToTickEnabled="True" TickFrequency="5"/>
+                                        <StackPanel.ToolTip>$$20033$$</StackPanel.ToolTip>
+                                    </StackPanel>
+                                </local:Age3KeyboardFocusBorder>
+                            </Grid>
+
+                            <!--Player #2-->
+                            <Grid x:Name="SPS_Player2Row" Grid.Row="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="525"/>
+                                    <ColumnDefinition Width="150"/>
+                                    <ColumnDefinition Width="255"/>
+                                    <ColumnDefinition Width="140"/>
+                                    <ColumnDefinition Width="255"/>
+                                </Grid.ColumnDefinitions>
+
+                                <StackPanel Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal" Margin="20,0,0,0">
+                                    <Image x:Name="SPS_P2Portrait" Height="80" Source="/resources/hc_profile.png"/>
+                                    <Grid HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="400">
+                                        <Rectangle x:Name="SPS_Player2_Banner" Fill="Green" Opacity="1">
+                                            <Rectangle.OpacityMask>
+                                                <ImageBrush ImageSource="resources/images/icons/post_game/playertitle_mask.png" />
+                                            </Rectangle.OpacityMask>
+                                            <Rectangle.Effect>
+                                                <DropShadowEffect Color="Black" Direction="-90" ShadowDepth="8" BlurRadius="10" />
+                                            </Rectangle.Effect>
+                                        </Rectangle>
+                                        <Rectangle>
+                                            <Rectangle.Fill>
+                                                <ImageBrush ImageSource="resources/images/icons/post_game/playertitle_gradient.png" />
+                                            </Rectangle.Fill>
+                                            <Rectangle.OpacityMask>
+                                                <ImageBrush ImageSource="resources/images/icons/post_game/playertitle_mask.png" />
+                                            </Rectangle.OpacityMask>
+                                        </Rectangle>
+                                        <Rectangle VerticalAlignment="Bottom" Height="6" Margin="0,0,0,-1">
+                                            <Rectangle.Fill>
+                                                <ImageBrush ImageSource="resources/images/icons/post_game/playertitle_deco.png"/>
+                                            </Rectangle.Fill>
+                                        </Rectangle>
+                                        <TextBlock x:Name="SPS_P2Name" Style="{StaticResource PlayerNameStyle}" Text="Player Name Here."/>
+                                    </Grid>
+                                </StackPanel>
+
+                                <!--Flag-->
+                                <Button x:Name="SPS_P2HomeCityFlag" Grid.Column="1" ToolTipService.ShowDuration="120000" Height="80" Width="118" VerticalAlignment="Center" Background="{StaticResource flag_square_random}" Style="{StaticResource ImageButton}" Content="20" />
+                   
+                                <!--Team & Handicapped-->
+                                <ComboBox x:Name="SPS_P2Team" Grid.Column="2" Height="35" Width="240" Style="{StaticResource RegularCombobox}">
+                                    <ComboBoxItem Content="$$36141$$Team 1" IsSelected="True"/>
+                                    <ComboBoxItem Content="$$36142$$Team 2"/>
+                                    <ComboBoxItem Content="$$36143$$Team 3"/>
+                                    <ComboBoxItem Content="$$36144$$Team 4"/>
+                                    <ComboBoxItem Content="$$36145$$Team ?"/>
+                                    <ComboBox.ToolTip>
+                                        <TextBlock Text="$$41640$$"/>
+                                    </ComboBox.ToolTip>
+                                </ComboBox>
+
+                                <!--Colours & Ready-->
+                                <Grid Grid.Column="3">
+                                    <Rectangle x:Name="SPS_P2Conflict" Style="{StaticResource ConflictColors}"/>
+                                    <ComboBox x:Name="SPS_P2Color" Height="80" Width="100" VerticalAlignment="Center" MaxDropDownHeight="380" Style="{StaticResource RegularCombobox}">
+                                        <ComboBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Orientation="Horizontal" Width="40">
+                                                    <Rectangle Fill="{Binding Name}" Width="40" Height="40" Margin="0,2.5,0,0"/>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </ComboBox.ItemTemplate>
+                                        <ComboBox.ToolTip>
+                                            <TextBlock Text="$$41641$$"/>
+                                        </ComboBox.ToolTip>
+                                    </ComboBox>
+                                </Grid>
+
+                                <local:Age3KeyboardFocusBorder Margin="0,30,0,30" Grid.Column="4">
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="30">
+                                        <TextBlock x:Name="SPS_P2HandicapLabel" Padding="5" FontSize="20" FontFamily="Trajan Pro" FontWeight="Bold" TextAlignment="Right" Width="75" Text="+100%" Foreground="White"/>
+                                        <Slider x:Name="SPS_P2Handicap" Margin="5,4,0,4" Height="20" Width="150" Minimum="0" Maximum="100" IsSnapToTickEnabled="True" TickFrequency="5"/>
+                                        <StackPanel.ToolTip>$$20033$$</StackPanel.ToolTip>
+                                    </StackPanel>
+                                </local:Age3KeyboardFocusBorder>
+                            </Grid>
+
+                            <!--Player #3-->
+                            <Grid x:Name="SPS_Player3Row" Grid.Row="2">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="525"/>
+                                    <ColumnDefinition Width="150"/>
+                                    <ColumnDefinition Width="255"/>
+                                    <ColumnDefinition Width="140"/>
+                                    <ColumnDefinition Width="255"/>
+                                </Grid.ColumnDefinitions>
+
+                                <StackPanel Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal" Margin="20,0,0,0">
+                                    <Image x:Name="SPS_P3Portrait" Height="80" Source="/resources/hc_profile.png"/>
+                                    <Grid HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="400">
+                                        <Rectangle x:Name="SPS_Player3_Banner" Fill="Green" Opacity="1">
+                                            <Rectangle.OpacityMask>
+                                                <ImageBrush ImageSource="resources/images/icons/post_game/playertitle_mask.png" />
+                                            </Rectangle.OpacityMask>
+                                            <Rectangle.Effect>
+                                                <DropShadowEffect Color="Black" Direction="-90" ShadowDepth="8" BlurRadius="10" />
+                                            </Rectangle.Effect>
+                                        </Rectangle>
+                                        <Rectangle>
+                                            <Rectangle.Fill>
+                                                <ImageBrush ImageSource="resources/images/icons/post_game/playertitle_gradient.png" />
+                                            </Rectangle.Fill>
+                                            <Rectangle.OpacityMask>
+                                                <ImageBrush ImageSource="resources/images/icons/post_game/playertitle_mask.png" />
+                                            </Rectangle.OpacityMask>
+                                        </Rectangle>
+                                        <Rectangle VerticalAlignment="Bottom" Height="6" Margin="0,0,0,-1">
+                                            <Rectangle.Fill>
+                                                <ImageBrush ImageSource="resources/images/icons/post_game/playertitle_deco.png"/>
+                                            </Rectangle.Fill>
+                                        </Rectangle>
+                                        <TextBlock x:Name="SPS_P3Name" Style="{StaticResource PlayerNameStyle}" Text="Player Name Here."/>
+                                    </Grid>
+                                </StackPanel>
+
+                                <!--Flag-->
+                                <Button x:Name="SPS_P3HomeCityFlag" Grid.Column="1" ToolTipService.ShowDuration="120000" Height="80" Width="118" VerticalAlignment="Center" Background="{StaticResource flag_square_random}" Style="{StaticResource ImageButton}" Content="20" />
+       
+                                <!--Team & Handicapped-->
+                                <ComboBox x:Name="SPS_P3Team" Grid.Column="2" Height="35" Width="240" Style="{StaticResource RegularCombobox}">
+                                    <ComboBoxItem Content="$$36141$$Team 1" IsSelected="True"/>
+                                    <ComboBoxItem Content="$$36142$$Team 2"/>
+                                    <ComboBoxItem Content="$$36143$$Team 3"/>
+                                    <ComboBoxItem Content="$$36144$$Team 4"/>
+                                    <ComboBoxItem Content="$$36145$$Team ?"/>
+                                    <ComboBox.ToolTip>
+                                        <TextBlock Text="$$41640$$"/>
+                                    </ComboBox.ToolTip>
+                                </ComboBox>
+                                
+                                <!--Colours & Ready-->
+                                <Grid Grid.Column="3">
+                                    <Rectangle x:Name="SPS_P3Conflict" Style="{StaticResource ConflictColors}"/>
+                                    <ComboBox x:Name="SPS_P3Color" Height="80" Width="100" VerticalAlignment="Center" MaxDropDownHeight="380" Style="{StaticResource RegularCombobox}">
+                                        <ComboBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Orientation="Horizontal" Width="40">
+                                                    <Rectangle Fill="{Binding Name}" Width="40" Height="40" Margin="0,2.5,0,0"/>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </ComboBox.ItemTemplate>
+                                        <ComboBox.ToolTip>
+                                            <TextBlock Text="$$41641$$"/>
+                                        </ComboBox.ToolTip>
+                                    </ComboBox>
+                                </Grid>
+
+                                <local:Age3KeyboardFocusBorder Margin="0,30,0,30" Grid.Column="4">
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="30">
+                                        <TextBlock x:Name="SPS_P3HandicapLabel" Padding="5" FontSize="20" FontFamily="Trajan Pro" FontWeight="Bold" TextAlignment="Right" Width="75" Text="+100%" Foreground="White"/>
+                                        <Slider x:Name="SPS_P3Handicap" Margin="5,4,0,4" Height="20" Width="150" Minimum="0" Maximum="100" IsSnapToTickEnabled="True" TickFrequency="5"/>
+                                        <StackPanel.ToolTip>$$20033$$</StackPanel.ToolTip>
+                                    </StackPanel>
+                                </local:Age3KeyboardFocusBorder>
+                            </Grid>
+
+                            <!--Player #4-->
+                            <Grid x:Name="SPS_Player4Row" Grid.Row="3">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="525"/>
+                                    <ColumnDefinition Width="150"/>
+                                    <ColumnDefinition Width="255"/>
+                                    <ColumnDefinition Width="140"/>
+                                    <ColumnDefinition Width="255"/>
+                                </Grid.ColumnDefinitions>
+
+                                <StackPanel Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal" Margin="20,0,0,0">
+                                    <Image x:Name="SPS_P4Portrait" Height="80" Source="/resources/hc_profile.png"/>
+                                    <Grid HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="400">
+                                        <Rectangle x:Name="SPS_Player4_Banner" Fill="Green" Opacity="1">
+                                            <Rectangle.OpacityMask>
+                                                <ImageBrush ImageSource="resources/images/icons/post_game/playertitle_mask.png" />
+                                            </Rectangle.OpacityMask>
+                                            <Rectangle.Effect>
+                                                <DropShadowEffect Color="Black" Direction="-90" ShadowDepth="8" BlurRadius="10" />
+                                            </Rectangle.Effect>
+                                        </Rectangle>
+                                        <Rectangle>
+                                            <Rectangle.Fill>
+                                                <ImageBrush ImageSource="resources/images/icons/post_game/playertitle_gradient.png" />
+                                            </Rectangle.Fill>
+                                            <Rectangle.OpacityMask>
+                                                <ImageBrush ImageSource="resources/images/icons/post_game/playertitle_mask.png" />
+                                            </Rectangle.OpacityMask>
+                                        </Rectangle>
+                                        <Rectangle VerticalAlignment="Bottom" Height="6" Margin="0,0,0,-1">
+                                            <Rectangle.Fill>
+                                                <ImageBrush ImageSource="resources/images/icons/post_game/playertitle_deco.png"/>
+                                            </Rectangle.Fill>
+                                        </Rectangle>
+                                        <TextBlock x:Name="SPS_P4Name" Style="{StaticResource PlayerNameStyle}" Text="Player Name Here."/>
+                                    </Grid>
+                                </StackPanel>
+
+                                <!--Flag-->
+                                <Button x:Name="SPS_P4HomeCityFlag" Grid.Column="1" ToolTipService.ShowDuration="120000" Height="80" Width="118" VerticalAlignment="Center" Background="{StaticResource flag_square_random}" Style="{StaticResource ImageButton}" Content="20" />
+                    
+                                <!--Team & Handicapped-->
+                                <ComboBox x:Name="SPS_P4Team" Grid.Column="2" Height="35" Width="240" Style="{StaticResource RegularCombobox}">
+                                    <ComboBoxItem Content="$$36141$$Team 1" IsSelected="True"/>
+                                    <ComboBoxItem Content="$$36142$$Team 2"/>
+                                    <ComboBoxItem Content="$$36143$$Team 3"/>
+                                    <ComboBoxItem Content="$$36144$$Team 4"/>
+                                    <ComboBoxItem Content="$$36145$$Team ?"/>
+                                    <ComboBox.ToolTip>
+                                        <TextBlock Text="$$41640$$"/>
+                                    </ComboBox.ToolTip>
+                                </ComboBox>
+
+                                <!--Colours & Ready-->
+                                <Grid Grid.Column="3">
+                                    <Rectangle x:Name="SPS_P4Conflict" Style="{StaticResource ConflictColors}"/>
+                                    <ComboBox x:Name="SPS_P4Color" Height="80" Width="100" VerticalAlignment="Center" MaxDropDownHeight="380" Style="{StaticResource RegularCombobox}">
+                                        <ComboBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Orientation="Horizontal" Width="40">
+                                                    <Rectangle Fill="{Binding Name}" Width="40" Height="40" Margin="0,2.5,0,0"/>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </ComboBox.ItemTemplate>
+                                        <ComboBox.ToolTip>
+                                            <TextBlock Text="$$41641$$"/>
+                                        </ComboBox.ToolTip>
+                                    </ComboBox>
+                                </Grid>
+
+                                <local:Age3KeyboardFocusBorder Margin="0,30,0,30" Grid.Column="4">
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="30">
+                                        <TextBlock x:Name="SPS_P4HandicapLabel" Padding="5" FontSize="20" FontFamily="Trajan Pro" FontWeight="Bold" TextAlignment="Right" Width="75" Text="+100%" Foreground="White"/>
+                                        <Slider x:Name="SPS_P4Handicap" Margin="5,4,0,4" Height="20" Width="150" Minimum="0" Maximum="100" IsSnapToTickEnabled="True" TickFrequency="5"/>
+                                        <StackPanel.ToolTip>$$20033$$</StackPanel.ToolTip>
+                                    </StackPanel>
+                                </local:Age3KeyboardFocusBorder>
+                            </Grid>
+
+                            <!--Player #5-->
+                            <Grid x:Name="SPS_Player5Row" Grid.Row="4">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="525"/>
+                                    <ColumnDefinition Width="150"/>
+                                    <ColumnDefinition Width="255"/>
+                                    <ColumnDefinition Width="140"/>
+                                    <ColumnDefinition Width="255"/>
+                                </Grid.ColumnDefinitions>
+
+                                <StackPanel Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal" Margin="20,0,0,0">
+                                    <Image x:Name="SPS_P5Portrait" Height="80" Source="/resources/hc_profile.png"/>
+                                    <Grid HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="400">
+                                        <Rectangle x:Name="SPS_Player5_Banner" Fill="Green" Opacity="1">
+                                            <Rectangle.OpacityMask>
+                                                <ImageBrush ImageSource="resources/images/icons/post_game/playertitle_mask.png" />
+                                            </Rectangle.OpacityMask>
+                                            <Rectangle.Effect>
+                                                <DropShadowEffect Color="Black" Direction="-90" ShadowDepth="8" BlurRadius="10" />
+                                            </Rectangle.Effect>
+                                        </Rectangle>
+                                        <Rectangle>
+                                            <Rectangle.Fill>
+                                                <ImageBrush ImageSource="resources/images/icons/post_game/playertitle_gradient.png" />
+                                            </Rectangle.Fill>
+                                            <Rectangle.OpacityMask>
+                                                <ImageBrush ImageSource="resources/images/icons/post_game/playertitle_mask.png" />
+                                            </Rectangle.OpacityMask>
+                                        </Rectangle>
+                                        <Rectangle VerticalAlignment="Bottom" Height="6" Margin="0,0,0,-1">
+                                            <Rectangle.Fill>
+                                                <ImageBrush ImageSource="resources/images/icons/post_game/playertitle_deco.png"/>
+                                            </Rectangle.Fill>
+                                        </Rectangle>
+                                        <TextBlock x:Name="SPS_P5Name" Style="{StaticResource PlayerNameStyle}" Text="Player Name Here."/>
+                                    </Grid>
+                                </StackPanel>
+
+                                <!--Flag-->
+                                <Button x:Name="SPS_P5HomeCityFlag" Grid.Column="1" ToolTipService.ShowDuration="120000" Height="80" Width="118" VerticalAlignment="Center" Background="{StaticResource flag_square_random}" Style="{StaticResource ImageButton}" Content="20" />
+                
+                                <!--Team & Handicapped-->
+                                <ComboBox x:Name="SPS_P5Team" Grid.Column="2" Height="35" Width="240" Style="{StaticResource RegularCombobox}">
+                                    <ComboBoxItem Content="$$36141$$Team 1" IsSelected="True"/>
+                                    <ComboBoxItem Content="$$36142$$Team 2"/>
+                                    <ComboBoxItem Content="$$36143$$Team 3"/>
+                                    <ComboBoxItem Content="$$36144$$Team 4"/>
+                                    <ComboBoxItem Content="$$36145$$Team ?"/>
+                                    <ComboBox.ToolTip>
+                                        <TextBlock Text="$$41640$$"/>
+                                    </ComboBox.ToolTip>
+                                </ComboBox>
+
+                                <!--Colours & Ready-->
+                                <Grid Grid.Column="3">
+                                    <Rectangle x:Name="SPS_P5Conflict" Style="{StaticResource ConflictColors}"/>
+                                    <ComboBox x:Name="SPS_P5Color" Height="80" Width="100" VerticalAlignment="Center" MaxDropDownHeight="380" Style="{StaticResource RegularCombobox}">
+                                        <ComboBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Orientation="Horizontal" Width="40">
+                                                    <Rectangle Fill="{Binding Name}" Width="40" Height="40" Margin="0,2.5,0,0"/>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </ComboBox.ItemTemplate>
+                                        <ComboBox.ToolTip>
+                                            <TextBlock Text="$$41641$$"/>
+                                        </ComboBox.ToolTip>
+                                    </ComboBox>
+                                </Grid>
+
+                                <local:Age3KeyboardFocusBorder Margin="0,30,0,30" Grid.Column="4">
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="30">
+                                        <TextBlock x:Name="SPS_P5HandicapLabel" Padding="5" FontSize="20" FontFamily="Trajan Pro" FontWeight="Bold" TextAlignment="Right" Width="75" Text="+100%" Foreground="White"/>
+                                        <Slider x:Name="SPS_P5Handicap" Margin="5,4,0,4" Height="20" Width="150" Minimum="0" Maximum="100" IsSnapToTickEnabled="True" TickFrequency="5"/>
+                                        <StackPanel.ToolTip>$$20033$$</StackPanel.ToolTip>
+                                    </StackPanel>
+                                </local:Age3KeyboardFocusBorder>
+                            </Grid>
+
+                            <!--Player #6-->
+                            <Grid x:Name="SPS_Player6Row" Grid.Row="5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="525"/>
+                                    <ColumnDefinition Width="150"/>
+                                    <ColumnDefinition Width="255"/>
+                                    <ColumnDefinition Width="140"/>
+                                    <ColumnDefinition Width="255"/>
+                                </Grid.ColumnDefinitions>
+
+                                <StackPanel Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal" Margin="20,0,0,0">
+                                    <Image x:Name="SPS_P6Portrait" Height="80" Source="/resources/hc_profile.png"/>
+                                    <Grid HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="400">
+                                        <Rectangle x:Name="SPS_Player6_Banner" Fill="Green" Opacity="1">
+                                            <Rectangle.OpacityMask>
+                                                <ImageBrush ImageSource="resources/images/icons/post_game/playertitle_mask.png" />
+                                            </Rectangle.OpacityMask>
+                                            <Rectangle.Effect>
+                                                <DropShadowEffect Color="Black" Direction="-90" ShadowDepth="8" BlurRadius="10" />
+                                            </Rectangle.Effect>
+                                        </Rectangle>
+                                        <Rectangle>
+                                            <Rectangle.Fill>
+                                                <ImageBrush ImageSource="resources/images/icons/post_game/playertitle_gradient.png" />
+                                            </Rectangle.Fill>
+                                            <Rectangle.OpacityMask>
+                                                <ImageBrush ImageSource="resources/images/icons/post_game/playertitle_mask.png" />
+                                            </Rectangle.OpacityMask>
+                                        </Rectangle>
+                                        <Rectangle VerticalAlignment="Bottom" Height="6" Margin="0,0,0,-1">
+                                            <Rectangle.Fill>
+                                                <ImageBrush ImageSource="resources/images/icons/post_game/playertitle_deco.png"/>
+                                            </Rectangle.Fill>
+                                        </Rectangle>
+                                        <TextBlock x:Name="SPS_P6Name" Style="{StaticResource PlayerNameStyle}" Text="Player Name Here."/>
+                                    </Grid>
+                                </StackPanel>
+
+                                <!--Flag-->
+                                 <Button x:Name="SPS_P6HomeCityFlag" Grid.Column="1" ToolTipService.ShowDuration="120000" Height="80" Width="118" VerticalAlignment="Center" Background="{StaticResource flag_square_random}" Style="{StaticResource ImageButton}" Content="20" />
+                   
+                                <!--Team & Handicapped-->
+                                <ComboBox x:Name="SPS_P6Team" Grid.Column="2" Height="35" Width="240" Style="{StaticResource RegularCombobox}">
+                                    <ComboBoxItem Content="$$36141$$Team 1" IsSelected="True"/>
+                                    <ComboBoxItem Content="$$36142$$Team 2"/>
+                                    <ComboBoxItem Content="$$36143$$Team 3"/>
+                                    <ComboBoxItem Content="$$36144$$Team 4"/>
+                                    <ComboBoxItem Content="$$36145$$Team ?"/>
+                                    <ComboBox.ToolTip>
+                                        <TextBlock Text="$$41640$$"/>
+                                    </ComboBox.ToolTip>
+                                </ComboBox>
+                                
+                                <!--Colours & Ready-->
+                                <Grid Grid.Column="3">
+                                    <Rectangle x:Name="SPS_P6Conflict" Style="{StaticResource ConflictColors}"/>
+                                    <ComboBox x:Name="SPS_P6Color" Height="80" Width="100" VerticalAlignment="Center" MaxDropDownHeight="380" Style="{StaticResource RegularCombobox}">
+                                        <ComboBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Orientation="Horizontal" Width="40">
+                                                    <Rectangle Fill="{Binding Name}" Width="40" Height="40" Margin="0,2.5,0,0"/>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </ComboBox.ItemTemplate>
+                                        <ComboBox.ToolTip>
+                                            <TextBlock Text="$$41641$$"/>
+                                        </ComboBox.ToolTip>
+                                    </ComboBox>
+                                </Grid>
+
+                                <local:Age3KeyboardFocusBorder Margin="0,30,0,30" Grid.Column="4">
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="30">
+                                        <TextBlock x:Name="SPS_P6HandicapLabel" Padding="5" FontSize="20" FontFamily="Trajan Pro" FontWeight="Bold" TextAlignment="Right" Width="75" Text="+100%" Foreground="White"/>
+                                        <Slider x:Name="SPS_P6Handicap" Margin="5,4,0,4" Height="20" Width="150" Minimum="0" Maximum="100" IsSnapToTickEnabled="True" TickFrequency="5"/>
+                                        <StackPanel.ToolTip>$$20033$$</StackPanel.ToolTip>
+                                    </StackPanel>
+                                </local:Age3KeyboardFocusBorder>
+                            </Grid>
+
+                            <!--Player #7-->
+                            <Grid x:Name="SPS_Player7Row" Grid.Row="6">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="525"/>
+                                    <ColumnDefinition Width="150"/>
+                                    <ColumnDefinition Width="255"/>
+                                    <ColumnDefinition Width="140"/>
+                                    <ColumnDefinition Width="255"/>
+                                </Grid.ColumnDefinitions>
+
+                                <StackPanel Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal" Margin="20,0,0,0">
+                                    <Image x:Name="SPS_P7Portrait" Height="80" Source="/resources/hc_profile.png"/>
+                                    <Grid HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="400">
+                                        <Rectangle x:Name="SPS_Player7_Banner" Fill="Green" Opacity="1">
+                                            <Rectangle.OpacityMask>
+                                                <ImageBrush ImageSource="resources/images/icons/post_game/playertitle_mask.png" />
+                                            </Rectangle.OpacityMask>
+                                            <Rectangle.Effect>
+                                                <DropShadowEffect Color="Black" Direction="-90" ShadowDepth="8" BlurRadius="10" />
+                                            </Rectangle.Effect>
+                                        </Rectangle>
+                                        <Rectangle>
+                                            <Rectangle.Fill>
+                                                <ImageBrush ImageSource="resources/images/icons/post_game/playertitle_gradient.png" />
+                                            </Rectangle.Fill>
+                                            <Rectangle.OpacityMask>
+                                                <ImageBrush ImageSource="resources/images/icons/post_game/playertitle_mask.png" />
+                                            </Rectangle.OpacityMask>
+                                        </Rectangle>
+                                        <Rectangle VerticalAlignment="Bottom" Height="6" Margin="0,0,0,-1">
+                                            <Rectangle.Fill>
+                                                <ImageBrush ImageSource="resources/images/icons/post_game/playertitle_deco.png"/>
+                                            </Rectangle.Fill>
+                                        </Rectangle>
+                                        <TextBlock x:Name="SPS_P7Name" Style="{StaticResource PlayerNameStyle}" Text="Player Name Here."/>
+                                    </Grid>
+                                </StackPanel>
+
+                                <!--Flag-->
+                                 <Button x:Name="SPS_P7HomeCityFlag" Grid.Column="1" ToolTipService.ShowDuration="120000" Height="80" Width="118" VerticalAlignment="Center" Background="{StaticResource flag_square_random}" Style="{StaticResource ImageButton}" Content="20" />
+                           
+                                <!--Team & Handicapped-->
+                                <ComboBox x:Name="SPS_P7Team" Grid.Column="2" Height="35" Width="240" Style="{StaticResource RegularCombobox}">
+                                    <ComboBoxItem Content="$$36141$$Team 1" IsSelected="True"/>
+                                    <ComboBoxItem Content="$$36142$$Team 2"/>
+                                    <ComboBoxItem Content="$$36143$$Team 3"/>
+                                    <ComboBoxItem Content="$$36144$$Team 4"/>
+                                    <ComboBoxItem Content="$$36145$$Team ?"/>
+                                    <ComboBox.ToolTip>
+                                        <TextBlock Text="$$41640$$"/>
+                                    </ComboBox.ToolTip>
+                                </ComboBox>
+
+                                <!--Colours & Ready-->
+                                <Grid Grid.Column="3">
+                                    <Rectangle x:Name="SPS_P7Conflict" Style="{StaticResource ConflictColors}"/>
+                                    <ComboBox x:Name="SPS_P7Color" Height="80" Width="100" VerticalAlignment="Center" MaxDropDownHeight="380" Style="{StaticResource RegularCombobox}">
+                                        <ComboBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Orientation="Horizontal" Width="40">
+                                                    <Rectangle Fill="{Binding Name}" Width="40" Height="40" Margin="0,2.5,0,0"/>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </ComboBox.ItemTemplate>
+                                        <ComboBox.ToolTip>
+                                            <TextBlock Text="$$41641$$"/>
+                                        </ComboBox.ToolTip>
+                                    </ComboBox>
+                                </Grid>
+
+                                <local:Age3KeyboardFocusBorder Margin="0,30,0,30" Grid.Column="4">
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="30">
+                                        <TextBlock x:Name="SPS_P7HandicapLabel" Padding="5" FontSize="20" FontFamily="Trajan Pro" FontWeight="Bold" TextAlignment="Right" Width="75" Text="+100%" Foreground="White"/>
+                                        <Slider x:Name="SPS_P7Handicap" Margin="5,4,0,4" Height="20" Width="150" Minimum="0" Maximum="100" IsSnapToTickEnabled="True" TickFrequency="5"/>
+                                        <StackPanel.ToolTip>$$20033$$</StackPanel.ToolTip>
+                                    </StackPanel>
+                                </local:Age3KeyboardFocusBorder>
+                            </Grid>
+
+                            <!--Player #8-->
+                            <Grid x:Name="SPS_Player8Row" Grid.Row="7">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="525"/>
+                                    <ColumnDefinition Width="150"/>
+                                    <ColumnDefinition Width="255"/>
+                                    <ColumnDefinition Width="140"/>
+                                    <ColumnDefinition Width="255"/>
+                                </Grid.ColumnDefinitions>
+
+                                <StackPanel Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal" Margin="20,0,0,0">
+                                    <Image x:Name="SPS_P8Portrait" Height="80" Source="/resources/hc_profile.png"/>
+                                    <Grid HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="400">
+                                        <Rectangle x:Name="SPS_Player8_Banner" Fill="Green" Opacity="1">
+                                            <Rectangle.OpacityMask>
+                                                <ImageBrush ImageSource="resources/images/icons/post_game/playertitle_mask.png" />
+                                            </Rectangle.OpacityMask>
+                                            <Rectangle.Effect>
+                                                <DropShadowEffect Color="Black" Direction="-90" ShadowDepth="8" BlurRadius="10" />
+                                            </Rectangle.Effect>
+                                        </Rectangle>
+                                        <Rectangle>
+                                            <Rectangle.Fill>
+                                                <ImageBrush ImageSource="resources/images/icons/post_game/playertitle_gradient.png" />
+                                            </Rectangle.Fill>
+                                            <Rectangle.OpacityMask>
+                                                <ImageBrush ImageSource="resources/images/icons/post_game/playertitle_mask.png" />
+                                            </Rectangle.OpacityMask>
+                                        </Rectangle>
+                                        <Rectangle VerticalAlignment="Bottom" Height="6" Margin="0,0,0,-1">
+                                            <Rectangle.Fill>
+                                                <ImageBrush ImageSource="resources/images/icons/post_game/playertitle_deco.png"/>
+                                            </Rectangle.Fill>
+                                        </Rectangle>
+                                        <TextBlock x:Name="SPS_P8Name" Style="{StaticResource PlayerNameStyle}" Text="Player Name Here."/>
+                                    </Grid>
+                                </StackPanel>
+
+                                <!--Flag-->
+                                <Button x:Name="SPS_P8HomeCityFlag" Grid.Column="1" ToolTipService.ShowDuration="120000" Height="80" Width="118" VerticalAlignment="Center" Background="{StaticResource flag_square_random}" Style="{StaticResource ImageButton}" Content="20" />
+                   
+                                <!--Team & Handicapped-->
+                                <ComboBox x:Name="SPS_P8Team" Grid.Column="2" Height="35" Width="240" Style="{StaticResource RegularCombobox}">
+                                    <ComboBoxItem Content="$$36141$$Team 1" IsSelected="True"/>
+                                    <ComboBoxItem Content="$$36142$$Team 2"/>
+                                    <ComboBoxItem Content="$$36143$$Team 3"/>
+                                    <ComboBoxItem Content="$$36144$$Team 4"/>
+                                    <ComboBoxItem Content="$$36145$$Team ?"/>
+                                    <ComboBox.ToolTip>
+                                        <TextBlock Text="$$41640$$"/>
+                                    </ComboBox.ToolTip>
+                                </ComboBox>
+                                
+                                <!--Colours & Ready-->
+                                <Grid Grid.Column="3">
+                                    <Rectangle x:Name="SPS_P8Conflict" Style="{StaticResource ConflictColors}"/>
+                                    <ComboBox x:Name="SPS_P8Color" Height="80" Width="100" VerticalAlignment="Center" MaxDropDownHeight="380" Style="{StaticResource RegularCombobox}">
+                                        <ComboBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Orientation="Horizontal" Width="40">
+                                                    <Rectangle Fill="{Binding Name}" Width="40" Height="40" Margin="0,2.5,0,0"/>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </ComboBox.ItemTemplate>
+                                        <ComboBox.ToolTip>
+                                            <TextBlock Text="$$41641$$"/>
+                                        </ComboBox.ToolTip>
+                                    </ComboBox>
+                                </Grid>
+
+                                <local:Age3KeyboardFocusBorder Margin="0,30,0,30" Grid.Column="4">
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="30">
+                                        <TextBlock x:Name="SPS_P8HandicapLabel" Padding="5" FontSize="20" FontFamily="Trajan Pro" FontWeight="Bold" TextAlignment="Right" Width="75" Text="+100%" Foreground="White"/>
+                                        <Slider x:Name="SPS_P8Handicap" Margin="5,4,0,4" Height="20" Width="150" Minimum="0" Maximum="100" IsSnapToTickEnabled="True" TickFrequency="5"/>
+                                        <StackPanel.ToolTip>$$20033$$</StackPanel.ToolTip>
+                                    </StackPanel>
+                                </local:Age3KeyboardFocusBorder>
+                            </Grid>
+                        </Grid>
+
+                        <Grid Grid.Column="3" Grid.Row="3">
+                            <Rectangle Grid.Row="0" Grid.RowSpan="8"
+                                   Width="{Binding ActualWidth, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Grid}}}"
+                                   Height="{Binding ActualHeight, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Grid}}}"
+                                   HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Style="{StaticResource PanelBGSection}" />
+                        </Grid>
+
+                        <!--Game Settings-->
+                        <StackPanel Grid.Column="3" Grid.Row="3" Margin="0,15,0,0">
+                            <ComboBox x:Name="SinglePlayerSetup_NumPlayersSelection"  Height="40" Width="450" FontSize="20" Padding="8" MaxDropDownHeight="380" Style="{StaticResource RegularCombobox}">
+                                <ComboBoxItem Content="$$36122$$2 Players" IsSelected="True"/>
+                                <ComboBoxItem Content="$$36123$$3 Players"/>
+                                <ComboBoxItem Content="$$36124$$4 Players"/>
+                                <ComboBoxItem Content="$$36125$$5 Players"/>
+                                <ComboBoxItem Content="$$36126$$6 Players"/>
+                                <ComboBoxItem Content="$$36127$$7 Players"/>
+                                <ComboBoxItem Content="$$36128$$8 Players"/>
+                                <ComboBox.ToolTip>$$41646$$</ComboBox.ToolTip>
+                            </ComboBox>
+
+                            <Image x:Name="SinglePlayerSetup_MapDisplay" Height="200" Width="200" Margin="0,10,0,0">
+                                <Image.ToolTip>$$19943$$</Image.ToolTip>
+                            </Image>
+
+                            <TextBlock Style="{StaticResource RegularTextBlockStyle}" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="450" Text="$$71121$$Select Type" Margin="0,5,0,0">
+                                <TextBlock.ToolTip>$$71375$$</TextBlock.ToolTip>
+                            </TextBlock>
+                            <ComboBox  x:Name="SinglePlayerSetup_MapTypeDropdown" Width="450"  Height="40" HorizontalAlignment="Center" Style="{StaticResource RegularCombobox}" MaxDropDownHeight="380">
+                                <ComboBoxItem Content="$$79860$$All Maps" IsSelected="True">
+                                    <ComboBoxItem.ToolTip>$$79861$$</ComboBoxItem.ToolTip>
+                                </ComboBoxItem>
+                                <ComboBoxItem Content="$$71123$$Competetive Maps">
+                                    <ComboBoxItem.ToolTip>$$71125$$</ComboBoxItem.ToolTip>
+                                </ComboBoxItem>
+                                <ComboBoxItem Content="$$42359$$Custom Maps">
+                                    <ComboBoxItem.ToolTip>$$71126$$</ComboBoxItem.ToolTip>
+                                </ComboBoxItem>
+                                <ComboBox.ToolTip>$$71375$$</ComboBox.ToolTip>
+                            </ComboBox>
+
+                            <TextBlock Style="{StaticResource RegularTextBlockStyle}" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="450" Text="$$19812$$Select Map" Margin="0,5,0,0">
+                                <TextBlock.ToolTip>$$41642$$</TextBlock.ToolTip>
+                            </TextBlock>
+                            <!--Select Map-->
+                            <ComboBox x:Name="SinglePlayerSetup_MapSelection" Width="450"  Height="40" HorizontalAlignment="Center" Style="{StaticResource RegularCombobox}" MaxDropDownHeight="380" Margin="0,0,0,0">
+                                <ComboBoxItem Content="All Maps" IsSelected="True"/>
+                                <ComboBoxItem Content="Standard Maps"/>
+                                <ComboBoxItem Content="Amazonia"/>
+                                <ComboBoxItem Content="Andes"/>
+                                <ComboBoxItem Content="Araucania"/>
+                                <ComboBoxItem Content="Bayou"/>
+                                <ComboBox.ToolTip>$$41642$$</ComboBox.ToolTip>
+                            </ComboBox>
+
+
+                            <StackPanel x:Name="SinglePlayerSetup_GameRulesParent" Width="500">
+                                <StackPanel.Style>
+                                    <Style TargetType="StackPanel">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsChecked,ElementName=toggleSupremacy}" Value="True">
+                                                <Setter Property="Visibility" Value="Visible"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </StackPanel.Style>
+                                <TextBlock x:Name="SPS_LabelGameRules" Style="{StaticResource RegularTextBlockStyle}" HorizontalAlignment="Center" TextAlignment="Center" Width="450" Padding="2" Margin="0,0,0,0">
+                                    $$36146$$Game Rules
+                                    <TextBlock.ToolTip>$$71133$$</TextBlock.ToolTip>
+                                </TextBlock>
+                                <ComboBox x:Name="SinglePlayerSetup_XtraRulesSelection" Margin="0,0,0,0" Height="40" Width="450" FontSize="20" Padding="8" MaxDropDownHeight="380" Style="{StaticResource RegularCombobox}">
+                                    <ComboBoxItem Content="$$18297$$Standard" IsSelected="True">
+                                        <ComboBoxItem.ToolTip>
+                                            $$46655$$The standard game has no Treaty period and allows the Trade Monopoly victory condition
+                                        </ComboBoxItem.ToolTip>
+                                    </ComboBoxItem>
+                                    <ComboBoxItem Content="$$46661$$Classic">
+                                        <ComboBoxItem.ToolTip>
+                                            $$46656$$The classic game has no Treaty period and does not allow the Trade Monopoly victory condition
+                                        </ComboBoxItem.ToolTip>
+                                    </ComboBoxItem>
+                                    <ComboBoxItem x:Name="isTreaty" Content="$$29361$$Treaty">
+                                        <ComboBoxItem.ToolTip>
+                                            $$71364$$Treaty: Attacking and building will be restricted until the time has been reached.\nThe Trade Monopoly victory condition is not allowed.\nNow select your time and blockade conditions.
+                                        </ComboBoxItem.ToolTip>
+                                    </ComboBoxItem>
+                                    <ComboBoxItem Content="$$70442$$King of the Hill">
+                                        <ComboBoxItem.ToolTip>
+                                            $$71134$$King of the Hill starts with a central fort which can be captured and held for victory.
+                                        </ComboBoxItem.ToolTip>
+                                    </ComboBoxItem>
+                                    <ComboBox.ToolTip>$$71133$$</ComboBox.ToolTip>
+                                </ComboBox>
+
+                                <StackPanel>
+                                    <StackPanel.Style>
+                                        <Style TargetType="StackPanel">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding IsSelected,ElementName=isTreaty}" Value="True">
+                                                    <Setter Property="Visibility" Value="Visible"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </StackPanel.Style>
+                                    <local:Age3KeyboardFocusBorder Margin="10,0,10,0">
+                                        <ComboBox x:Name="TreatyDropdown" Height="40" Width="450" Style="{StaticResource RegularCombobox}" FontSize="21" MaxDropDownHeight="380" Margin="0,5,0,0">
+                                            <ComboBox.ToolTip>$$90176$$ Select a rule set.</ComboBox.ToolTip>
+                                            <ComboBoxItem Content="$$46612$$10 min." IsSelected="True">
+                                                <ComboBoxItem.ToolTip>
+                                                    $$46657$$10 minute Treaty period in which no one can attack and building is restricted.\nThe Trade Monopoly victory condition is not allowed.
+                                                </ComboBoxItem.ToolTip>
+                                            </ComboBoxItem>
+                                            <ComboBoxItem Content="$$46613$$20 min.">
+                                                <ComboBoxItem.ToolTip>
+                                                    $$46658$$20 minute Treaty period in which no one can attack and building is restricted.\nThe Trade Monopoly victory condition is not allowed.
+                                                </ComboBoxItem.ToolTip>
+                                            </ComboBoxItem>
+                                            <ComboBoxItem Content="$$46614$$30 min.">
+                                                <ComboBoxItem.ToolTip>
+                                                    $$46659$$30 minute Treaty period in which no one can attack and building is restricted.\nThe Trade Monopoly victory condition is not allowed.
+                                                </ComboBoxItem.ToolTip>
+                                            </ComboBoxItem>
+                                            <ComboBoxItem Content="$$46615$$40 min.">
+                                                <ComboBoxItem.ToolTip>
+                                                    $$46660$$40 minute Treaty period in which no one can attack and building is restricted.\nThe Trade Monopoly victory condition is not allowed.
+                                                </ComboBoxItem.ToolTip>
+                                            </ComboBoxItem>
+                                            <ComboBoxItem Content="$$71365$$60 min.">
+                                                <ComboBoxItem.ToolTip>
+                                                    $$71367$$60 minute Treaty period in which no one can attack and building is restricted.\nThe Trade Monopoly victory condition is not allowed.
+                                                </ComboBoxItem.ToolTip>
+                                            </ComboBoxItem>
+                                            <ComboBoxItem Content="$$71366$$90 min.">
+                                                <ComboBoxItem.ToolTip>
+                                                    $$71368$$90 minute Treaty period in which no one can attack and building is restricted.\nThe Trade Monopoly victory condition is not allowed.
+                                                </ComboBoxItem.ToolTip>
+                                            </ComboBoxItem>
+                                        </ComboBox>
+                                    </local:Age3KeyboardFocusBorder>
+
+                                    <local:Age3KeyboardFocusBorder Margin="10,0,10,0">
+                                        <CheckBox x:Name="BlockadeCheckbox" Style="{StaticResource Checkbox_Medium}" Width="450" FontSize="21" Content="$$30458$$Blockade">
+                                            <CheckBox.ToolTip>$$71369$$Blockade: A condition to prevernt players from getting shipments.</CheckBox.ToolTip>
+                                        </CheckBox>
+                                    </local:Age3KeyboardFocusBorder>
+                                </StackPanel>
+                            </StackPanel>
+
+                            <StackPanel x:Name="SinglePlayerSetup_DeathmatchGameRulesParent" Width="500">
+                                <StackPanel.Style>
+                                    <Style TargetType="StackPanel">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsChecked,ElementName=toggleDeathmatch}" Value="True">
+                                                <Setter Property="Visibility" Value="Visible"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </StackPanel.Style>
+                                <TextBlock x:Name="SPS_LabelGameRulesDeathmatch" Style="{StaticResource RegularTextBlockStyle}" HorizontalAlignment="Center" TextAlignment="Center" Width="450" Padding="2" Margin="0,0,0,0">
+                                         $$36146$$Game Rules
+                                    <TextBlock.ToolTip>$$71133$$</TextBlock.ToolTip>
+                                </TextBlock>
+                                <ComboBox x:Name="SinglePlayerSetup_DeathmatchXtraRulesSelection" Margin="0,0,0,0" Height="40" Width="450" FontSize="20" Padding="8" MaxDropDownHeight="380" Style="{StaticResource RegularCombobox}">
+                                    <ComboBoxItem Content="$$46661$$Classic" IsSelected="True">
+                                        <ComboBoxItem.ToolTip>
+                                            $$46656$$The classic game has no Treaty period and does not allow the Trade Monopoly victory condition
+                                        </ComboBoxItem.ToolTip>
+                                    </ComboBoxItem>
+                                    <ComboBox.ToolTip>$$71133$$</ComboBox.ToolTip>
+                                </ComboBox>
+                            </StackPanel>
+
+                            <StackPanel Width="500">
+                                <TextBlock x:Name="SPS_LabelStartingAge" Style="{StaticResource RegularTextBlockStyle}" HorizontalAlignment="Center" TextAlignment="Center" Width="450">
+                                    $$36148$$Starting Age
+                                    <TextBlock.ToolTip>$$41643$$</TextBlock.ToolTip>
+                                </TextBlock>
+                                <ComboBox x:Name="SinglePlayerSetup_StartingAgeSelection" Margin="0,0,0,0" Height="40" Width="450" FontSize="20" Padding="8" MaxDropDownHeight="380" Style="{StaticResource RegularCombobox}">
+                                    <ComboBoxItem Content="$$36425$$Nomad" IsSelected="True"/>
+                                    <ComboBoxItem Content="$$36129$$Exploration Age"/>
+                                    <ComboBoxItem Content="$$36430$$Commerce Age"/>
+                                    <ComboBoxItem Content="$$36431$$Fortress Age"/>
+                                    <ComboBoxItem Content="$$36432$$Industrial Age"/>
+                                    <ComboBoxItem Content="$$36433$$Post-Industrial Age"/>
+                                    <ComboBoxItem Content="$$36434$$Sovereign Age"/>
+                                    <ComboBoxItem Content="$$36435$$Post-Sovereign Age"/>
+                                    <ComboBox.ToolTip>$$41643$$</ComboBox.ToolTip>
+                                </ComboBox>
+                            </StackPanel>
+
+                            <StackPanel Width="500">
+                                <TextBlock x:Name="SPS_LabelDifficulty" Style="{StaticResource RegularTextBlockStyle}" HorizontalAlignment="Center" TextAlignment="Center" Width="450" Margin="0,8,0,0">
+                                    $$36147$$Difficulty
+                                    <TextBlock.ToolTip>$$41644$$</TextBlock.ToolTip>
+                                </TextBlock>
+                                <ComboBox x:Name="SinglePlayerSetup_DifficultySelection" Margin="0,0,0,0" Height="40" Width="450" FontSize="20" Padding="8" Style="{StaticResource RegularCombobox}">
+                                    <ComboBoxItem Content="$$32605$$Easy" IsSelected="True"/>
+                                    <ComboBoxItem Content="$$18297$$Standard"/>
+                                    <ComboBoxItem Content="$$18298$$Moderate"/>
+                                    <ComboBoxItem Content="$$18299$$Hard"/>
+                                    <ComboBoxItem Content="$$32604$$Expert"/>
+                                    <ComboBoxItem Content="$$91770$$Extreme"/>
+                                    <ComboBox.ToolTip>$$41644$$</ComboBox.ToolTip>
+                                </ComboBox>
+                            </StackPanel>
+
+                            <local:Age3KeyboardFocusBorder Margin="10,0,10,0">
+                                <CheckBox x:Name="SPS_CheckHandicap" Style="{StaticResource Checkbox_Medium}" Height="40" Width="450" VerticalContentAlignment="Center" Margin="0,5,0,0">
+                                    <TextBlock Style="{StaticResource RegularTextBlockStyle}">
+                                    $$42176$$Player Handicap
+                                        <TextBlock.ToolTip>$$42186$$</TextBlock.ToolTip>
+                                    </TextBlock>
+                                    <CheckBox.ToolTip>$$42186$$</CheckBox.ToolTip>
+                                </CheckBox>
+                            </local:Age3KeyboardFocusBorder>
+
+                            <StackPanel Width="500" Margin="0,0,0,5">
+                                <TextBlock x:Name="SPS_LabelGameSpeed" Style="{StaticResource RegularTextBlockStyle}" HorizontalAlignment="Center" TextAlignment="Center" Width="450">
+                                    $$36149$$Game Speed
+                                    <TextBlock.ToolTip>$$37456$$</TextBlock.ToolTip>
+                                </TextBlock>
+                                <ComboBox x:Name="SPS_GameSpeedSelection" Margin="0,0,0,0" Height="40" Width="450" FontSize="20" Padding="8" Style="{StaticResource RegularCombobox}">
+                                    <ComboBoxItem Content="$$36136$$Slow" IsSelected="True"/>
+                                    <ComboBoxItem Content="$$36137$$Med"/>
+                                    <ComboBoxItem Content="$$36138$$Fast"/>
+                                    <ComboBox.ToolTip>$$37456$$</ComboBox.ToolTip>
+                                </ComboBox>
+                            </StackPanel>
+
+                            <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Width="500" Margin="0,0,0,0">
+                                <local:Age3KeyboardFocusBorder Margin="10,0,10,0">
+                                    <CheckBox x:Name="SPS_CheckRecordGame" Style="{StaticResource Checkbox_Medium}" Height="40" Width="450" Margin="0,0,0,0" VerticalContentAlignment="Center">
+                                        <TextBlock Style="{StaticResource RegularTextBlockStyle}">
+                                        $$36150$$Record Game
+                                            <TextBlock.ToolTip>$$37457$$</TextBlock.ToolTip>
+                                        </TextBlock>
+                                        <CheckBox.ToolTip>$$37457$$</CheckBox.ToolTip>
+                                    </CheckBox>
+                                </local:Age3KeyboardFocusBorder>
+
+                                <local:Age3KeyboardFocusBorder Margin="10,0,10,0">
+                                    <CheckBox x:Name="SPS_CheckFFA" Style="{StaticResource Checkbox_Medium}" Height="40" Width="450" Margin="0,0,0,0" VerticalContentAlignment="Center">
+                                        <TextBlock Style="{StaticResource RegularTextBlockStyle}">
+                                            $$36520$$Free For All
+                                            <TextBlock.ToolTip>$$37458$$</TextBlock.ToolTip>
+                                        </TextBlock>
+                                        <CheckBox.ToolTip>$$37458$$</CheckBox.ToolTip>
+                                    </CheckBox>
+                                </local:Age3KeyboardFocusBorder>
+                            </StackPanel>
+                        </StackPanel>
+
+                        <local:Age3Button Grid.Column="3" Grid.Row="3" VerticalAlignment="Bottom" x:Name="SinglePlayerSetup_PlayButton" Style="{StaticResource MainMenuButton}" Width="450" Content="$$18593$$Play" Margin="0,0,0,15" ConsoleCommand="">
+                            <Button.ToolTip>$$19939$$Start the game!</Button.ToolTip>
+                        </local:Age3Button>
+                    </Grid>
+                </Grid>
+
+                <Grid Grid.Row="0">
+                    <ContentControl Template="{StaticResource Titlebar}" Focusable="False"/>
+                    <local:Age3Button x:Name="SinglePlayerSetup_CancelButton" Style="{StaticResource SubMenuBackButton}" IsCancel="true" VerticalAlignment="Center" HorizontalAlignment="Left" Content="$$42451$$Back">
+                        <Button.ToolTip>$$42451$$Back</Button.ToolTip>
+                    </local:Age3Button>
+                </Grid>
+
+                <!--Tech Tree button-->
+                <local:Age3KeyboardFocusBorder Grid.Column="0" Margin="1850,5,0,5">
+                    <Button Name="hcSummary_TechTree" Height="35" Width="50" HorizontalAlignment="Right" Margin="0,-3,10,0" Style="{StaticResource HUDButton}">
+                        <Image Source="{StaticResource icon_techtree}" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0"></Image>
+                        <Button.ToolTip>$$70734$$You can view Technology Trees of all civilizations.</Button.ToolTip>
+                    </Button>
+                </local:Age3KeyboardFocusBorder>
+            </Grid>
+        </Grid>
+    </Viewbox>
+</Window>

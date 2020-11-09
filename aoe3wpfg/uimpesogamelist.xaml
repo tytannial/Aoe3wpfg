@@ -1,0 +1,647 @@
+﻿<Window x:Class="aoe3wpfg.uimpesogamelist"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:aoe3wpfg"
+        mc:Ignorable="d"
+        Title="uimpesogamelist"
+        Style="{StaticResource WindowStyle}"
+        local:Age3Accessibility.Text="$$91589$$Browse games menu opened. Use mouse and click, or arrow keys and enter to select options"
+        local:Age3Accessibility.Mode="Menu"
+        local:Age3Navigation.WindowGroupID="Multiplayer">
+
+
+    <Window.Resources>
+        <Style TargetType="TextBlock" x:Key="Dropdowntitles">
+            <Setter Property="FontFamily" Value="Trajan Pro" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="Foreground" Value="#dbd5c3" />
+            <Setter Property="FontSize" Value="19" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="VerticalAlignment" Value="Bottom"/>
+            <Setter Property="TextAlignment" Value="Center"/>
+            <Setter Property="Height" Value="auto"/>
+            <Setter Property="Width" Value="360"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+        </Style>
+
+      <DataTemplate DataType="{x:Type local:Age3LadderEntry}">
+          <Grid Width ="370" Height="30">
+            <Grid.RowDefinitions>
+              <RowDefinition Height="30"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="66"/>
+              <ColumnDefinition Width="60"/>
+              <ColumnDefinition Width="60"/>
+              <ColumnDefinition Width="66"/>
+              <ColumnDefinition Width="62"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Rating}" />
+            <TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Ranking}" />
+            <TextBlock Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Wins}" />
+            <TextBlock Grid.Row="0" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Losses}" />
+            <TextBlock Grid.Row="0" Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding WinPercentage}" />
+        </Grid>
+      </DataTemplate>
+
+      <DataTemplate DataType="{x:Type local:Age3String}">
+        <TextBlock Height="30" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Text}" />
+      </DataTemplate>
+
+      <DataTemplate DataType="{x:Type local:Age3ProfileInfo}">
+        <Grid Width="500">
+          <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="*"/>
+          </Grid.RowDefinitions>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="500"/>
+          </Grid.ColumnDefinitions>
+
+          <!-- Player ranking icon can go here, next to the player's name, once it's set up -->
+          <TextBlock Grid.Row="0" Margin="0,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding AliasWithClan}" />
+
+          <Grid Grid.Row="1" Margin="5,5,5,5"  >
+            <Grid.RowDefinitions>
+              <RowDefinition Height="1"/>
+              <RowDefinition Height="30"/>
+              <RowDefinition Height="1"/>
+              <RowDefinition Height="30"/>
+              <RowDefinition Height="30"/>
+              <RowDefinition Height="30"/>
+              <RowDefinition Height="30"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="168" />
+              <ColumnDefinition Width="66"/>
+              <ColumnDefinition Width="60"/>
+              <ColumnDefinition Width="60"/>
+              <ColumnDefinition Width="66"/>
+              <ColumnDefinition Width="62"/>
+            </Grid.ColumnDefinitions>
+
+            <Rectangle Grid.Row="0" Grid.ColumnSpan="6" Fill="Orange" Width="500" Height="2" Margin="0,0,0,0" />
+
+            <TextBlock Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Text="Leaderboard" />
+            <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Text="$$19099$$Rating" />
+            <TextBlock Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Text="$$79925$$Rank" />
+            <TextBlock Grid.Row="1" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Text="$$70823$$Wins" />
+            <TextBlock Grid.Row="1" Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Center" Text="$$70824$$Losses" />
+            <TextBlock Grid.Row="1" Grid.Column="5" HorizontalAlignment="Center" VerticalAlignment="Center" Text="$$79926$$Win %" />
+
+            <Rectangle Grid.Row="2" Grid.ColumnSpan="6" Fill="Orange" Width="500" Height="2" Margin="0,0,0,0" />
+
+            <TextBlock Grid.Row="3" Grid.Column="0" VerticalAlignment="Center"  Text="$$71487$$Supremacy (1v1)" />
+            <ContentPresenter Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="5" Content="{Binding LadderResults.SupremacySinglesLadder}" />
+
+            <TextBlock Grid.Row="4" Grid.Column="0" VerticalAlignment="Center"  Text="$$71488$$Supremacy (Team)" />
+            <ContentPresenter Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="5" Content="{Binding LadderResults.SupremacyTeamLadder}" />
+
+            <TextBlock Grid.Row="5" Grid.Column="0" VerticalAlignment="Center"  Text="$$71506$$Treaty (All)" />
+            <ContentPresenter Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="5" Content="{Binding LadderResults.DeathmatchLadder}" />
+
+            <TextBlock Grid.Row="6" Grid.Column="0" VerticalAlignment="Center"  Text="$$71507$$Deathmatch (All)" />
+            <ContentPresenter Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="5" Content="{Binding LadderResults.TreatyLadder}" />
+
+          </Grid>
+        </Grid>
+
+      </DataTemplate>
+    </Window.Resources>
+
+    <Viewbox Style="{StaticResource ViewboxMain}" Focusable="False">
+
+        <Grid x:Name="mainGridPanel" Width="1920" Height="1080" Background="{StaticResource multiplayer_bg1}" Focusable="False">
+            <Grid Width="1920" Height="1080" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1550"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!--Screen blur here, this should stay on top of uimultiplayerHUD until the player has selected Cancel Button-->
+                <ContentControl  Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Grid.RowSpan="2" Template="{StaticResource ScreenBlur}" Focusable="False"/>
+
+                <ContentControl Grid.Column="0" Grid.Row="1" Template="{StaticResource PanelBG_Titled}" HorizontalAlignment="Center" Height="1055" Width="1570" Margin="10,0,0,0" VerticalAlignment="Top" Focusable="False"/>
+
+                <ContentControl Grid.Column="1" Grid.Row="1" Template="{StaticResource PanelBG_Titled}" HorizontalAlignment="Center" Height="1055" Width="380" Margin="0,0,10,0" VerticalAlignment="Top" Focusable="False"/>
+
+                <Grid Grid.Column="0" Grid.Row="1" Margin="20,25,15,45">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="70"/>
+                        <RowDefinition Height="95"/>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="55"/>
+                        <RowDefinition Height="55"/>
+                    </Grid.RowDefinitions>
+
+                    <!--Title-->
+                    <TextBlock Grid.Row="0" Style="{StaticResource ConfirmationTitlesStyle}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="45" Margin="0" Visibility="Visible" Text="$$70644$$Browse Game"/>
+                    <TextBlock Grid.Row="0" Style="{StaticResource ConfirmationTitlesStyle}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="45" Margin="0" Visibility="Collapsed" Text="$$70645$$Spectator Mode"/>
+
+                    <!--Filters-->
+                    <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                        <!--Password-->
+                        <local:Age3KeyboardFocusBorder Margin="10,10,10,0">
+                            <StackPanel VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="-3,7,-3,7">
+                                <TextBlock x:Name="MPESOGamelist_FilterDlg_PrivacyLabel" Style="{StaticResource Dropdowntitles}" Text="$$30070$$Password:">
+                                    <TextBlock.ToolTip>$$71090$$Change filter on password protected settings.</TextBlock.ToolTip>
+                                </TextBlock>
+                                <ComboBox x:Name="MPESOGameList_FilterDlg_PrivacyDropdown" Width="360" Height="40" HorizontalAlignment="Center" Style="{StaticResource RegularCombobox}" TabIndex="10">
+                                    <ComboBoxItem Content="$$30072$$All Games" IsSelected="True"/>
+                                    <ComboBoxItem Content="$$30071$$Password Protected Games"/>
+                                    <ComboBoxItem Content="$$30073$$Public Games"/>
+                                    <ComboBox.ToolTip>$$71090$$Change filter on password protected settings.</ComboBox.ToolTip>
+                                </ComboBox>
+                            </StackPanel>
+                        </local:Age3KeyboardFocusBorder>
+
+                        <!--Map Type-->
+                        <local:Age3KeyboardFocusBorder Margin="10,10,10,0">
+                            <StackPanel VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="-3,7,-3,7">
+                                <TextBlock x:Name="MPESOGamelist_FilterDlg_MapLabel" Style="{StaticResource Dropdowntitles}" Text="$$19815$$Map Type:">
+                                    <TextBlock.ToolTip>$$71091$$Change filter on specific map.</TextBlock.ToolTip>
+                                </TextBlock>
+                                <ComboBox x:Name="MPESOGameList_FilterDlg_MapDropdown" Width="360" Height="40" HorizontalAlignment="Center" Style="{StaticResource RegularCombobox}" TabIndex="11">
+                                    <ComboBoxItem Content="All Maps" IsSelected="True"/>
+                                    <ComboBoxItem Content="Amazonia"/>
+                                    <ComboBoxItem Content="Araucania"/>
+                                    <ComboBoxItem Content="Bayou"/>
+                                    <ComboBoxItem Content="Borneo"/>
+                                    <ComboBoxItem Content="California"/>
+                                    <ComboBoxItem Content="Caribbean"/>
+                                    <ComboBoxItem Content="Carolina"/>
+                                    <ComboBoxItem Content="Ceylon"/>
+                                    <ComboBoxItem Content="Deccan"/>
+                                    <ComboBoxItem Content="Great Lakes"/>
+                                    <ComboBoxItem Content="Great Plains"/>
+                                    <ComboBoxItem Content="Himalayas"/>
+                                    <ComboBoxItem Content="Himalayas - Upper"/>
+                                    <ComboBoxItem Content="Hispaniola"/>
+                                    <ComboBoxItem Content="Honshu"/>
+                                    <ComboBoxItem Content="Indochina"/>
+                                    <ComboBoxItem Content="Lrg Carolina"/>
+                                    <ComboBoxItem Content="Lrg Deccan"/>
+                                    <ComboBoxItem Content="Lrg G.Plains"/>
+                                    <ComboBoxItem Content="Lrg Saguenay"/>
+                                    <ComboBoxItem Content="Lrg Siberia"/>
+                                    <ComboBoxItem Content="Lrg Silk Road"/>
+                                    <ComboBoxItem Content="Lrg Sonora"/>
+                                    <ComboBoxItem Content="Lrg Texas"/>
+                                    <ComboBoxItem Content="Lrg Yellow River"/>
+                                    <ComboBoxItem Content="Mongolia"/>
+                                    <ComboBoxItem Content="New England"/>
+                                    <ComboBoxItem Content="Northwest Territory"/>
+                                    <ComboBoxItem Content="Orinoco"/>
+                                    <ComboBoxItem Content="Ozarks"/>
+                                    <ComboBoxItem Content="Painted Desert"/>
+                                    <ComboBoxItem Content="Pampas"/>
+                                    <ComboBoxItem Content="Patagonia"/>
+                                    <ComboBoxItem Content="Plymouth"/>
+                                    <ComboBoxItem Content="Regicide - Honshu"/>
+                                    <ComboBoxItem Content="Rockies"/>
+                                    <ComboBoxItem Content="Saguenay"/>
+                                    <ComboBoxItem Content="Siberia"/>
+                                    <ComboBoxItem Content="Silk Road"/>
+                                    <ComboBoxItem Content="Sonora"/>
+                                    <ComboBoxItem Content="Texas"/>
+                                    <ComboBoxItem Content="Unknown"/>
+                                    <ComboBoxItem Content="Yellow River"/>
+                                    <ComboBoxItem Content="Yucatan"/>
+                                    <ComboBox.ToolTip>$$71091$$Change filter on specific map.</ComboBox.ToolTip>
+                                </ComboBox>
+                            </StackPanel>
+                        </local:Age3KeyboardFocusBorder>
+                        
+
+                        <!--Game Type-->
+                        <local:Age3KeyboardFocusBorder Margin="10,10,10,0">
+                            <StackPanel VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="-3,7,-3,7">
+                                <TextBlock x:Name="MPESOGamelist_FilterDlg_GameTypeLabel" Style="{StaticResource Dropdowntitles}" Text="$$48915$$Game Type:">
+                                    <TextBlock.ToolTip>$$71092$$Change filter on a specific game type.</TextBlock.ToolTip>
+                                </TextBlock>
+                                <ComboBox x:Name="MPESOGameList_FilterDlg_GameTypeDropdown" Width="360" Height="40" HorizontalAlignment="Center" Style="{StaticResource RegularCombobox}" TabIndex="12">
+                                    <ComboBoxItem Content="$$48914$$All Game Types" IsSelected="True"/>
+                                  <ComboBoxItem Content="$$71503$$All Ranked Matches"/>
+                                  <ComboBoxItem Content="$$71502$$All Non-Ranked Matches"/>
+                                  <ComboBoxItem Content="$$71504$$Supremacy (Non-Ranked)"/>
+                                    <ComboBoxItem Content="$$71505$$Deathmatch (Non-Ranked)"/>
+                                    <ComboBoxItem Content="$$69767$$Scenario"/>                                  
+                                  <ComboBoxItem Content="$$71487$$Supremacy 1v1"/>
+                                  <ComboBoxItem Content="$$71491$$Supremacy 2v2"/>
+                                  <ComboBoxItem Content="$$71492$$Supremacy 3v3"/>
+                                  <ComboBoxItem Content="$$71493$$Supremacy 4v4"/>
+                                  <ComboBoxItem Content="$$71494$$Deathmatch 1v1"/>
+                                  <ComboBoxItem Content="$$71495$$Deathmatch 2v2"/>
+                                  <ComboBoxItem Content="$$71496$$Deathmatch 3v3"/>
+                                  <ComboBoxItem Content="$$71497$$Deathmatch 4v4"/>
+                                  <ComboBoxItem Content="$$71498$$Treaty 1v1"/>
+                                  <ComboBoxItem Content="$$71499$$Treaty 2v2"/>
+                                  <ComboBoxItem Content="$$71500$$Treaty 3v3"/>
+                                  <ComboBoxItem Content="$$71501$$Treaty 4v4"/>
+                                  <ComboBox.ToolTip>$$71092$$Change filter on a specific game type.</ComboBox.ToolTip>
+                                </ComboBox>
+                            </StackPanel>
+                        </local:Age3KeyboardFocusBorder>
+
+
+                        <!--Region-->
+                        <!--Turn Visibility="Hidden" when searching for LAN games-->
+                        <local:Age3KeyboardFocusBorder Margin="10,10,10,0">
+                            <StackPanel VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="-3,7,-3,7">
+                                <TextBlock x:Name="MPESOGamelist_FilterDlg_Region" Style="{StaticResource Dropdowntitles}" Visibility="Visible" Text="$$70630$$Region:" >
+                                    <TextBlock.ToolTip>$$71093$$Change filter on region settings.</TextBlock.ToolTip>
+                                </TextBlock>
+                                <ComboBox x:Name="MPESOGameList_FilterDlg_RegionDropdown" Width="360" Height="40" HorizontalAlignment="Center" Style="{StaticResource RegularCombobox}" Visibility="Visible" TabIndex="13">
+                                    <ComboBoxItem Content="All Regions" IsSelected="True"/>
+                                    <ComboBoxItem Content="asia"/>
+                                    <ComboBoxItem Content="australia"/>
+                                    <ComboBoxItem Content="europe"/>
+                                    <ComboBoxItem Content="us-east"/>
+                                    <ComboBoxItem Content="us-west"/>
+                                    <ComboBox.ToolTip>$$71093$$Change filter on region settings.</ComboBox.ToolTip>
+                                </ComboBox>
+                            </StackPanel>
+                        </local:Age3KeyboardFocusBorder>
+
+                    </StackPanel>
+
+                    <!--Sort By-->
+                    <Grid Grid.Row="2" Margin="15,0,0,0" VerticalAlignment="Center">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="40"/>
+                            <ColumnDefinition Width="305"/>
+                            <ColumnDefinition Width="40"/>
+                            <ColumnDefinition Width="305"/>
+                            <ColumnDefinition Width="305"/>
+                            <ColumnDefinition Width="180"/>
+                            <ColumnDefinition Width="60"/>
+                            <ColumnDefinition Width="180"/>
+                            <ColumnDefinition Width="50"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Button x:Name="sortbyPassword" Grid.Column="0" Style="{StaticResource Passwordbutton}" Margin="2,0,2,0" TabIndex="14" >
+                            <Button.ToolTip>$$71338$$Sort by Password</Button.ToolTip>
+                        </Button>
+                        <Button x:Name="MPESOGameList_SortByName" Grid.Column="1" Style="{StaticResource SubMenuButton}" Margin="2,0,2,0" Content="$$21163$$Game Name" TabIndex="15" >
+                            <Button.ToolTip>$$71339$$Sort by Game Name</Button.ToolTip>
+                        </Button>
+                        <Button x:Name="MPESOGameList_SortByPlayers" Grid.Column="2" Margin="2,0,2,0" TabIndex="16" >
+                            <Button.Style>
+                                <Style TargetType="{x:Type Button}" BasedOn="{StaticResource SubMenuButton}">
+                                    <Setter Property="ContentTemplate">
+                                        <Setter.Value>
+                                            <DataTemplate>
+                                                <Image Name="icon" Source="{StaticResource multiplayer_quickicon_friends}"/>
+                                            </DataTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </Button.Style>
+                            <Button.ToolTip>$$71340$$Sort by number of players</Button.ToolTip>
+                        </Button>
+                        <Button x:Name="MPESOGameList_SortByMap" Grid.Column="3" Style="{StaticResource SubMenuButton}" Margin="2,0,2,0" Content="$$30078$$Map" TabIndex="17" >
+                            <Button.ToolTip>$$71341$$Sort by Map</Button.ToolTip>
+                        </Button>
+                        <Button x:Name="MPESOGameList_SortByGameType" Grid.Column="4" Style="{StaticResource SubMenuButton}" Margin="2,0,2,0" Content="$$48916$$Rules" TabIndex="18" >
+                            <Button.ToolTip>$$71342$$Sort by Game Rules</Button.ToolTip>    
+                        </Button>
+                        <Button x:Name="MPESOGameList_SortByType" Grid.Column="5" Style="{StaticResource SubMenuButton}" Margin="2,0,2,0" Content="$$20197$$Type" TabIndex="19" >
+                            <Button.ToolTip>$$71343$$Sort by Game Type</Button.ToolTip>
+                        </Button>
+                        <Button x:Name="MPESOGameList_SortByLanguage" Grid.Column="6" Margin="2,0,2,0" TabIndex="20" >
+                            <Button.Style>
+                                <Style TargetType="{x:Type Button}" BasedOn="{StaticResource SubMenuButton}">
+                                    <Setter Property="ContentTemplate">
+                                        <Setter.Value>
+                                            <DataTemplate>
+                                                <Image Name="icon" Source="{StaticResource lang_icon}"/>
+                                            </DataTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </Button.Style>
+                            <Button.ToolTip>$$71344$$Sort by Language</Button.ToolTip>
+                        </Button>
+                        <Button x:Name="MPESOGameList_SortByServer" Grid.Column="7" Style="{StaticResource SubMenuButton}" Margin="2,0,2,0" Content="$$71490$$Server" TabIndex="21" >
+                            <Button.ToolTip>$$71345$$Sort by Server</Button.ToolTip>
+                        </Button>
+                        <Button x:Name="MPESOGameList_SortByTime" Grid.Column="8" Margin="2,0,2,0" TabIndex="22" >
+                            <Button.Style>
+                                <Style TargetType="{x:Type Button}" BasedOn="{StaticResource SubMenuButton}">
+                                    <Setter Property="ContentTemplate">
+                                        <Setter.Value>
+                                            <DataTemplate>
+                                                <Image Name="icon" Source="{StaticResource timer_icon}"/>
+                                            </DataTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </Button.Style>
+                            <Button.ToolTip>$$71346$$Sort by time since created</Button.ToolTip>
+                        </Button>
+                    </Grid>
+
+                    <Rectangle Grid.Row="3" Style="{StaticResource PanelBGSection}" Margin="10,5,10,5"/>
+
+                    <!--Browse Game List-->
+                    <Grid Grid.Row="3" Visibility="Visible">
+                        <!--Loading text-->
+                        <StackPanel x:Name="MPESOGameList_LoadingMsg" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,0">
+                            <StackPanel.Triggers>
+                                <EventTrigger RoutedEvent="Rectangle.Loaded">
+                                    <BeginStoryboard>
+                                        <Storyboard Name="loadingAnimation" RepeatBehavior="Forever">
+                                            <DoubleAnimation Storyboard.TargetName="LoadingDot1" BeginTime="0:0:0.1" Storyboard.TargetProperty="Opacity" From=".1" To="1" AutoReverse="True" Duration="0:0:0.5"/>
+                                            <DoubleAnimation Storyboard.TargetName="LoadingDot2" BeginTime="0:0:0.2" Storyboard.TargetProperty="Opacity" From=".1" To="1" AutoReverse="True" Duration="0:0:0.5"/>
+                                            <DoubleAnimation Storyboard.TargetName="LoadingDot3" BeginTime="0:0:0.3" Storyboard.TargetProperty="Opacity" From=".1" To="1" AutoReverse="True" Duration="0:0:0.5"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger>
+                            </StackPanel.Triggers>
+
+                            <TextBlock FontFamily="Trajan Pro" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="25" Foreground="White" Height="40" Text="$$22605$$Loading" />
+                            <Ellipse Name="LoadingDot1" VerticalAlignment="Bottom" Fill="White" Opacity=".1" Width="6" Height="6" Margin="4,0,0,18"/>
+                            <Ellipse Name="LoadingDot2" VerticalAlignment="Bottom" Fill="White" Opacity=".1" Width="6" Height="6" Margin="2,0,0,18"/>
+                            <Ellipse Name="LoadingDot3" VerticalAlignment="Bottom" Fill="White" Opacity=".1" Width="6" Height="6" Margin="2,0,0,18"/>
+                        </StackPanel>
+
+                        <!--Note: This list will populate both game and spectator sessions. This list is connected to the toggle button "Spectator Mode"-->
+                        <local:Age3KeyboardFocusBorder Margin="20,5,20,5">
+                            <ListView x:Name="browselist" TabIndex="1" AlternationCount="2" Margin="0,10,0,10">
+                                <ListView.Resources>
+                                    <Style TargetType="GridViewColumnHeader">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                    </Style>
+                                </ListView.Resources>
+
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn Header="Password" Width="35" DisplayMemberBinding="{Binding password}"/>
+                                        <GridViewColumn Header="Game Name" Width="305" DisplayMemberBinding="{Binding gamename}"/>
+                                        <GridViewColumn Header="Players" Width="35" DisplayMemberBinding="{Binding players}"/>
+                                        <GridViewColumn Header="Map" Width="305" DisplayMemberBinding="{Binding map}"/>
+                                        <GridViewColumn Header="Rules" Width="305" DisplayMemberBinding="{Binding rules}"/>
+                                        <GridViewColumn Header="Type" Width="180" DisplayMemberBinding="{Binding type}"/>
+                                        <GridViewColumn Header="Language" Width="60" DisplayMemberBinding="{Binding lang}"/>
+                                        <GridViewColumn Header="Server" Width="180" DisplayMemberBinding="{Binding server}"/>
+                                        <GridViewColumn Header="Time" Width="50" DisplayMemberBinding="{Binding time}"/>
+                                    </GridView>
+                                </ListView.View>
+
+                                <ListView.ItemContainerStyle>
+                                    <Style TargetType="ListViewItem">
+                                        <Setter Property="FontSize" Value="18" />
+                                        <Setter Property="Foreground" Value="#e7e7e7" />
+                                        <Setter Property="FontFamily" Value="Trajan Pro" />
+                                        <Setter Property="Background" Value="Red"/>
+                                        <Setter Property="Height" Value="40"/>
+                                        <Setter Property="Padding" Value="0"/>
+                                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                        <Setter Property="VerticalContentAlignment" Value="Center"/>
+                                        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="35"/>
+                                                            <ColumnDefinition Width="305"/>
+                                                            <ColumnDefinition Width="35"/>
+                                                            <ColumnDefinition Width="305"/>
+                                                            <ColumnDefinition Width="305"/>
+                                                            <ColumnDefinition Width="180"/>
+                                                            <ColumnDefinition Width="60"/>
+                                                            <ColumnDefinition Width="180"/>
+                                                            <ColumnDefinition Width="50"/>
+                                                        </Grid.ColumnDefinitions>
+
+                                                        <Border Grid.Column="0" Grid.ColumnSpan="11" Background="{TemplateBinding Background}" CornerRadius="4" Margin="0,0,0,0"/>
+
+                                                        <!--Password icon-->
+                                                        <Rectangle Grid.Column="0" Fill="{Binding password}" Width="30" Height="30" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+                                                        <!--Game Name-->
+                                                        <TextBlock Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding gamename}" Width="290" TextAlignment="Center" TextTrimming="CharacterEllipsis">
+                                                            <TextBlock.Effect>
+                                                                <DropShadowEffect BlurRadius="5" Color="Black" Direction="-90" ShadowDepth="1" RenderingBias="Quality"/>
+                                                            </TextBlock.Effect>
+                                                            <TextBlock.ToolTip>
+                                                                <TextBlock Text="{Binding gamename}" />
+                                                            </TextBlock.ToolTip>
+                                                        </TextBlock>
+
+                                                        <!--Players-->
+                                                        <TextBlock Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding players}">
+                                                            <TextBlock.Effect>
+                                                                <DropShadowEffect BlurRadius="5" Color="Black" Direction="-90" ShadowDepth="1" RenderingBias="Quality"/>
+                                                            </TextBlock.Effect>
+                                                        </TextBlock>
+
+                                                        <!--Map-->
+                                                        <TextBlock Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding map}" Width="290" TextAlignment="Center" TextTrimming="CharacterEllipsis">
+                                                            <TextBlock.Effect>
+                                                                <DropShadowEffect BlurRadius="5" Color="Black" Direction="-90" ShadowDepth="1" RenderingBias="Quality"/>
+                                                            </TextBlock.Effect>
+                                                            <TextBlock.ToolTip>
+                                                                <TextBlock Text="{Binding map}" />
+                                                            </TextBlock.ToolTip>
+                                                        </TextBlock>
+
+                                                        <!--Rules-->
+                                                        <TextBlock Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding rules}" Width="290" TextAlignment="Center" TextTrimming="CharacterEllipsis">
+                                                            <TextBlock.Effect>
+                                                                <DropShadowEffect BlurRadius="5" Color="Black" Direction="-90" ShadowDepth="1" RenderingBias="Quality"/>
+                                                            </TextBlock.Effect>
+                                                            <TextBlock.ToolTip>
+                                                                <TextBlock Text="{Binding rules}" />
+                                                            </TextBlock.ToolTip>
+                                                        </TextBlock>
+
+                                                        <!--Type-->
+                                                        <TextBlock Grid.Column="5" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding type}" TextAlignment="Center" Width="170" TextTrimming="CharacterEllipsis">
+                                                            <TextBlock.Effect>
+                                                                <DropShadowEffect BlurRadius="5" Color="Black" Direction="-90" ShadowDepth="1" RenderingBias="Quality"/>
+                                                            </TextBlock.Effect>
+                                                            <TextBlock.ToolTip>
+                                                                <TextBlock Text="{Binding type}" />
+                                                            </TextBlock.ToolTip>
+                                                        </TextBlock>
+
+                                                        <!--Language-->
+                                                        <TextBlock Grid.Column="6" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding lang}" TextAlignment="Center">
+                                                            <TextBlock.Effect>
+                                                                <DropShadowEffect BlurRadius="5" Color="Black" Direction="-90" ShadowDepth="1" RenderingBias="Quality"/>
+                                                            </TextBlock.Effect>
+                                                        </TextBlock>
+
+                                                        <!--Server-->
+                                                        <StackPanel Grid.Column="7" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                                            <TextBlock Text="{Binding server}" TextAlignment="Center" Width="150" TextTrimming="CharacterEllipsis">
+                                                                <TextBlock.Effect>
+                                                                    <DropShadowEffect BlurRadius="5" Color="Black" Direction="-90" ShadowDepth="1" RenderingBias="Quality"/>
+                                                                </TextBlock.Effect>
+                                                                <TextBlock.ToolTip>
+                                                                    <TextBlock Text="{Binding server}" />
+                                                                </TextBlock.ToolTip>
+                                                            </TextBlock>
+                                                            <Rectangle Height="10" Width="10" Margin="0,0,0,0" Fill="LimeGreen"/>
+                                                        </StackPanel>
+
+                                                        <!--Time-->
+                                                        <TextBlock Grid.Column="8" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding time}" TextAlignment="Center">
+                                                            <TextBlock.Effect>
+                                                                <DropShadowEffect BlurRadius="5" Color="Black" Direction="-90" ShadowDepth="1" RenderingBias="Quality"/>
+                                                            </TextBlock.Effect>
+                                                        </TextBlock>
+                                                    </Grid>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+
+                                        <Style.Triggers>
+
+                                            <Trigger Property="ItemsControl.AlternationIndex"  Value="0">
+                                                <Setter Property="Background" Value="Transparent" />
+                                            </Trigger>
+
+                                            <Trigger Property="ItemsControl.AlternationIndex"  Value="1">
+                                                <Setter Property="Background" Value="{StaticResource ListViewItemGradient}" />
+                                            </Trigger>
+
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Trigger.EnterActions>
+                                                    <SoundPlayerAction Source="resources/audio/mouseover_00.wav"/>
+                                                </Trigger.EnterActions>
+                                                <Setter Property="Background" Value="{StaticResource ListViewItemGradientOver}" />
+                                                <Setter Property="Foreground" Value="#f6f6f6" />
+                                            </Trigger>
+
+                                            <Trigger Property="IsFocused" Value="True">
+                                                <Trigger.EnterActions>
+                                                    <SoundPlayerAction Source="resources/audio/mouseover_00.wav"/>
+                                                </Trigger.EnterActions>
+                                                <Setter Property="Background" Value="{StaticResource ListViewItemGradientOver}" />
+                                                <Setter Property="Foreground" Value="#f6f6f6" />
+                                            </Trigger>
+
+                                            <Trigger Property="IsSelected" Value="True">
+                                                <Setter Property="Background" Value="{StaticResource ListViewItemGradientSelected}" />
+                                                <Setter Property="Foreground" Value="#ffffff" />
+                                            </Trigger>
+
+                                            <EventTrigger RoutedEvent="PreviewMouseDown">
+                                                <SoundPlayerAction Source="resources/audio/smallbutton.wav" />
+                                            </EventTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </ListView.ItemContainerStyle>
+                            </ListView>
+                        </local:Age3KeyboardFocusBorder>
+                    </Grid>
+
+                  <!--Buttons - Row 1-->
+                  <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <!--Refresh button-->
+                    <Button x:Name="MPESOGameList_RefreshButton" Style="{StaticResource MainMenuButton}" Width="290" Content="$$21130$$Refresh" Margin="0,0,0,0" TabIndex="2" >
+                      <Button.ToolTip>$$22103$$Refresh the game list.</Button.ToolTip>
+                    </Button>
+                    <!--Join button-->
+                    <Button x:Name="MPESOGameList_JoinButton" Style="{StaticResource MainMenuButton}" Width="290" Content="$$21129$$Join" Visibility="Visible" IsEnabled="False" Margin="30,0,0,0" TabIndex="3" >
+                      <Button.ToolTip>$$70744$$Select to join game as player.</Button.ToolTip>
+                    </Button>
+                    <!--Observe button-->
+                    <Button x:Name="MPESOGameList_ObserveButton" Style="{StaticResource MainMenuButton}" Width="290" Content="$$70743$$Observe" Visibility="Collapsed" IsEnabled="False" Margin="30,0,0,0" TabIndex="4" >
+                      <Button.ToolTip>$$70745$$Select to join game as spectator.</Button.ToolTip>
+                    </Button>
+                    <!--Spectator mode button-->
+                    <Button x:Name="MPESOGameList_SpectatorModeButton" Style="{StaticResource MainMenuButton}" Width="290" HorizontalAlignment="Left" Content="$$70645$$Spectator Mode" Visibility="Visible" IsEnabled="False" Margin="30,0,0,0" TabIndex="5" >
+                      <Button.ToolTip>$$71454$$Look for games to join as a player, or as a spectator.</Button.ToolTip>
+                    </Button>
+                    <!--Spectator mode button (fake) checkbox-->
+                    <Image x:Name="MPESOGameList_SpectatorModeCheckboxImageOn" IsHitTestVisible="False" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="-290,0,0,0" Height="40" Width="40" Source="/resources/checkbox_on.png" Focusable="False"/>
+                    <Image x:Name="MPESOGameList_SpectatorModeCheckboxImageOff" IsHitTestVisible="False" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="-290,0,0,0" Height="40" Width="40" Source="/resources/checkbox_off.png" Focusable="False"/>
+                  </StackPanel>
+                  <!--Buttons - Row 2-->
+                  <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <!--Search text input box-->
+                    <local:PreviewTextBox x:Name="MPESOGameList_SearchForGamesTextInputBox" Height="44" Width="400" Margin="10,0,0,0" TabIndex="6">
+                      <local:PreviewTextBox.ToolTip>$$71451$$Search for a game by name, ID, or player name</local:PreviewTextBox.ToolTip>
+                    </local:PreviewTextBox>
+                    <!--Search button-->
+                    <Button x:Name="MPESOGameList_SearchForGamesButton" Style="{StaticResource MainMenuButton}" Width="290" Content="$$19813$$Search" Margin="10,0,10,0" TabIndex="7" >
+                      <Button.ToolTip>$$71451$$Search for a game by name, ID, or player name</Button.ToolTip>
+                    </Button>
+                    <!--Reset all filters button-->
+                        <Button x:Name="MPESOGameList_ResetAllFiltersButton" Style="{StaticResource MainMenuButton}" Width="290" Content="$$71489$$Reset All Filters" Visibility="Visible"  IsEnabled="False" Margin="30,0,0,0" TabIndex="8">
+                      <Button.ToolTip>$$71453$$Reset all game filters to the defaults.</Button.ToolTip>
+                    </Button>
+                    <!--Close button-->
+                    <Button x:Name="MPESOGameList_CloseButton" Style="{StaticResource MainMenuButton}" Width="290" Content="$$18457$$Close" Visibility="Visible" Margin="30,0,0,0" TabIndex="9" IsCancel="true">
+                      <Button.ToolTip>$$71452$$Return to the Multiplayer menu.</Button.ToolTip>
+                    </Button>
+                  </StackPanel>
+                </Grid>
+
+                <Grid Grid.Column="1" Grid.Row="1" Margin="15,0,25,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="45"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="1" FontFamily="Trajan Pro" FontWeight="Bold" FontSize="25" TextAlignment="Center" VerticalAlignment="Center" Foreground="White" Width="310" TextWrapping="Wrap" Text="$$70986$$Settings"/>
+
+                    <StackPanel Grid.Row="2">
+                        <TextBlock x:Name="MPESOGameList_RoomName" FontFamily="Trajan Pro" FontSize="18" TextAlignment="Center" Margin="0,10,0,0" Foreground="White" Width="310" Text="Room Name" />
+                        <Button x:Name="MPESOGameList_ReportButton" Style="{StaticResource MainMenuButton}" Width="310" Content="$$72246$$Report" Margin="0,0,0,0" >
+                          <Button.ToolTip>$$72245$$Report the lobby</Button.ToolTip>
+                        </Button>
+                      
+                        <Image x:Name="MPESOGameList_MapIcon" Height="320" Width="320" Source="resources/images/icons/random_map/all_maps.png"/>
+
+                        <TextBlock x:Name="MPESOGameList_GameSpeedLabel" Style="{StaticResource subInfoLeft}" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="310" Height="40" Margin="0,5,0,-10" Text="$$36149$$Game Speed" />
+                        <Grid HorizontalAlignment="Center" Height="50">
+                            <Rectangle Style="{StaticResource PanelBGSection}"/>
+                            <TextBlock x:Name="MPESOGameList_GameSpeed" Style="{StaticResource subInfoLeft}" TextAlignment="Center" HorizontalAlignment="Center" Foreground="White" Width="310" Padding="12" Text="Medium" />
+                        </Grid>
+
+                        <TextBlock x:Name="MPESOGameList_StartingAgeLabel" Style="{StaticResource subInfoLeft}" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="310" Height="40" Margin="0,10,0,-10" 
+					   Text="$$36148$$Starting Age" />
+                        <Grid HorizontalAlignment="Center" Height="50">
+                            <Rectangle Style="{StaticResource PanelBGSection}" />
+                            <TextBlock x:Name="MPESOGameList_StartingAge" Style="{StaticResource subInfoLeft}" TextAlignment="Center" HorizontalAlignment="Center" Foreground="White" Width="310" Padding="12" Text="Exploration Age" />
+                        </Grid>
+
+                        <TextBlock x:Name="MPESOGameList_CheatsLabel" Style="{StaticResource subInfoLeft}" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="310" Height="40" Margin="0,10,0,-10" Text="$$45775$$Cheats" />
+                        <Grid HorizontalAlignment="Center" Height="50">
+                            <Rectangle Style="{StaticResource PanelBGSection}" />
+                            <TextBlock x:Name="MPESOGameList_Cheats" Style="{StaticResource subInfoLeft}" TextAlignment="Center" HorizontalAlignment="Center" Foreground="White" Width="310" Padding="12" Text="Disabled" />
+                        </Grid>
+
+                        <TextBlock FontFamily="Trajan Pro" FontSize="19" TextAlignment="Center" Margin="0,10,0,5" Foreground="White" Width="310" Text="$$30068$$Players" />
+                        <Rectangle Style="{StaticResource filemanager_dividingline}" Width="300" Margin="0,5,0,5" />
+                        <TextBlock x:Name="player1_alias" Style="{StaticResource subInfoLeft}" Margin="10,0,0,0" Width="300" FontSize="18" Foreground="White" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding AliasWithClan}" ToolTip="{Binding }"></TextBlock>
+                        <TextBlock x:Name="player2_alias" Style="{StaticResource subInfoLeft}" Margin="10,0,0,0" Width="300" FontSize="18" Foreground="White" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding AliasWithClan}" ToolTip="{Binding }"></TextBlock>
+                        <TextBlock x:Name="player3_alias" Style="{StaticResource subInfoLeft}" Margin="10,0,0,0" Width="300" FontSize="18" Foreground="White" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding AliasWithClan}" ToolTip="{Binding }"></TextBlock>
+                        <TextBlock x:Name="player4_alias" Style="{StaticResource subInfoLeft}" Margin="10,0,0,0" Width="300" FontSize="18" Foreground="White" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding AliasWithClan}" ToolTip="{Binding }"></TextBlock>
+                        <TextBlock x:Name="player5_alias" Style="{StaticResource subInfoLeft}" Margin="10,0,0,0" Width="300" FontSize="18" Foreground="White" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding AliasWithClan}" ToolTip="{Binding }"></TextBlock>
+                        <TextBlock x:Name="player6_alias" Style="{StaticResource subInfoLeft}" Margin="10,0,0,0" Width="300" FontSize="18" Foreground="White" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding AliasWithClan}" ToolTip="{Binding }"></TextBlock>
+                        <TextBlock x:Name="player7_alias" Style="{StaticResource subInfoLeft}" Margin="10,0,0,0" Width="300" FontSize="18" Foreground="White" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding AliasWithClan}" ToolTip="{Binding }"></TextBlock>
+                        <TextBlock x:Name="player8_alias" Style="{StaticResource subInfoLeft}" Margin="10,0,0,0" Width="300" FontSize="18" Foreground="White" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding AliasWithClan}" ToolTip="{Binding }"></TextBlock>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Viewbox>
+</Window>

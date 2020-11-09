@@ -1,0 +1,39 @@
+﻿<Window x:Class="aoe3wpfg.uiingamemsg1"
+        x:Name="ingame_messagedialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:aoe3wpfg"
+        mc:Ignorable="d"
+        Title="uiingamemsg1"
+        Style="{StaticResource WindowStyle}">
+    <Viewbox Style="{StaticResource ViewboxMain}">
+        <Grid x:Name="mainGridPanel" Height="1080" Width="1920">
+
+            <ContentControl Template="{StaticResource ScreenBlur}" />
+
+            <Grid x:Name="Panel" Width="850" Height="{Binding ElementName=ContentStack, Path=ActualHeight}" Style="{StaticResource PopupGrid}">
+
+                <ContentControl Template="{StaticResource PanelBG}" Margin="-10,-50,-10,-90" />
+
+                <StackPanel x:Name="ContentStack" HorizontalAlignment="Center" VerticalAlignment="Center" Width="800">
+
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Grid Width="750" Margin="0,20">
+                            <Rectangle Grid.Row="2" Style="{StaticResource PanelBGSection}" Margin="-10,-20"/>
+                            <TextBlock x:Name="ingame_messagedialog_prompt" Style="{StaticResource CampaignRegularTextBlockStyle}" TextAlignment="Center" FontSize="24" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,0" MaxWidth="750" TextWrapping="Wrap"
+                                       Text="Message Text Goes Here." />
+                        </Grid>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="0,25,0,0" HorizontalAlignment="Center">
+                        <local:Age3Button x:Name="ingame_messagedialog_OKButton" IsDefault="true" Style="{StaticResource MainMenuButton}" Margin="0,0,0,0" Width="350" Content="$$18465$$OK" IsCancel="True"/>
+                    </StackPanel>
+
+                </StackPanel>
+
+            </Grid>
+        </Grid>
+    </Viewbox>
+</Window>

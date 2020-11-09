@@ -1,0 +1,55 @@
+﻿<Window x:Class="aoe3wpfg.uimultiplayerlaunch"
+       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:aoe3wpfg"
+      mc:Ignorable="d" 
+      Title="uimultiplayerlaunch"
+      Style="{StaticResource WindowStyle}">
+
+    <Viewbox Style="{StaticResource ViewboxMain}">
+
+        <Grid x:Name="mainGridPanel" Width="1920" Height="1080">
+
+            <ContentControl Template="{StaticResource ScreenBlur}" />
+
+            <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Height="400" Width="1000">
+                <local:Age3PanelBG Stroke="Black" StrokeThickness="8" Margin="18,18,12,14">
+
+                    <local:Age3PanelBG.Fill>
+                        <ImageBrush ImageSource="/resources/wood.png"/>
+                    </local:Age3PanelBG.Fill>
+                    <local:Age3PanelBG.Effect>
+                        <DropShadowEffect Color="Black" Direction="-90" ShadowDepth="3" BlurRadius="30" />
+                    </local:Age3PanelBG.Effect>
+                </local:Age3PanelBG>
+                <Rectangle Height="128" VerticalAlignment="Top" Margin="26,90,28,0">
+                    <Rectangle.Fill>
+                        <ImageBrush ImageSource="/resources/wood_shadow.png" />
+                    </Rectangle.Fill>
+                </Rectangle>
+                <local:Age3PanelBG Fill="Transparent" Stroke="{StaticResource PanelBGStrokeGradient}" StrokeThickness="3" Margin="20"/>
+            </Grid>
+
+            <Grid Height="400" Width="1000">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="75"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="80"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="1" x:Name="mpsetup_LaunchPanel_launchingtext" Style="{StaticResource ConfirmationTitlesStyle}" VerticalAlignment="Center" Text="$$22627$$Launching Game..."/>
+
+                <StackPanel Grid.Row="2">
+                    <TextBlock FontFamily="Trajan Pro" FontSize="25" TextAlignment="Center" Padding="10" Margin="0,50,0,0" Foreground="White">
+                Game is launching...
+                    </TextBlock>
+                    <Button x:Name="mpsetup_LaunchPanel_CancelBtn" Style="{StaticResource MainMenuButton}" Margin="0,70,0,0" Width= "400" Content="$$18466$$Cancel"/>
+                </StackPanel>
+            </Grid>
+        </Grid>
+    </Viewbox>
+</Window>

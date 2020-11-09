@@ -1,0 +1,758 @@
+﻿<Window x:Class="aoe3wpfg.uimpspectatormode" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:local="clr-namespace:aoe3wpfg" mc:Ignorable="d" Title="uimpspectatormode" Style="{StaticResource WindowStyle}">
+    <Window.Resources>
+        <Style TargetType="{x:Type Button}" x:Key="ImageButtonNoShadow">
+            <Setter Property="Height" Value="53" />
+            <Setter Property="Width" Value="80" />
+            <Setter Property="Margin" Value="10,0,5,0" />
+
+            <Setter Property="RenderTransformOrigin" Value="0.5, 0.5" />
+            <Setter Property="RenderTransform">
+                <Setter.Value>
+                    <ScaleTransform ScaleX="1" ScaleY="1" />
+                </Setter.Value>
+            </Setter>
+
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect BlurRadius="10" Color="Black" Direction="-90" ShadowDepth="1" RenderingBias="Quality" />
+                </Setter.Value>
+            </Setter>
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid>
+                            <Rectangle x:Name="flag">
+                                <Rectangle.Fill>
+                                    <!--this will need image binding for other players-->
+                                    <ImageBrush ImageSource="/resources/images/icons/flags/Flag_Argentinian.png" />
+                                </Rectangle.Fill>
+                            </Rectangle>
+                        </Grid>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)" To="1.05" Duration="0:0:.2" />
+                                            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)" To="1.05" Duration="0:0:.2" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)" To="1" Duration="0:0:.2" />
+                                            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)" To="1" Duration="0:0:.2" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+
+                            <Trigger Property="IsPressed" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)" To="0.75" Duration="0:0:.2" />
+                                            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)" To="0.75" Duration="0:0:.2" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)" To="1" Duration="0:0:.2" />
+                                            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)" To="1" Duration="0:0:.2" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="Skip_To_Realtime_Toggle" TargetType="{x:Type ToggleButton}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ToggleButton">
+                        <Grid>
+                            <Rectangle Stretch="Fill" x:Name="Rectangle1">
+                                <Rectangle.Style>
+                                    <Style TargetType="{x:Type Shape}">
+                                        <Setter Property="Fill" Value="{StaticResource realtime_toggle}" />
+                                        <Setter Property="Opacity" Value="0.5" />
+                                    </Style>
+                                </Rectangle.Style>
+                            </Rectangle>
+
+                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center" Margin="4, 1, 4, 1" />
+
+                        </Grid>
+                        <ControlTemplate.Triggers>
+
+                            <Trigger Property="IsEnabled" Value="false">
+
+                                <Setter TargetName="Rectangle1" Property="Opacity" Value="0" />
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="true">
+                                <Setter TargetName="Rectangle1" Property="Opacity" Value="1" />
+                                <Setter TargetName="Rectangle1" Property="Fill" Value="{StaticResource realtime_toggle}" />
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter TargetName="Rectangle1" Property="Opacity" Value="0.5" />
+                                <Setter TargetName="Rectangle1" Property="Fill" Value="{StaticResource realtime_toggle_over}" />
+                            </Trigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsChecked" Value="true" />
+                                    <Condition Property="IsMouseOver" Value="true" />
+                                </MultiTrigger.Conditions>
+                                <Setter TargetName="Rectangle1" Property="Opacity" Value="1" />
+                                <Setter TargetName="Rectangle1" Property="Fill" Value="{StaticResource realtime_toggle_over}" />
+                            </MultiTrigger>
+
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsChecked" Value="true">
+                    <Setter Property="Foreground" Value="White" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="Fog_Of_War_Toggle" TargetType="{x:Type ToggleButton}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ToggleButton">
+                        <Grid>
+                            <Rectangle Stretch="Fill" x:Name="Rectangle1">
+                                <Rectangle.Style>
+                                    <Style TargetType="{x:Type Shape}">
+                                        <Setter Property="Fill" Value="{StaticResource fow_toggle}" />
+                                        <Setter Property="Opacity" Value="0.5" />
+                                    </Style>
+                                </Rectangle.Style>
+                            </Rectangle>
+
+                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center" Margin="4, 1, 4, 1" />
+
+                        </Grid>
+                        <ControlTemplate.Triggers>
+
+                            <Trigger Property="IsEnabled" Value="false">
+
+                                <Setter TargetName="Rectangle1" Property="Opacity" Value="0" />
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="true">
+                                <Setter TargetName="Rectangle1" Property="Opacity" Value="1" />
+                                <Setter TargetName="Rectangle1" Property="Fill" Value="{StaticResource fow_toggle}" />
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter TargetName="Rectangle1" Property="Opacity" Value="0.5" />
+                                <Setter TargetName="Rectangle1" Property="Fill" Value="{StaticResource fow_toggle_over}" />
+                            </Trigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsChecked" Value="true" />
+                                    <Condition Property="IsMouseOver" Value="true" />
+                                </MultiTrigger.Conditions>
+                                <Setter TargetName="Rectangle1" Property="Opacity" Value="1" />
+                                <Setter TargetName="Rectangle1" Property="Fill" Value="{StaticResource fow_toggle_over}" />
+                            </MultiTrigger>
+
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsChecked" Value="true">
+                    <Setter Property="Foreground" Value="White" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <ImageBrush x:Key="realtime_toggle_over" ImageSource="/resources/images/hud/skiptorealtime_over.png" />
+        <ImageBrush x:Key="realtime_toggle" ImageSource="/resources/images/hud/skiptorealtime.png" />
+        <ImageBrush x:Key="fow_toggle_over" ImageSource="/resources/images/hud/fow_toggle_over.png" />
+        <ImageBrush x:Key="fow_toggle" ImageSource="/resources/images/hud/fow_toggle.png" />
+    </Window.Resources>
+
+    <Viewbox Style="{StaticResource ViewboxMain}">
+
+        <Grid Width="1920" Height="1080">
+
+            <!--Defining Grid-->
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20" />
+                <RowDefinition Height="60" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="500" />
+                <RowDefinition Height="22" />
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="20" />
+                <ColumnDefinition Width="540" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="685" />
+                <ColumnDefinition Width="20" />
+            </Grid.ColumnDefinitions>
+
+            <!--PLAYER FLAGS. Will be used for Teams and FFA games-->
+            <Grid Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" VerticalAlignment="Top" Margin="0,10,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="300" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <!--Each side should have enough room for 8 players to fill. This means we can use this template from 1v1, 2v2, 4v4 and 7v1.-->
+                <!--TEAM 1-->
+                <StackPanel x:Name="team1_Flags" Grid.Column="0" Orientation="Horizontal">
+
+                    <local:Age3Button x:Name="team1_flagbutton_1" Grid.Row="1" Grid.Column="0" Height="50" Width="75" Style="{StaticResource FlagButton}">
+                        <local:Age3Button.Background>
+                            <ImageBrush ImageSource="resources/images/icons/flags/Flag_British.png" />
+                        </local:Age3Button.Background>
+                    </local:Age3Button>
+
+                    <local:Age3Button x:Name="team1_flagbutton_2" Grid.Row="1" Grid.Column="0" Height="50" Width="75" Margin="10,0,0,0" Style="{StaticResource FlagButton}">
+                        <local:Age3Button.Background>
+                            <ImageBrush ImageSource="resources/images/icons/flags/Flag_British.png" />
+                        </local:Age3Button.Background>
+                    </local:Age3Button>
+
+                    <local:Age3Button x:Name="team1_flagbutton_3" Grid.Row="1" Grid.Column="0" Height="50" Width="75" Margin="10,0,0,0" Style="{StaticResource FlagButton}">
+                        <local:Age3Button.Background>
+                            <ImageBrush ImageSource="resources/images/icons/flags/Flag_British.png" />
+                        </local:Age3Button.Background>
+                    </local:Age3Button>
+
+                    <local:Age3Button x:Name="team1_flagbutton_4" Grid.Row="1" Grid.Column="0" Height="50" Width="75" Margin="10,0,0,0" Style="{StaticResource FlagButton}">
+                        <local:Age3Button.Background>
+                            <ImageBrush ImageSource="resources/images/icons/flags/Flag_British.png" />
+                        </local:Age3Button.Background>
+                    </local:Age3Button>
+
+                    <local:Age3Button x:Name="team1_flagbutton_5" Grid.Row="1" Grid.Column="0" Height="50" Width="75" Margin="10,0,0,0" Style="{StaticResource FlagButton}">
+                        <local:Age3Button.Background>
+                            <ImageBrush ImageSource="resources/images/icons/flags/Flag_British.png" />
+                        </local:Age3Button.Background>
+                    </local:Age3Button>
+
+                    <local:Age3Button x:Name="team1_flagbutton_6" Grid.Row="1" Grid.Column="0" Height="50" Width="75" Margin="10,0,0,0" Style="{StaticResource FlagButton}">
+                        <local:Age3Button.Background>
+                            <ImageBrush ImageSource="resources/images/icons/flags/Flag_British.png" />
+                        </local:Age3Button.Background>
+                    </local:Age3Button>
+
+                    <local:Age3Button x:Name="team1_flagbutton_7" Grid.Row="1" Grid.Column="0" Height="50" Width="75" Margin="10,0,0,0" Style="{StaticResource FlagButton}">
+                        <local:Age3Button.Background>
+                            <ImageBrush ImageSource="resources/images/icons/flags/Flag_British.png" />
+                        </local:Age3Button.Background>
+                    </local:Age3Button>
+
+                    <local:Age3Button x:Name="team1_flagbutton_8" Grid.Row="1" Grid.Column="0" Height="50" Width="75" Margin="10,0,0,0" Style="{StaticResource FlagButton}">
+                        <local:Age3Button.Background>
+                            <ImageBrush ImageSource="resources/images/icons/flags/Flag_British.png" />
+                        </local:Age3Button.Background>
+                    </local:Age3Button>
+
+                </StackPanel>
+
+                <!--OFF FOR BETA-->
+                <!--TEAM 2. Turn off when there is a FFA game.-->
+                <StackPanel x:Name="team2_Flags" Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right" Grid.ColumnSpan="2" Visibility="Collapsed">
+                    <local:Age3Button x:Name="team2_flagbutton_1" Style="{StaticResource ImageButtonNoShadow}" Visibility="Visible" />
+
+                    <local:Age3Button x:Name="team2_flagbutton_2" Style="{StaticResource ImageButtonNoShadow}" Visibility="Visible" />
+
+                    <local:Age3Button x:Name="team2_flagbutton_3" Style="{StaticResource ImageButtonNoShadow}" Visibility="Visible" />
+
+                    <local:Age3Button x:Name="team2_flagbutton_4" Style="{StaticResource ImageButtonNoShadow}" Visibility="Visible" />
+
+                    <local:Age3Button x:Name="team2_flagbutton_5" Style="{StaticResource ImageButtonNoShadow}" Visibility="Visible" />
+
+                    <local:Age3Button x:Name="team2_flagbutton_6" Style="{StaticResource ImageButtonNoShadow}" Visibility="Visible" />
+
+                    <local:Age3Button x:Name="team2_flagbutton_7" Style="{StaticResource ImageButtonNoShadow}" Visibility="Visible" />
+
+                    <local:Age3Button x:Name="team2_flagbutton_8" Style="{StaticResource ImageButtonNoShadow}" Visibility="Visible" />
+                </StackPanel>
+            </Grid>
+
+            <!--BANNER AND TIMER-->
+            <Grid Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Visibility="Visible">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="300" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <!--TEAM 1. Used for both Team and FFA-->
+                <Grid x:Name="team1_Banner" Grid.Column="0">
+                    <Rectangle HorizontalAlignment="Left" VerticalAlignment="Top" Width="575" Height="40" Margin="170,10,0,0" Fill="{Binding TeamColour}">
+                        <Rectangle.OpacityMask>
+                            <ImageBrush ImageSource="resources/images/icons/post_game/playertitle_mask.png" />
+                        </Rectangle.OpacityMask>
+                        <Rectangle.Effect>
+                            <DropShadowEffect Color="Black" Direction="-90" ShadowDepth="8" BlurRadius="10" />
+                        </Rectangle.Effect>
+                    </Rectangle>
+
+                    <Rectangle HorizontalAlignment="Left" VerticalAlignment="Top" Width="575" Height="40" Margin="170,10,0,0">
+                        <Rectangle.Fill>
+                            <ImageBrush ImageSource="resources/images/icons/post_game/playertitle_gradient.png" />
+                        </Rectangle.Fill>
+                        <Rectangle.OpacityMask>
+                            <ImageBrush ImageSource="resources/images/icons/post_game/playertitle_mask.png" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                    <Rectangle HorizontalAlignment="Left" VerticalAlignment="Top" Width="575" Height="6" Margin="150,50,0,0">
+                        <Rectangle.Fill>
+                            <ImageBrush ImageSource="resources/images/icons/post_game/playertitle_deco.png" />
+                        </Rectangle.Fill>
+                    </Rectangle>
+
+                    <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+                        <Rectangle x:Name="team1_playerFlag" Height="60" Width="229" Margin="0,0,0,0" VerticalAlignment="Top">
+                            <Rectangle.Fill>
+                                <ImageBrush ImageSource="resources/images/icons/flags/postgame_flag_british.png" />
+                            </Rectangle.Fill>
+                        </Rectangle>
+                        <!--Player alias should change colour according to their player colour. Refer to AI chat in uimainnew.xaml.-->
+                        <TextBlock x:Name="team1_playerAlias" Height="30" Width="420" Style="{StaticResource RegularTextBlockStyle}" Margin="-25,0,0,0" FontSize="25" TextAlignment="Left" VerticalAlignment="Center">
+                            Player Name
+                        </TextBlock>
+                        <TextBlock x:Name="team1_playerScore" Height="30" Width="120" Style="{StaticResource RegularTextBlockStyle}" FontSize="25" TextAlignment="Left" VerticalAlignment="Center">
+                            999,999
+                        </TextBlock>
+                    </StackPanel>
+                </Grid>
+
+                <!--OFF FOR BETA-->
+                <!--TEAM 2. Turn off when there is a FFA game.-->
+                <Grid x:Name="team2_Banner" Grid.Column="2" Visibility="Collapsed">
+                    <Rectangle HorizontalAlignment="Right" VerticalAlignment="Top" Width="575" Height="40" Margin="0,10,170,0" Fill="#df211e">
+                        <Rectangle.OpacityMask>
+                            <ImageBrush ImageSource="resources/images/icons/post_game/playertitle_mask_right.png" />
+                        </Rectangle.OpacityMask>
+                        <Rectangle.Effect>
+                            <DropShadowEffect Color="Black" Direction="-90" ShadowDepth="8" BlurRadius="10" />
+                        </Rectangle.Effect>
+                    </Rectangle>
+
+                    <Rectangle HorizontalAlignment="Right" VerticalAlignment="Top" Width="575" Height="40" Margin="0,10,170,0">
+                        <Rectangle.Fill>
+                            <ImageBrush ImageSource="resources/images/icons/post_game/playertitle_gradient.png" />
+                        </Rectangle.Fill>
+                        <Rectangle.OpacityMask>
+                            <ImageBrush ImageSource="resources/images/icons/post_game/playertitle_mask_right.png" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                    <Rectangle HorizontalAlignment="Right" VerticalAlignment="Top" Width="575" Height="6" Margin="0,50,150,0">
+                        <Rectangle.Fill>
+                            <ImageBrush ImageSource="resources/images/icons/post_game/playertitle_deco_right.png" />
+                        </Rectangle.Fill>
+                    </Rectangle>
+
+                    <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                        <TextBlock x:Name="team2_playerScore" Height="30" Width="120" Style="{StaticResource RegularTextBlockStyle}" FontSize="25" TextAlignment="Right" VerticalAlignment="Center">
+                            999,999
+                        </TextBlock>
+                        <!--Player alias should change colour according to their player colour. Refer to AI chat in uimainnew.xaml.-->
+                        <TextBlock x:Name="team2_playerAlias" Height="30" Width="420" Style="{StaticResource RegularTextBlockStyle}" Margin="0,0,-25,0" FontSize="25" TextAlignment="Right" VerticalAlignment="Center">
+                            Player Name
+                        </TextBlock>
+                        <Rectangle x:Name="team2_playerFlag" Height="60" Width="229" VerticalAlignment="Top">
+                            <Rectangle.Fill>
+                                <ImageBrush ImageSource="resources/images/icons/flags/flag_thin_right_british.png" />
+                            </Rectangle.Fill>
+                        </Rectangle>
+                    </StackPanel>
+                </Grid>
+
+                <!--TIMER-->
+                <StackPanel></StackPanel>
+                <Grid Grid.Column="2" HorizontalAlignment="Right" Height="40" Width="550">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="150" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Control Grid.ColumnSpan="3" Style="{StaticResource Ingame_PanelBGStyle}" Margin="-20,-25,-20,-55" />
+
+                    <!--TIMER-->
+                    <TextBlock x:Name="gameTimer" Grid.Column="0" Style="{StaticResource RegularTextBlockStyle}" Text="01:49" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Center" />
+
+                    <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,20,0">
+
+                        <!--Fast Forward Buttons-->
+                        <RadioButton x:Name="RecordGameCtrl_SlowBtn" GroupName="fastForwadButtons" Height="40" Width="40" Margin="15,-2,0,0" Style="{StaticResource Recorded_Slow_Toggle}" />
+                        <RadioButton x:Name="RecordGameCtrl_MedBtn" GroupName="fastForwadButtons" Height="40" Width="40" Margin="15,-2,0,0" Style="{StaticResource Recorded_Med_Toggle}" />
+                        <RadioButton x:Name="SkipToRealtimeButton" GroupName="fastForwadButtons" Height="40" Width="40" Margin="15,-2,0,0" Style="{StaticResource Skip_To_Realtime_Toggle}" />
+
+                        <!--Fog of War button-->
+                        <ToggleButton x:Name="fogOfWarButton" Height="40" Width="40" Margin="15,-2,0,0" Style="{StaticResource Fog_Of_War_Toggle}" />
+
+                        <!--Menu Button-->
+                        <local:Age3Button x:Name="optionsButton" Style="{StaticResource HUDButton}" Height="30" Width="70" Margin="20,0,0,0" ConsoleCommand="showGameMenu()  modeEnter(&quot;GameMenu&quot;)">
+                            <Image Source="{StaticResource hud_icon_menu}" Width="20" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,-3,0,0" />
+                            <Button.ToolTip>
+                                <TextBlock FontFamily="arial" FontSize="18" Text="$$18410$$Click on this icon to see the in-game menu." />
+                            </Button.ToolTip>
+                        </local:Age3Button>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+
+
+            <!--Options-->
+            <Grid Grid.Row="2" Grid.Column="3" VerticalAlignment="Top" HorizontalAlignment="Right">
+                <!--mainGameMenu-->
+                <StackPanel x:Name="mainGameMenu" HorizontalAlignment="Right" VerticalAlignment="Top" Width="260" Margin="0,-3,15,0" Background="#FF412F19" Visibility="Visible">
+                    <!--
+                    <local:Age3Button x:Name="mainGameMenu_PlayerOptions" Style="{StaticResource MainMenuButton}" Width="250" Margin="0,5,0,0" ConsoleCommand="gadgetUnReal(&quot;postGameMenu&quot;) modeEnter(&quot;Options&quot;)">
+                        $$42324$$Options
+                    </local:Age3Button>
+                    -->
+                    <local:Age3Button x:Name="mainGameMenu_QuitGame" Style="{StaticResource MainMenuButton}" Width="250" Margin="0,5,0,5" ConsoleCommand="gadgetUnReal(&quot;postGameMenu&quot;) leaveGame">
+                        $$42323$$Quit
+                    </local:Age3Button>
+                </StackPanel>
+
+                <StackPanel x:Name="postGameMenu" HorizontalAlignment="Right" VerticalAlignment="Top" Width="260" Margin="0,-3,15,0" Background="#FF412F19" Visibility="Collapsed">
+                    <local:Age3Button x:Name="postGameMenu_ViewPostgame" Style="{StaticResource MainMenuButton}" Width="250" Margin="0,5,0,0" ConsoleCommand="gadgetUnReal(&quot;postGameMenu&quot;) handlePostGame">
+                        $$20152$$View Postgame
+                    </local:Age3Button>
+                    <local:Age3Button x:Name="postGameMenu_PlayerOptions" Style="{StaticResource MainMenuButton}" Width="250" Margin="0,5,0,0" ConsoleCommand="gadgetUnReal(&quot;postGameMenu&quot;) modeEnter(&quot;Options&quot;)">
+                        $$42324$$Options
+                    </local:Age3Button>
+                    <local:Age3Button x:Name="postGameMenu_QuitGame" Style="{StaticResource MainMenuButton}" Width="250" Margin="0,5,0,5" ConsoleCommand="gadgetUnReal(&quot;postGameMenu&quot;) leaveGame">
+                        $$42323$$Quit
+                    </local:Age3Button>
+                </StackPanel>
+            </Grid>
+
+            <!--OFF FOR BETA-->
+            <!--MINIMAP-->
+            <Grid x:Name="minimapPanel" Grid.Column="1" Grid.Row="3" Grid.RowSpan="2" Height="320" VerticalAlignment="Bottom" Margin="0,0,0,10" Visibility="Collapsed">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="59*" />
+                    <ColumnDefinition Width="292*" />
+                </Grid.ColumnDefinitions>
+
+                <Grid Width="130" Height="250" Margin="140,0,0,0" HorizontalAlignment="Left" Grid.Column="1">
+                    <StackPanel Orientation="Vertical" Width="130" Height="240">
+
+                        <Grid Height="60" Width="130" Margin="-50,0,0,0">
+                            <local:Age3Button x:Name="minimapPanel_chat" Style="{StaticResource HUDButtonCompass}" Background="{StaticResource hud_icon_compass_chat}" VerticalAlignment="Center" HorizontalAlignment="Center" ConsoleCommand="uiShowChatWindow()">
+                                <Button.ToolTip>
+                                    <TextBlock FontFamily="arial" FontSize="18" Text="$$21431$$" />
+                                </Button.ToolTip>
+                            </local:Age3Button>
+                        </Grid>
+
+                        <Grid Height="60" Width="130">
+                            <local:Age3Button x:Name="minimapPanel_flareButton" Style="{StaticResource HUDButtonCompass}" Background="{StaticResource hud_icon_compass_flare}" VerticalAlignment="Center" HorizontalAlignment="Center" ConsoleCommand="editMode(&quot;flare&quot;) uiSetProtoCursor(&quot;WaypointFlag&quot;)">
+                                <Button.ToolTip>
+                                    <TextBlock FontFamily="arial" FontSize="18" Text="$$18424$$Click this button, and then click in the world to send a flare to all other players." />
+                                </Button.ToolTip>
+                            </local:Age3Button>
+                        </Grid>
+
+                        <Grid Height="60" Width="130">
+                            <local:Age3Button x:Name="minimapPanel_FilterToggle" Style="{StaticResource HUDButtonCompass}" Background="{StaticResource hud_icon_compass_mapdetails}" VerticalAlignment="Center" HorizontalAlignment="Center" ConsoleCommand="setMinimapUnitFilter(-1)">
+                                <Button.ToolTip>
+                                    <TextBlock FontFamily="arial" FontSize="18" Text="$$36021$$" />
+                                </Button.ToolTip>
+                            </local:Age3Button>
+                        </Grid>
+
+                        <!--Toggles between free roam and locked camera.-->
+                        <Grid Height="60" Width="130" Margin="-50,0,0,0">
+                            <local:Age3Button x:Name="minimapPanel_cameraToggle" Style="{StaticResource HUDButtonCompass}" Background="{StaticResource hud_icon_compass_summary}" VerticalAlignment="Center" HorizontalAlignment="Center" ConsoleCommand="editMode(&quot;moveAllMilitary&quot;) uiSetProtoCursor(&quot;WaypointFlag&quot;)">
+                                <Button.ToolTip>
+                                    <TextBlock FontFamily="arial" FontSize="18" Text="$$48949$$" />
+                                </Button.ToolTip>
+                            </local:Age3Button>
+                        </Grid>
+
+                    </StackPanel>
+                </Grid>
+
+                <Ellipse Grid.Column="0" Grid.ColumnSpan="2" Fill="Black" HorizontalAlignment="Left" VerticalAlignment="Center" Width="300" Height="300" Margin="0" Opacity="0" />
+
+                <Ellipse x:Name="minimapPanel_map" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Left" VerticalAlignment="Center" Width="300" Height="300" Margin="0">
+                    <Ellipse.Fill>
+                        <ImageBrush ImageSource="{StaticResource hud_compass_bg}" />
+                    </Ellipse.Fill>
+                </Ellipse>
+
+                <Ellipse Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Left" VerticalAlignment="Center" Width="300" Height="300" Margin="0">
+                    <Ellipse.Fill>
+                        <ImageBrush ImageSource="{StaticResource hud_compass}" />
+                    </Ellipse.Fill>
+                </Ellipse>
+            </Grid>
+
+            <!--OFF FOR BETA-->
+            <!--Chat Box-->
+            <Grid x:Name="ChatPanel" Height="250" Width="600" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="400,0,0,10" Visibility="Collapsed">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="50" />
+                    <RowDefinition Height="5" />
+                </Grid.RowDefinitions>
+
+                <Rectangle Grid.RowSpan="3" Width="600" Height="250" VerticalAlignment="Bottom" Opacity="0.4" Fill="Black" />
+
+                <ListBox Grid.Row="0" Name="targetArea" ScrollViewer.VerticalScrollBarVisibility="Hidden" Margin="5">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel VerticalAlignment="Bottom" Margin="5,5,0,0">
+                                <StackPanel Orientation="Horizontal">
+                                    <Image x:Name="chat_portrait" Source="resources/images/icons/portraits/units/alain_igc_portrait.png" Width="30" Height="30" />
+                                    <TextBlock Text="{Binding Name}" Style="{StaticResource ConfirmationTitlesStyleSmall}" FontSize="18" HorizontalAlignment="Left" TextAlignment="Left" Margin="10,0,0,0"></TextBlock>
+                                </StackPanel>
+                                <TextBlock Text="{Binding Message}" Style="{StaticResource RegularTextBlockStyleFormal}" FontFamily="arial" FontSize="18" HorizontalAlignment="Left" Margin="40,0,0,10" Width="500" TextWrapping="Wrap"></TextBlock>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+
+                <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                    <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                        <!--Toggle button to spawn player list-->
+                        <Button x:Name="toPlayer_toggle" Height="35" Width="35" Margin="0,0,0,0" Style="{StaticResource SubMenuButton}" Content="To" />
+                        <!---->
+                        <TextBox x:Name="chatInputTextBox" Width="490" Margin="10,0,0,0" Height="40" FontSize="18" Style="{StaticResource hcInfoName}" MaxLength="200" GotFocus="TextBox_GotFocus">
+                            $$70672$$Enter Chat here...
+                        </TextBox>
+
+                        <!--Enter Icon needed here!-->
+                        <Button x:Name="chatInput_sendButton" Height="35" Width="35" Margin="10,0,0,0" Style="{StaticResource SubMenuButton}" />
+                    </StackPanel>
+                </StackPanel>
+
+                <!--Toggle panel to view players to communicate to-->
+                <StackPanel x:Name="toPlayer_list" Grid.Row="0" Height="50" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="2,0,0,0" Visibility="Collapsed">
+                    <StackPanel.Background>
+                        <SolidColorBrush Color="Black" Opacity="0.8" />
+                    </StackPanel.Background>
+                    <ListBox x:Name="customize_list" Margin="5" ItemContainerStyle="{StaticResource chatpanelToPlayers}">
+                        <ListBox.Template>
+                            <ControlTemplate>
+                                <WrapPanel IsItemsHost="True" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                            </ControlTemplate>
+                        </ListBox.Template>
+                        <ListBoxItem />
+                        <ListBoxItem Margin="10,0,0,0" />
+                        <ListBoxItem Margin="10,0,0,0" />
+                        <ListBoxItem Margin="10,0,0,0" />
+                        <ListBoxItem Margin="10,0,0,0" />
+                        <ListBoxItem Margin="10,0,0,0" />
+                        <ListBoxItem Margin="10,0,0,0" />
+                        <ListBoxItem Margin="10,0,0,0" />
+                    </ListBox>
+                </StackPanel>
+            </Grid>
+
+            <!--OFF FOR BETA-->
+            <!--PLAYER BOARD-->
+            <Grid Grid.Row="3" Grid.RowSpan="2" Grid.Column="2" Grid.ColumnSpan="3" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="850" Height="250" Margin="0,0,10,20" Visibility="Collapsed">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="70" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="70" />
+                </Grid.ColumnDefinitions>
+
+                <ContentControl Grid.ColumnSpan="3" Template="{StaticResource PanelBG}" Margin="-10,-10,-10,-50" />
+
+                <!--Cycle Players-->
+                <local:Age3Button x:Name="previousPlayer_Button" Grid.Column="0" Style="{StaticResource BackButtonLarge}" Height="50" Width="50" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                <local:Age3Button x:Name="nextPlayer_Button" Grid.Column="2" Style="{StaticResource ForwardButtonLarge}" Height="50" Width="50" VerticalAlignment="Center" HorizontalAlignment="Center" />
+
+                <!--Name-->
+                <Grid Grid.Column="1" VerticalAlignment="Center" Height="210">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="420" />
+                            <ColumnDefinition Width="100" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <!--Panel-->
+                        <Rectangle Grid.Column="0" HorizontalAlignment="Center" Width="410" Height="50" VerticalAlignment="Center" Style="{StaticResource PanelBGSection}" />
+                        <Rectangle Grid.Column="1" HorizontalAlignment="Center" Width="90" Height="50" VerticalAlignment="Center" Style="{StaticResource PanelBGSection}" />
+                        <Rectangle Grid.Column="2" HorizontalAlignment="Center" Width="180" Height="50" VerticalAlignment="Center" Style="{StaticResource PanelBGSection}" />
+
+                        <!--Details-->
+                        <TextBlock x:Name="playerinfo_Name" Grid.Column="0" Style="{StaticResource playerSummaryTextStyles}" Text="Player Name" FontWeight="Bold" />
+                        <TextBlock x:Name="playerinfo_Age" Grid.Column="1" Style="{StaticResource playerSummaryTextStyles}" Text="III" FontWeight="Bold" />
+
+                        <StackPanel Grid.Column="3" Orientation="Horizontal" Margin="0,0,0,0">
+                            <Image x:Name="playerinfo_pop_Icon" Height="40" Width="50" Margin="10,0,0,0" Source="{StaticResource resource_pop}" />
+                            <TextBlock x:Name="playerinfo_pop" Style="{StaticResource playerSummaryTextStyles}" Margin="0,5,0,0" Text="999 / 999" FontWeight="Bold" />
+                        </StackPanel>
+                    </Grid>
+
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <!--Panel-->
+                        <Rectangle Grid.Column="0" HorizontalAlignment="Center" Width="230" Height="50" VerticalAlignment="Center" Style="{StaticResource PanelBGSection}" />
+                        <Rectangle Grid.Column="1" HorizontalAlignment="Center" Width="230" Height="50" VerticalAlignment="Center" Style="{StaticResource PanelBGSection}" />
+                        <Rectangle Grid.Column="2" HorizontalAlignment="Center" Width="230" Height="50" VerticalAlignment="Center" Style="{StaticResource PanelBGSection}" />
+
+                        <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="5,0,0,0">
+                            <Image x:Name="playerinfo_food_Icon" Height="40" Width="50" Margin="10,0,0,0" Source="{StaticResource resource_food}" />
+                            <TextBlock x:Name="playerinfo_food" Style="{StaticResource playerSummaryTextStyles}" Margin="0,5,0,0" Text="99,999" FontWeight="Bold" />
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="5,0,0,0">
+                            <Image x:Name="playerinfo_wood_Icon" Height="40" Width="50" Margin="10,0,0,0" Source="{StaticResource resource_wood}" />
+                            <TextBlock x:Name="playerinfo_wood" Style="{StaticResource playerSummaryTextStyles}" Margin="0,5,0,0" Text="99,999" FontWeight="Bold" />
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="2" Orientation="Horizontal" Margin="5,0,0,0">
+                            <Image x:Name="playerinfo_coins_Icon" Height="40" Width="50" Margin="10,0,0,0" Source="{StaticResource resource_gold}" />
+                            <TextBlock x:Name="playerinfo_coins" Style="{StaticResource playerSummaryTextStyles}" Margin="0,5,0,0" Text="99,999" FontWeight="Bold" />
+                        </StackPanel>
+                    </Grid>
+
+                    <Grid Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <!--Panel-->
+                        <Rectangle Grid.Column="0" HorizontalAlignment="Center" Width="230" Height="50" VerticalAlignment="Center" Style="{StaticResource PanelBGSection}" />
+                        <Rectangle Grid.Column="1" HorizontalAlignment="Center" Width="230" Height="50" VerticalAlignment="Center" Style="{StaticResource PanelBGSection}" />
+                        <Rectangle Grid.Column="2" HorizontalAlignment="Center" Width="230" Height="50" VerticalAlignment="Center" Style="{StaticResource PanelBGSection}" />
+
+
+                        <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="10,0,0,0">
+                            <Image x:Name="playerinfo_idle_Icon" Height="40" Width="50" Margin="10,0,0,0" Source="{StaticResource resource_idle}" />
+                            <TextBlock x:Name="playerinfo_idle" Style="{StaticResource playerSummaryTextStyles}" Margin="0,5,0,0" Text="9999" FontWeight="Bold" />
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="10,0,0,0" Visibility="Visible">
+                            <Image x:Name="playerinfo_trade_Icon" Height="40" Width="50" Margin="10,0,0,0" Source="{StaticResource resource_trading}" />
+                            <TextBlock x:Name="playerinfo_trade" Style="{StaticResource playerSummaryTextStyles}" Margin="0,5,0,0" Text="9999" FontWeight="Bold" />
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="2" Orientation="Horizontal" Margin="10,0,0,0" Visibility="Visible">
+                            <Image x:Name="playerinfo_firepit_Icon" Height="40" Width="50" Margin="10,0,0,0" Source="{StaticResource resource_dances}" />
+                            <TextBlock x:Name="playerinfo_firepit" Style="{StaticResource playerSummaryTextStyles}" Margin="0,5,0,0" Text="9999" FontWeight="Bold" />
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="2" Orientation="Horizontal" Margin="10,0,0,0" Visibility="Collapsed">
+                            <Image x:Name="playerinfo_export_Icon" Height="40" Width="50" Margin="10,0,0,0" Source="{StaticResource resource_export}" />
+                            <TextBlock x:Name="playerinfo_export" Style="{StaticResource playerSummaryTextStyles}" Margin="0,5,0,0" Text="9999" FontWeight="Bold" />
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+            </Grid>
+
+            <!--OFF FOR BETA-->
+            <!--BUILD QUEUE-->
+            <StackPanel x:Name="unitTrainingPanel" Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Width="800" Height="70" Margin="520,190,0,0" Visibility="Collapsed">
+                <local:Age3Button x:Name="unittrainpanel_unitButton0" HorizontalAlignment="Left" Height="50" Width="50" Margin="10,5,0,0" Style="{StaticResource QueueButton}" Content="99">
+                    <local:Age3Button.Background>
+                        <ImageBrush ImageSource="resources/images/icons/techs/hc_food_crate/hc_food_crate_128.png" />
+                    </local:Age3Button.Background>
+                </local:Age3Button>
+
+                <local:Age3Button x:Name="unittrainpanel_unitButton1" HorizontalAlignment="Left" Height="50" Width="50" Margin="10,5,0,0" Style="{StaticResource QueueButton}" Content="99">
+                    <local:Age3Button.Background>
+                        <ImageBrush ImageSource="resources/images/icons/techs/hc_food_crate/hc_food_crate_128.png" />
+                    </local:Age3Button.Background>
+                </local:Age3Button>
+
+                <local:Age3Button x:Name="unittrainpanel_unitButton2" HorizontalAlignment="Left" Height="50" Width="50" Margin="10,5,0,0" Style="{StaticResource QueueButton}" Content="99">
+                    <local:Age3Button.Background>
+                        <ImageBrush ImageSource="resources/images/icons/techs/hc_food_crate/hc_food_crate_128.png" />
+                    </local:Age3Button.Background>
+                </local:Age3Button>
+
+                <local:Age3Button x:Name="unittrainpanel_unitButton3" HorizontalAlignment="Left" Height="50" Width="50" Margin="10,5,0,0" Style="{StaticResource QueueButton}" Content="99">
+                    <local:Age3Button.Background>
+                        <ImageBrush ImageSource="resources/images/icons/techs/hc_food_crate/hc_food_crate_128.png" />
+                    </local:Age3Button.Background>
+                </local:Age3Button>
+
+                <local:Age3Button x:Name="unittrainpanel_unitButton4" HorizontalAlignment="Left" Height="50" Width="50" Margin="10,5,0,0" Style="{StaticResource QueueButton}" Content="99">
+                    <local:Age3Button.Background>
+                        <ImageBrush ImageSource="resources/images/icons/techs/hc_food_crate/hc_food_crate_128.png" />
+                    </local:Age3Button.Background>
+                </local:Age3Button>
+
+                <local:Age3Button x:Name="unittrainpanel_unitButton5" HorizontalAlignment="Left" Height="50" Width="50" Margin="10,5,0,0" Style="{StaticResource QueueButton}" Content="99">
+                    <local:Age3Button.Background>
+                        <ImageBrush ImageSource="resources/images/icons/techs/hc_food_crate/hc_food_crate_128.png" />
+                    </local:Age3Button.Background>
+                </local:Age3Button>
+
+                <local:Age3Button x:Name="unittrainpanel_unitButton6" HorizontalAlignment="Left" Height="50" Width="50" Margin="10,5,0,0" Style="{StaticResource QueueButton}" Content="99">
+                    <local:Age3Button.Background>
+                        <ImageBrush ImageSource="resources/images/icons/techs/hc_food_crate/hc_food_crate_128.png" />
+                    </local:Age3Button.Background>
+                </local:Age3Button>
+
+                <local:Age3Button x:Name="unittrainpanel_unitButton7" HorizontalAlignment="Left" Height="50" Width="50" Margin="10,5,0,0" Style="{StaticResource QueueButton}" Content="99">
+                    <local:Age3Button.Background>
+                        <ImageBrush ImageSource="resources/images/icons/techs/hc_food_crate/hc_food_crate_128.png" />
+                    </local:Age3Button.Background>
+                </local:Age3Button>
+
+                <local:Age3Button x:Name="unittrainpanel_unitButton8" HorizontalAlignment="Left" Height="50" Width="50" Margin="10,5,0,0" Style="{StaticResource QueueButton}" Content="99">
+                    <local:Age3Button.Background>
+                        <ImageBrush ImageSource="resources/images/icons/techs/hc_food_crate/hc_food_crate_128.png" />
+                    </local:Age3Button.Background>
+                </local:Age3Button>
+
+                <local:Age3Button x:Name="unittrainpanel_unitButton9" HorizontalAlignment="Left" Height="50" Width="50" Margin="10,5,0,0" Style="{StaticResource QueueButton}" Content="99">
+                    <local:Age3Button.Background>
+                        <ImageBrush ImageSource="resources/images/icons/techs/hc_food_crate/hc_food_crate_128.png" />
+                    </local:Age3Button.Background>
+                </local:Age3Button>
+
+                <local:Age3Button x:Name="unittrainpanel_unitButton10" HorizontalAlignment="Left" Height="50" Width="50" Margin="10,5,0,0" Style="{StaticResource QueueButton}" Content="99">
+                    <local:Age3Button.Background>
+                        <ImageBrush ImageSource="resources/images/icons/techs/hc_food_crate/hc_food_crate_128.png" />
+                    </local:Age3Button.Background>
+                </local:Age3Button>
+
+                <local:Age3Button x:Name="unittrainpanel_unitButton11" HorizontalAlignment="Left" Height="50" Width="50" Margin="10,5,0,0" Style="{StaticResource QueueButton}" Content="99">
+                    <local:Age3Button.Background>
+                        <ImageBrush ImageSource="resources/images/icons/techs/hc_food_crate/hc_food_crate_128.png" />
+                    </local:Age3Button.Background>
+                </local:Age3Button>
+
+                <local:Age3Button x:Name="unittrainpanel_unitButton12" HorizontalAlignment="Left" Height="50" Width="50" Margin="10,5,0,0" Style="{StaticResource QueueButton}" Content="99">
+                    <local:Age3Button.Background>
+                        <ImageBrush ImageSource="resources/images/icons/techs/hc_food_crate/hc_food_crate_128.png" />
+                    </local:Age3Button.Background>
+                </local:Age3Button>
+            </StackPanel>
+
+        </Grid>
+
+    </Viewbox>
+</Window>

@@ -1,0 +1,45 @@
+﻿<Window x:Class="aoe3wpfg.warningDialog"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:aoe3wpfg"
+        mc:Ignorable="d" 
+      Title="warningDialog"
+        Style="{StaticResource WindowStyle}">
+
+    <Viewbox Style="{StaticResource ViewboxMain}">
+
+        <Grid x:Name="mainGridPanel" Width="1920" Height="1080">
+
+            <ContentControl Template="{StaticResource ScreenBlur}" />
+
+            <Grid Width="850" Height="{Binding ElementName=ContentStack, Path=ActualHeight}" Style="{StaticResource PopupGrid}">
+                <ContentControl Template="{StaticResource PanelBG_Titled}" Margin="-10,-50,-10,-90" />
+                <StackPanel x:Name="ContentStack" HorizontalAlignment="Center" VerticalAlignment="Center" Width="800">
+
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Grid Width="750" Margin="0,0">
+                            <TextBlock x:Name="warningDialog_label" Style="{StaticResource ConfirmationTitlesStyle}" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,-12,0,0" MaxWidth="750" 
+                                       Text="$$19014$$Warning"/>
+                        </Grid>
+                    </StackPanel>
+
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,20">
+                        <Grid Width="750" Margin="0,20">
+                            <Rectangle Grid.Row="2" Style="{StaticResource PanelBGSection}" Margin="-10,-20"/>
+                            <TextBlock x:Name="warningDialog_prompt" Style="{StaticResource CampaignRegularTextBlockStyle}" TextAlignment="Center" FontSize="24" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,0" MaxWidth="750" TextWrapping="Wrap"
+                                       Text="Message Text Goes Here." />
+                        </Grid>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Button x:Name="warningDialog_OKButton" Style="{StaticResource MainMenuButton}" Width="350" Content="$$18465$$OK" TabIndex="1"/>
+                        <Button x:Name="warningDialog_CancelButton" Style="{StaticResource MainMenuButton}" Width="350" Margin="50,0,0,0" Content="$$18466$$Cancel" TabIndex="2"/>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+            
+        </Grid>
+    </Viewbox>
+</Window>

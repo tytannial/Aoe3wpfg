@@ -1,0 +1,350 @@
+﻿<Window x:Class="aoe3wpfg.uiclanpage"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:aoe3wpfg"
+        mc:Ignorable="d"
+        Title="uiclanpage"
+        Style="{StaticResource WindowStyle}">
+
+    <Window.Resources>
+        <Style TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource basicListItem}" x:Key="playerListItem">
+            <Setter Property="Margin" Value="0,1,0,1" />
+            <Setter Property="Width" Value="640" />
+            <Setter Property="Height" Value="60"/>
+            <Setter Property="ContentTemplate">
+                <Setter.Value>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="160"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Column="0" Padding="10" Width="470" Text="{Binding Name}" VerticalAlignment="Center" />
+                            <local:Age3Button Grid.Column="1" x:Name="playerlist_Search" Height="50" Width="150" Style="{StaticResource MainMenuButton}" VerticalAlignment="Center" Content="$$20049$$Invite"/>
+                        </Grid>
+                    </DataTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="{x:Type TextBox}" x:Key="settingsTextbox">
+            <Setter Property="Height" Value="80" />
+            <Setter Property="FontFamily" Value="Arial" />
+            <Setter Property="FontSize" Value="20" />
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="#d5d5d5" />
+            <Setter Property="HorizontalContentAlignment" Value="Left" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="MaxLength" Value="250"/>
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TextBoxBase}">
+                        <Border x:Name="Border" CornerRadius="4" Padding="12,0,0,0" Background="{StaticResource TextboxInnerGradient}" BorderBrush="{StaticResource TextboxStrokeGradient}" BorderThickness="2" Height="80">
+                            <ScrollViewer Margin="0,5,0,0" x:Name="PART_ContentHost" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Hidden" VerticalAlignment="Top"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter TargetName="Border" Property="BorderBrush" Value="#FFDADADA" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect BlurRadius="10" Color="Black" Direction="-90" ShadowDepth="1.5" RenderingBias="Quality" />
+                </Setter.Value>
+            </Setter>
+
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="false">
+                    <Setter Property="Foreground" Value="#FFA4A4A4" />
+                    <Setter Property="Opacity" Value="0.5"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    <Window.DataContext>
+        <local:Age3ClanPageViewModel/>
+    </Window.DataContext>
+
+    <Viewbox Style="{StaticResource ViewboxMain}">
+        <Grid x:Name="mainGridPanel" Width="1920" Height="1080">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="1" Visibility="Visible" Background="{StaticResource wood_tile}" IsEnabled="{Binding EditingSettings, Converter={StaticResource BoolFlipConverter}}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="80"/>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="80"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="35"/>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="45"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="10"/>
+                    <ColumnDefinition Width="800"/>
+                    <ColumnDefinition Width="45"/>
+                </Grid.ColumnDefinitions>
+
+                <!--Titles-->
+                <TextBlock x:Name="ClanPage_ClanName" Grid.Row="0" Grid.Column="1" TextAlignment="Left" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource ConfirmationTitlesStyle}" Text="{Binding Title}"/>
+                <TextBlock x:Name="ClanPage_Chat_Label" Grid.Row="5" Grid.Column="1" FontSize="25" TextAlignment="Left" HorizontalAlignment="Left" Margin="20,10,0,0" Width="500" Style="{StaticResource ConfirmationTitlesStyle}">
+                    $$41574$$Clan Chat
+                </TextBlock>
+                <TextBlock Grid.Row="2" Grid.Column="3" FontSize="25" TextAlignment="Left" HorizontalAlignment="Left" Margin="20,10,0,0" Text="$$70654$$Members" Style="{StaticResource ConfirmationTitlesStyle}" />
+                <StackPanel Grid.Row="2" Grid.Column="3" HorizontalAlignment="Right" Orientation="Horizontal">
+                    <Button x:Name="ClanPage_Settings" Height="40" Width="40" Style="{StaticResource HUDButton}" Command="{Binding OpenSettings}" >
+                        <Image Source="{StaticResource multiplayer_quickicon_settings}" Width="35" Height="35" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,-3,0,0"/>
+                        <Button.ToolTip>$$72498$$Click to open clan settings.</Button.ToolTip>
+                    </Button>
+                    <Button x:Name="ClanPage_Leave" Height="40" Width="40" Style="{StaticResource HUDButton}" Command="{Binding Leave}" >
+                        <Image Source="{StaticResource multiplayer_quickicon_exit}" Width="35" Height="35" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,-3,0,0"/>
+                        <Button.ToolTip>$$72499$$Click to leave this clan.</Button.ToolTip>
+                    </Button>
+                </StackPanel>
+                <Rectangle Grid.Row="1" Grid.Column="1" Height="3" Fill="{StaticResource DividingLineGradient}"/>
+
+                <!--Message of the day-->
+                <TextBlock x:Name="ClanPage_MOTD_Label" Grid.Row="2" Grid.Column="1" FontSize="25" TextAlignment="Left" HorizontalAlignment="Left" Margin="20,10,0,0" Width="500" Style="{StaticResource ConfirmationTitlesStyle}">
+                    $$72484$$Message of the day
+                </TextBlock>
+                <Rectangle Grid.Row="4" Grid.Column="1" HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Stretch" Style="{StaticResource PanelBGSection}" />
+                <local:Age3KeyboardFocusBorder Grid.Row="4" Grid.Column="1" Margin="10,0,10,0" Focusable="True">
+                    <ScrollViewer x:Name="ClanPage_MessageBoard" VerticalAlignment="Top" Margin="10,15,10,15" VerticalScrollBarVisibility="Auto">
+                        <TextBlock FontSize="20" Padding="10,0,0,0" FontFamily="arial" Style="{StaticResource mpChatTextStyle1}" TextWrapping="Wrap" Text="{Binding Clan.Info.MessageOfTheDay}"/>
+                    </ScrollViewer>
+                </local:Age3KeyboardFocusBorder>
+
+                <!--Clan Chat-->
+                <local:Age3ChatBox DataContext="{Binding Clan.Chat}" x:Name="ClanChat" Grid.Row="7" Grid.Column="1" Margin="0,0,0,33" Grid.RowSpan="2"/>
+
+                <!--List & Recruit-->
+                <Grid Grid.Row="4" Grid.RowSpan="4" Grid.Column="3">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="5"/>
+                        <RowDefinition Height="95"/>
+                    </Grid.RowDefinitions>
+                    <Border Grid.Row="0">
+                        <Border.Style>
+                            <Style TargetType="Border" BasedOn="{StaticResource PanelBGSectionAsBorder}">
+                                <Setter Property="TextBlock.Opacity" Value="1"/>
+                            </Style>
+                        </Border.Style>
+                        <Border.Resources>
+                            <Style TargetType="ContentPresenter">
+                                <Setter Property="TextBlock.FontFamily" Value="Trajan Pro" />
+                                <Setter Property="TextBlock.FontSize" Value="25" />
+                                <Setter Property="TextBlock.Foreground" Value="{StaticResource ButtonTextGradient}" />
+                                <Setter Property="Effect">
+                                    <Setter.Value>
+                                        <DropShadowEffect BlurRadius="4" Color="Black" Direction="-90" ShadowDepth="4" RenderingBias="Quality" />
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </Border.Resources>
+                        <ScrollViewer>
+                            <StackPanel CanVerticallyScroll="True">
+                                <Expander IsExpanded="True" KeyboardNavigation.DirectionalNavigation="Continue">
+                                    <Expander.Header>
+                                        <ContentPresenter Content="{Binding Items.Count, ElementName=pendingMembers}" local:Age3StringDB.StringFormatId="72293" KeyboardNavigation.IsTabStop="True" Margin="0,3,0,3"/>
+                                    </Expander.Header>
+                                    <ItemsControl x:Name="pendingMembers" Focusable="False" ItemsSource="{Binding Clan.Invites}">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate DataType="{x:Type local:MPClanMember}">
+                                                <local:Age3KeyboardFocusBorder Margin="32,0,10,0">
+                                                    <Border Style="{StaticResource ItemBorderStyle}" Margin="-6,4,-6,4">
+                                                        <Grid>
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="Auto"/>
+                                                                <ColumnDefinition Width="*"/>
+                                                                <ColumnDefinition Width="Auto"/>
+                                                            </Grid.ColumnDefinitions>
+                                                            <Button DataContext="{Binding User}" Content="{Binding ViewProfile}" Style="{StaticResource ProfileActionButton}"/>
+                                                            <TextBlock Text="{Binding User.Alias}" Style="{StaticResource ItemTextStyle}" Margin="5,0" HorizontalAlignment="Left" VerticalAlignment="Center"  Grid.Column="1"/>
+                                                            <Button Content="{Binding CancelInvite}" Style="{StaticResource ProfileActionButton}" Grid.Column="2" />
+                                                        </Grid>
+                                                    </Border>
+                                                </local:Age3KeyboardFocusBorder>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </Expander>
+                                <Expander IsExpanded="True" KeyboardNavigation.DirectionalNavigation="Continue">
+                                    <Expander.Header>
+                                        <ContentPresenter Content="{Binding Items.Count, ElementName=applicants}" local:Age3StringDB.StringFormatId="72294"/>
+                                    </Expander.Header>
+                                    <ItemsControl x:Name="applicants" Focusable="False" ItemsSource="{Binding Clan.Applications}">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate DataType="{x:Type local:MPClanMember}">
+                                                <local:Age3KeyboardFocusBorder Margin="32,0,10,0">
+                                                    <Border Style="{StaticResource ItemBorderStyle}" Margin="0,4,-6,4">
+                                                        <Grid Margin="2,0">
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="Auto"/>
+                                                                <ColumnDefinition Width="*"/>
+                                                                <ColumnDefinition Width="Auto"/>
+                                                                <ColumnDefinition Width="Auto"/>
+                                                                <ColumnDefinition Width="Auto"/>
+                                                            </Grid.ColumnDefinitions>
+                                                            <Button DataContext="{Binding User}" Content="{Binding ViewProfile}" Style="{StaticResource ProfileActionButton}"/>
+                                                            <TextBlock Text="{Binding User.Alias}" Style="{StaticResource ItemTextStyle}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0" Grid.Column="1"/>
+                                                            <Button Style="{StaticResource ProfileActionButton}" Grid.Column="2"
+                                                                    Content="{Binding AcceptApplication}" ToolTip="$$71993$$Accept" />
+                                                            <Button Style="{StaticResource ProfileActionButton}" Grid.Column="3"
+                                                                    Content="{Binding RejectApplication}" ToolTip="$$71987$$Reject" />
+                                                        </Grid>
+                                                    </Border>
+                                                </local:Age3KeyboardFocusBorder>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </Expander>
+                                <ListBox x:Name="members" KeyboardNavigation.DirectionalNavigation="Continue" ItemsSource="{Binding Clan.Members}">
+                                    <ListBox.Resources>
+                                        <Style x:Key="{x:Type ListBoxItem}" TargetType="ListBoxItem" BasedOn="{StaticResource {x:Type ListBoxItem}}">
+                                            <Setter Property="Background" Value="Red"/>
+                                        </Style>
+                                    </ListBox.Resources>
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate DataType="{x:Type local:MPClanMember}">
+                                            <Border Style="{StaticResource ItemBorderStyle}">
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                        <ColumnDefinition Width="*"/>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Grid.ContextMenu>
+                                                        <ContextMenu Tag="{Binding }" Style="{StaticResource ProfileContextMenu}"/>
+                                                    </Grid.ContextMenu>
+                                                    <Button DataContext="{Binding User}" Content="{Binding ViewProfile}" Style="{StaticResource ProfileActionButton}"/>
+                                                    <TextBlock Text="{Binding User.Alias}" Style="{StaticResource ItemTextStyle}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0" Grid.Column="1"/>
+                                                    <Image Grid.Column="2" Height="35" Width="35">
+                                                        <Image.Style>
+                                                            <Style TargetType="Image">
+                                                                <Style.Triggers>
+                                                                    <!--IF player is Bronze-->
+                                                                    <DataTrigger Binding="{Binding Rank}" Value="3">
+                                                                        <Setter Property="Source" Value="resources/images/multiplayer/clan_rank_bronze.png"/>
+                                                                        <Setter Property="ToolTip" Value="$$72537$$Member of this clan."/>
+                                                                    </DataTrigger>
+                                                                    <!--IF player is Silver-->
+                                                                    <DataTrigger Binding="{Binding Rank}" Value="2">
+                                                                        <Setter Property="Source" Value="resources/images/multiplayer/clan_rank_silver.png"/>
+                                                                        <Setter Property="ToolTip" Value="$$72538$$Admind of this clan."/>
+                                                                    </DataTrigger>
+                                                                    <!--IF player is Gold-->
+                                                                    <DataTrigger Binding="{Binding Rank}" Value="1">
+                                                                        <Setter Property="Source" Value="resources/images/multiplayer/clan_rank_gold.png"/>
+                                                                        <Setter Property="ToolTip" Value="$$72539$$Leader of this clan."/>
+                                                                    </DataTrigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </Image.Style>
+                                                    </Image>
+                                                </Grid>
+                                            </Border>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                    <ListBox.ItemContainerStyle>
+                                        <Style TargetType="ListBoxItem" BasedOn="{StaticResource {x:Type ListBoxItem}}">
+                                            <Setter Property="FocusVisualStyle" Value="{StaticResource Age3FocusVisual}"/>
+                                        </Style>
+                                    </ListBox.ItemContainerStyle>
+                                </ListBox>
+                            </StackPanel>
+                        </ScrollViewer>
+                    </Border>
+
+                    <StackPanel Grid.Row="2">
+                        <TextBlock FontSize="25" TextAlignment="Left" HorizontalAlignment="Left" Margin="0,0,0,0" Text="$$72456$$Recruit Members" Width="400" Style="{StaticResource ConfirmationTitlesStyle}" TextWrapping="Wrap" />
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,10,0,0">
+                            <local:Age3ProfileSelector x:Name="Search"  Width="540"/>
+                            <!-- <local:PreviewTextBox x:Name="Clan_RecruitPlayer" Width="540" Margin="0,0,0,0" VerticalContentAlignment="Center" TabIndex="1" PreviewText="$$70729$$Search..." />-->
+                            <Button Grid.Row="0" Grid.Column="3" x:Name="ClanPage_RecruitButton" Style="{StaticResource MainMenuButton}" HorizontalAlignment="Right" Margin="10,0,0,0" Width="250"
+                                    Content="$$72448$$Recruit Player"
+                                    Visibility="Visible"
+                                    CommandParameter="{Binding DataContext.SelectedProfile, ElementName=Search}" Command="{Binding RecruitCommand}">
+                                <Button.ToolTip>$$72450$$Enter player name then select Recruit Player.</Button.ToolTip>
+                            </Button>
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+
+            <Grid x:Name="ClanSettings" Grid.Row="0" Grid.RowSpan="2" Visibility="{Binding EditingSettings, Converter={StaticResource BoolToVisibility}}">
+                <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Width="1300" Height="530">
+                    <ContentControl Template="{StaticResource PanelBG}" Margin="-10" />
+
+                    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="15,20,15,70">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="70" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="60" />
+                        </Grid.RowDefinitions>
+
+                        <TextBlock x:Name="ClanPage_CreateDlg_IntroText" Style="{StaticResource ConfirmationTitlesStyle}" VerticalAlignment="Bottom" Grid.Row="0" FontSize="40" Text="$$72492$$Clan Settings"/>
+
+                        <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,10" ToolTip="$$90171$$ Add a name for your clan.">
+                                <TextBlock x:Name="Settings_Desc_Title" FontSize="20" Width="350" Padding="15,22" Style="{StaticResource ConfirmationTitlesStyle}" Margin="0,0,0,0" VerticalAlignment="Center" TextWrapping="Wrap">
+                                    $$72485$$Clan Description:
+                                </TextBlock>
+                                <local:PreviewTextBox x:Name="Clan_Settings_Description" Width="800" Margin="10,0,0,0" TextAlignment="Left" TextWrapping="Wrap" BorderBrush="Transparent" BorderThickness="0" PreviewText="$$70988$$Enter here..."
+                                                      Text="{Binding Clan.Info.Description, Mode=TwoWay}"/>
+                            </StackPanel>
+
+                            <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,10" ToolTip="$$90171$$ Add a name for your clan.">
+                                <TextBlock x:Name="Settings_MOD_Title" FontSize="20" Width="350" Padding="15,22" Style="{StaticResource ConfirmationTitlesStyle}" Margin="0,0,0,0" VerticalAlignment="Center" TextWrapping="Wrap">
+                                    $$72493$$Message of the day:
+                                </TextBlock>
+                                <local:PreviewTextBox x:Name="Clan_Settings_MessageOfTheDay" Width="800" Margin="10,0,0,0" TextAlignment="Left" TextWrapping="Wrap" BorderBrush="Transparent" BorderThickness="0" PreviewText="$$70988$$Enter here..."
+                                                      Text="{Binding Clan.Info.MessageOfTheDay, Mode=TwoWay}"
+                                                      AcceptsReturn="True" />
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,5,0,5" ToolTip="$$90171$$ Add a name for your clan.">
+                                <TextBlock x:Name="Settings_ClanJoinPolicy" FontSize="20" Width="350" Padding="15,22" Style="{StaticResource ConfirmationTitlesStyle}" Margin="0,0,0,0" VerticalAlignment="Center" TextWrapping="Wrap">
+                                    $$72486$$Join Policy:
+                                </TextBlock>
+                                <StackPanel Orientation="Horizontal" Width="800" Height="40" Margin="10,0,0,0">
+                                    <RadioButton Content="$$21193$$Public" Margin="0,0,5,0" IsChecked="{Binding Clan.Info.JoinPolicy, Mode=TwoWay, Converter={StaticResource EnumToBool}, ConverterParameter=Public}" >
+                                        <RadioButton.ToolTip>$$72489$$This policy will allow players to see this clan in the clan browser.</RadioButton.ToolTip>
+                                    </RadioButton>
+                                    <RadioButton Content="$$72487$$Join by request" Margin="0,0,5,0" IsChecked="{Binding Clan.Info.JoinPolicy, Mode=TwoWay, Converter={StaticResource EnumToBool}, ConverterParameter=ByRequest}">
+                                        <RadioButton.ToolTip>$$72490$$This policy will only allow players to join by requst.</RadioButton.ToolTip>
+                                    </RadioButton>
+                                    <RadioButton Content="$$72488$$Invite only" Margin="0,0,5,0" IsChecked="{Binding Clan.Info.JoinPolicy, Mode=TwoWay, Converter={StaticResource EnumToBool}, ConverterParameter=Private}">
+                                        <RadioButton.ToolTip>$$72491$$This policy will only allow invitaitons from the leader and officers.</RadioButton.ToolTip>
+                                    </RadioButton>
+                                </StackPanel>
+                            </StackPanel>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="5" Orientation="Horizontal" Margin="0,5,0,5" HorizontalAlignment="Center">
+                            <Button x:Name="Settings_Disband" Style="{StaticResource MainMenuButton}" Margin="20,0,0,0" Width="300" Content="$$72494$$Disband" Command="{Binding Disband}"/>
+                            <Button x:Name="Settings_Save" Style="{StaticResource MainMenuButton}" Margin="20,0,0,0" Width="300" Content="$$18442$$Save" Command="{Binding ApplySettings}" />
+                            <Button x:Name="Settings_Cancel" Style="{StaticResource MainMenuButton}" Margin="20,0,0,0" Width="300" Content="$$18457$$Close" Command="{Binding CancelSettings}" IsCancel="True"/>
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Viewbox>
+</Window>

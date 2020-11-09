@@ -1,0 +1,62 @@
+﻿<Page x:Class="aoe3wpfg.pages.uipregamenew.HistorySubMenu"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:aoe3wpfg"
+      mc:Ignorable="d" 
+      MinHeight="1080"
+      Title="HistorySubMenu">
+
+    <Grid>
+
+        <!--Title-->
+        <local:Age3StackPanel Width="245" Fade="True" VerticalAlignment="Center" Margin="0,0,0,575">
+            <Grid Width="245" Height="128">
+                <Rectangle Height="128" VerticalAlignment="Top" Margin="0,0,0,0">
+                    <Rectangle.Fill>
+                        <ImageBrush ImageSource="/resources/wood_shadow_bottom.png" />
+                    </Rectangle.Fill>
+                </Rectangle>
+                <StackPanel Orientation="Vertical" VerticalAlignment="Bottom" Margin="0,0,0,0" Width="245">
+                    <TextBlock Style="{StaticResource MainMenuHeaders}" Width="240" TextWrapping="Wrap" TextAlignment="Center">
+                $$19789$$History
+                    </TextBlock>
+                </StackPanel>
+            </Grid>
+        </local:Age3StackPanel>
+
+        <StackPanel Grid.Row="2" VerticalAlignment="Center" Margin="0,0,0,65" Width="245">
+            <local:Age3StackPanel Width="245" Margin="0,10,0,0" Fade="true">
+                <local:Age3Button x:Name="btn_history_histories" Style="{StaticResource MainMenuButton}" IsDefault="true" Width="220" Margin="0,10,0,0"  Content="$$70761$$Histories" ConsoleCommand="wpfNavigateFrame('/pages/uihistory/uihistoryhistories',History_InfoPanel)" TabIndex="1" >
+                    <Button.ToolTip>$$71382$$</Button.ToolTip>
+                </local:Age3Button>
+                <local:Age3Button x:Name="btn_history_militaries" Style="{StaticResource MainMenuButton}" Width="220" Margin="0,15,0,0"  Content="$$70762$$Militaries" ConsoleCommand="wpfNavigateFrame('/pages/uihistory/uihistorymilitaries',History_InfoPanel)" TabIndex="2" >
+                    <Button.ToolTip>$$71383$$</Button.ToolTip>
+                </local:Age3Button>
+                <local:Age3Button x:Name="btn_history_civilians" Style="{StaticResource MainMenuButton}" Width="220" Margin="0,15,0,0"  Content="$$70758$$Civilians" ConsoleCommand="wpfNavigateFrame('/pages/uihistory/uihistorycivilians',History_InfoPanel)" TabIndex="3" >
+                    <Button.ToolTip>$$71384$$</Button.ToolTip>
+                </local:Age3Button>
+                <local:Age3Button x:Name="btn_history_buildings" Style="{StaticResource MainMenuButton}" Width="220" Margin="0,15,0,0"  Content="$$70748$$Buildings" ConsoleCommand="wpfNavigateFrame('/pages/uihistory/uihistorybuildings',History_InfoPanel)" TabIndex="4" >
+                    <Button.ToolTip>$$71385$$</Button.ToolTip>
+                </local:Age3Button>
+                <local:Age3Button x:Name="btn_history_geography" Style="{StaticResource MainMenuButton}" Width="220" Margin="0,15,0,0"  Content="$$70759$$Geography" ConsoleCommand="wpfNavigateFrame('/pages/uihistory/uihistorygeography',History_InfoPanel)" TabIndex="5" >
+                    <Button.ToolTip>$$71386$$</Button.ToolTip>
+                </local:Age3Button>
+                <local:Age3Button x:Name="btn_history_campaignheroes" Style="{StaticResource MainMenuButton}" Width="220" Margin="0,15,0,0"  Content="$$70757$$Campaign Heroes" ConsoleCommand="wpfNavigateFrame('/pages/uihistory/uihistorycampaignheroes',History_InfoPanel)" TabIndex="6" >
+                    <Button.ToolTip>$$71387$$</Button.ToolTip>
+                </local:Age3Button>
+                <local:Age3Button x:Name="btn_history_glossary" Style="{StaticResource MainMenuButton}" Width="220" Margin="0,15,0,0"  Content="$$70760$$Glossary" ConsoleCommand="wpfNavigateFrame('/pages/uihistory/uihistoryglossary',History_InfoPanel)" TabIndex="7" >
+                    <Button.ToolTip>$$71388$$</Button.ToolTip>
+                </local:Age3Button>
+            </local:Age3StackPanel>
+
+        </StackPanel>
+
+        <!--Back-->
+        <local:Age3Button x:Name="btn_options_back" IsCancel="true" Style="{StaticResource MainMenuButton}" Width="220" VerticalAlignment="Bottom" Margin="0,0,0,50" Content="$$42451$$Back" TabIndex="8" >
+            <Button.ToolTip>$$72101$$Return To Help And Tools."</Button.ToolTip>
+        </local:Age3Button>
+
+    </Grid>
+</Page>

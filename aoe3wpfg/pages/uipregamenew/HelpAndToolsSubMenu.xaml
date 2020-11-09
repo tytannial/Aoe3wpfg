@@ -1,0 +1,64 @@
+﻿<Page x:Class="aoe3wpfg.HelpAndToolsSubMenu"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:aoe3wpfg"
+      mc:Ignorable="d" 
+      MinHeight="1080"
+      MinWidth="245"
+      Title="HelpAndToolsSubMenu">
+
+    <Grid Width="245">
+        <!--Title-->
+        <local:Age3StackPanel Width="245" Fade="True" VerticalAlignment="Center" Margin="0,0,0,575">
+            <Grid Width="245" Height="128">
+                <Rectangle Height="128" VerticalAlignment="Top" Margin="0,0,0,0">
+                    <Rectangle.Fill>
+                        <ImageBrush ImageSource="/resources/wood_shadow_bottom.png" />
+                    </Rectangle.Fill>
+                </Rectangle>
+                <StackPanel Orientation="Vertical" VerticalAlignment="Bottom" Margin="0,0,0,0" Width="245">
+                    <TextBlock Style="{StaticResource MainMenuHeaders}" Width="240" TextWrapping="Wrap" TextAlignment="Center">
+						$$35538$$Tools
+                    </TextBlock>
+                </StackPanel>
+            </Grid>
+        </local:Age3StackPanel>
+
+        <StackPanel VerticalAlignment="Center" Margin="0,0,0,115" Width="245">
+            <local:Age3StackPanel Width="245" Margin="0,10,0,0" Fade="true">
+                <!--Tutorial-->
+                <local:Age3Button x:Name="LearnToPlayButton" Style="{StaticResource MainMenuButton}" Width="220" Margin="0,10,0,0" Content="$$19876$$Tutorial" ConsoleCommand="wpfNavigateFrame('/pages/uipregamenew/LearnSubMenu',ButtonFrame)" TabIndex="1" >
+                    <Button.ToolTip>$$70579$$Learn the basics.</Button.ToolTip>
+                </local:Age3Button>
+                <!--Scenario Editor-->
+                <local:Age3Button x:Name="HelpAndTools_EditorButton" IsEnabled="{Binding EnabledForBeta}" Style="{StaticResource MainMenuButton}" IsDefault="true" Margin="14,15,8,0" Content="$$35555$$Scenario Editor" ConsoleCommand="startRandomGame(true)" TabIndex="2" >
+                    <Button.ToolTip>$$35556$$Design your own scenarios</Button.ToolTip>
+                </local:Age3Button>
+                <!--Scenario Editor-->
+                <local:Age3Button x:Name="Mods" IsEnabled="{Binding EnabledForBeta}" Style="{StaticResource MainMenuButton}" Margin="12,15,10,0" Content="$$71157$$Mods" ConsoleCommand="modeEnter('Mods')" TabIndex="3" >
+                    <Button.ToolTip>$$71158$$Opens a link to Age of Empires III mods community.</Button.ToolTip>
+                </local:Age3Button>
+                <!--History-->
+                <local:Age3Button x:Name="HelpAndTools_HistoryButton" Style="{StaticResource MainMenuButton}" Width="220" Margin="0,15,0,0" Content="$$71155$$Compendium" ConsoleCommand="modeEnter('History')" TabIndex="4" >
+                    <Button.ToolTip>$$71156$$A collection of Age of Empires III: Definitive Edition detailed histories, military, geography and glossary.</Button.ToolTip>
+                </local:Age3Button>
+                <!--About-->
+                <local:Age3Button x:Name="HelpAndTools_AboutButton" Style="{StaticResource MainMenuButton}" Margin="12,15,10,0" Content="$$35562$$About" ConsoleCommand="showAboutBox()" TabIndex="5" >
+                    <Button.ToolTip>$$18447$$About AOEIII</Button.ToolTip>
+                </local:Age3Button>
+                <!--Credits-->
+                <local:Age3Button x:Name="HelpAndTools_CreditsButton" Style="{StaticResource MainMenuButton}" Width="220" Margin="0,15,0,0" Content="$$19841$$Credits" ConsoleCommand="modeEnter('Credits')" TabIndex="6" >
+                    <Button.ToolTip>$$49030$$View the Credits</Button.ToolTip>
+                </local:Age3Button>
+            </local:Age3StackPanel>
+        </StackPanel>
+
+
+        <!--Back-->
+        <local:Age3Button x:Name="btn_help_back" IsCancel="True" Style="{StaticResource MainMenuButton}" Width="220" VerticalAlignment="Bottom" Margin="0,0,0,50" Content="$$42451$$Back" ConsoleCommand="wpfNavigateFrame('/pages/uipregamenew/MainMenuOptions',ButtonFrame)" TabIndex="7"  >
+            <Button.ToolTip>$$18583$$Return to Main Menu.</Button.ToolTip>
+        </local:Age3Button>
+    </Grid>
+</Page>

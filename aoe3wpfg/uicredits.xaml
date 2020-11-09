@@ -1,0 +1,2049 @@
+﻿<Window x:Class="aoe3wpfg.uicredits" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:local="clr-namespace:aoe3wpfg" mc:Ignorable="d" Title="uicredits" Style="{StaticResource WindowStyle}">
+    <Window.Resources>
+        <ControlTemplate TargetType="ContentControl" x:Key="SmokeyBG">
+            <Grid Width="5760" Height="1080">
+                <Rectangle x:Name="Smoke1" Style="{StaticResource SmokeRect}" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="5760" Margin="0" Opacity="0.2">
+                    <Rectangle.Fill>
+                        <ImageBrush ImageSource="/resources/images/campaignmenu/smoke.png" Stretch="UniformToFill" TileMode="Tile" Viewport="0,0,1920,512" ViewportUnits="Absolute" />
+                    </Rectangle.Fill>
+                </Rectangle>
+
+                <Rectangle x:Name="Smoke2" Style="{StaticResource SmokeRect}" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="5760" Margin="0" Opacity="0.1">
+                    <Rectangle.Fill>
+                        <ImageBrush ImageSource="/resources/images/campaignmenu/smoke.png" Stretch="UniformToFill" TileMode="Tile" Viewport="0,0,1920,512" ViewportUnits="Absolute" />
+                    </Rectangle.Fill>
+                </Rectangle>
+
+                <Rectangle x:Name="Smoke3" Style="{StaticResource SmokeRect}" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="5760" Margin="0,0,0,-150" Opacity="0.3">
+                    <Rectangle.Fill>
+                        <ImageBrush ImageSource="/resources/images/campaignmenu/smoke.png" Stretch="UniformToFill" TileMode="Tile" Viewport="0,0,1920,512" ViewportUnits="Absolute" />
+                    </Rectangle.Fill>
+                </Rectangle>
+
+            </Grid>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsEnabled" Value="True">
+                    <Trigger.EnterActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetName="Smoke1" Storyboard.TargetProperty="RenderTransform.(TranslateTransform.X)" From="0" BeginTime="0:0:0" To="-1920" Duration="0:1:0" RepeatBehavior="Forever" />
+                                <DoubleAnimation Storyboard.TargetName="Smoke2" Storyboard.TargetProperty="RenderTransform.(TranslateTransform.X)" From="0" BeginTime="-0:2:0" To="-1920" Duration="0:5:0" RepeatBehavior="Forever" />
+                                <DoubleAnimation Storyboard.TargetName="Smoke3" Storyboard.TargetProperty="RenderTransform.(TranslateTransform.X)" From="-1920" BeginTime="0:0:0" To="0" Duration="0:1:0" RepeatBehavior="Forever" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.EnterActions>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+        <Style TargetType="TextBlock" x:Key="creditsName">
+            <Setter Property="FontFamily" Value="Trajan Pro" />
+            <Setter Property="FontSize" Value="21" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Margin" Value="0,5,0,5"/>
+            <Setter Property="SnapsToDevicePixels" Value="False"/>
+        </Style>
+        <Style TargetType="TextBlock" x:Key="creditsTitle">
+            <Setter Property="FontFamily" Value="Trajan Pro" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="FontSize" Value="31" />
+            <Setter Property="Foreground" Value="{StaticResource ButtonTextGradient}" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="TextAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="0,10,0,10"/>
+            <Setter Property="SnapsToDevicePixels" Value="False"/>
+        </Style>
+        <Style TargetType="Rectangle" x:Key="SmokeRect">
+            <Setter Property="Height" Value="512" />
+            <Setter Property="Width" Value="3840" />
+            <Setter Property="Margin" Value="0,50" />
+            <Setter Property="RenderTransformOrigin" Value="0.5, 0.5" />
+            <Setter Property="RenderTransform">
+                <Setter.Value>
+                    <ScaleTransform ScaleX="1" ScaleY="1" />
+                </Setter.Value>
+            </Setter>
+            <Setter Property="RenderTransform">
+                <Setter.Value>
+                    <TranslateTransform X="0" Y="0" />
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <ImageBrush x:Key="credits_bg" ImageSource="/resources/images/credits/credits_bg.png" Stretch="UniformToFill" />
+    </Window.Resources>
+
+    <Viewbox Style="{StaticResource ViewboxMain}">
+        <Grid x:Name="mainGridPanel" Width="1920" Height="1080" Background="{StaticResource credits_bg}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="200" />
+            </Grid.ColumnDefinitions>
+
+            <ScrollViewer Grid.Column="1" VerticalAlignment="Stretch" Margin="0,105,0,55" VerticalScrollBarVisibility="Hidden">
+
+                <Canvas Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Stretch" Width="1400">
+                    <StackPanel x:Name="creditsPanel" Width="1400" Margin="0,0,0,0" SnapsToDevicePixels="False">
+                        <StackPanel.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform ScaleY="-1"/>
+                                <TranslateTransform x:Name="CreditsOffset" Y="{Binding ElementName=creditsPanel, Path=ActualHeight}"/>
+                                <ScaleTransform ScaleY="-1"/>
+                            </TransformGroup>
+                        </StackPanel.RenderTransform>
+                        <StackPanel.Triggers>
+                            <EventTrigger RoutedEvent="Loaded">
+                                <BeginStoryboard>
+                                    <Storyboard x:Name="CreditsStoryboard" FillBehavior="Stop" >
+                                        <DoubleAnimation Storyboard.TargetName="CreditsOffset" Duration="0:0:1" Storyboard.TargetProperty="Y" From="-1080" To="-950" DecelerationRatio="1"/>
+                                        <DoubleAnimation Storyboard.TargetName="CreditsOffset" Duration="0:8:0" BeginTime="0:0:1" Storyboard.TargetProperty="Y" From="-950"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </StackPanel.Triggers>
+                        
+                        <TextBlock Style="{StaticResource creditsTitle}" FontSize="64">XBOX GAME STUDIOS</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}" FontSize="44">WORLD’S EDGE PUBLISHING TEAM</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">PRODUCTION</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Executive Producer</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Earnest Yuen</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Senior Producer</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Tim C. Fritz</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">ENGINEERING</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Software Engineers</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Mike Robbins</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">ART</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Senior Art Director</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Han Randhawa</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Senior Artist</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Melinda Rose</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">AUDIO</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Audio Director</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Todd Masten</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">DESIGN</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Franchise Narrative Director</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Noble Smith</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">COMMUNITY MANAGEMENT</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Community Manager</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Joe Homes</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Community Management</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Evan Teicheira (Metaverse MOD Squad Inc)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Jessica Ballard (JeffreyM Consulting LLC)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Chamille Mies (COLLABERA INC)</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Customer Service Manager</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Autumn Fair</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">FLIGHT/BETA</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Program Manager</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Savannah Harrison</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Flight/Beta Support</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Justin Riddler (Aditi Staffing LLC)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Adrienne Fidelino (TEKsystems Inc)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Brian Petzke (Metaverse MOD Squad Inc)</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">USER RESEARCH</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">User Research Project Lead</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Todd Kelley</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">DATA &amp; OPERATIONS</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Lead Data Scientist</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Apurva Patil</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Data Engineer</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Hua An (TEKsystems Inc)</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Business Analyst</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Casey White (TEKsystems Inc)</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}" FontSize="44">WORLD’S EDGE LEADERSHIP TEAM</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">General Manager</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Shannon Loftis</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Creative Director</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Adam Isgreen</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Principal Software Engineering</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Joel Pritchett</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Head of Community Engagement</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Emma Bridle</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Business Manager</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Will McCahill</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Executive Business Administrator</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Barb Espejo</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">WORLD’S EDGE WEB DEVELOPMENT</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Web Development Lead</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Doug Dossett</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Web Designer</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Samuel Bragg</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Web Engineers</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Shane Pugh</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Andrea Barber</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Program Manager</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Kristopher North (TEKsystems Inc)</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">ADDITIONAL PUBLISHING TEAM</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Jorg C. Neumann - Head of Production</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Justin Robey - Production</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Russ Almond - Engineering</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">GAMES MARKETING</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Product Marketing Manager</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Brandon Wells</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Senior Business Planner</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Matt Chang</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Director of Marketing</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">John Dongelmans</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">General Manager of Marketing</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Aaron Greenberg</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">INTEGRATED MARKETING</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Manager</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Bukky Orija</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Director</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Julie Lowe</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">GLOBAL COMMUNICATIONS</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Senior Manager</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Shon Damron</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Director</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Emil Rodriguez</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">GLOBAL CHANNEL AND REGIONAL LEADS</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsName}">Alex Fleet</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Cary Chen</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Christine Dubow (Prime 8 LLC)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Erick Baca Aguilar</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Grover Holtzclaw</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Jeremy Hinton</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Ryan Cameron</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">BUSINESS DEVELOPMENT</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Senior Director, Business Development</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Noah Musler</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Director, Business Development</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Sebastien Tasserie</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">CELA</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Senior Attorney</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Matt Skelton</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">STUDIOS QUALITY TEAM</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Director of Quality</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Jimmy Bischoff</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Quality Manager</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Daland Davis</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Senior Quality Leads</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">David Hoar</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Jeffery R. Stephens</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">STUDIOS QUALITY TEAM – EXTERNAL (EXPERIS)</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Director, Game Testing Service</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Gavin Kennedy (Experis)</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Shield Lab Manager</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Vince Loughney (Experis)</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Sr. Test Managers</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Brian Canning (Experis)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Jay Piette (Experis)</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Test Leads</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Michael Wade (Experis)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Jay Menconi (Experis)</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Software Test Engineers</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Adam Carrillo (Experis)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Andre Maestas (Experis)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Brian Rider (Experis)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Brooke Chapman (Experis)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">David Rodriguez (Experis)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Eris D. Smith (Experis)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Jack Melcher (Experis)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Jack A. E. Wilson (Experis)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Joshua Ngo (Experis)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Kirby H. Yazzie (Experis)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Raymond Laubach (Experis)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Robert DeArcos (Experis)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Ronny Yoon (Experis)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Tom Nesler (Experis)</TextBlock>
+                         
+                        <TextBlock Style="{StaticResource creditsTitle}">Test Associates</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Adrian Helling (Experis)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Alex Bautista (Experis))</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Amber Chavez (Experis)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Andrew Clarke (Experis)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Arklan Uth Oslin (Experis)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Bailey Zick (Experis)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Benjamin Abarghooie (Experis)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Brandon Cureton (Experis)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Brittany Sullins (Experis)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Caleb Smith (Experis)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Camille Silva (Experis)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Cash Cooper (Experis)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Charles Pasqual (Experis)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Christopher Isaac Glover (Experis)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Dakota Falk (Experis)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Devin Sawyer (Experis)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Dom Daugherty (Experis)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Dustin Rexroat (Experis)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Elijah McKay (Experis)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Eric Johnson (Experis)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Eugene Allen Schaeffer (Experis)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Evelyn Leiva (Experis)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Jaime Goldentrist (Experis)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Jasmine Lopez (Experis)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Jason Clemons (Experis)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Jason Phay (Experis)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">John Kinzey (Experis)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">John Kvassay (Experis)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">John M. Adams (Experis)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Jose Luis Torres Ruiz (Experis)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Joshua Lewison (Experis)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Justin Giordano (Experis)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Kenneth Pangilinan (Experis)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Laura Carberg (Experis)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Lauren Pemberton (Experis)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Manuel M Gaytan II (Experis)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Mason Bland (Experis)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Matt Cross (Experis)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Matt Guy (Experis)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Matthew Pelton (Experis)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Matthew Reynolds (Experis)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Michael Burklund (Experis)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Nick Suprik (Experis)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Rachel Cude (Experis)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Robert Joseph Eckert (Experis)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Ryan K. Sturges (Experis)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Seth Cosmo Caruso (Experis)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Sierra Rode (Experis)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Talia Simone Godoy (Experis)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Trent Green (Experis)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">William Carlin (Experis)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Zachary James Elder (Experis)</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">LOCALIZATION</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Localization Production Lead</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Yasmine Nelson</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Localization Project Manager</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Joshua Hawkins (Experis)</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Localization Audio Production</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Jason Shirley</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">International Project Engineer</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Kevin Han (Lionbridge Technologies Inc)</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Localization Project Manager</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Camille Janinet (Lionbridge Gaming)</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Project Manager - Taiwan</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Paul Lin (Lionbridge Gaming)</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Global Audio Manager</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Richard Saadat (Lionbridge Gaming)</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Project Manager - Spain</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Marian López Francés (Lionbridge Gaming)</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Translation Department Manager - Germany</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Moritz Kneuer (Lionbridge Gaming)</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Project Manager - Japan</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Hiroyuki Kamakami (Lionbridge Gaming)</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Linguistic Coordinator - France</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Morgane Munns (Lionbridge Gaming)</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Localization Project Manager - Brazil</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Juliana Magno (Lionbridge Gaming)</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Language Lead - Brazil</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Pedro Abreu Meyer Pires (Lionbridge Gaming)</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Studio Manager - Brazil</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Kaue Lemos (Lionbridge Gaming)</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Localization Test Manager</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Konrad Lesiak (Lionbridge Technologies)</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Localization Test Leads</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Paweł Prykaszczyk (Lionbridge Gaming)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Yue Wang (Lionbridge Gaming)</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Localization Test Associates</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Amaury Félix (Lionbridge Gaming) - [French]</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Alberto Talamo (Lionbridge Gaming) - [Italian]</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Daria Ukhaliuk (Lionbridge Gaming) - [German]</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Agustín Juárez (Lionbridge Gaming) - [Spanish]</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Gabriel Gliwic (Lionbridge Gaming) - [Portuguese Brazilian]</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Yevhen Konyshev (Lionbridge Gaming) - [Russian]</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Halil İbrahim Kaya (Lionbridge Gaming) - [Turkish]</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Song Yee Han (Lionbridge Gaming) - [Korean]</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Shoen Ichijo (Lionbridge Gaming) - [Japanese]</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Rituparna Ain Pal (Lionbridge Gaming) - [Hindi]</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Pham Ngan Hanh (Lionbridge Gaming) - [Vietnamese]</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Alya Farah Syahyra binti Rosli (Lionbridge Gaming) - [Malaysian]</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Yifan Du (Lionbridge Gaming) - [Simplified Chinese]</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Jiawei Xu (Lionbridge Gaming) - [Traditional Chinese]</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">RELEASE MANAGEMENT</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Release Manager Lead</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Jim Pekola</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Release Managers</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Jordan Forbes</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Kevin Carberry (Insight Global Inc)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Michael David</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Tracy Nwalie</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Xbox Customer Support</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Chris Stevenson</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Andrew Crews</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">XBOX STUDIOS SERVICES</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Developer Account Manager</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Tony Park</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">External Technology and Suppliers Team (XTS) Business Manager</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Esteban Lora</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Sr. Program Manager, External Development</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Sam Carlisle</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Sr. Licensing Manager</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Jeff McCrory (Brickred Systems LLC)</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Business Analyst</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Monisha Monikantarajan (Experis)</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">NATIVE AMERICAN CONSULTANTS</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Thomas Deer — Haudenosaunee Cultural Expert</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Ro’nikonhkátste Norton — Haudenosaunee Language Expert and Male Haudenosaunee Villager Voice</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Darren Bonaparte – Haudenosaunee Cultural Expert</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Teyútkw^ - Female Haudenosaunee Villager Voice</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Cedric Goodhouse — Lakota Cultural and Language Expert</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Anthony Brave — Native American Cultural Expert and Lead Writer (Act II - Shadow)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Tipiziwin Tolman — Lakota Language Expert and Female Lakota Villager Voice</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Richard “T” Tolman— Lakota Language Expert and Male Lakota Villager Voice</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">CAST</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Kalani Queypo as Chayton Black</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Tokala Black Elk as Uncle Frank</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Kiff Vandenheuvel as Billy Holme</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Jason Spisak as George Armstrong Custer</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Anniwaa Buachi as Queen Sabla Wengel</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Jason Rodriguez Hightower as Huayna Capac</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Noel Johansen as Gustavus Adolphus</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">SPECIAL THANKS</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsName}">Phil Spencer</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Matt Booty</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Michael Mann</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Maja Persson</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Andrea Schiel</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Betsy Aoki</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Christopher Rubyor</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Frank Cheng</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Jeff Nelson</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Yasemin Kuyumcu</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Dan Casey</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Joe Djorgee</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Larry Hryb</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Laura Hamilton</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Bart Malagon Ramirez</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">ADDITIONAL THANKS TO MAP CREATORS</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsName}">Daniel “Dansil92” Sillito</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Daniele “Garja” Caria</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Jacob "Durokan" Amtmann</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Pierre Caporossi</TextBlock>
+
+                        <Rectangle Height="3" Fill="{StaticResource DividingLineGradient}" Margin="0,50,0,50" />
+
+                        <Image Source="resources/images/credits/Tantalus Logo 2019 Blue.png" Height="160" Margin="0,0,0,0" />
+                        
+                        <TextBlock Style="{StaticResource creditsTitle}">CEO</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Tom Crago</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Executive Producer</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Joss Ellis</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Senior Producer</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">David Giles</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Design</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Huy Hoang Tran</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Tim Ninnis</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Programming</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Paul Baulch</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Daniel Bower</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Geoff Browitt</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Resmi Hasankolli</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Derek Johnson</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Jack McCallum</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Sean O'Sullivan</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Troy Owen</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">James Richards</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Bradey Smith</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Sean Volders</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Additional Programming</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">James Burton</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Daniel Koitka</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Clinton Pinto</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Braden Wentworth</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">UI</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Jared Spicer</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Art</TextBlock>
+                        <TextBlock Style="{StaticResource creditsTitle}">Lead Artist</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Emily Mcgregor</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Project Lead Technical Artist</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Paul Court</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Senior Artist</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Parot Dhiraputra</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Artist</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Fei Zhao</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Narrative Consultant</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Kim Blake</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">QA</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">David Doe</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Emily Duggan</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Harley Giles</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Crystal Htay</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Simon Newport</TextBlock>
+						
+						<Rectangle Height="3" Fill="{StaticResource DividingLineGradient}" Margin="0,50,0,50" />
+
+                        <Image Source="resources/images/credits/Forgotten Empires Logo 2020.png" Height="180" Margin="0,0,0,30" />
+                        <TextBlock Style="{StaticResource creditsName}">Forgotten Empires</TextBlock>
+                        <TextBlock Style="{StaticResource creditsTitle}">Project Lead</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Bert Beeckman</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Creative Director</TextBlock>
+						<TextBlock Style="{StaticResource creditsName}">Peter Piepenburg</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Alexander Flegler</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Design</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">William Ball</TextBlock>
+						
+                        <TextBlock Style="{StaticResource creditsTitle}">Engineering</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Raymi Mario Klingers</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Mikko Tapio Partonen</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Cliff Kang</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Daniel Pereira</TextBlock>
+						<TextBlock Style="{StaticResource creditsName}">Stepan Obraztsov</TextBlock>
+						<TextBlock Style="{StaticResource creditsName}">Charlie Harbord</TextBlock>
+						
+                        <TextBlock Style="{StaticResource creditsTitle}">AI</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Marius Beck</TextBlock>
+						
+						<TextBlock Style="{StaticResource creditsTitle}">Narrative Lead</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Cédric Van de Sande</TextBlock>
+						
+                        <TextBlock Style="{StaticResource creditsTitle}">Scenario Design</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Ramsey Abdulrahim</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Henning von Bassi</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Sam Levin</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Víctor Camacho</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Oscar Mackenrott</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Art</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Enrique Keykens</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Alexander Börner</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Chris Morton</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Andrey Andreev</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Mark Herrera</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Fatih Yüzbaşıoğlu</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Jorge Ageitos</TextBlock>
+						
+						<TextBlock Style="{StaticResource creditsTitle}">Art - 2D</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Sebastian Bretthauer</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Nora Sequardt</TextBlock>
+						
+                        <TextBlock Style="{StaticResource creditsTitle}">Sound</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Vitalis Eirich</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Quality Assurance</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Emil Marinov</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Jesús Fernandez</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Ivan Kirichenko</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Business Management</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Ryan T. Shepherd</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Community Management</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Matthew Turk</TextBlock>
+
+                        <Rectangle Height="3" Fill="{StaticResource DividingLineGradient}" Margin="0,50,0,50" />
+
+                        <Image Source="resources/images/credits/ZeroOneLogo_TextOnly_WhiteOutline.png" Height="70" Margin="0,0,0,30" />
+                        <TextBlock Style="{StaticResource creditsName}">IN-GAME ART AND CINEMATICS</TextBlock>
+                        <TextBlock Style="{StaticResource creditsTitle}">Producer</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Brad May</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Lead Artist</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Adrian Vaughan</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Senior Technical Artists</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Tung Nguyen</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Alex Grace</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Senior Artists</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Derek Pritchard</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Oberon Bradford</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Michael Bartlett</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Bradley Kachel</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Jody Kruger</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Programmers</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Paul Mitchell</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Jackson Luff</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">3D Artists</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Andrew Arthur</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Angus Ayres</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Kevin Bava</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Christian Bell</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Stephanie Creek</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Lylah D'Souza</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Andrew Gebert</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">James Hayes</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Benjamin McDonnell</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Samantha Nilson</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Megan Quan</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Benjamin Stewart</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Hugh Stuart</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Alex Yang</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Vincent Ying</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">2D Artist</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Dylan Beazley</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Technical Artist</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Jeremy Taylor</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Animators</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Derek Pritchard</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Paul Ziola</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Tom Marley</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Rea Kim</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Heath Pagram</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Voice Over Artist</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Adrian Vaughan</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Grading</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Nicholas Hower</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Script Editing</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Adrian Vaughan</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Adam White</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Project Managers</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Cameron Crichton</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Chemère Birkensleigh</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Our thanks to</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Rudolph Nausch</TextBlock>
+
+                        <Rectangle Height="3" Fill="{StaticResource DividingLineGradient}" Margin="0,50,0,50" />
+
+                        <TextBlock Style="{StaticResource creditsTitle}" FontSize="60">Age of Empires III</TextBlock>
+                        <TextBlock Style="{StaticResource creditsTitle}">Programming</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Dave "Bigdog" Pottinger (Lead Programmer)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">John Evanson (Asst. Lead)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Shawn "Strobe" Lohstroh (Asst. Lead)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Jeff "DrJest" Ruediger (Asst. Lead)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Michael Bean</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Tom Bean</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">David "Hiro" Bettner</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Paul Bettner</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Michael Capps</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Mike "Jimmay" Coker</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Graeme Devine</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Andrew "Voltron" Foster (VMC)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Rich Geldreich</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Richard "LoserBoy" Gyger</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Marc Hanson</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Chris "DarthCoder" Hockenberry</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Bill Jackson</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Billy Ethan Khan</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Mike "Captn" Kidd</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Doug "Slug" Marien</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Dusty "Dlangar" Monk</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Marcin "Laeus" Szymanski</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Sergio Tacconi</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Celeste "Celestipoo" Torrales (VMC)</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Design</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Greg "DeathShrimp" Street (Lead Designer)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Jerome K. Jones "Bugs911" (Asst. Lead)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Jeff "Quasta" Brown</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Joseph D. "Joeyjojo" Gillum</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Vance Hampton</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">David "Learguy" Leary</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Karen "Scout" McMullan</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Sandy "Honcho" Petersen</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Justin "Bear" Rouse</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Bruce C. "blues_sherry" Shelley</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Karen Swanson</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Kevin White</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Art</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Lance Hoke (Art Producer)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Brad Crow (Art/Animation Lead)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Dave Kubalak (Character Lead)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Paul "sPanky" Slusser (Environments Lead)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Brett "Sparky" Briley (Volt)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">David A. "Icarus" Cherry</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Andy Cotnam</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Don Gagen</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Bryan Hehmann</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Dion Hopkins</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Zach Jaquays (Volt)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Paul "Verbinator" Jaquays</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Gene Kohler</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Juan "monster" Martinez</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Duncan McKissick</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Thonny Namuonglo</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Chea "T_R_U_C_K" O'Neill</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Pete Parisi</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Jason Sallenbach</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Duane Santos</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Adam Schimpf</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Mark Sinclair</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Brian "Zeus" Sousa</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Nathan Stefan</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Bart "Rice and Eggs" Tiongson</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Chris Van Doren</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Rob Walden</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Paul "ThE_BirD" Warzecha</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Scott Winsett</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Music &amp; Effects</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Stephen "Big Al" Rippy (Music &amp; Sound)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Kevin "plaistow" McMullan (Music)</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Management</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Tony "GreedySmurf" Goodman (Studio Head)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Ian M. Fischer</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Lance Hoke</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Patrick Hudson</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Angelo Laudon</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Dave "Bigdog" Pottinger</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Chris "Scapegoater" Rippy</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">David Rippy</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Harter "HarterFaster" Ryan</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Bruce C. "blues_sherry" Shelley</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Greg "DeathShrimp" Street</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Production</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">David Rippy (Lead Producer)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Wallace H. Wachi, Jr.</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Brian Lemon</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Timothy R Ruessler "der InzstaGator"</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Matty "maimin_matty" Scadding</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Information Technology</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Roy "Royster" Rabey</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Dwayne Gravitt</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Jake "D_Dawg" Dotson</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Additional Playtesting &amp; Help</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Tim "Timotron" Deen</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Robert "Xemu" Fermier</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Ian M. Fischer</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Marc Taro Holmes</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Angelo "Desperado" Laudon</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Chris "Scapegoater" Rippy</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Additional Playtesting &amp; Help</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Lizette Atkinson</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Nique Gardner</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Balance</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Kevin "the Sheriff" Holme (Lead)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Nick "TheMoonGoat" Currie (VMC)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Brian "Vega" Dellinger (VMC)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Brock "Pimp-Sauce" Meade (VMC)</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Web &amp; Community Support</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Ben "The Donger" Donges (VMC)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Mike "ArchAngel" McCart</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Internal QA</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">David "MilkmanDan" Lewis</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Robert "MrAnderson" Anderson (Volt)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Mike "Yeti" Brown (Volt)</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}" FontSize="40">Audio</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Music Performed by</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Northwest Sinfonia</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Joe Crnko:  Conductor</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Simon James:  Concertmaster</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Stan LePard:  Orchestrations</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Recorded and Mixed by</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Reed Ruddy at Studio X (Seattle, WA)</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Assistant Engineering and ProTools</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Sam Hofstedt</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">John Burton</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Josh Evans</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Kory Kruckenberg</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Additional Recording at</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Ensemble Studios (Dallas, TX)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Big Al Productions Studios (McKinney, TX)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">and Center of the Universe (Allen, TX)</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Soundtrack Disc Mastered by</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Bob Ludwig</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Gateway Mastering and DVD (Portland, ME)</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Cast of Characters</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">James Lancaster:  Morgan Black</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Jennifer Hale:  Elizabet Ramsey</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Brian George:  Sahin, Stuart Black</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Richard Doyle:  Alain Magnan</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Benito Martinez:  Delgado, General Bolivar</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Michael Bell:  John Black</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Miguel Najera:  Kanyenke</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Betina Bush:  Nonahkee</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Neil Dickson:  Warwick</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Tasia Valenza:  Amelia Black</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">James Horan:  Major Cooper</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Dan Riordan:  Pierre Beaumont,</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Colonel George Washington</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Michael Horse:  Inca Warrior/High Priest</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Fred Tatasciore:  Ivan the Terrible</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Rosalind Ayres:  Queen Elizabeth</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Andre Sogliuzzo:  Napoleon Bonaparte</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Francisco Lorite:  Prince Henry the Navigator</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Greg Berger:  Frederick the Great</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">April Stewart:  Queen Isabella of Castille</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Marcelo Tubert:  Suleiman the Magnificent</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Ivar Brogger:  Maurice of Nassau</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Additional Voices</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Jim Great Elk Waters</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Myrton Runningwolf</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Zahn McClarnon</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Marcelo Tubert</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Kris Zimmerman</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Brian George</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Juan Monsalvez</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Dean Scofield</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Dave Berone</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Endre Hules</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Paul Eiding</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Mark Ivanir</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Bob McClean</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Lloyd Sherr</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Lara Cody</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Pat Lentz</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Jeannie Elias</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Jennifer Hale</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Dan Riordan</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">James Horan</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Neil Dickson</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Benito Martinez</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Richard Doyle</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Miguel Najera</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Michael Horse</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Michael Bell</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">James Lancaster</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Fred Tatasciore</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Rosalind Ayres</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Andre Sogliuzzo</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Juan Monsalvez</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Michael Gough</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Voice Over Casting and Recording</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Soundelux Design Music Group</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Becky Allen (Executive Producer)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Amanda Wyatt (VO Business Manager)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">William "Chip" Beaman (VO Business Manager)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Jacquie Shriver (VO Coordinator)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Chad Bedell (Asset Coordinator)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Justin Langley (Production Assistant)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Mark Camperell (Production Assistant)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Kris Zimmerman (Casting/Session Director)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Gordon Hunt (Additional Direction)</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Recording Engineers</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Elliot Anders</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Chad Bedell</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Glynna Grimala</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Dutch Hill</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Jim Watts</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Dialogue Editors</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Brad Beaumont</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Lisle Engle</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Glynna Grimala</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Dutch Hill</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Justin Langley</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Bob Rankin</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Clint Richardson</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Special thanks to</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="20">Bonnie Reed, Christina Moon, and Mike Kutchman at Studio X</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="20">Greg Clark for the use of his vulture recordings</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}" FontSize="60">Microsoft Game Studios</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">MS Management</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Shane Kim</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Phil Spencer</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">David C. Holmes</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Matt Whiting</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Greg B. Jones</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Dennis Wixon</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Korey Krauskopf</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Joanne Williams</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Marketing &amp; PR</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Chris Lee</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Albert Kanan</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Simon Marks</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Nancy Ramsey</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Nate Brooling</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Raja Subramoni</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Print Design</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Jeannie Voirin-Gerde (Print Design Lead)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Jeremy Parton (S&amp;T Onsite)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Thomas Growe (Volt)</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">User Experience</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Alan Theurer (User Experience Manager)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Brent Metcalfe (Editor)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Jack Turk (Writer)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Heidi Wartelle (Volt)</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Localization</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Virginia Spencer</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">User Research</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">John Hopson</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Randy Pagulayan</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Marcos Nunes-Ueno</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Jun Kim</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Administration</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Samantha Dougherty-Sindell</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}" FontSize="40">Quality Assurance</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Software Test Engineers</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Fred Norton (Lead)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Bill Metters</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">David Lau "Wibble"</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Doug Jelen</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Kevin Bowen "Bowser"</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Kevin Verboort "Verb"</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Mike Cody "Boris"</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Ryan Hylland</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Tony Bradley</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Reserves Infantry Test Team</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Joe Djorgee (Lead)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Anthony Ervin (Volt)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Brian Rowe (Volt)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Dane Egenes (Excell Data Corporation)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Derek Webb (Excell Data Corporation)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Dustin Darcy (Volt)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Eric Boughton "Ninja" (Volt)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">James Kirst (Volt)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Julie Appleton (Volt)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Kory Riley (Volt)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Kyle Casperson (Volt)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Lenny Lim "Zippy" (Volt)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Maurice Campbell (Volt)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Michael Tom (Volt)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Rahsaan Green "Mr RaHgers" (Volt)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Rene Holt (Volt)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Rick James Rispoli (Volt)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Rogelio Andres Fuentes (Volt)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Trent Buys (Volt)</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Recon Test Team</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Craig Marshall (Lead)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Daniel Bach (Volt)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Matthew Giddings (Volt)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Nick Zuclich "EmperorX" (Volt)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Wesley Jue (Volt)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Sean Roffe (Volt)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Zack Moxley "ZeeMox" (Volt)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Nathan Gilbert (Volt)</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Test Management</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Greg B. Jones "Psych"</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Jimmy Bischoff</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Korey Krauskopf</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">TNT</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}" FontSize="40">Core Group</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Scott Miller</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Matt Gradwohl</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Chris Lee</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Marwan Jubran</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Mike Ruete</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Anna Sweet</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Config Lab</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Patrick Ascolese (Lead)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Blake Dodson (Volt)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Titus Lowell (Volt)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Michael Osgood-Graver (Volt)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Thomas Snyder (Volt)</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Multiplayer Lab</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">TJ Duez "Taygee" (Lead)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">John Thomas "Craeft" (Volt)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Joseph Ezell "paradox" (Volt)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Theodore Lankford "Ruxzbin" (Volt)</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Setup</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Craig Henry</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}" FontSize="40">LOC / UX</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Ireland</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Brian Fox</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Ian Walsh</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Steve Belton</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">John O'Sullivan</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Mick Ivory</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Declan Mac Hugh</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Barry Comyn</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Keywords Test Team</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Giovanni Manzari (Keywords)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">David Skreiner (Keywords)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Damien Lafitte (Keywords)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Tomas Riolobos (Keywords)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Giselle de Castro (Keywords)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Paul Vigneron (Keywords)</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Japan</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Kazuyuki Kumai (Manager)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Kaoru Ito (Localization Project Manager)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Miyuki Nouguchi (UX reviewer)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Mihoko Yamazawa (UX reviewer)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Yutaka Hasegawa (Lead Software Design Engineer)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Munetaka Fuse (Software Design Engineer)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Sachiko Nagasawa (Software Test Engineer)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Masaki Kokubun (Software Test Engineer)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Mariko Kikuchi (Software Test Engineer)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Takayuki Tsuchiya (Program Manager)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Hirofumi Matsumura (Program Manager)</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Korea</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Jae Youn Kim (Program Manager)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Il Jin Park (Wise SerTech) (SW Test Engineer)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Whi Young Yoon (Wise SerTech) (Loc Prog Manager)</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Taiwan</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Cheng-Te Tony Lin (Program Manager)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Wen-Chin Deng (Software Test Engineer)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Lilia Lee (Software Test Engineer)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Kay Wang (Localization Program Manager)</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Security Team</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Bill Shihara</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Special Thanks</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Andrew Foster: My lovely wife and the Foster family.</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Bart Tiongson: My wife Chantal and my parents and family back home in Canada.</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Ben Donges: Carey and Vicki Canada. Lindsey, David, and Dylan Donges. Jack and Marlina Hays.</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Bill Jackson: Lizzie, Margo &amp; Adam Jackson.</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Bret Briley: My wife, Kristin Briley.</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Brian Dellinger: Elizabeth Dellinger and Family.</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Brian Lemon: Diane Lemon for being an awesome wife and Zachary Lemon for being the best son ever.</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Brian Sousa: 4th Infantry Division, 204th Gladiators, World of Warcraft, Massage For Health.</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Brock Meade: Yo. Special shout out to all my brothas here at ES. May the playas keep playin and the haters keep hatin.</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Bruce Shelley: My wife, Barbara E. Otte.</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Celeste Torrales: My family: Mommy, Papy, Greg and My doggies: Link the Hero (rip buddy), Conker and Tux the Conqueror.</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Chea O'Neill: Lisa, Ellie and Aidan O'Neill.</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Chris Hockenberry: Randall &amp; Eric, my Mom (Nana Mary), and to my wife and kids who put in as much crunch time as me.</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Dave Kubalak: Would like to thank my wife Anna Kubalak, and my family.</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Dave Pottinger: Kristen, Andy, and Tommy Pottinger.</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">David Bettner: Robin Bettner, Jerome Bettner, Katie Bettner</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">David Cherry: Kasi and KJ.</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">David Leary: Shannon, for all the patience.</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">David Lewis: Godzilla 'The King of all Monsters'.</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">David Rippy: Christopher, Hannah, Grace, Jonathan and Debbie Rippy.</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Dion Hopkins: Tamara Hopkins, LordDeath &amp; Mr. MooEar, The Gigglenuts Squad.</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Doug Marien: Tori for the understanding she's shown in moving to Texas.</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Dusty Monk: Terri, for suffering through crunch, and "GamerFreak" Connor, and "SassyLady" Kristen.</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Gene Kohler: Dad &amp; Mom Kohler, Jake Kohler, &amp; Rick Kohler. Fran Mano, Kimberly Miller, WoW, &amp; Carp.</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Graeme Devine: Roque and Lori Devine.</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Greg Street: Jen, James and Empress Zoe Street.</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Harter Ryan: Julie, Gillian, &amp; Griffin Ryan.</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Jason Sallenbach: My friends and the Sallenbach family.</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Jaun Martinez: My wife "Baby-ba".</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Jeff Brown: Christie and the whole far-flung family.</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Jeff Ruediger: Laura, Dad &amp; Roseann, The Reinkes, Todd, Cary, Peggy, Tom, Janet, Judith &amp; Heath, Erin &amp; Dale.</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Jerome Jones: Cyndie, Pepper and Jesse Jones &amp; Jackie Christiansen.</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Joe Gillum: Shiner Breweries, Starbucks, &amp; Wendy's.</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">John Evanson: Elisabeth Johnston, George Evanson, Carolyn Swebilius.</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Karen McMullan: Kevin and Abbey, Tom and Jan, Tommy and Rhonda, Ann and Pat, PJ.</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Karen Swanson: K.L. Childs, Savannah, Sophie, &amp; LuLu.</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Kevin McMullan: The McMullan Family (Karen, Abbey, PJ, Ann, and Pat).</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Kevin White: Cindy White, Molly, Hissy, Steve McNally, Brian Reed, Chris Busse, Jason Alejandre.</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Lance Hoke: Dana, Ian, and Julia. Thanks for keeping me sane.</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Lizette Atkinson: Mike Swirczynski, Summer Jones and the team at Dueling Chefs.</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Marc Hanson: Carole Hanson.</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Marcin Szymanski: My parents Ewa and Czeslaw, my sisters Justyna and Amanda, and my friends.</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Matt Scadding: Angie for supporting me in the job I love and Emily for patiently waiting for her daddy to come home.</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Michael Capps: My wife, Beth, and all my family for their support.</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Mike Brown: Rhonda, Amanda, Kristin and Austin Brown, Charles Barkley, Major Applewhite and James Doohan.</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Mike Coker: Tammy, Alyssa, and Alexis Coker.</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Nick Currie: All the Currie friends and family. Ya'll rock!</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Paul Bettner: My family and friends. I owe everything to you guys.</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Paul Jaquays: Zach, Amanda, Christine, &amp; Honnah for getting me through and Guildhall for reawakening my calling.</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Paul Slusser: Kimberly "TrophyWife" Slusser, Brooke "OJKiller" Slusser, Shea "IdidntDoIt" Slusser.</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Rich Geldreich: Connie Trowbridge.</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Richard Gyger: My family: Patty, Katie, Josh, Nathaniel, Jacob, Rachael &amp; Grace Gyger.</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Rob Walden: The Walden family and friends.</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Robert Anderson: My wife and entire Anderson family.</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Roy Rabey: Tammy Messina, the 7451 Gang, Clan Marcum, David Minchew, Dueling Chefs, Rackspace, Dr Curtis Adams.</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Sandy Peterson: I'd like to give a special thanks to Great Cthulhu and my dog, Naomi.</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Shawn Lohstroh: Lisa, Lara, Mark, Matthew, and Elizabeth Lohstroh, David Clark, Paul Clark.</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Stephen Rippy: Marisol Rippy, Stan LePard, Petunia (1997-2005).</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Tim Ruessler: My lovely wife Kate, my inspiring son Greyson, and Loki the mighty dog - you guys make it all worth it.</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Tony Goodman: Suzanne (my wife), Maestro (my dog), &amp; Also Rebecca, Ned, Rick and Mom (RIP).</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Wally Wachi: Cyd, Cappi, the Wachi clan and the Milmore Locals for all their love and support.</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Additional Thanks</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="20">Stephane Duguay</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="20">Herb Ellwood</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="20">Gage R. Galinger</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="20">Byron Goodman</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="20">Brian Jones</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="20">Sean Wolff</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="20">Don Seegmiller</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="20">Liquid</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="20">Ant Farm</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="20">AMS</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="20">Craig Mullins</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="20">Hugh Reynolds (Havok)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="20">Ross O'Dwyer (Havok)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="20">Colin Barrett (Havok)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="20">Matthias Wloka (NVidia)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="20">Cem Cebenoyan (NVidia)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="20">Rex Sikora (NVidia)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="20">Jim Black (NVidia)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="20">Mark Thomas (ATI)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="20">Will Damon (ATI)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="20">Guennadi Riguer (ATI)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="20">Cody Northrop (Intel)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="20">Chuck Desylva (Intel)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="20">Tom Forsythe (RAD)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="20">Casey Muratori (RAD)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="20">Kelcey Privett (Discreet)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="20">Eduardo Silva (Discreet)</TextBlock>
+
+                        <Rectangle Height="3" Fill="{StaticResource DividingLineGradient}" Margin="0,50,0,50" />
+
+                        <TextBlock Style="{StaticResource creditsTitle}" FontSize="60">Age of Empires III: The WarChiefs</TextBlock>
+                        <TextBlock Style="{StaticResource creditsTitle}">Programming</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Tommy Bean (Lead Programmer)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Michael Capps</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Mike "Captn" Kidd</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Brad "Poacher" Robnett (Volt)</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Design</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Sandy "Honcho" Petersen (Guidance Ro-Man)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">David "Learguy" Leary (Assistant Lead)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Jeff "Quasta" Brown</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Vance "Hammer" Hampton</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Karen "Scout" McMullan</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Kevin White</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Art</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Lance Hoke (Art Producer)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Don Gagen</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Mark Sinclair</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Jason Sallenbach</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Brett "TimetoDie" Briley</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Charles Tinney (Volt)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Patrick Thomas</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Paul Jaquays</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Zach Jaquays</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">David Cherry</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Audio</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Stephen "Big Al" Rippy (Music &amp; Sound)</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Balance</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Kevin "the Sheriff" Holme (Lead)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Nick "TheMoonGoat" Currie (VMC)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Brian "Vega" Dellinger (VMC)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Zeke "Hope" Marks (Volt)</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Internal QA</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">David "MilkmanDan" Lewis</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Production</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Wallace H. Wachi, Jr. (Lead Producer)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Brian Lemon</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Timothy R Ruessler "GreyDharma"</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Patrick Hudson (Executive Producer)</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Online Development</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Shawn "Strobe" Lohstroh</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Doug "Slug" Marien</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Eric "YoYo" Best</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Celeste "Celistipoo" Torrales (VMC)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Richard "LoserBoy" Gyger</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Additional Programming</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Michael P. Bean</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">John C. Evanson</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Management</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Tony "GreedySmurf" Goodman (Studio Head)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Ian M. Fischer</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Lance Hoke</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Patrick Hudson</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Angelo Laudon</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Dave "Bigdog" Pottinger</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Chris "Scapegoater" Rippy</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">David Rippy</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Harter "HarterFaster" Ryan</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Bruce C. "blues_sherry" Shelley</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Greg "DeathShrimp" Street</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Web &amp; Community Support</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Matt Scadding (Lead)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Ben "The Donger" Donges</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Graham "Thunder" Somers</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Robert "MrAnderson" Anderson (Volt)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Mike "Yeti" Brown (Volt)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Chris "Swinger" Rupp (Volt)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Michael L. McGlumphy (Volt)</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Information Technology</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Roy "Royster" Rabey</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Dwayne Gravitt</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Jake "D_Dawg" Dotson</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Administration</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Lizette Atkinson</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Nique Gardner</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Additional Playtesting &amp; Help</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Daniel Beck</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">David J Bettner</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Paul D Bettner</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Matthew Burke</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Michael S. Coker</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Andy Cotnam</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Brad J. Crow</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Timothy A. Deen</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Shannon D. Dees</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Graeme J Devine</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Philip Escobedo (Volt)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Rob "Xemu" Fermier</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Andrew P. Foster</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Richard Geldreich</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Joseph D. Gillum</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Matthew M Goldman</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Marc R Hanson</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Bryan A. Hehmann</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Marc Taro Holmes</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Dion A Hopkins</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Bill "BillyJack" Jackson</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Jonathan J Jacobson</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Jerome K. Jones</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Billy Khan</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Eugene L. Kohler</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">David P. Kubalak</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Stephane D. Lebrun</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Juan R Martinez</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Colton McAnlis</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Michael Duncan McKissick</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Kevin M. McMullan</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Jason L. Merck</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Dale L. Monk</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Thonny "Nemo" Namuonglo</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Christopher O'Neill</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Peter E. Parisi</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Justin Randall</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Justin E Rouse</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Jeffrey E. Ruediger</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Jason M Sallenbach</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Duane Santos</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Adam C. Schimpf</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Bobby Simpson (Volt)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Paul "sPanky" Slusser</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Brian F.Sousa</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Nathan C. Stefan</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Marcin "Laeus" Szymanski</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Sergio A Tacconi</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Vijay A.Thakkar</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Bart Tiongson</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Chris M. Van Doren</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Robert Walden</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Paul W. Warzecha</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Scott Winsett</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}" FontSize="40">Audio</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Music Performed by Northwest Sinfonia</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">David Sabee:  Conductor</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Simon James:  Concertmaster</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Joe Crnko:  Choir Director</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Stan LePard:  Orchestrations</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Recorded and Mixed by</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Reed Ruddy at Studio X (Seattle, WA)</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Assistant Engineering and ProTools</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Sam Hofstedt and Josh Evans</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Additional Recording at</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Ensemble Studios (Dallas, TX)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Big Al Productions Studios (McKinney, TX)</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Age of Empires III Soundtrack Disc</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Mastered by Bob Ludwig</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Gateway Mastering and DVD (Portland, ME)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Available on Sumthing Else Music Works</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Cast of Characters</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Tasia Valenza:  Amelia Black</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Philip Anthony-Rodriguez:  Nathaniel Black</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Dan Riordan:  General George Washington</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Steve Blum:  Colonel Kuechler</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Miguel Najera:  Kanyenke</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Bettina Bush:  Nonahkee</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Josh Keaton:  Chayton Black</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Phil Hayes:  Billy Holme</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Nolan North:  George Armstrong Custer</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Dave Beron:  Crazy Horse</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Juan Monsalvez:  Cuauhtemoc</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Gregory Cruz:  Gall</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Kalani Queypo:  Hiawatha</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Fred Tatasciore:  Ivan the Terrible</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Rosalind Ayres:  Queen Elizabeth</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Andre Sogliuzzo:  Napoleon Bonaparte</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Francisco Lorite:  Prince Henry the Navigator</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Greg Berger:  Frederick the Great</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">April Stewart:  Queen Isabella of Castille</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Marcelo Tubert:  Suleiman the Magnificent</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Ivar Brogger:  Maurice of Orange</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Additional Voices</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Tasia Valenza, Dan Riordan, Betina Bush, Miguel Najera,  Josh Keaton,</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Philip Anthony-Rodriguez, Nolan North, Steve Blum, Phil Hayes, Kalani Queypo,</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Gregory Cruz, Juan Monsalvez, Fred Tatasciore, Greg Berger, Marcelo Tubert, Ivar Brogger,</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Zahn McClarnan, Jay Tavare, Robert Grey Grass, Michael Horse, Dave Beron, and Beng Spies</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Voice Over Recording and Editorial by</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Soundelux Design Music Group</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Casting and Directing: Kris Zimmerman</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Additional Direction: Gordon Hunt</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Business Manager: William "Chip" Beaman</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Coordinators: Shannon Potter and Erica Mehallo</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Recording Engineers: Krandal Crews and Dutch Hill</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Dialogue Editors:  David Grant, Bob Rankin, Clint Richardson, Brad Beaumont, Mark Camperell, and Chad Bedell</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Asset Coordinator: Partick Ginn</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Production Assistants: Justin Langley and Masa Tajima</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Soundelux DMG</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Executive Creative Director: Scott Martin Gershin</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Operations Manager: Heather M. Sowards</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Facility Manager: Janet Rankin</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">New Business Development: Aubrey Ashburn</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">MS Management</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Shane Kim</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Phil Spencer</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Dave Luehmann</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Tim Znamenacek</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Marketing &amp; PR</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Chris Lee</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Albert Kanan</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Nancy Ramsey</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Raja Subramoni</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Justin Kirby</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Genevieve Waldman</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Print Design</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Jeannie Voirin-Gerde (Print Design Lead)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Doug Startzel (Volt)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Raquel Robertson (Sakson &amp; Taylor)</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">User Experience</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Alan Theurer (User Experience Manager)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Brent Metcalfe (Editor)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Jack Turk (Lead Writer)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Jeyen Barham-Kaiel (Editor)</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">User Research</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">John Hopson</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Kris Moreno</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Phil Hove</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Randy Pagulayan</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Quality Assurance</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Software Test Engineers</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Kevin Verboort "Verb" (Lead)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">David Lau "Wibble"</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Jeffrey R. Stephens</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">John Mogensen</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Justin "Robeyone" Robey</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Kevin Bowen "Bowser"</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Ryan Spanton "Ryno"</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Tony Bradley</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Reserves Infantry Test Team</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Joe Djorgee (Lead)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Adam Johnson (Excell Data Corporation)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Arron Washington (Excell Data Corporation)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Blake Davis "Karui Kage" (Volt)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Boris Shapiro (Excell Data Corporation)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Brian Hanna (Volt)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Brian McGee "Taramoor" (Excell Data Corporation)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Chase Johnson (Excell Data Corporation)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Clint Kreider (Volt)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Crystal Edwards (Excell Data Corporation)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Derek Webb (Excell Data Corporation)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Eric Boughton (Volt)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">John Wilson (Excell Data Corporation)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Jory Jeffers (Volt)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Maurice Campbell (Volt)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Peter Hanselmann (Excell Data Corporation)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">R. Andres Fuentes "Diablo_Rojo" (Volt)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Shernel J. Nibbs "4Rin Guy" (Volt)</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Test Management</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Greg B. Jones "Psych"</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Fred L. Norton II</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Jimmy Bischoff</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Setup</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Gabriel Sipos (SBS)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Dennis Ham (Volt)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Sean Jenkin</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}" FontSize="40">LOC / UX</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Korea</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Jae Youn Kim (Program Manager)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Il Jin Park (Software Test Engineer)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Whi Young Yoon (Localization Program Manager)</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Ireland</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Declan Mac Hugh</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Mick Ivory</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Steve Belton</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">John O'Sullivan</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Ian Walsh</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Julien Chergui</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Keywords Test Team</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Paul, Jose, Sandy, Bruno, Jacques &amp; Allesandro</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Beate Becker and the SDL Intl Team</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Andreas Schmidt and the MMA team</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Alessandra Vincenzi and all at Binari Sonori</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Japan</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Kazuyuki Kumai (Manager)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Takayuki Tsuchiya (Program Manager)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Kaoru Ito (Localization Project Manager)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Mihoko Yamazawa (UX Reviewer)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Yutaka Hasegawa (Lead Software Design Engr)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Takashi Sasaki (Software Design Engineer)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Sachiko Nagasawa (Software Test Engineer)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Masaki Kokubun (Tester)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Souichiro Shimano (Tester)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Yuji Yoneshige (Software Test Engineer)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Ken Yaguchi (Builder)</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Taiwan</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Cheng-Te Tony Lin (Program Manager)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Wen-Chin Deng (Software Test Lead)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Lilia Lee (Software Test Engineer)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Daniel Huang (Software Test Engineer)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Kay Wang (Localization Project Manager)</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Special Thanks</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Brett Briley: My wife, Kristin Briley.</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Brian Dellinger: My wife for all her support and best wishes to all my family/friends in Ohio.</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Brian Lemon: My wife, son, daughter and Lemon family crew in Vegas, I love you guys!</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Brad Robnett: Tracey, Erin, Jennifer, and Daniel.</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Bruce Shelley: My wife Barbara.</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Celeste Torrales: Torrales Family, R.I.P Link the Hero.</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Charles Tinney: Kathleen Turton.</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Dave Pottinger: Kristen, Andy, and Tommy Pottinger.</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">David Leary: Shannon, as always.</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">David Lewis: Santana &amp; Godzilla the king of all monsters.</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">David Rippy: Christopher, Hannah, Grace, and Jonathan Rippy.</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Doug Marien: Tori and Sara.</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Graham Somers: Linda and Charlie Somers.</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Jake Dotson: My wife Michele Dotson.</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Jeff Brown: My family.</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Karen McMullan: Mom and Dad, Tommy and Rhonda, Ann and Pat, PJ, Katy and Logan, dpdx, Kevin and Abbey.</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Kevin Verboort: To my beautiful and loving wife Heidi, and our wonderful boys Nate and Max that keep us on our toes.</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Kevin White: Cindy, Mom, Dad, Richard, David, Stephen, Myrna, Amanda, Sarah, Analia, Amelia, Andre, Evil Cindy, Orfilas, Segners, Chad, Pam, Nigel, Steve, Diane and Bender.</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Lance Hoke: Dana, Ian, and Julia. Thanks forkeeping me sane.</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Marcin Szymanski: Czeslaw, Ewa, Justyna, and Amanda.</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Michael Capps: My wife Beth and all my family.</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Mike Kidd: Joy Kidd.</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Nick Currie: All my family and friends.</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Patrick Thomas: Tara Thomas.</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Paul Slusser: Kim Slusser, Shea Slusser, Brooke Slusser, Sonny the cat.</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Rich Geldreich: Connie Trowbridge.</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Roy Rabey: Tammy Messina, The7451Gang, Clan Marcum.</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Stephen Rippy: Marisol Rippy, Stan LePard, and Kris Zimmerman.</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Thonny Namuonglo: The people of Earth.</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Tim Ruessler: My lovely wife Kate, my inspiring son Greyson, and Loki the mighty dog - you guys make it all worth it.</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Wally Wachi: Cyd, Cappi, the Wachi clan and the Milmore Locals for all their love and support.</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Additional Thanks</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="20">Liquid</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="20">Ant Farm</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="20">AMS</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="20">Craig Mullins</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="20">John "Jono" Lee</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="20">Brock Meade (VMC)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="20">Mike "Sowers" Sowers</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="20">Donnie "Wack0" Thompson</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="20">Zabed "Sup3rMaN" Mahmood</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="20">Jeff "LieS" Metzler</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="20">Milo "Mr.Milo" Phillips-Brown</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="20">Mark "Spody" Wiegerink</TextBlock>
+
+                        <Rectangle Height="3" Fill="{StaticResource DividingLineGradient}" Margin="0,50,0,50" />
+
+                        <TextBlock Style="{StaticResource creditsTitle}" FontSize="60">Age of Empires III: The Asian Dynasties</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}" FontSize="60">Big Huge Games</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Lead Designer</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Ike Ellis</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Creative Director</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Brian Reynolds</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Design</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">John Hawkins</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Mark Sobota</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Kevin Chulski</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Peter Janaros</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Doug Kaufman</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Justin Perez</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Writing</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Andrew Auseon</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Game Balance</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Joshua Kermond</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Randy Solberg</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Mike Wagner</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Mike Engle</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Lead Programmer</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Jhon Restrepo</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Programming</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Zack Smith</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Chris Nemcosky</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Brian Stoker</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Jay Stocker</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Pranas Pauliukonis</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Additional Programming</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Jason Coleman</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Ilya Kreymer</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Jason Bestimt</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Jason Jurecka</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Matt Westhoff</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Michael LeGrand</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Phil Teschner</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Phillip Cunningham</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Richard Jose</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Shawn Harris</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Stuart Jeff</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Timothy Ford</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Lead Artist</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Bill Podurgiel</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Building Lead</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Shaun Martin</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Art</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Mondul Kao</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Colin Campbell</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Aaron Yamada-Hanff</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Zeljko Strkalj</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Dan Halka</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Sang Han</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Louis Ferina</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Tom Stackpole</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">David Truong</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Joel Byington</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Jessica Hara</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Charles Calixto</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Jeremy Enecio</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Barry Nardone</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Josh Hardy</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Ted Terranova</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Additional Art</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Jay Gillen</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Roland Womack</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Scott Kramer</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Todd Broadwater</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Art Contractors</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Blake Seow</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Michael Smith</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Brent Kim</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">John Fitzgerald</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Ben Harris</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Craig Mullins</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Jack Snyder</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Matt Smith</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Sean Li</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Jainai Jefferies</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Additional Art Contractors</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Exigent</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Janimation</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Audio Director</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Devin Hurd</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Audio</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">David Liu</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Executive Producers</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Tim Train</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Kerry Wilkinson</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Producers</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Erin Krell</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Matthew Dickenson</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Stephanie Kinnear</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Benjamin Walsh</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Additional Production</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Dwight Smith</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Justin Bird</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Sean Bean</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">QA Manager</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Chris Coleman</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">QA</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Daniel Roman</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Brendan Martin</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Cem Schemel</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Joe Kennedy</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Patrick McNeely</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Mike Munk</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Shawn Rioux</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">James Proimos</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Scott Driessen</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Information Technology Manager</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Mike Payne</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Information Technology</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">John Kuhn</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Jason Cain</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Operations</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Marla Kanefsky</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Rebecca Stout</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Monica Zamora</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Jen Coenen</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Web Support</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Joe Pishgar</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Paul Elliot</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}" FontSize="60">Ensemble Studios</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Programming</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Tommy Bean - Lead</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Shawn Lohstroh</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Michael Capps</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Randall Woodman</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Doug Marien</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Dave Pottinger</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Design</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Greg Street - Lead</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Bruce Shelley</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Art</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Don Gagen - Lead</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Lance Hoke - Producer</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Dion Hopkins</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Paul Slusser</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Balance</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Brian Dellinger (VMC) - Lead</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Donnie Thompson (VMC)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Kevin Holme</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Zeke Marks (VMC)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Nicolas Currie (VMC)</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Programming</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Stephen Rippy - Additional Music and Audio</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Live Team</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Oscar Santos - Producer</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Graham Somers</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Ben Donges</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Mike McGlumphy</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Paul LaSalle (Volt)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Michael Brown (Volt)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Robert Anderson (Volt)</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Information Technology</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Roy Rabey - Lead</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Jake Dotson</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Dwayne Gravitt</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Production</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Patrick Hudson - Executive Producer</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Brian Lemon - Lead</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Tim Ruessler</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}" FontSize="60">Microsoft Game Studios</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Art</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Kevin Brown - Director</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Audio</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Mike Cody - Lead</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Configuration Lab</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Kyle O'Brien (Volt)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Mike Grodin - Lead</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Greg Hanefeld (Excell Data Corporation)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Lewis Senff (Volt)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Simon Strand (Volt)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Jon Volkman (Excell Data Corporation)</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Design</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Thomas Zuccotti</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Development</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Matt Haigh</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Jason Major - Lead</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Localization (Ireland)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Steve Belton - Audio</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Ben Cahill - Documentation</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Julien Chergui - Test</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Jean Philippe Chassagne - Engineer</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Kevin Cook (CPL) - Engineer</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Jacques Fernandez (Keyword Int.) - Test</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Manuel Gonzalez (Keyword Int.) - Test</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Declan MacHugh - Program Manager</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Michael Ivory - Engineer</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Sandra Röthig (Keyword Int.) - Test</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Bruno Boer silva (Keyword Int.) - Test</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Mario Tommadich (Keyword Int.) - Test</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Paul Vigneron (Keyword Int.) - Test</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Localization (Japan)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Kaoru Ito - LPM</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Mihoko Yamazawa (JCS) - LPM</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Kazuyuki Kumai - Program Manager</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Ken Yaguchi (Manpower) - Program Manager</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Takayuki Tsuchiya - Setup Builder</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Sachiko Nagasawa - Test</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Fujiko Okabe - Test</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Masaki Kokubun (ManPower) - Test</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Naoki Shigemori (Pasona Tech) - Test</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Yutaka Hasegawa - Lead SDE</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Localization (Korea)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Jae Youn Kim - Program Manager</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Jun Hyeong Kim</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Jee Hoon Oh</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Kyoung Han Yoon - Localization Program Manager</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Localization (Taiwan)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Wen-Chin Deng - Test Lead</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Lilia Lee (104)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Cheng-Te Tony Lin - Program Manager</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Kay Wang (104) - Localization Project Manager</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Marketing and PR</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Justin Kirby</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Chris Lee</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Nancy Ramsey</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Jim Ying - Global Product Manager</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Erica Zelaya</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Dave Pottinger</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Multiplayer Lab</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">TJ Duez - Lead</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">David Graham (Volt)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Jack Seymour (Volt)</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Print Design and Art</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Jeannie Voirin-Gerde - Lead</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Doug Startzel (Lux Group Inc)</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Production</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Tim Znamenacek - Group Program Manager</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Test</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Shiv Bijlani</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Bex Bradley</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Adam Dare</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Isaac Hunt</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">David Lau</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Katya Mirochnik</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Jeff Nelson - Lead</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Fred Norton - Manager</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Ryan Spanton - Lead</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Brian Trevethan</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Test (Infantry)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Adam Aly (Volt)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Maurice Campbell (Volt)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Chris Chappell (Excell Data Corporation)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Joe Djorgee - Lead</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">David Gerrard (Volt)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Chris Guthrie (Volt)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Stacey Kaneta (Excell Data Corporation)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Trayce Luxtrum (Volt)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Amber Melena (Excell Data Corporation)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Mallory McCorkle (Volt)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Vinh Nguyen (Volt)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Neil Ozzie (Excell Data Corporation)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Nick Rivera (Excell Data Corporation)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Jamal Shareef (Volt)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Jeff Stanislawski (Volt)</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Dave Unger (Volt)</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">User Experience</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Beth Berg - Editor</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Brian V. Hunt - Lead</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Jeyen Barham-Kaiel - Editor</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Brent Metcalfe - Editor</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">User Research</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Philip Hove</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">John Hopson</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Randy Pagulayan - Lead</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Administration</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Kelsey Palmer</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Samantha Dougherty-Sindell</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}" FontSize="60">Soundelux Design Music Group</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Operations</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Mark Aramian - Manager</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Voice Over</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">William 'Chip' Beaman - Business Manager</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Erica Mehallo - Coordinator</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Kris Zimmerman - Casting and Directing</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Justin Langley - Recording Engineer</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Chad Bedell - Recording Engineer/Editor</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Brad Beaumont - Editor</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Mark Camperell - Editor</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Bryan Celano - Editor</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Dutch Hill - Editor</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Clint Richardson - Editor</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Assets</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Patrick Ginn - Manager</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Charlie Gondak - Coordinator/PA</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Production</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Eric Johnson - PA</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Candice Baldwin - PA</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Cast of Characters</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Ismail Bashey - Pravar</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Michael Benyear - Nanib</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Steve Blum - Indian Resistence Leader</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Barry Dennen - Kangxi</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Michael Dow - Kichiro</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Brian George - Edwardson</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Robert Ito - Mototada</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Andrew Kishino - Jinhai</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Bruce Locke - Huang</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Rizwan Manji - Akbar</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">David Sobolov - Lao Chen</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Jim Ward - Tokugawa</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Additional Voices</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Grant Albrecht, June Angela, M.K. Bashi, George Cheung, Robert Chu, Ewan Chung,</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Joher Coleman, Eiji Inoue, Mueen Jahan, Akira Kaneda, Hideo Kimura, Matt King,</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Jim Lau, Ulysses Lee, Allen Liu, Sanjay Madhav, Roger Narayan, Viji Nathan,</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}" FontSize="15">Elizabeth Pan, Sanjay, James Sie, Daisuke Suzuki, Toshi Toda, and Lei Yin</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Additional Audio</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">New Original Music</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Composed, orchestrated, produced, and mixed by</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Stan LePard</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Main Theme - "Baktumagushpa"</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Composed and produced by</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Stephen Rippy</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Opening Theme - "Odessagushpa"</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Composed and produced by</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Stephen Rippy and Stan LePard</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Orchestra and Choir</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">FILMharmonic, Prague</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Conductor</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Adam Klemens</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Choir Master</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Stanislav Mistr</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Sound Engineer</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Jan Kotzmann</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Assistant Engineer</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Cenda Kotzmann</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Music Contractor</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Petr Pycha for MUSA, Ltd.</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Special Thanks</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Walters Art Museum</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Shane Kim</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Dave Luehmann</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">David C. Holmes</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Matt Whiting</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">JoAnne Williams</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Keith Cirillo</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Paige Williams</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Craig Mullens</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Greg B. Jones</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Jimmy Bischoff</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Stan LePard - Composer</TextBlock>
+
+                        <Rectangle Height="3" Fill="{StaticResource DividingLineGradient}" Margin="0,50,0,50" />
+
+                        <TextBlock Style="{StaticResource creditsTitle}">MIDDLEWARE</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">Wwise</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Powered by Wwise © 2006 – 2020 Audiokinetic Inc. All rights reserved.</TextBlock>
+
+                        <TextBlock Style="{StaticResource creditsTitle}">RAD Game Tools</TextBlock>
+                        <TextBlock Style="{StaticResource creditsName}">Uses Bink Video	 Copyright © 1997-2020 by RAD Game Tools Inc.</TextBlock>
+
+                        <Rectangle Height="3" Fill="{StaticResource DividingLineGradient}" Margin="0,50,0,50" />
+                    </StackPanel>
+
+                </Canvas>
+
+            </ScrollViewer>
+
+            <ContentControl Grid.ColumnSpan="3" VerticalAlignment="Bottom" Template="{StaticResource SmokeyBG}" Focusable="False"/>
+
+            <Grid Grid.ColumnSpan="3">
+                <Rectangle Height="100" VerticalAlignment="Top">
+                    <Rectangle.Fill>
+                        <ImageBrush ImageSource="/resources/images/credits/fade_up.png" />
+                    </Rectangle.Fill>
+                </Rectangle>
+                <Rectangle Height="50" VerticalAlignment="Bottom">
+                    <Rectangle.Fill>
+                        <ImageBrush ImageSource="/resources/images/credits/fade_down.png" />
+                    </Rectangle.Fill>
+                </Rectangle>
+                <Rectangle Height="3" Fill="{StaticResource DividingLineGradient}" VerticalAlignment="Top" Margin="0,100,0,100" />
+                <Rectangle Height="3" Fill="{StaticResource DividingLineGradient}" VerticalAlignment="Bottom" Margin="0,50,0,50" />
+            </Grid>
+
+            <TextBlock x:Name="overlayWindow_text" Grid.Column="1" Style="{StaticResource creditsTitle}" VerticalAlignment="Top" FontSize="50" Margin="0,20,0,0">
+                Age of Empires III: Definitive Edition
+                <TextBlock.Effect>
+                    <DropShadowEffect BlurRadius="6" Color="Black" Direction="-90" ShadowDepth="4" RenderingBias="Quality" />
+                </TextBlock.Effect>
+            </TextBlock>
+
+            <local:Age3Button x:Name="CampaignClose" Grid.ColumnSpan="2" Margin="10,32" Style="{StaticResource SubMenuBackButton}" IsCancel="true" VerticalAlignment="Top" HorizontalAlignment="Left" Content="$$42451$$Back" />
+
+        </Grid>
+    </Viewbox>
+</Window>

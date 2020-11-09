@@ -1,0 +1,35 @@
+﻿<Page x:Class="aoe3wpfg.MainMenu"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:aoe3wpfg"
+      mc:Ignorable="d" 
+      d:DesignWidth="1920"
+      d:DesignHeight="1080">
+
+    <Grid x:Name="mainWindow">
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="245"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0" x:Name="menuStrip">
+            <Rectangle Fill="{StaticResource main_menu_bg}" />
+
+            <Frame Name="ButtonFrame" Width="245" Grid.Column="0" Focusable="False" NavigationUIVisibility="Hidden" Source="/pages/uipregamenew/MainMenuOptions.xaml" />
+
+            <Image x:Name="Mainmenu_Logo" VerticalAlignment="Top" Margin="0,50,0,0" Height="230" Width="230" Source="/resources/aoe3_de_logo.png">
+                <Image.Effect>
+                    <DropShadowEffect BlurRadius="10" Color="Black" Direction="-90" ShadowDepth="3" RenderingBias="Quality"/>
+                </Image.Effect>
+            </Image>
+
+            <Grid.Effect>
+                <DropShadowEffect BlurRadius="10" Color="Black" Direction="0" ShadowDepth="5" RenderingBias="Quality"/>
+            </Grid.Effect>
+        </Grid>
+
+    </Grid>
+</Page>
