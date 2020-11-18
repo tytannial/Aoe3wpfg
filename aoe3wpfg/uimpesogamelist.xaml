@@ -551,6 +551,8 @@
 
                   <!--Buttons - Row 1-->
                   <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <!--Mods Warning-->
+                    <Image x:Name="MPESOGameList_ModsWarningIcon" Visibility="Collapsed" Source="{StaticResource warning_icon}" Margin="0,8,8,8" ToolTip="$$79932$$Warning: You currently have mods enabled. Only games with the same mods as you will be visible to you."/>
                     <!--Refresh button-->
                     <Button x:Name="MPESOGameList_RefreshButton" Style="{StaticResource MainMenuButton}" Width="290" Content="$$21130$$Refresh" Margin="0,0,0,0" TabIndex="2" >
                       <Button.ToolTip>$$22103$$Refresh the game list.</Button.ToolTip>

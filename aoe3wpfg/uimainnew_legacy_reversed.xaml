@@ -18,6 +18,7 @@
         </ControlTemplate>
 
         <Style TargetType="{x:Type Button}" x:Key="CardButton">
+            <Setter Property="ClickMode" Value="Press" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
@@ -767,10 +768,20 @@
                                 </Grid>
                             </Grid>
 
-                            <Grid Height="80" Width="128">
-                                <TextBlock HorizontalAlignment="Right" VerticalAlignment="Top" FontFamily="Trajan Pro" FontSize="30" FontWeight="Bold" TextAlignment="Right" Foreground="White" Margin="0,10,10,0" Text="{TemplateBinding Content}">
+                            <Grid HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,8,8,0">
+                                <TextBlock Margin="-4,0,0,0" Text="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Trajan Pro" FontWeight="Bold" FontSize="30pt" Foreground="Black" />
+                                <TextBlock Margin=" 4,0,0,0" Text="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Trajan Pro" FontWeight="Bold" FontSize="30pt" Foreground="Black" />
+                                <TextBlock Margin="0, 4,0,0" Text="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Trajan Pro" FontWeight="Bold" FontSize="30pt" Foreground="Black" />
+                                <TextBlock Margin="0,-4,0,0" Text="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Trajan Pro" FontWeight="Bold" FontSize="30pt" Foreground="Black" />
+
+                                <TextBlock Margin="-2.9,-2.9,0,0" Text="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Trajan Pro" FontWeight="Bold" FontSize="30pt" Foreground="Black" />
+                                <TextBlock Margin="-2.9, 2.9,0,0" Text="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Trajan Pro" FontWeight="Bold" FontSize="30pt" Foreground="Black" />
+                                <TextBlock Margin=" 2.9,-2.9,0,0" Text="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Trajan Pro" FontWeight="Bold" FontSize="30pt" Foreground="Black" />
+                                <TextBlock Margin=" 2.9, 2.9,0,0" Text="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Trajan Pro" FontWeight="Bold" FontSize="30pt" Foreground="Black" />
+
+                                <TextBlock Text="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Trajan Pro" FontWeight="Bold" FontSize="30pt" Foreground="{StaticResource OverlayTitleGradient}">
                                     <TextBlock.Effect>
-                                        <DropShadowEffect BlurRadius="3" Color="Black" Direction="-90" ShadowDepth="1.7" RenderingBias="Quality" />
+                                        <DropShadowEffect BlurRadius="6" Color="Black" Direction="-90" ShadowDepth="4" RenderingBias="Quality" />
                                     </TextBlock.Effect>
                                 </TextBlock>
                             </Grid>
@@ -910,9 +921,9 @@
         </Style>
         <Style TargetType="{x:Type Button}" x:Key="HUDBannerButton">
             <Setter Property="FontFamily" Value="Trajan Pro" />
-            <Setter Property="Height" Value="100" />
-            <Setter Property="Width" Value="70" />
             <Setter Property="Focusable" Value="False" />
+            <Setter Property="ClickMode" Value="Press" />
+
             <Setter Property="RenderTransformOrigin" Value="0.5, 0.5" />
             <Setter Property="RenderTransform">
                 <Setter.Value>
@@ -925,12 +936,12 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Grid Height="90" Width="65">
-                            <Rectangle Height="80" Width="55" RadiusX="7" RadiusY="7" Fill="Black" />
-                            <Rectangle x:Name="ButtonBackground" Height="77" Width="52" RadiusX="4" RadiusY="4" Fill="{TemplateBinding Background}" Stroke="{StaticResource ButtonStrokeGradient}" StrokeThickness="2" />
+                        <Grid Height="90" Width="70">
+                            <Rectangle Height="80" Width="70" RadiusX="7" RadiusY="7" Fill="Black" />
+                            <Rectangle x:Name="ButtonBackground" Height="77" Width="68" RadiusX="4" RadiusY="4" Fill="{TemplateBinding Background}" Stroke="{StaticResource ButtonStrokeGradient}" StrokeThickness="2" />
                             <Grid>
-                                <Image x:Name="banner_icon" Height="45" Width="45" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,19,0,15" Source="{Binding Icon}"></Image>
-                                <TextBlock x:Name="UnitSelection_Text" HorizontalAlignment="Right" VerticalAlignment="Bottom" FontSize="15" FontWeight="Bold" Foreground="White" Margin="0,0,12,8" Text="{TemplateBinding Content}" />
+                                <Image x:Name="banner_icon" Height="50" Width="50" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,19,0,15" Source="{Binding Icon}"></Image>
+                                <TextBlock x:Name="UnitSelection_Text" HorizontalAlignment="Right" VerticalAlignment="Bottom" FontSize="16" FontWeight="Bold" Foreground="White" Margin="0,0,12,10" Text="{TemplateBinding Content}" />
                             </Grid>
                         </Grid>
                         <ControlTemplate.Triggers>
@@ -964,8 +975,8 @@
                                     <BeginStoryboard>
                                         <Storyboard>
                                             <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="Margin" BeginTime="00:00:00">
-                                                <SplineThicknessKeyFrame KeyTime="00:00:00" Value="0,-22,0,0" />
-                                                <SplineThicknessKeyFrame KeyTime="0:0:.05" Value="0,-28,0,0" />
+                                                <SplineThicknessKeyFrame KeyTime="00:00:00" Value="5,-15,0,0" />
+                                                <SplineThicknessKeyFrame KeyTime="0:0:.05" Value="5,-28,0,0" />
                                             </ThicknessAnimationUsingKeyFrames>
                                         </Storyboard>
                                     </BeginStoryboard>
@@ -975,8 +986,8 @@
                                     <BeginStoryboard>
                                         <Storyboard>
                                             <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="Margin" BeginTime="00:00:00">
-                                                <SplineThicknessKeyFrame KeyTime="00:00:00" Value="0,-28,0,0" />
-                                                <SplineThicknessKeyFrame KeyTime="0:0:.05" Value="0,-22,0,0" />
+                                                <SplineThicknessKeyFrame KeyTime="00:00:00" Value="5,-28,0,0" />
+                                                <SplineThicknessKeyFrame KeyTime="0:0:.05" Value="5,-15,0,0" />
                                             </ThicknessAnimationUsingKeyFrames>
                                         </Storyboard>
                                     </BeginStoryboard>
@@ -1108,6 +1119,7 @@
             <Setter Property="FontFamily" Value="Trajan Pro" />
             <Setter Property="Height" Value="35" />
             <Setter Property="Focusable" Value="False" />
+            <Setter Property="ClickMode" Value="Press" />
 
             <Setter Property="Margin" Value="10,0,0,0" />
 
@@ -2120,31 +2132,28 @@
                 </Grid.ColumnDefinitions>
 
                 <!--ARMY BANNERS-->
-                <StackPanel x:Name="armyBanner" Grid.Row="0" Grid.RowSpan="3" Grid.Column="1" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Width="800" Height="100" Margin="-5,-15,0,0" Visibility="Visible">
-                    <local:Age3Button x:Name="idleVillagerBanner" HorizontalAlignment="Left" Height="100" Width="75" Margin="0,-18,0,0" Foreground="White" Style="{StaticResource HUDBannerButton}" ConsoleCommand="uiFindIdleType(&quot;ValidIdleVillager&quot;)" Content=".">
+                <StackPanel x:Name="armyBanner" Grid.Row="0" Grid.RowSpan="3" Grid.Column="1" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Height="100" Margin="0,-15,0,0" Visibility="Visible">
+                    <StackPanel.Resources>
+                        <Style TargetType="local:Age3Button" BasedOn="{StaticResource HUDBannerButton}">
+                            <Setter Property="Focusable" Value="False"/>
+                            <Setter Property="Margin" Value="5,-15,0,0"/>
+                        </Style>
+                    </StackPanel.Resources>
+
+                    <local:Age3Button x:Name="idleVillagerBanner" ConsoleCommand="uiFindIdleType(&quot;ValidIdleVillager&quot;)" Content=".">
                         <local:Age3Button.ToolTip>
                             $$41608$$Idle Villagers: {numIdle(AbstractVillager)}
                         </local:Age3Button.ToolTip>
                     </local:Age3Button>
-
-                    <local:Age3Button x:Name="armyBanner_unfurled0" Height="100" Width="75" Margin="0,-18,0,0" Style="{StaticResource HUDBannerButton}" Content="1">
-                    </local:Age3Button>
-                    <local:Age3Button x:Name="armyBanner_unfurled1" Height="100" Width="75" Margin="0,-18,0,0" Style="{StaticResource HUDBannerButton}" Content="2">
-                    </local:Age3Button>
-                    <local:Age3Button x:Name="armyBanner_unfurled2" Height="100" Width="75" Margin="0,-18,0,0" Style="{StaticResource HUDBannerButton}" Content="3">
-                    </local:Age3Button>
-                    <local:Age3Button x:Name="armyBanner_unfurled3" Height="100" Width="75" Margin="0,-18,0,0" Style="{StaticResource HUDBannerButton}" Content="4">
-                    </local:Age3Button>
-                    <local:Age3Button x:Name="armyBanner_unfurled4" Height="100" Width="75" Margin="0,-18,0,0" Style="{StaticResource HUDBannerButton}" Content="5">
-                    </local:Age3Button>
-                    <local:Age3Button x:Name="armyBanner_unfurled5" Height="100" Width="75" Margin="0,-18,0,0" Style="{StaticResource HUDBannerButton}" Content="6">
-                    </local:Age3Button>
-                    <local:Age3Button x:Name="armyBanner_unfurled6" Height="100" Width="75" Margin="0,-18,0,0" Style="{StaticResource HUDBannerButton}" Content="7">
-                    </local:Age3Button>
-                    <local:Age3Button x:Name="armyBanner_unfurled7" Height="100" Width="75" Margin="0,-18,0,0" Style="{StaticResource HUDBannerButton}" Content="8">
-                    </local:Age3Button>
-                    <local:Age3Button x:Name="armyBanner_unfurled8" Height="100" Width="75" Margin="0,-18,0,0" Style="{StaticResource HUDBannerButton}" Content="9">
-                    </local:Age3Button>
+                    <local:Age3Button x:Name="armyBanner_unfurled0" Content="1"/>
+                    <local:Age3Button x:Name="armyBanner_unfurled1" Content="2"/>
+                    <local:Age3Button x:Name="armyBanner_unfurled2" Content="3"/>
+                    <local:Age3Button x:Name="armyBanner_unfurled3" Content="4"/>
+                    <local:Age3Button x:Name="armyBanner_unfurled4" Content="5"/>
+                    <local:Age3Button x:Name="armyBanner_unfurled5" Content="6"/>
+                    <local:Age3Button x:Name="armyBanner_unfurled6" Content="7"/>
+                    <local:Age3Button x:Name="armyBanner_unfurled7" Content="8"/>
+                    <local:Age3Button x:Name="armyBanner_unfurled8" Content="9"/>
                 </StackPanel>
 
                 <!--RESOURCES BAR-->

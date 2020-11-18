@@ -43,8 +43,8 @@
                 <Grid Grid.Row="1" Margin="10,10,20,10" Height="875">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="65"/>
-                        <RowDefinition Height="300"/>
-                        <RowDefinition Height="190"/>
+                        <RowDefinition Height="280"/>
+                        <RowDefinition Height="165"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
@@ -56,13 +56,13 @@
                     <Rectangle Width="640" Grid.Row="0" Height="2" VerticalAlignment="Bottom" Margin="0,0,0,8" Fill="#f6cd6e"/>
 
                     <!--Map Display-->
-                    <Grid Grid.Row="1" Height="300">
+                    <Grid Grid.Row="1" Height="280">
                         <Image Name="Screenshot" Width="{Binding ActualWidth, ElementName=InfoGrid}" Margin="1"/>
                     </Grid>
 
                     <!--Map Desc-->
                     <ScrollViewer Grid.Row="2" Margin="10" VerticalScrollBarVisibility="Auto">
-                        <TextBlock Name="MapDetail" FontFamily="arial" FontSize="18" Foreground="White" TextWrapping="Wrap"/>
+                        <TextBlock Name="MapDetail" FontFamily="arial" FontSize="18" Foreground="White" TextWrapping="Wrap" TextTrimming="CharacterEllipsis"/>
                     </ScrollViewer>
 
                     <Rectangle Width="640" Grid.Row="2" Height="2" VerticalAlignment="Bottom" Fill="#f6cd6e"/>
@@ -85,7 +85,7 @@
                                 <Style TargetType="TextBlock" BasedOn="{StaticResource ConfirmationTitlesStyleSmall}">
                                     <Setter Property="Foreground" Value="White"/>
                                     <Setter Property="TextAlignment" Value="Left"/>
-                                    <Setter Property="Width" Value="300"/>
+                                    <Setter Property="Width" Value="240"/>
                                     <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
                                 </Style>
 
@@ -103,42 +103,42 @@
                             <!--Players-->
                             <StackPanel x:Name="Team1Player1" Orientation="Horizontal" HorizontalAlignment="Left" Visibility="Visible">
                                 <Rectangle x:Name="Team1Player1_Color"/>
-                                <Image x:Name="Team1Player1_Flag" ImageSource="/resources/images/icons/flags/postgame_flag_british.png" />
+                                <Image x:Name="Team1Player1_Flag" Source="/resources/images/icons/flags/postgame_flag_british.png" />
                                 <TextBlock x:Name="Team1Player1_Name" Text="Henry The Navigator Navigator"/>
                             </StackPanel>
                             <StackPanel x:Name="Team1Player2" Orientation="Horizontal" HorizontalAlignment="Left" Visibility="Visible">
                                 <Rectangle x:Name="Team1Player2_Color"/>
-                                <Image x:Name="Team1Player2_Flag" ImageSource="/resources/images/icons/flags/postgame_flag_british.png" />
+                                <Image x:Name="Team1Player2_Flag" Source="/resources/images/icons/flags/postgame_flag_british.png" />
                                 <TextBlock x:Name="Team1Player2_Name" Text="Henry The Navigator Navigator"/>
                             </StackPanel>
                             <StackPanel x:Name="Team1Player3" Orientation="Horizontal" HorizontalAlignment="Left" Visibility="Visible">
                                 <Rectangle x:Name="Team1Player3_Color"/>
-                                <Image x:Name="Team1Player3_Flag" ImageSource="/resources/images/icons/flags/postgame_flag_british.png" />
+                                <Image x:Name="Team1Player3_Flag" Source="/resources/images/icons/flags/postgame_flag_british.png" />
                                 <TextBlock x:Name="Team1Player3_Name" Text="Henry The Navigator Navigator"/>
                             </StackPanel>
                             <StackPanel x:Name="Team1Player4" Orientation="Horizontal" HorizontalAlignment="Left" Visibility="Visible">
                                 <Rectangle x:Name="Team1Player4_Color"/>
-                                <Image x:Name="Team1Player4_Flag" ImageSource="/resources/images/icons/flags/postgame_flag_british.png" />
+                                <Image x:Name="Team1Player4_Flag" Source="/resources/images/icons/flags/postgame_flag_british.png" />
                                 <TextBlock x:Name="Team1Player4_Name" Text="Henry The Navigator Navigator"/>
                             </StackPanel>
                             <StackPanel x:Name="Team1Player5" Orientation="Horizontal" HorizontalAlignment="Left" Visibility="Visible">
                                 <Rectangle x:Name="Team1Player5_Color"/>
-                                <Image x:Name="Team1Player5_Flag" ImageSource="/resources/images/icons/flags/postgame_flag_british.png" />
+                                <Image x:Name="Team1Player5_Flag" Source="/resources/images/icons/flags/postgame_flag_british.png" />
                                 <TextBlock x:Name="Team1Player5_Name" Text="Henry The Navigator Navigator"/>
                             </StackPanel>
                             <StackPanel x:Name="Team1Player6" Orientation="Horizontal" HorizontalAlignment="Left" Visibility="Visible">
                                 <Rectangle x:Name="Team1Player6_Color"/>
-                                <Image x:Name="Team1Player6_Flag" ImageSource="/resources/images/icons/flags/postgame_flag_british.png" />
+                                <Image x:Name="Team1Player6_Flag" Source="/resources/images/icons/flags/postgame_flag_british.png" />
                                 <TextBlock x:Name="Team1Player6_Name" Text="Henry The Navigator Navigator"/>
                             </StackPanel>
                             <StackPanel x:Name="Team1Player7" Orientation="Horizontal" HorizontalAlignment="Left" Visibility="Visible">
                                 <Rectangle x:Name="Team1Player7_Color"/>
-                                <Image x:Name="Team1Player7_Flag" ImageSource="/resources/images/icons/flags/postgame_flag_british.png" />
+                                <Image x:Name="Team1Player7_Flag" Source="/resources/images/icons/flags/postgame_flag_british.png" />
                                 <TextBlock x:Name="Team1Player7_Name" Text="Henry The Navigator Navigator"/>
                             </StackPanel>
                             <StackPanel x:Name="Team1Player8" Orientation="Horizontal" HorizontalAlignment="Left" Visibility="Visible">
                                 <Rectangle x:Name="Team1Player8_Color"/>
-                                <Image x:Name="Team1Player8_Flag" ImageSource="/resources/images/icons/flags/postgame_flag_british.png" />
+                                <Image x:Name="Team1Player8_Flag" Source="/resources/images/icons/flags/postgame_flag_british.png" />
                                 <TextBlock x:Name="Team1Player8_Name" Text="Henry The Navigator Navigator"/>
                             </StackPanel>
 
@@ -147,42 +147,42 @@
                             <!--Players-->
                             <StackPanel x:Name="Team3Player1" Orientation="Horizontal" HorizontalAlignment="Left" Visibility="Visible">
                                 <Rectangle x:Name="Team3Player1_Color"/>
-                                <Image x:Name="Team3Player1_Flag" ImageSource="/resources/images/icons/flags/postgame_flag_british.png" />
+                                <Image x:Name="Team3Player1_Flag" Source="/resources/images/icons/flags/postgame_flag_british.png" />
                                 <TextBlock x:Name="Team3Player1_Name" Text="Henry The Navigator Navigator"/>
                             </StackPanel>
                             <StackPanel x:Name="Team3Player2" Orientation="Horizontal" HorizontalAlignment="Left" Visibility="Visible">
                                 <Rectangle x:Name="Team3Player2_Color"/>
-                                <Image x:Name="Team3Player2_Flag" ImageSource="/resources/images/icons/flags/postgame_flag_british.png" />
+                                <Image x:Name="Team3Player2_Flag" Source="/resources/images/icons/flags/postgame_flag_british.png" />
                                 <TextBlock x:Name="Team3Player2_Name" Text="Henry The Navigator Navigator"/>
                             </StackPanel>
                             <StackPanel x:Name="Team3Player3" Orientation="Horizontal" HorizontalAlignment="Left" Visibility="Visible">
                                 <Rectangle x:Name="Team3Player3_Color"/>
-                                <Image x:Name="Team3Player3_Flag" ImageSource="/resources/images/icons/flags/postgame_flag_british.png" />
+                                <Image x:Name="Team3Player3_Flag" Source="/resources/images/icons/flags/postgame_flag_british.png" />
                                 <TextBlock x:Name="Team3Player3_Name" Text="Henry The Navigator Navigator"/>
                             </StackPanel>
                             <StackPanel x:Name="Team3Player4" Orientation="Horizontal" HorizontalAlignment="Left" Visibility="Visible">
                                 <Rectangle x:Name="Team3Player4_Color"/>
-                                <Image x:Name="Team3Player4_Flag" ImageSource="/resources/images/icons/flags/postgame_flag_british.png" />
+                                <Image x:Name="Team3Player4_Flag" Source="/resources/images/icons/flags/postgame_flag_british.png" />
                                 <TextBlock x:Name="Team3Player4_Name" Text="Henry The Navigator Navigator"/>
                             </StackPanel>
                             <StackPanel x:Name="Team3Player5" Orientation="Horizontal" HorizontalAlignment="Left" Visibility="Visible">
                                 <Rectangle x:Name="Team3Player5_Color"/>
-                                <Image x:Name="Team3Player5_Flag" ImageSource="/resources/images/icons/flags/postgame_flag_british.png" />
+                                <Image x:Name="Team3Player5_Flag" Source="/resources/images/icons/flags/postgame_flag_british.png" />
                                 <TextBlock x:Name="Team3Player5_Name" Text="Henry The Navigator Navigator"/>
                             </StackPanel>
                             <StackPanel x:Name="Team3Player6" Orientation="Horizontal" HorizontalAlignment="Left" Visibility="Visible">
                                 <Rectangle x:Name="Team3Player6_Color"/>
-                                <Image x:Name="Team3Player6_Flag" ImageSource="/resources/images/icons/flags/postgame_flag_british.png" />
+                                <Image x:Name="Team3Player6_Flag" Source="/resources/images/icons/flags/postgame_flag_british.png" />
                                 <TextBlock x:Name="Team3Player6_Name" Text="Henry The Navigator Navigator"/>
                             </StackPanel>
                             <StackPanel x:Name="Team3Player7" Orientation="Horizontal" HorizontalAlignment="Left" Visibility="Visible">
                                 <Rectangle x:Name="Team3Player7_Color"/>
-                                <Image x:Name="Team3Player7_Flag" ImageSource="/resources/images/icons/flags/postgame_flag_british.png" />
+                                <Image x:Name="Team3Player7_Flag" Source="/resources/images/icons/flags/postgame_flag_british.png" />
                                 <TextBlock x:Name="Team3Player7_Name" Text="Henry The Navigator Navigator"/>
                             </StackPanel>
                             <StackPanel x:Name="Team3Player8" Orientation="Horizontal" HorizontalAlignment="Left" Visibility="Visible">
                                 <Rectangle x:Name="Team3Player8_Color"/>
-                                <Image x:Name="Team3Player8_Flag" ImageSource="/resources/images/icons/flags/postgame_flag_british.png" />
+                                <Image x:Name="Team3Player8_Flag" Source="/resources/images/icons/flags/postgame_flag_british.png" />
                                 <TextBlock x:Name="Team3Player8_Name" Text="Henry The Navigator Navigator"/>
                             </StackPanel>
                         </StackPanel>
@@ -199,7 +199,7 @@
                                 <Style TargetType="TextBlock" BasedOn="{StaticResource ConfirmationTitlesStyleSmall}">
                                     <Setter Property="Foreground" Value="White"/>
                                     <Setter Property="TextAlignment" Value="Left"/>
-                                    <Setter Property="Width" Value="300"/>
+                                    <Setter Property="Width" Value="240"/>
                                     <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
                                 </Style>
 
@@ -215,42 +215,42 @@
                             <!--Players-->
                             <StackPanel x:Name="Team2Player1" Orientation="Horizontal" HorizontalAlignment="Left" Visibility="Visible">
                                 <Rectangle x:Name="Team2Player1_Color"/>
-                                <Image x:Name="Team2Player1_Flag" ImageSource="/resources/images/icons/flags/postgame_flag_british.png" />
+                                <Image x:Name="Team2Player1_Flag" Source="/resources/images/icons/flags/postgame_flag_british.png" />
                                 <TextBlock x:Name="Team2Player1_Name" Text="Henry The Navigator Navigator"/>
                             </StackPanel>
                             <StackPanel x:Name="Team2Player2" Orientation="Horizontal" HorizontalAlignment="Left" Visibility="Visible">
                                 <Rectangle x:Name="Team2Player2_Color"/>
-                                <Image x:Name="Team2Player2_Flag" ImageSource="/resources/images/icons/flags/postgame_flag_british.png" />
+                                <Image x:Name="Team2Player2_Flag" Source="/resources/images/icons/flags/postgame_flag_british.png" />
                                 <TextBlock x:Name="Team2Player2_Name" Text="Henry The Navigator Navigator"/>
                             </StackPanel>
                             <StackPanel x:Name="Team2Player3" Orientation="Horizontal" HorizontalAlignment="Left" Visibility="Visible">
                                 <Rectangle x:Name="Team2Player3_Color"/>
-                                <Image x:Name="Team2Player3_Flag" ImageSource="/resources/images/icons/flags/postgame_flag_british.png" />
+                                <Image x:Name="Team2Player3_Flag" Source="/resources/images/icons/flags/postgame_flag_british.png" />
                                 <TextBlock x:Name="Team2Player3_Name" Text="Henry The Navigator Navigator"/>
                             </StackPanel>
                             <StackPanel x:Name="Team2Player4" Orientation="Horizontal" HorizontalAlignment="Left" Visibility="Visible">
                                 <Rectangle x:Name="Team2Player4_Color"/>
-                                <Image x:Name="Team2Player4_Flag" ImageSource="/resources/images/icons/flags/postgame_flag_british.png" />
+                                <Image x:Name="Team2Player4_Flag" Source="/resources/images/icons/flags/postgame_flag_british.png" />
                                 <TextBlock x:Name="Team2Player4_Name" Text="Henry The Navigator Navigator"/>
                             </StackPanel>
                             <StackPanel x:Name="Team2Player5" Orientation="Horizontal" HorizontalAlignment="Left" Visibility="Visible">
                                 <Rectangle x:Name="Team2Player5_Color"/>
-                                <Image x:Name="Team2Player5_Flag" ImageSource="/resources/images/icons/flags/postgame_flag_british.png" />
+                                <Image x:Name="Team2Player5_Flag" Source="/resources/images/icons/flags/postgame_flag_british.png" />
                                 <TextBlock x:Name="Team2Player5_Name" Text="Henry The Navigator Navigator"/>
                             </StackPanel>
                             <StackPanel x:Name="Team2Player6" Orientation="Horizontal" HorizontalAlignment="Left" Visibility="Visible">
                                 <Rectangle x:Name="Team2Player6_Color"/>
-                                <Image x:Name="Team2Player6_Flag" ImageSource="/resources/images/icons/flags/postgame_flag_british.png" />
+                                <Image x:Name="Team2Player6_Flag" Source="/resources/images/icons/flags/postgame_flag_british.png" />
                                 <TextBlock x:Name="Team2Player6_Name" Text="Henry The Navigator Navigator"/>
                             </StackPanel>
                             <StackPanel x:Name="Team2Player7" Orientation="Horizontal" HorizontalAlignment="Left" Visibility="Visible">
                                 <Rectangle x:Name="Team2Player7_Color"/>
-                                <Image x:Name="Team2Player7_Flag" ImageSource="/resources/images/icons/flags/postgame_flag_british.png" />
+                                <Image x:Name="Team2Player7_Flag" Source="/resources/images/icons/flags/postgame_flag_british.png" />
                                 <TextBlock x:Name="Team2Player7_Name" Text="Henry The Navigator Navigator"/>
                             </StackPanel>
                             <StackPanel x:Name="Team2Player8" Orientation="Horizontal" HorizontalAlignment="Left" Visibility="Visible">
                                 <Rectangle x:Name="Team2Player8_Color"/>
-                                <Image x:Name="Team2Player8_Flag" ImageSource="/resources/images/icons/flags/postgame_flag_british.png" />
+                                <Image x:Name="Team2Player8_Flag" Source="/resources/images/icons/flags/postgame_flag_british.png" />
                                 <TextBlock x:Name="Team2Player8_Name" Text="Henry The Navigator Navigator"/>
                             </StackPanel>
 
@@ -259,42 +259,42 @@
                             <!--Players-->
                             <StackPanel x:Name="Team4Player1" Orientation="Horizontal" HorizontalAlignment="Left" Visibility="Visible">
                                 <Rectangle x:Name="Team4Player1_Color"/>
-                                <Image x:Name="Team4Player1_Flag" ImageSource="/resources/images/icons/flags/postgame_flag_british.png" />
+                                <Image x:Name="Team4Player1_Flag" Source="/resources/images/icons/flags/postgame_flag_british.png" />
                                 <TextBlock x:Name="Team4Player1_Name" Text="Henry The Navigator Navigator"/>
                             </StackPanel>
                             <StackPanel x:Name="Team4Player2" Orientation="Horizontal" HorizontalAlignment="Left" Visibility="Visible">
                                 <Rectangle x:Name="Team4Player2_Color"/>
-                                <Image x:Name="Team4Player2_Flag" ImageSource="/resources/images/icons/flags/postgame_flag_british.png" />
+                                <Image x:Name="Team4Player2_Flag" Source="/resources/images/icons/flags/postgame_flag_british.png" />
                                 <TextBlock x:Name="Team4Player2_Name" Text="Henry The Navigator Navigator"/>
                             </StackPanel>
                             <StackPanel x:Name="Team4Player3" Orientation="Horizontal" HorizontalAlignment="Left" Visibility="Visible">
                                 <Rectangle x:Name="Team4Player3_Color"/>
-                                <Image x:Name="Team4Player3_Flag" ImageSource="/resources/images/icons/flags/postgame_flag_british.png" />
+                                <Image x:Name="Team4Player3_Flag" Source="/resources/images/icons/flags/postgame_flag_british.png" />
                                 <TextBlock x:Name="Team4Player3_Name" Text="Henry The Navigator Navigator"/>
                             </StackPanel>
                             <StackPanel x:Name="Team4Player4" Orientation="Horizontal" HorizontalAlignment="Left" Visibility="Visible">
                                 <Rectangle x:Name="Team4Player4_Color"/>
-                                <Image x:Name="Team4Player4_Flag" ImageSource="/resources/images/icons/flags/postgame_flag_british.png" />
+                                <Image x:Name="Team4Player4_Flag" Source="/resources/images/icons/flags/postgame_flag_british.png" />
                                 <TextBlock x:Name="Team4Player4_Name" Text="Henry The Navigator Navigator"/>
                             </StackPanel>
                             <StackPanel x:Name="Team4Player5" Orientation="Horizontal" HorizontalAlignment="Left" Visibility="Visible">
                                 <Rectangle x:Name="Team4Player5_Color"/>
-                                <Image x:Name="Team4Player5_Flag" ImageSource="/resources/images/icons/flags/postgame_flag_british.png" />
+                                <Image x:Name="Team4Player5_Flag" Source="/resources/images/icons/flags/postgame_flag_british.png" />
                                 <TextBlock x:Name="Team4Player5_Name" Text="Henry The Navigator Navigator"/>
                             </StackPanel>
                             <StackPanel x:Name="Team4Player6" Orientation="Horizontal" HorizontalAlignment="Left" Visibility="Visible">
                                 <Rectangle x:Name="Team4Player6_Color"/>
-                                <Image x:Name="Team4Player6_Flag" ImageSource="/resources/images/icons/flags/postgame_flag_british.png" />
+                                <Image x:Name="Team4Player6_Flag" Source="/resources/images/icons/flags/postgame_flag_british.png" />
                                 <TextBlock x:Name="Team4Player6_Name" Text="Henry The Navigator Navigator"/>
                             </StackPanel>
                             <StackPanel x:Name="Team4Player7" Orientation="Horizontal" HorizontalAlignment="Left" Visibility="Visible">
                                 <Rectangle x:Name="Team4Player7_Color"/>
-                                <Image x:Name="Team4Player7_Flag" ImageSource="/resources/images/icons/flags/postgame_flag_british.png" />
+                                <Image x:Name="Team4Player7_Flag" Source="/resources/images/icons/flags/postgame_flag_british.png" />
                                 <TextBlock x:Name="Team4Player7_Name" Text="Henry The Navigator Navigator"/>
                             </StackPanel>
                             <StackPanel x:Name="Team4Player8" Orientation="Horizontal" HorizontalAlignment="Left" Visibility="Visible">
                                 <Rectangle x:Name="Team4Player8_Color"/>
-                                <Image x:Name="Team4Player8_Flag" ImageSource="/resources/images/icons/flags/postgame_flag_british.png" />
+                                <Image x:Name="Team4Player8_Flag" Source="/resources/images/icons/flags/postgame_flag_british.png" />
                                 <TextBlock x:Name="Team4Player8_Name" Text="Henry The Navigator Navigator"/>
                             </StackPanel>
                         </StackPanel>

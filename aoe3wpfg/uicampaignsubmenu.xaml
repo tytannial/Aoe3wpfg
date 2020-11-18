@@ -101,6 +101,23 @@
 
                         <!--Campaign BTN-->
                         <Grid Grid.Row="1" x:Name="MainPage" VerticalAlignment="Top" HorizontalAlignment="Center" Width="1500" DataContext="{StaticResource uiSettings}">
+                            <Grid.Resources>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="FontFamily" Value="Trajan Pro" />
+                                    <Setter Property="FontWeight" Value="Bold" />
+                                    <Setter Property="FontSize" Value="40" />
+                                    <Setter Property="Foreground" Value="{StaticResource ButtonTextGradient}" />
+                                    <Setter Property="Margin" Value="0,50,70,0" />
+                                    <Setter Property="VerticalAlignment" Value="Top" />
+                                    <Setter Property="HorizontalAlignment" Value="Right" />
+                                    <Setter Property="Effect">
+                                        <Setter.Value>
+                                            <DropShadowEffect BlurRadius="5" Color="Black" Direction="0" ShadowDepth="4" RenderingBias="Quality" />
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </Grid.Resources>
+
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="75"/>
                                 <ColumnDefinition Width="450"/>
@@ -108,13 +125,14 @@
                                 <ColumnDefinition Width="450"/>
                                 <ColumnDefinition Width="75"/>
                             </Grid.ColumnDefinitions>
-                            <local:Age3Button Grid.Column="1" x:Name="OriginalCampaignButton" Style="{StaticResource CampaignSelectCard}" Background="{StaticResource campaigncard_01_normal}" Content="$$36936$$Blood, Ice and Steel" ConsoleCommand="wpfSelectExpansion(0)" TabIndex="1" />
+                            
+                            <local:Age3Button Grid.Column="1" x:Name="OriginalCampaignButton" IsEnabled="{Binding EnabledForBeta}" Style="{StaticResource CampaignSelectCard}" Background="{StaticResource campaigncard_01_normal}" Content="$$36936$$Blood, Ice and Steel" ConsoleCommand="wpfSelectExpansion(0)" TabIndex="1" />
                             <local:Age3Button Grid.Column="2" x:Name="XPackCampaignButton" IsEnabled="{Binding EnabledForBeta}" Style="{StaticResource CampaignSelectCard}" Background="{StaticResource campaigncard_02_normal}" Content="$$43899$$Fire and Shadow" ConsoleCommand="wpfSelectExpansion(1)" TabIndex="2" />
-                            <local:Age3Button Grid.Column="3" x:Name="YPackCampaignButton1"  IsEnabled="{Binding EnabledForBeta}" Style="{StaticResource CampaignSelectCard}" Background="{StaticResource campaigncard_03_normal}" Content="$$60006$$The Asian Dynasties" ConsoleCommand="wpfSelectExpansion(2)" TabIndex="3" />
+                            <local:Age3Button Grid.Column="3" x:Name="YPackCampaignButton1" Style="{StaticResource CampaignSelectCard}" Background="{StaticResource campaigncard_03_normal}" Content="$$60006$$The Asian Dynasties" ConsoleCommand="wpfSelectExpansion(2)" TabIndex="3" />
 
-                            <TextBlock x:Name="campaign1Progression" Grid.Column="1" Style="{StaticResource ConfirmationTitlesStyle}" FontSize="40" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,50,70,0" Visibility="Hidden">100%</TextBlock>
-                            <TextBlock x:Name="campaign2Progression" Grid.Column="2" Style="{StaticResource ConfirmationTitlesStyle}" FontSize="40" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,50,70,0" Visibility="Hidden">100%</TextBlock>
-                            <TextBlock x:Name="campaign3Progression" Grid.Column="3" Style="{StaticResource ConfirmationTitlesStyle}" FontSize="40" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,50,70,0" Visibility="Hidden">100%</TextBlock>
+                            <TextBlock x:Name="campaign1Progression" Grid.Column="1" Text="100%" Visibility="Visible"/>
+                            <TextBlock x:Name="campaign2Progression" Grid.Column="2" Text="100%" Visibility="Visible"/>
+                            <TextBlock x:Name="campaign3Progression" Grid.Column="3" Text="100%" Visibility="Visible"/>
 
                             <Image x:Name="campaign1Progress_Bronze" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Height="60" Width="60" Margin="50,40,0,0" Source="/resources/images/icons/eso/awards/award_01.png" Visibility="{Binding bronzeUnlocked}"/>
                             <Image x:Name="campaign1Progress_Silver" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Height="60" Width="60" Margin="50,40,0,0" Source="/resources/images/icons/eso/awards/award_02.png" Visibility="{Binding silverUnlocked}"/>

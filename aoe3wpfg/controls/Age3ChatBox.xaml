@@ -13,6 +13,11 @@
                 <TextBlock Text="{Binding }" Style="{StaticResource CampaignRegularTextBlockStyle}" Foreground="Yellow" FontFamily="Arial" Width="450" TextWrapping="Wrap" FontWeight="Normal" Margin="0,0,0,20"/>
             </StackPanel>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type local:Age3ChatActivity}">
+            <StackPanel>
+                <TextBlock Text="{Binding Text}" Style="{StaticResource CampaignRegularTextBlockStyle}" Foreground="Yellow" FontFamily="Arial" Width="450" TextWrapping="Wrap" FontWeight="Normal" Margin="0,0,0,20"/>
+            </StackPanel>
+        </DataTemplate>
         <DataTemplate DataType="{x:Type local:Age3ChatMessage}">
             <StackPanel>
                 <TextBlock DataContext="{Binding From}" Text="{Binding AliasWithClan}" Style="{StaticResource CampaignTitleTextBlockStyle}" FontSize="18" Width="450" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="0">

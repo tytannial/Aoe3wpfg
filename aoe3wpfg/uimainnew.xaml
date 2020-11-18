@@ -18,6 +18,7 @@
         </ControlTemplate>
 
         <Style TargetType="{x:Type Button}" x:Key="CardButton">
+            <Setter Property="ClickMode" Value="Press" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
@@ -705,7 +706,7 @@
                                     </Grid.OpacityMask>
 
                                     <!-- Flag Image -->
-                                    <Ellipse Width="100" Height="100" Fill="{Binding FlagImage}" />
+                                    <Ellipse Width="100" Height="100" Fill="{Binding FlagImage}"/>
 
                                     <Grid Height="80" Width="80" HorizontalAlignment="Center" VerticalAlignment="Center" Background="Transparent">
                                         <Grid.OpacityMask>
@@ -726,11 +727,21 @@
                                     </Ellipse>
                                 </Grid>
                             </Grid>
+                            
+                            <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <TextBlock Margin="-4,0,0,0" Text="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Trajan Pro" FontWeight="Bold" FontSize="35pt" Foreground="Black" />
+                                <TextBlock Margin=" 4,0,0,0" Text="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Trajan Pro" FontWeight="Bold" FontSize="35pt" Foreground="Black" />
+                                <TextBlock Margin="0, 4,0,0" Text="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Trajan Pro" FontWeight="Bold" FontSize="35pt" Foreground="Black" />
+                                <TextBlock Margin="0,-4,0,0" Text="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Trajan Pro" FontWeight="Bold" FontSize="35pt" Foreground="Black" />
 
-                            <Grid Height="100" Width="100">
-                                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Trajan Pro" FontSize="30" FontWeight="Bold" Foreground="White" Margin="0,5,0,0" Text="{TemplateBinding Content}">
+                                <TextBlock Margin="-2.9,-2.9,0,0" Text="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Trajan Pro" FontWeight="Bold" FontSize="35pt" Foreground="Black" />
+                                <TextBlock Margin="-2.9, 2.9,0,0" Text="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Trajan Pro" FontWeight="Bold" FontSize="35pt" Foreground="Black" />
+                                <TextBlock Margin=" 2.9,-2.9,0,0" Text="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Trajan Pro" FontWeight="Bold" FontSize="35pt" Foreground="Black" />
+                                <TextBlock Margin=" 2.9, 2.9,0,0" Text="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Trajan Pro" FontWeight="Bold" FontSize="35pt" Foreground="Black" />
+
+                                <TextBlock Text="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Trajan Pro" FontWeight="Bold" FontSize="35pt" Foreground="{StaticResource OverlayTitleGradient}">
                                     <TextBlock.Effect>
-                                        <DropShadowEffect BlurRadius="3" Color="Black" Direction="-90" ShadowDepth="1.7" RenderingBias="Quality" />
+                                        <DropShadowEffect BlurRadius="6" Color="Black" Direction="-90" ShadowDepth="4" RenderingBias="Quality" />
                                     </TextBlock.Effect>
                                 </TextBlock>
                             </Grid>
@@ -838,26 +849,26 @@
             <Setter Property="ContentTemplate">
                 <Setter.Value>
                     <DataTemplate>
-                      <Grid>
-                        <Grid.ColumnDefinitions>
-                          <ColumnDefinition Width="25" />
-                          <ColumnDefinition Width="400" />
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                          <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="25" />
+                                <ColumnDefinition Width="400" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
 
-                        <Rectangle Grid.Column="0" x:Name="checkbox" HorizontalAlignment="Center" VerticalAlignment="Center" Width="25" Height="25" Fill="{StaticResource objective_checkbox_empty}"/>
+                            <Rectangle Grid.Column="0" x:Name="checkbox" HorizontalAlignment="Center" VerticalAlignment="Center" Width="25" Height="25" Fill="{StaticResource objective_checkbox_empty}"/>
 
-                        <TextBlock Grid.Column="1" x:Name="objectiveText" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0" Text="{Binding ObjectiveText}" TextWrapping="Wrap"/>
-                      </Grid>
-                      <DataTemplate.Triggers>
-                        <DataTrigger Binding="{Binding IsComplete}" Value="True">
-                          <Setter TargetName="checkbox" Property="Fill" Value="{StaticResource objective_checkbox_ticked}"/>
-                          <Setter TargetName="objectiveText" Property="TextDecorations" Value="Strikethrough"/>
+                            <TextBlock Grid.Column="1" x:Name="objectiveText" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0" Text="{Binding ObjectiveText}" TextWrapping="Wrap"/>
+                        </Grid>
+                        <DataTemplate.Triggers>
+                            <DataTrigger Binding="{Binding IsComplete}" Value="True">
+                                <Setter TargetName="checkbox" Property="Fill" Value="{StaticResource objective_checkbox_ticked}"/>
+                                <Setter TargetName="objectiveText" Property="TextDecorations" Value="Strikethrough"/>
                                 <Setter TargetName="objectiveText" Property="Foreground" Value="#48c318"/>
-                        </DataTrigger>
-                      </DataTemplate.Triggers>
+                            </DataTrigger>
+                        </DataTemplate.Triggers>
                     </DataTemplate>
                 </Setter.Value>
             </Setter>
@@ -870,8 +881,7 @@
         </Style>
         <Style TargetType="{x:Type Button}" x:Key="HUDBannerButton">
             <Setter Property="FontFamily" Value="Trajan Pro" />
-            <Setter Property="Height" Value="70" />
-            <Setter Property="Width" Value="50" />
+            <Setter Property="ClickMode" Value="Press" />
 
             <Setter Property="RenderTransformOrigin" Value="0.5, 0.5" />
             <Setter Property="RenderTransform">
@@ -885,12 +895,12 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Grid Height="70" Width="45">
-                            <Rectangle Height="70" Width="45" RadiusX="7" RadiusY="7" Fill="Black" />
-                            <Rectangle x:Name="ButtonBackground" Height="67" Width="42" RadiusX="4" RadiusY="4" Fill="{TemplateBinding Background}" Stroke="{StaticResource ButtonStrokeGradient}" StrokeThickness="2" />
+                        <Grid Height="70" Width="60">
+                            <Rectangle Height="70" Width="60" RadiusX="7" RadiusY="7" Fill="Black" />
+                            <Rectangle x:Name="ButtonBackground" Height="67" Width="56" RadiusX="4" RadiusY="4" Fill="{TemplateBinding Background}" Stroke="{StaticResource ButtonStrokeGradient}" StrokeThickness="2" />
                             <Grid>
-                                <Image x:Name="banner_icon" Height="35" Width="35" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,19,0,5" Source="{Binding Icon}"></Image>
-                                <TextBlock x:Name="UnitSelection_Text" HorizontalAlignment="Right" VerticalAlignment="Bottom" FontSize="15" FontWeight="Bold" Foreground="White" Margin="0,0,5,2" Text="{TemplateBinding Content}" />
+                                <Image x:Name="banner_icon" Height="50" Width="50" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,5" Source="{Binding Icon}"></Image>
+                                <TextBlock x:Name="UnitSelection_Text" HorizontalAlignment="Right" VerticalAlignment="Bottom" FontSize="16" FontWeight="Bold" Foreground="White" Margin="0,0,6,3" Text="{TemplateBinding Content}" />
                             </Grid>
                         </Grid>
                         <ControlTemplate.Triggers>
@@ -924,7 +934,7 @@
                                     <BeginStoryboard>
                                         <Storyboard>
                                             <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="Margin" BeginTime="00:00:00">
-                                                <SplineThicknessKeyFrame KeyTime="00:00:00" Value="5,-22,0,0" />
+                                                <SplineThicknessKeyFrame KeyTime="00:00:00" Value="5,-18,0,0" />
                                                 <SplineThicknessKeyFrame KeyTime="0:0:.05" Value="5,-28,0,0" />
                                             </ThicknessAnimationUsingKeyFrames>
                                         </Storyboard>
@@ -936,7 +946,7 @@
                                         <Storyboard>
                                             <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="Margin" BeginTime="00:00:00">
                                                 <SplineThicknessKeyFrame KeyTime="00:00:00" Value="5,-28,0,0" />
-                                                <SplineThicknessKeyFrame KeyTime="0:0:.05" Value="5,-22,0,0" />
+                                                <SplineThicknessKeyFrame KeyTime="0:0:.05" Value="5,-18,0,0" />
                                             </ThicknessAnimationUsingKeyFrames>
                                         </Storyboard>
                                     </BeginStoryboard>
@@ -1072,6 +1082,7 @@
             <Setter Property="Height" Value="35" />
             <Setter Property="Focusable" Value="False" />
             <Setter Property="Margin" Value="10,0,0,0" />
+            <Setter Property="ClickMode" Value="Press" />
 
             <Setter Property="RenderTransformOrigin" Value="0.5, 0.5" />
             <Setter Property="RenderTransform">
@@ -2132,31 +2143,28 @@
                 </Grid.ColumnDefinitions>
 
                 <!--ARMY BANNERS-->
-                <StackPanel x:Name="armyBanner" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Width="618" Height="60" Margin="80,-15,0,0" Visibility="Visible">
-                    <local:Age3Button x:Name="idleVillagerBanner" Focusable="False" HorizontalAlignment="Left" Height="70" Width="50" Margin="5,-18,0,0" Foreground="White" Style="{StaticResource HUDBannerButton}" ConsoleCommand="uiFindIdleType(&quot;ValidIdleVillager&quot;)" Content=".">
+                <StackPanel x:Name="armyBanner" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="80,0,0,0" Visibility="Visible">
+                    <StackPanel.Resources>
+                        <Style TargetType="local:Age3Button" BasedOn="{StaticResource HUDBannerButton}">
+                            <Setter Property="Focusable" Value="False"/>
+                            <Setter Property="Margin" Value="5,-18,0,0"/>
+                        </Style>
+                    </StackPanel.Resources>
+
+                    <local:Age3Button x:Name="idleVillagerBanner" ConsoleCommand="uiFindIdleType(&quot;ValidIdleVillager&quot;)" Content=".">
                         <local:Age3Button.ToolTip>
                             $$41608$$Idle Villagers: {numIdle(AbstractVillager)}
                         </local:Age3Button.ToolTip>
                     </local:Age3Button>
-
-                    <local:Age3Button x:Name="armyBanner_unfurled0" Focusable="False" Height="70" Width="50" Margin="5,-18,0,0" Style="{StaticResource HUDBannerButton}" Content="1">
-                    </local:Age3Button>
-                    <local:Age3Button x:Name="armyBanner_unfurled1" Focusable="False" Height="70" Width="50" Margin="5,-18,0,0" Style="{StaticResource HUDBannerButton}" Content="2">
-                    </local:Age3Button>
-                    <local:Age3Button x:Name="armyBanner_unfurled2" Focusable="False" Height="70" Width="50" Margin="5,-18,0,0" Style="{StaticResource HUDBannerButton}" Content="3">
-                    </local:Age3Button>
-                    <local:Age3Button x:Name="armyBanner_unfurled3" Focusable="False" Height="70" Width="50" Margin="5,-18,0,0" Style="{StaticResource HUDBannerButton}" Content="4">
-                    </local:Age3Button>
-                    <local:Age3Button x:Name="armyBanner_unfurled4" Focusable="False" Height="70" Width="50" Margin="5,-18,0,0" Style="{StaticResource HUDBannerButton}" Content="5">
-                    </local:Age3Button>
-                    <local:Age3Button x:Name="armyBanner_unfurled5" Focusable="False" Height="70" Width="50" Margin="5,-18,0,0" Style="{StaticResource HUDBannerButton}" Content="6">
-                    </local:Age3Button>
-                    <local:Age3Button x:Name="armyBanner_unfurled6" Focusable="False" Height="70" Width="50" Margin="5,-18,0,0" Style="{StaticResource HUDBannerButton}" Content="7">
-                    </local:Age3Button>
-                    <local:Age3Button x:Name="armyBanner_unfurled7" Focusable="False" Height="70" Width="50" Margin="5,-18,0,0" Style="{StaticResource HUDBannerButton}" Content="8">
-                    </local:Age3Button>
-                    <local:Age3Button x:Name="armyBanner_unfurled8" Focusable="False" Height="70" Width="50" Margin="5,-18,0,0" Style="{StaticResource HUDBannerButton}" Content="9">
-                    </local:Age3Button>
+                    <local:Age3Button x:Name="armyBanner_unfurled0" Content="1"/>
+                    <local:Age3Button x:Name="armyBanner_unfurled1" Content="2"/>
+                    <local:Age3Button x:Name="armyBanner_unfurled2" Content="3"/>
+                    <local:Age3Button x:Name="armyBanner_unfurled3" Content="4"/>
+                    <local:Age3Button x:Name="armyBanner_unfurled4" Content="5"/>
+                    <local:Age3Button x:Name="armyBanner_unfurled5" Content="6"/>
+                    <local:Age3Button x:Name="armyBanner_unfurled6" Content="7"/>
+                    <local:Age3Button x:Name="armyBanner_unfurled7" Content="8"/>
+                    <local:Age3Button x:Name="armyBanner_unfurled8" Content="9"/>
                 </StackPanel>
 
                 <!--RESOURCES BAR-->
@@ -3031,7 +3039,7 @@
                             </Button.ToolTip>
                         </local:Age3Button>
                     </Grid>
-                    
+
                     <!--Map BG-->
                     <Ellipse x:Name="minimapPanel_map" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Left" VerticalAlignment="Center" Width="300" Height="300" Margin="0,0,0,30" Visibility="Visible">
                         <Ellipse.Fill>
@@ -3976,41 +3984,80 @@
                 </Grid>
             </Grid>
 
-                <Grid x:Name="EndGamePanel" Grid.Row="0" Grid.Column="0" Grid.RowSpan="5" Grid.ColumnSpan="5" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0" Visibility="Collapsed">
-                    <ContentControl x:Name="EndGamePanel_RayContainer" Template="{StaticResource EndGamePanel_Ray}" Visibility="Collapsed"/>
-                    <Image x:Name="EndGamePanel_BGContainer" Source="resources/images/endgame/skirmish_victory_bg.png" Height="400" />
-                    <Grid x:Name="EndGamePanel_textContainer" Width="500" Height="120" HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <Grid.Resources>
-                            <Style TargetType="TextBlock">
-                                <Setter Property="HorizontalAlignment" Value="Center"/>
-                                <Setter Property="VerticalAlignment" Value="Center"/>
-                                <Setter Property="TextAlignment" Value="Center"/>
-                                <Setter Property="FontFamily" Value="Trajan Pro"/>
-                                <Setter Property="FontWeight" Value="Bold"/>
-                                <Setter Property="FontSize" Value="30pt"/>
-                                <Setter Property="Foreground" Value="Black"/>
-                                <Setter Property="Width" Value="500"/>
-                                <Setter Property="Height" Value="auto"/>
-                                <Setter Property="MaxHeight" Value="120"/>
-                                <Setter Property="TextWrapping" Value="Wrap"/>
-                                <Setter Property="Effect">
-                                    <Setter.Value>
-                                        <DropShadowEffect BlurRadius="3" Color="Black" Direction="-90" ShadowDepth="3" RenderingBias="Quality" />
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-                        </Grid.Resources>
-                        <TextBlock Margin="-4,0,0,0" Text="You are Victorious!"/>
-                        <TextBlock Margin=" 4,0,0,0" Text="You are Victorious!"/>
-                        <TextBlock Margin="0, 4,0,0" Text="You are Victorious!"/>
-                        <TextBlock Margin="0,-4,0,0" Text="You are Victorious!"/>
+            <Grid x:Name="EndGamePanel" Grid.Row="0" Grid.Column="0" Grid.RowSpan="5" Grid.ColumnSpan="5" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0" Visibility="Collapsed">
+                <ContentControl x:Name="EndGamePanel_RayContainer" Template="{StaticResource EndGamePanel_Ray}" Visibility="Collapsed"/>
+                <Image x:Name="EndGamePanel_BGContainer" Source="resources/images/endgame/skirmish_victory_bg.png" Height="400" />
+                <Grid x:Name="EndGamePanel_textContainer" Width="500" Height="120" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Grid.Resources>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="TextAlignment" Value="Center"/>
+                            <Setter Property="FontFamily" Value="Trajan Pro"/>
+                            <Setter Property="FontWeight" Value="Bold"/>
+                            <Setter Property="FontSize" Value="30pt"/>
+                            <Setter Property="Foreground" Value="Black"/>
+                            <Setter Property="Width" Value="500"/>
+                            <Setter Property="Height" Value="auto"/>
+                            <Setter Property="MaxHeight" Value="120"/>
+                            <Setter Property="TextWrapping" Value="Wrap"/>
+                            <Setter Property="Effect">
+                                <Setter.Value>
+                                    <DropShadowEffect BlurRadius="3" Color="Black" Direction="-90" ShadowDepth="3" RenderingBias="Quality" />
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </Grid.Resources>
+                    <TextBlock Margin="-4,0,0,0" Text="You are Victorious!"/>
+                    <TextBlock Margin=" 4,0,0,0" Text="You are Victorious!"/>
+                    <TextBlock Margin="0, 4,0,0" Text="You are Victorious!"/>
+                    <TextBlock Margin="0,-4,0,0" Text="You are Victorious!"/>
 
-                        <TextBlock Margin="-2.9,-2.9,0,0" Text="You are Victorious!"/>
-                        <TextBlock Margin="-2.9, 2.9,0,0" Text="You are Victorious!"/>
-                        <TextBlock Margin=" 2.9,-2.9,0,0" Text="You are Victorious!"/>
-                        <TextBlock Margin=" 2.9, 2.9,0,0" Text="You are Victorious!"/>
+                    <TextBlock Margin="-2.9,-2.9,0,0" Text="You are Victorious!"/>
+                    <TextBlock Margin="-2.9, 2.9,0,0" Text="You are Victorious!"/>
+                    <TextBlock Margin=" 2.9,-2.9,0,0" Text="You are Victorious!"/>
+                    <TextBlock Margin=" 2.9, 2.9,0,0" Text="You are Victorious!"/>
 
-                        <TextBlock Text="You are Victorious!" Foreground="{StaticResource OverlayTitleGradient}"/>
+                    <TextBlock Text="You are Victorious!" Foreground="{StaticResource OverlayTitleGradient}"/>
+                </Grid>
+            </Grid>
+
+            <!--FOR TRADE MONOPOLY AND REVOLUTION-->
+            <Grid x:Name="SpecialPopupPanel" Grid.Row="0" Grid.Column="0" Grid.RowSpan="5" Grid.ColumnSpan="5" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,500" Visibility="Collapsed">
+                <ContentControl x:Name="SpecialPopup_RayContainer" Template="{StaticResource EndGamePanel_Ray}" Visibility="Collapsed"/>
+                <Rectangle x:Name="SpecialPopup_BGContainer" Fill="Gray" Height="120" />
+                <Grid x:Name="SpecialPopup_textContainer" Width="800" Height="100" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Grid.Resources>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="TextAlignment" Value="Center"/>
+                            <Setter Property="FontFamily" Value="Trajan Pro"/>
+                            <Setter Property="FontWeight" Value="Bold"/>
+                            <Setter Property="FontSize" Value="25pt"/>
+                            <Setter Property="Foreground" Value="Black"/>
+                            <Setter Property="Width" Value="700"/>
+                            <Setter Property="Height" Value="auto"/>
+                            <Setter Property="MaxHeight" Value="100"/>
+                            <Setter Property="TextWrapping" Value="Wrap"/>
+                            <Setter Property="Effect">
+                                <Setter.Value>
+                                    <DropShadowEffect BlurRadius="3" Color="Black" Direction="-90" ShadowDepth="3" RenderingBias="Quality" />
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </Grid.Resources>
+                    <TextBlock Margin="-4,0,0,0" Text="Trade Monopoly victory started!"/>
+                    <TextBlock Margin=" 4,0,0,0" Text="Trade Monopoly victory started!"/>
+                    <TextBlock Margin="0, 4,0,0" Text="Trade Monopoly victory started!"/>
+                    <TextBlock Margin="0,-4,0,0" Text="Trade Monopoly victory started!"/>
+
+                    <TextBlock Margin="-2.9,-2.9,0,0" Text="Trade Monopoly victory started!"/>
+                    <TextBlock Margin="-2.9, 2.9,0,0" Text="Trade Monopoly victory started!"/>
+                    <TextBlock Margin=" 2.9,-2.9,0,0" Text="Trade Monopoly victory started!"/>
+                    <TextBlock Margin=" 2.9, 2.9,0,0" Text="Trade Monopoly victory started!"/>
+
+                    <TextBlock Text="Trade Monopoly victory started!" Foreground="{StaticResource OverlayTitleGradient}"/>
                 </Grid>
             </Grid>
 

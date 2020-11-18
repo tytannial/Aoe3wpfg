@@ -489,6 +489,9 @@
 
     <BitmapImage x:Key="timer_icon" UriSource="/resources/images/mpgamelist/timer_icon.png" />
     <BitmapImage x:Key="lang_icon" UriSource="/resources/images/mpgamelist/lang_icon.png" />
+    <BitmapImage x:Key="star_icon" UriSource="/resources/images/icons/ranking/star_icon.png" />
+    
+    <BitmapImage x:Key="warning_icon" UriSource="/resources/warning.png" />
 
     <!--Decks-->
     <BitmapImage x:Key="decks_cards" UriSource="/resources/skirmish_cards_white.png" />
@@ -1870,6 +1873,11 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+		<Style.Triggers>
+            <EventTrigger RoutedEvent="PreviewMouseDown">
+                <SoundPlayerAction Source="resources/audio/smallbutton.wav" />
+            </EventTrigger>
+        </Style.Triggers>
     </Style>
 
     <Style x:Key="SliderThumbStyle" TargetType="{x:Type Thumb}">
@@ -1888,13 +1896,18 @@
                             </Trigger.EnterActions>
                             <Setter TargetName="Ellipse" Property="Fill" Value="{StaticResource Slider_Button_hover}" />
                         </Trigger>
-                        <Trigger Property="IsEnabled" Value="false">
+                        <Trigger Property="IsEnabled" Value="False">
                             <Setter TargetName="Ellipse" Property="Fill" Value="{StaticResource Slider_Button_disabled}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+		<Style.Triggers>
+            <EventTrigger RoutedEvent="PreviewMouseDown">
+                <SoundPlayerAction Source="resources/audio/smallbutton.wav" />
+            </EventTrigger>
+        </Style.Triggers>
     </Style>
 
     <LinearGradientBrush x:Key="HorizontalLightBrush" StartPoint="0,0" EndPoint="1,0">
@@ -4756,6 +4769,7 @@
 
     <Style TargetType="{x:Type Button}" x:Key="ImageButtonUnfocusable" BasedOn="{StaticResource ImageButton}">
         <Setter Property="Focusable" Value="False" />
+        <Setter Property="ClickMode" Value="Press" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
@@ -5142,6 +5156,7 @@
         <Setter Property="Height" Value="35" />
         <Setter Property="Margin" Value="10,0,0,0" />
         <Setter Property="Focusable" Value="False" />
+        <Setter Property="ClickMode" Value="Press" />
         <Setter Property="RenderTransformOrigin" Value="0.5, 0.5" />
         <Setter Property="RenderTransform">
             <Setter.Value>

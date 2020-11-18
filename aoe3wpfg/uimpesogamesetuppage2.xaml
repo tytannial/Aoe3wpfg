@@ -340,8 +340,11 @@
                                     <Rectangle Style="{StaticResource PanelBGSection}" Margin="-10" />
                                 </Grid>
 
-                                <TextBlock Grid.Column="0" x:Name="mpsetup_gamename_text" Padding="20" Margin="0,0,0,0" FontSize="30" Style="{StaticResource CampaignTitleTextBlockStyle}">Game Name</TextBlock>
-
+                                <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                    <TextBlock x:Name="mpsetup_gamename_text" Padding="20" Margin="0,0,0,0" FontSize="30" Style="{StaticResource CampaignTitleTextBlockStyle}">Game Name</TextBlock>
+                                    <Image x:Name="mpsetup_mods_warning_icon" Visibility="Collapsed" Source="{StaticResource warning_icon}" Margin="0,16,16,16" ToolTip="$$79933$$Warning: You currently have mods enabled. Only players using the same mods will be able to join this game."/>
+                                </StackPanel>
+                                
                                 <StackPanel Grid.Row="1" Height="auto" VerticalAlignment="Top">
                                     <StackPanel.Resources>
                                         <Style TargetType="Grid">
