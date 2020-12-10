@@ -217,7 +217,6 @@
             <!--Dock-->
             <!--Black BG-->
             <Line Grid.Row="0" Grid.Column="29" Grid.ColumnSpan="15" Grid.RowSpan="2" X1="18" Y1="100" X2="472" Y2="100" Stroke="Black" StrokeThickness="8"/>
-            <Line Grid.Row="2" Grid.Column="29" Grid.ColumnSpan="15" Grid.RowSpan="2" X1="18" Y1="100" X2="95" Y2="100" Stroke="Black" StrokeThickness="8"/>
             <Line Grid.Row="3" Grid.Column="29" Grid.ColumnSpan="15" Grid.RowSpan="2" X1="18" Y1="150" X2="200" Y2="150" Stroke="Black" StrokeThickness="8"/>
             <Line Grid.Row="4" Grid.Column="29" Grid.ColumnSpan="15" Grid.RowSpan="2" X1="18" Y1="150" X2="200" Y2="150" Stroke="Black" StrokeThickness="8"/>
             <Line Grid.Row="5" Grid.Column="29" Grid.ColumnSpan="15" Grid.RowSpan="2" X1="18" Y1="150" X2="200" Y2="150" Stroke="Black" StrokeThickness="8"/>
@@ -225,11 +224,9 @@
             <Line Grid.Row="0" Grid.Column="29" Grid.RowSpan="10" X1="18" Y1="80" X2="18" Y2="654" Stroke="Black" StrokeThickness="8"/>
             <Line Grid.Row="0" Grid.Column="30" Grid.RowSpan="10" X1="18" Y1="100" X2="18" Y2="120" Stroke="Black" StrokeThickness="8"/>
             <Line Grid.Row="0" Grid.Column="35" Grid.RowSpan="10" X1="18" Y1="100" X2="18" Y2="120" Stroke="Black" StrokeThickness="8"/>
-            <Line Grid.Row="2" Grid.Column="30" Grid.RowSpan="10" X1="18" Y1="100" X2="18" Y2="120" Stroke="Black" StrokeThickness="8"/>
 
             <!--White BG-->
             <Line Grid.Row="0" Grid.Column="29" Grid.ColumnSpan="15" Grid.RowSpan="2" X1="18" Y1="100" X2="470" Y2="100" Stroke="White" StrokeThickness="4"/>
-            <Line Grid.Row="2" Grid.Column="29" Grid.ColumnSpan="15" Grid.RowSpan="2" X1="18" Y1="100" X2="95" Y2="100" Stroke="White" StrokeThickness="4"/>
             <Line Grid.Row="3" Grid.Column="29" Grid.ColumnSpan="15" Grid.RowSpan="2" X1="18" Y1="150" X2="200" Y2="150" Stroke="White" StrokeThickness="4"/>
             <Line Grid.Row="4" Grid.Column="29" Grid.ColumnSpan="15" Grid.RowSpan="2" X1="18" Y1="150" X2="200" Y2="150" Stroke="White" StrokeThickness="4"/>
             <Line Grid.Row="5" Grid.Column="29" Grid.ColumnSpan="15" Grid.RowSpan="2" X1="18" Y1="150" X2="200" Y2="150" Stroke="White" StrokeThickness="4"/>
@@ -237,7 +234,6 @@
             <Line Grid.Row="0" Grid.Column="29" Grid.RowSpan="10" X1="18" Y1="80" X2="18" Y2="652" Stroke="White" StrokeThickness="4"/>
             <Line Grid.Row="0" Grid.Column="30" Grid.RowSpan="10" X1="18" Y1="100" X2="18" Y2="120" Stroke="White" StrokeThickness="4"/>
             <Line Grid.Row="0" Grid.Column="35" Grid.RowSpan="10" X1="18" Y1="100" X2="18" Y2="120" Stroke="White" StrokeThickness="4"/>
-            <Line Grid.Row="2" Grid.Column="30" Grid.RowSpan="10" X1="18" Y1="100" X2="18" Y2="120" Stroke="White" StrokeThickness="4"/>
             <Line Grid.Row="1" Grid.Column="30" Grid.RowSpan="10" X1="18" Y1="80" X2="18" Y2="120" Stroke="White" StrokeThickness="4" StrokeDashArray="4 2"/>
             <Line Grid.Row="1" Grid.Column="35" Grid.RowSpan="10" X1="18" Y1="80" X2="18" Y2="120" Stroke="White" StrokeThickness="4" StrokeDashArray="4 2"/>
 
@@ -335,8 +331,8 @@
             <Line Grid.Row="0" Grid.Column="101" Grid.RowSpan="10" X1="18" Y1="80" X2="18" Y2="120" Stroke="White" StrokeThickness="4"/>
             <Line Grid.Row="0" Grid.Column="106" Grid.RowSpan="10" X1="18" Y1="80" X2="18" Y2="120" Stroke="White" StrokeThickness="4"/>
             <Line Grid.Row="0" Grid.Column="106" Grid.RowSpan="10" X1="18" Y1="80" X2="18" Y2="850" Stroke="White" StrokeThickness="4" StrokeDashArray="4 2"/>
-			
-			<!--House-->
+
+            <!--House-->
             <!--Black BG-->
             <Line Grid.Row="0" Grid.Column="112" Grid.RowSpan="10" X1="18" Y1="80" X2="18" Y2="254" Stroke="Black" StrokeThickness="8"/>
             <Line Grid.Row="0" Grid.Column="112" Grid.RowSpan="10" X1="18" Y1="80" X2="18" Y2="254" Stroke="White" StrokeThickness="4"/>

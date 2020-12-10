@@ -341,6 +341,23 @@
                                                     <Setter.Value>
                                                         <ControlTemplate TargetType="{x:Type ListViewItem}">
                                                             <Grid>
+                                                                <Grid.Resources>
+                                                                    <Style TargetType="TextBlock" BasedOn="{StaticResource RegularTextBlockStyle}">
+                                                                        <Setter Property="FontSize" Value="18"/>
+                                                                        <Setter Property="HorizontalAlignment" Value="Center"/>
+                                                                        <Setter Property="VerticalAlignment" Value="Center"/>
+                                                                        <Setter Property="TextAlignment" Value="Center"/>
+                                                                        <Setter Property="Width" Value="200"/>
+                                                                        <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
+                                                                        <Setter Property="Margin" Value="0,0,0,0"/>
+                                                                        <Setter Property="Effect">
+                                                                            <Setter.Value>
+                                                                                <DropShadowEffect BlurRadius="3" Color="Black" Direction="-90" ShadowDepth="3" RenderingBias="Quality" />
+                                                                            </Setter.Value>
+                                                                        </Setter>
+                                                                    </Style>
+                                                                </Grid.Resources>
+
                                                                 <Grid.ColumnDefinitions>
                                                                     <ColumnDefinition Width="50"/>
                                                                     <ColumnDefinition Width="*"/>
@@ -349,29 +366,14 @@
                                                                 </Grid.ColumnDefinitions>
 
                                                                 <Border Grid.Column="0" Grid.ColumnSpan="11" Background="{TemplateBinding Background}" CornerRadius="4"/>
-
                                                                 <!--Checkbox-->
                                                                 <CheckBox Grid.Column="0" Focusable="False" Visibility="{Binding ShowSubCheckbox}" Style="{StaticResource Checkbox_Options}" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding Tick, Mode=TwoWay, UpdateSourceTrigger=Explicit}" Command="{Binding InstallChecked}"/>
-
                                                                 <!--Name-->
-                                                                <TextBlock Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Text="{Binding Name}" Margin="0,0,0,0">
-                                                                    <TextBlock.Effect>
-                                                                        <DropShadowEffect BlurRadius="5" Color="Black" Direction="-90" ShadowDepth="1" RenderingBias="Quality"/>
-                                                                    </TextBlock.Effect>
-                                                                </TextBlock>
-
+                                                                <TextBlock Grid.Column="1" TextAlignment="Left" Width="750" Text="{Binding Name}"/>
                                                                 <!--Priority-->
-                                                                <TextBlock Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Priority}">
-                                                                    <TextBlock.Effect>
-                                                                        <DropShadowEffect BlurRadius="5" Color="Black" Direction="-90" ShadowDepth="1" RenderingBias="Quality"/>
-                                                                    </TextBlock.Effect>
-                                                                </TextBlock>
-
+                                                                <TextBlock Grid.Column="2" Text="{Binding Priority}"/>
                                                                 <!--Subsribed-->
-                                                                <TextBlock Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Text="✔">
-                                                                    <TextBlock.Effect>
-                                                                        <DropShadowEffect BlurRadius="5" Color="Black" Direction="-90" ShadowDepth="1" RenderingBias="Quality"/>
-                                                                    </TextBlock.Effect>
+                                                                <TextBlock Grid.Column="3" HorizontalAlignment="Center" Text="✔">
                                                                     <TextBlock.Style>
                                                                         <Style TargetType="TextBlock" BasedOn="{StaticResource RegularTextBlockStyle}">
                                                                             <Setter Property="Visibility" Value="Collapsed"/>
@@ -532,7 +534,7 @@
                                         <ComboBoxItem Content="$$71361$$Text"/>
                                         <ComboBox.ToolTip>$$71218$$Select to filter mods.</ComboBox.ToolTip>
                                     </ComboBox>
-                                
+
                                     <local:Age3KeyboardFocusBorder Margin="10,0,0,0">
                                         <CheckBox x:Name="Mods_BrowseModsUnsubscribedFilterCheckbox" Style="{StaticResource Checkbox_Medium}" Content="$$71205$$Unsubscribed">
                                             <CheckBox.ToolTip>$$71210$$Display mods you are not subscribed to.</CheckBox.ToolTip>
@@ -593,6 +595,23 @@
                                                     <Setter.Value>
                                                         <ControlTemplate TargetType="{x:Type ListViewItem}">
                                                             <Grid>
+                                                                <Grid.Resources>
+                                                                    <Style TargetType="TextBlock" BasedOn="{StaticResource RegularTextBlockStyle}">
+                                                                        <Setter Property="FontSize" Value="18"/>
+                                                                        <Setter Property="HorizontalAlignment" Value="Center"/>
+                                                                        <Setter Property="VerticalAlignment" Value="Center"/>
+                                                                        <Setter Property="TextAlignment" Value="Center"/>
+                                                                        <Setter Property="Width" Value="180"/>
+                                                                        <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
+                                                                        <Setter Property="Margin" Value="0,0,0,0"/>
+                                                                        <Setter Property="Effect">
+                                                                            <Setter.Value>
+                                                                                <DropShadowEffect BlurRadius="3" Color="Black" Direction="-90" ShadowDepth="3" RenderingBias="Quality" />
+                                                                            </Setter.Value>
+                                                                        </Setter>
+                                                                    </Style>
+                                                                </Grid.Resources>
+
                                                                 <Grid.ColumnDefinitions>
                                                                     <ColumnDefinition Width="*"/>
                                                                     <ColumnDefinition Width="180"/>
@@ -602,27 +621,12 @@
                                                                 </Grid.ColumnDefinitions>
 
                                                                 <Border Grid.Column="0" Grid.ColumnSpan="11" Background="{TemplateBinding Background}" CornerRadius="4"/>
-
                                                                 <!--Name-->
-                                                                <TextBlock Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Text="{Binding Name}" Margin="10,0,0,0">
-                                                                    <TextBlock.Effect>
-                                                                        <DropShadowEffect BlurRadius="5" Color="Black" Direction="-90" ShadowDepth="1" RenderingBias="Quality"/>
-                                                                    </TextBlock.Effect>
-                                                                </TextBlock>
-
+                                                                <TextBlock Grid.Column="0" Width="500" TextAlignment="Left" Text="{Binding Name}" Margin="10,0,0,0"/>
                                                                 <!--Created-->
-                                                                <TextBlock Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Created}">
-                                                                    <TextBlock.Effect>
-                                                                        <DropShadowEffect BlurRadius="5" Color="Black" Direction="-90" ShadowDepth="1" RenderingBias="Quality"/>
-                                                                    </TextBlock.Effect>
-                                                                </TextBlock>
-
+                                                                <TextBlock Grid.Column="1" Text="{Binding Created}"/>
                                                                 <!--Updated-->
-                                                                <TextBlock Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Updated}">
-                                                                    <TextBlock.Effect>
-                                                                        <DropShadowEffect BlurRadius="5" Color="Black" Direction="-90" ShadowDepth="1" RenderingBias="Quality"/>
-                                                                    </TextBlock.Effect>
-                                                                </TextBlock>
+                                                                <TextBlock Grid.Column="2" Text="{Binding Updated}"/>
 
                                                                 <StackPanel Grid.Column="3" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                                                                     <!--Likes-->
@@ -808,7 +812,7 @@
                                         <ComboBoxItem Content="$$71361$$Text"/>
                                         <ComboBox.ToolTip>$$71218$$Select to filter mods.</ComboBox.ToolTip>
                                     </ComboBox>
-                                
+
                                     <local:Age3KeyboardFocusBorder Margin="10,0,0,0">
                                         <CheckBox x:Name="Mods_MyModsPublishedFilterCheckbox" Style="{StaticResource Checkbox_Medium}" Content="$$71220$$Published">
                                             <CheckBox.ToolTip>$$71221$$Display mods you have already published.</CheckBox.ToolTip>
@@ -866,6 +870,23 @@
                                                     <Setter.Value>
                                                         <ControlTemplate TargetType="{x:Type ListViewItem}">
                                                             <Grid>
+                                                                <Grid.Resources>
+                                                                    <Style TargetType="TextBlock" BasedOn="{StaticResource RegularTextBlockStyle}">
+                                                                        <Setter Property="FontSize" Value="18"/>
+                                                                        <Setter Property="HorizontalAlignment" Value="Center"/>
+                                                                        <Setter Property="VerticalAlignment" Value="Center"/>
+                                                                        <Setter Property="TextAlignment" Value="Center"/>
+                                                                        <Setter Property="Width" Value="180"/>
+                                                                        <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
+                                                                        <Setter Property="Margin" Value="0,0,0,0"/>
+                                                                        <Setter Property="Effect">
+                                                                            <Setter.Value>
+                                                                                <DropShadowEffect BlurRadius="3" Color="Black" Direction="-90" ShadowDepth="3" RenderingBias="Quality" />
+                                                                            </Setter.Value>
+                                                                        </Setter>
+                                                                    </Style>
+                                                                </Grid.Resources>
+                                                                
                                                                 <Grid.ColumnDefinitions>
                                                                     <ColumnDefinition Width="*"/>
                                                                     <ColumnDefinition Width="180"/>
@@ -874,33 +895,14 @@
                                                                 </Grid.ColumnDefinitions>
 
                                                                 <Border Grid.Column="0" Grid.ColumnSpan="11" Background="{TemplateBinding Background}" CornerRadius="4"/>
-
                                                                 <!--Name-->
-                                                                <TextBlock Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Text="{Binding Name}" Margin="10,0,0,0">
-                                                                    <TextBlock.Effect>
-                                                                        <DropShadowEffect BlurRadius="5" Color="Black" Direction="-90" ShadowDepth="1" RenderingBias="Quality"/>
-                                                                    </TextBlock.Effect>
-                                                                </TextBlock>
-
+                                                                <TextBlock Grid.Column="0" TextAlignment="Left" Width="650" Text="{Binding Name}" Margin="10,0,0,0"/>
                                                                 <!--Count-->
-                                                                <TextBlock Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Count}">
-                                                                    <TextBlock.Effect>
-                                                                        <DropShadowEffect BlurRadius="5" Color="Black" Direction="-90" ShadowDepth="1" RenderingBias="Quality"/>
-                                                                    </TextBlock.Effect>
-                                                                </TextBlock>
-
+                                                                <TextBlock Grid.Column="1" Text="{Binding Count}"/>
                                                                 <!--Size-->
-                                                                <TextBlock Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Size}">
-                                                                    <TextBlock.Effect>
-                                                                        <DropShadowEffect BlurRadius="5" Color="Black" Direction="-90" ShadowDepth="1" RenderingBias="Quality"/>
-                                                                    </TextBlock.Effect>
-                                                                </TextBlock>
-
+                                                                <TextBlock Grid.Column="2" Text="{Binding Size}"/>
                                                                 <!--Published-->
                                                                 <TextBlock Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Text="✔">
-                                                                    <TextBlock.Effect>
-                                                                        <DropShadowEffect BlurRadius="5" Color="Black" Direction="-90" ShadowDepth="1" RenderingBias="Quality"/>
-                                                                    </TextBlock.Effect>
                                                                     <TextBlock.Style>
                                                                         <Style TargetType="TextBlock" BasedOn="{StaticResource RegularTextBlockStyle}">
                                                                             <Setter Property="Visibility" Value="Collapsed"/>
@@ -1233,7 +1235,7 @@
                         </Grid>
                     </Grid>
                 </Grid>
-                
+
             </Grid>
         </Grid>
     </Viewbox>

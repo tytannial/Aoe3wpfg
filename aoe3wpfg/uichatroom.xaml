@@ -27,7 +27,8 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <TextBlock Text="{Binding Title}" Style="{StaticResource CampaignTitleTextBlockStyle}" HorizontalAlignment="Center" Width="750" FontSize="35" TextAlignment="Center"/>
-            <Button Command="{Binding Leave}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,5,0">
+            <Button Command="{Binding Leave, FallbackValue={x:Null}}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,5,0"
+                    Visibility="{Binding IsEnabled, RelativeSource={RelativeSource Self}, Converter={StaticResource BoolToVisibility}, FallbackValue=False}">
                 <Button.Style>
                     <Style TargetType="{x:Type Button}" BasedOn="{StaticResource SubMenuButton}">
                         <Setter Property="ContentTemplate">
@@ -37,6 +38,11 @@
                                 </DataTemplate>
                             </Setter.Value>
                         </Setter>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Command, RelativeSource={RelativeSource Self}}" Value="{x:Null}">
+                                <Setter Property="IsEnabled" Value="False"/>
+                            </DataTrigger>
+                        </Style.Triggers>
                     </Style>
                 </Button.Style>
                 <Button.ToolTip>$$90174$$Close this dialog.</Button.ToolTip>
@@ -73,14 +79,17 @@
                             <Setter.Value>
                                 <ControlTemplate TargetType="{x:Type ListBoxItem}">
                                     <Border Background="{TemplateBinding Background}" CornerRadius="5">
-                                        <TextBlock Text="{Binding AliasWithClan}" TextWrapping="Wrap" Margin="5">
-                                            <TextBlock.ContextMenu>
-                                                <ContextMenu Tag="{Binding }"  Style="{StaticResource ProfileContextMenu}" />
-                                            </TextBlock.ContextMenu>
-                                            <TextBlock.Effect>
-                                                <DropShadowEffect BlurRadius="5" Color="Black" Direction="-90" ShadowDepth="1" RenderingBias="Quality"/>
-                                            </TextBlock.Effect>
-                                        </TextBlock>
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                            <Button Content="{Binding Avatar}" Style="{StaticResource ViewProfileButton}"/>
+                                            <TextBlock Text="{Binding AliasWithClan}" TextWrapping="Wrap" Margin="5">
+                                                <TextBlock.ContextMenu>
+                                                    <ContextMenu Tag="{Binding }"  Style="{StaticResource ProfileContextMenu}" />
+                                                </TextBlock.ContextMenu>
+                                                <TextBlock.Effect>
+                                                    <DropShadowEffect BlurRadius="5" Color="Black" Direction="-90" ShadowDepth="1" RenderingBias="Quality"/>
+                                                </TextBlock.Effect>
+                                            </TextBlock>
+                                        </StackPanel>
                                     </Border>
                                 </ControlTemplate>
                             </Setter.Value>

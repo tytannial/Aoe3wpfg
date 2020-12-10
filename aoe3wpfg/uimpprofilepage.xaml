@@ -46,6 +46,43 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
+        <Style TargetType="ToolTip" x:Key="ProfileTooltips">
+            <Setter Property="DataContext" Value="{StaticResource optionsProxy}"/>
+            <Setter Property="FontSize" Value="18" />
+            <Setter Property="MaxWidth" Value="500"/>
+            <Setter Property="FontFamily" Value="Open Sans"/>
+            <Setter Property="Foreground" Value="#d6c894"/>
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Setter Property="HasDropShadow" Value="True"/>
+            <Setter Property="VerticalOffset" Value="15"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="Opacity" Value="{Binding Path=OptionTooltipBackgroundAlpha}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ToolTip">
+                        <Border x:Name="Border" Background="#34221c" BorderBrush="#6f683f" BorderThickness="1" Width="{TemplateBinding Width}" Height="{TemplateBinding Height}">
+                            <ContentPresenter Margin="7,5,7,5" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="HasDropShadow" Value="true">
+                                <Setter TargetName="Border" Property="CornerRadius" Value="4"/>
+                                <Setter TargetName="Border" Property="SnapsToDevicePixels" Value="true"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Resources>
+                <Style TargetType="ContentPresenter">
+                    <Style.Resources>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="TextWrapping" Value="Wrap" />
+                        </Style>
+                    </Style.Resources>
+                </Style>
+            </Style.Resources>
+        </Style>
     </Window.Resources>
 
     <Viewbox Style="{StaticResource ViewboxMain}" DataContext="{StaticResource ViewModel}">
@@ -89,10 +126,26 @@
                         <RowDefinition Height="50" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
-                    <TextBlock x:Name="Persona_PlayerLabel" Grid.Row="0" Style="{StaticResource profileTitles}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="250"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="300"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock x:Name="Persona_PlayerLabel" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource profileTitles}">
                         $$38169$$Player Information
                     </TextBlock>
-                    <Border Grid.Row="1" Width="1860">
+                    <TextBlock Grid.Row="0" Grid.Column="2" Style="{StaticResource profileTitles}" Margin="0">
+                        $$72642$$Casual Rank
+                    </TextBlock>
+                    <Grid Grid.Row="1" Grid.RowSpan="3" Grid.Column="0">
+                        <Button x:Name="PlayerProfile" DataContext="{Binding Current}" Margin="0,0,0,0" Width="200" Height="200" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                Content="{Binding Avatar}" Style="{StaticResource AvatarButton}" 
+                                Command="{x:Static local:Age3MPCommands.NavigateToAvatarPicker}"
+                                IsEnabled="{Binding IsLocalUser}">
+                            <Button.ToolTip>$$72631$$Click to change profile picture.</Button.ToolTip>
+                        </Button>
+                    </Grid>
+                    <Border Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" Width="1350">
                         <Border.Style>
                             <Style TargetType="Border" BasedOn="{StaticResource PanelBGSectionAsBorder}">
                                 <Setter Property="TextBlock.Opacity" Value="1"/>
@@ -103,10 +156,10 @@
                             <TextBlock x:Name="Persona_Alias" Style="{StaticResource RegularTextBlockStyle}" VerticalAlignment="Center" Text="{Binding Current.Alias}"/>
                         </UniformGrid>
                     </Border>
-                    <TextBlock x:Name="Persona_ClanLabel" Grid.Row="2" Style="{StaticResource profileTitles}">
+                    <TextBlock x:Name="Persona_ClanLabel" Grid.Row="2" Grid.Column="1" Style="{StaticResource profileTitles}">
                         $$38172$$Clan Information
                     </TextBlock>
-                    <Border Grid.Row="3" Width="1860">
+                    <Border Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" Width="1350">
                         <Border.Style>
                             <Style TargetType="Border" BasedOn="{StaticResource PanelBGSectionAsBorder}">
                                 <Setter Property="TextBlock.Opacity" Value="1"/>
@@ -118,6 +171,17 @@
                             <TextBlock Style="{StaticResource subInfoLeft}" VerticalAlignment="Center" Text="$$38260$$Abbreviation:"/>
                             <TextBlock x:Name="Persona_Abr" Style="{StaticResource RegularTextBlockStyle}" VerticalAlignment="Center" Text="{Binding Clan.Abbreviation, FallbackValue='---'}"/>
                         </UniformGrid>
+                    </Border>
+                    <Border Grid.Column="2" Grid.Row="1" Grid.RowSpan="3" Width="270" Height="210" HorizontalAlignment="Left" VerticalAlignment="Top">
+                        <Border.Style>
+                            <Style TargetType="Border" BasedOn="{StaticResource PanelBGSectionAsBorder}">
+                                <Setter Property="TextBlock.Opacity" Value="1"/>
+                            </Style>
+                        </Border.Style>
+                        <Grid>
+                            <Image HorizontalAlignment="Center" VerticalAlignment="Center" Height="190" Width="190" Source="{Binding RankInfo.TotalWinRankIcon}"/>
+                            <Image HorizontalAlignment="Center" VerticalAlignment="Center" Height="190" Width="190" Source="{Binding RankInfo.WinLossRatioRankIcon}"/>
+                        </Grid>
                     </Border>
                 </Grid>
 

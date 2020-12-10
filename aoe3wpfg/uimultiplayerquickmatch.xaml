@@ -12,6 +12,109 @@
         <local:Age3QuickmatchViewModel/>
     </Window.DataContext>
 
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type local:Age3LadderEntry}">
+            <Grid Width ="auto" Height="30">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="80"/>
+                    <ColumnDefinition Width="80"/>
+                    <ColumnDefinition Width="80"/>
+                    <ColumnDefinition Width="80"/>
+                    <ColumnDefinition Width="80"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Rating}" />
+                <TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Ranking}" />
+                <TextBlock Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Wins}" />
+                <TextBlock Grid.Row="0" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Losses}" />
+                <TextBlock Grid.Row="0" Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding WinPercentage}" />
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type local:Age3String}">
+            <TextBlock Height="30" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Text}" />
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type local:Age3ProfileInfo}">
+            <Grid Width="auto">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <!-- Player ranking icon can go here, next to the player's name, once it's set up -->
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
+                        <Image Width="60" Height="60" Source="{Binding Avatar.Avatar}"/>
+                        <StackPanel Margin="10,0,0,0" VerticalAlignment="Center">
+                            <TextBlock HorizontalAlignment="Left" Text="{Binding AliasWithClan}" />
+                            <TextBlock HorizontalAlignment="Left" Text="{Binding Clan.Name}"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top">
+                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,0,10,0" Text="$$72642$$Casual Rank"/>
+                        <Grid>
+                            <Image Source="{Binding RankInfo.WinLossRatioRankIcon}" />
+                            <Image Source="{Binding RankInfo.TotalWinRankIcon}" />
+                        </Grid>
+                    </StackPanel>
+                </Grid>
+
+                <Grid Grid.Row="1" Margin="5,5,5,5"  >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="1"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="300" />
+                        <ColumnDefinition Width="80"/>
+                        <ColumnDefinition Width="80"/>
+                        <ColumnDefinition Width="80"/>
+                        <ColumnDefinition Width="80"/>
+                        <ColumnDefinition Width="80"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Rectangle Grid.Row="0" Grid.ColumnSpan="6" Fill="Orange" Width="auto" Height="2" Margin="0,0,0,0" />
+
+                    <TextBlock Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Text="$$72667$$Ranked Leaderboard" />
+                    <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Text="$$19099$$Rating" />
+                    <TextBlock Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Text="$$79925$$Rank" />
+                    <TextBlock Grid.Row="1" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Text="$$70823$$Wins" />
+                    <TextBlock Grid.Row="1" Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Center" Text="$$70824$$Losses" />
+                    <TextBlock Grid.Row="1" Grid.Column="5" HorizontalAlignment="Center" VerticalAlignment="Center" Text="$$79926$$Win %" />
+
+                    <Rectangle Grid.Row="2" Grid.ColumnSpan="6" Fill="Orange" Width="auto" Height="2" Margin="0,0,0,0" />
+
+                    <TextBlock Grid.Row="3" Grid.Column="0" VerticalAlignment="Center"  Text="$$71487$$Supremacy (1v1)" />
+                    <ContentPresenter Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="5" Content="{Binding LadderResults.SupremacySinglesLadder}" />
+
+                    <TextBlock Grid.Row="4" Grid.Column="0" VerticalAlignment="Center"  Text="$$71488$$Supremacy (Team)" />
+                    <ContentPresenter Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="5" Content="{Binding LadderResults.SupremacyTeamLadder}" />
+
+                    <TextBlock Grid.Row="5" Grid.Column="0" VerticalAlignment="Center"  Text="$$71506$$Treaty (All)" />
+                    <ContentPresenter Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="5" Content="{Binding LadderResults.DeathmatchLadder}" />
+
+                    <TextBlock Grid.Row="6" Grid.Column="0" VerticalAlignment="Center"  Text="$$71507$$Deathmatch (All)" />
+                    <ContentPresenter Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="5" Content="{Binding LadderResults.TreatyLadder}" />
+                </Grid>
+            </Grid>
+        </DataTemplate>
+    </Window.Resources>
+
     <Viewbox Style="{StaticResource ViewboxMain}">
 
         <Grid x:Name="mainGridPanel" Width="1920" Height="1080" Background="{StaticResource multiplayer_bg1}">
@@ -62,9 +165,9 @@
 
                 <!--Matchmaking host-->
                 <Grid x:Name="quickmatch_party_container_host" HorizontalAlignment="Center" VerticalAlignment="Center" Width="970" Height="{Binding ElementName=host_contentStack, Path=ActualHeight}" Visibility="Visible">
-                    <ContentControl Template="{StaticResource PanelBG_Titled}" Margin="-10,-20,-10,-100" />
+                    <ContentControl Template="{StaticResource PanelBG}" Margin="-10,-20,-10,-100" />
 
-                    <Grid x:Name="host_contentStack" Width="870" Height="860" HorizontalAlignment="Center" VerticalAlignment="Top">
+                    <Grid x:Name="host_contentStack" Width="870" Height="950" HorizontalAlignment="Center" VerticalAlignment="Top">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="43*"/>
                             <ColumnDefinition Width="827*"/>
@@ -84,15 +187,20 @@
                             <!-- Record game checkbox -->
                             <RowDefinition Height="Auto"/>
                             <!-- Error Message -->
-                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="50"/>
                             <!-- Buttons -->
                         </Grid.RowDefinitions>
 
                         <!--Title-->
-                        <TextBlock Grid.Row="0" Margin="79.667,20,122,19" Style="{StaticResource ConfirmationTitlesStyle}" FontSize="36" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="1">$$71044$$Ranked Game Search</TextBlock>
+                        <StackPanel Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5,0,0">
+                            <TextBlock Style="{StaticResource ConfirmationTitlesStyle}" FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Center"  TextAlignment="Center" Width="800" TextWrapping="Wrap">
+                                $$71044$$Ranked Game Search
+                            </TextBlock>
+                            <Rectangle VerticalAlignment="Bottom" Height="3" Fill="{StaticResource DividingLineGradient}"/>
+                        </StackPanel>
 
                         <!--Tip-->
-                        <TextBlock Grid.Row="1" Margin="33,0,32,9" Style="{StaticResource ConfirmationTitlesStyle}" Foreground="#dbd5c3" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.ColumnSpan="2" Visibility="{Binding IsHost, Converter={StaticResource BoolToVisibility}}">
+                        <TextBlock Grid.Row="1" Style="{StaticResource ConfirmationTitlesStyle}" Width="800" TextWrapping="Wrap" TextAlignment="Center" Foreground="#dbd5c3" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.ColumnSpan="2" Visibility="{Binding IsHost, Converter={StaticResource BoolToVisibility}}">
                             $$71094$$Select at least one game type and game size to begin search.
                         </TextBlock>
 
@@ -102,29 +210,48 @@
                                 <TextBlock Style="{StaticResource mpHomeCityTitles}" VerticalAlignment="Center" Text="$$71046$$Game Types:" />
                                 <Grid>
                                     <Rectangle Style="{StaticResource PanelBGSection}" />
-                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" IsEnabled="{Binding IsHost}">
-                                        <CheckBox x:Name="quickmatch_party_host_checkbox_supremacy" Margin="20" Style="{StaticResource Checkbox_Medium}" Content="$$18864$$Supremacy" IsChecked="{Binding IsSupremecy}" TabIndex="1" >
+                                    <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center" IsEnabled="{Binding IsHost}">
+                                        <CheckBox x:Name="quickmatch_party_host_checkbox_supremacy" Margin="10" Style="{StaticResource Checkbox_Medium}" Content="$$18864$$Supremacy" IsChecked="{Binding IsSupremecy}" TabIndex="1" >
                                             <CheckBox.ToolTip>
                                                 $$38299$$Supremacy: the standard way to play. Start small and build up.
                                             </CheckBox.ToolTip>
                                         </CheckBox>
-                                        <CheckBox x:Name="quickmatch_party_host_checkbox_treaty" Margin="20" Style="{StaticResource Checkbox_Medium}" Content="$$29361$$Treaty" IsChecked="{Binding IsTreaty}" TabIndex="1" >
+                                        <CheckBox x:Name="quickmatch_party_host_checkbox_treaty" Margin="10" Style="{StaticResource Checkbox_Medium}" IsChecked="{Binding IsTreaty}" TabIndex="1" >
+                                            <CheckBox.Content>
+                                                <TextBlock>
+                                                    <Run local:Age3StringDB.StringId="29361"/>
+                                                    <Run Text=": "/>
+                                                    <Run local:Age3StringDB.StringId="46615"/>
+                                                </TextBlock>
+                                            </CheckBox.Content>
                                             <CheckBox.ToolTip>
                                                 $$49051$$Treaty: Treaty has a fixed time where no one can attack and building is restricted.
                                             </CheckBox.ToolTip>
                                         </CheckBox>
-                                        <CheckBox x:Name="quickmatch_party_host_checkbox_deathmatch" Margin="20" Style="{StaticResource Checkbox_Medium}" Content="$$18867$$Deathmatch" IsChecked="{Binding IsDeathmatch}" TabIndex="2" >
+                                        <CheckBox x:Name="quickmatch_party_host_checkbox_treaty20" Margin="10" Style="{StaticResource Checkbox_Medium}" IsChecked="{Binding IsTreaty20Min}" TabIndex="1" >
+                                            <CheckBox.Content>
+                                                <TextBlock>
+                                                    <Run local:Age3StringDB.StringId="29361"/>
+                                                    <Run Text=": "/>
+                                                    <Run local:Age3StringDB.StringId="46613"/>
+                                                </TextBlock>
+                                            </CheckBox.Content>
+                                            <CheckBox.ToolTip>
+                                                $$49051$$Treaty: Treaty has a fixed time where no one can attack and building is restricted.
+                                            </CheckBox.ToolTip>
+                                        </CheckBox>
+                                        <CheckBox x:Name="quickmatch_party_host_checkbox_deathmatch" Margin="10" Style="{StaticResource Checkbox_Medium}" Content="$$18867$$Deathmatch" IsChecked="{Binding IsDeathmatch}" TabIndex="2" >
                                             <CheckBox.ToolTip>
                                                 $$38300$$Deathmatch: start with high resources for a fast-paced game.
                                             </CheckBox.ToolTip>
                                         </CheckBox>
-                                    </StackPanel>
+                                    </WrapPanel>
                                 </Grid>
                             </StackPanel>
                         </Grid>
 
                         <!-- Game Size -->
-                        <Grid Grid.Row="3" Margin="0,20,0,20" Grid.ColumnSpan="2">
+                        <Grid Grid.Row="3" Margin="0,20,0,10" Grid.ColumnSpan="2">
                             <StackPanel Orientation="Vertical">
                                 <TextBlock Style="{StaticResource mpHomeCityTitles}" VerticalAlignment="Center" Text="$$71045$$Game Sizes:" />
                                 <Grid IsEnabled="{Binding IsHost}">
@@ -166,11 +293,17 @@
                                         <DataTemplate x:Key="PartyMemberTemplate" DataType="{x:Type local:Age3QuickmatchPartyMember}">
                                             <Grid Margin="3">
                                                 <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto"/>
                                                     <ColumnDefinition Width="*"/>
                                                     <ColumnDefinition Width="Auto"/>
                                                 </Grid.ColumnDefinitions>
-                                                <TextBlock Style="{StaticResource CampaignRegularTextBlockStyle}" Text="{Binding User.AliasWithClan}" />
-                                                <Button Grid.Column="1" Command="{Binding Kick}" Style="{StaticResource Kickbutton}"
+                                                <Button Style="{StaticResource AvatarButton}" Content="{Binding User.Avatar}"  Width="40"  Height="40" Margin="0,0,20,0"/>
+                                                <TextBlock Grid.Column="1" Style="{StaticResource CampaignRegularTextBlockStyle}" Text="{Binding User.AliasWithClan}" VerticalAlignment="Center">
+                                                    <TextBlock.ToolTip>
+                                                        <ToolTip Style="{StaticResource RankTooltips}" Content="{Binding User}"/>
+                                                    </TextBlock.ToolTip>
+                                                </TextBlock>
+                                                <Button Grid.Column="2" Command="{Binding Kick}" Style="{StaticResource Kickbutton}"
                                                         Visibility="{Binding IsEnabled, RelativeSource={RelativeSource Self}, Converter={StaticResource BoolToVisibility}}">
                                                     <Image Source="{StaticResource icon_kick}"/>
                                                     <Button.ToolTip>$$22013$$Kick this player out of the game. This option can only be used by the game host.</Button.ToolTip>
@@ -221,8 +354,6 @@
                             <Ellipse Name="MatchDot2" VerticalAlignment="Bottom" Fill="White" Opacity=".1" Width="6" Height="6" Margin="2,0,0,8"/>
                             <Ellipse Name="MatchDot3" VerticalAlignment="Bottom" Fill="White" Opacity=".1" Width="6" Height="6" Margin="2,0,0,8"/>
                         </StackPanel>
-
-
 
                         <!--Buttons-->
                         <StackPanel Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,6,0,0" Orientation="Horizontal" HorizontalAlignment="Center" Visibility="{Binding IsHost, Converter={StaticResource BoolToVisibility}}">

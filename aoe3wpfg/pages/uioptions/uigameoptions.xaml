@@ -148,19 +148,19 @@
                                 <TextBlock.ToolTip>$$37073$$Adjust the scroll speed of your camera.</TextBlock.ToolTip>
                             </TextBlock>
                             <StackPanel Orientation="Vertical" Grid.Column="1" VerticalAlignment="Center">
-                                <Slider Name="OptionScrollSpeed" Height="20" Width="300" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,10,0,0" Value="{Binding Path=OptionScrollSpeed}" Minimum="0.05" Maximum="0.5" SmallChange="0.01" LargeChange="0.1" TabIndex="9">
-                                    <Slider.ToolTip>$$37073$$Adjust the scroll speed of your camera.</Slider.ToolTip>
-                                </Slider>
-                                <Grid Height="auto">
+                                <Grid Height="auto" Margin="0,10,0,0">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="auto"/>
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
-                                    <TextBlock Grid.Column="0" Style="{StaticResource subInfoLeft}" HorizontalAlignment="Left" VerticalAlignment="Top" Opacity="0.75">$$70615$$Min</TextBlock>
-                                    <TextBlock Name="OptionScrollSpeedAmount" Grid.Column="1" Style="{StaticResource subInfoLeft}" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="White">50%</TextBlock>
-                                    <TextBlock Grid.Column="2" Style="{StaticResource subInfoLeft}" HorizontalAlignment="Right" VerticalAlignment="Top" Opacity="0.75">$$70616$$Max</TextBlock>
+                                    <TextBlock Grid.Column="0" Style="{StaticResource subInfoLeft}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Opacity="0.75">$$70615$$Min</TextBlock>
+                                    <TextBlock Name="OptionScrollSpeedAmount" Grid.Column="1" Style="{StaticResource subInfoLeft}" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Bottom" Foreground="White">50%</TextBlock>
+                                    <TextBlock Grid.Column="2" Style="{StaticResource subInfoLeft}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Opacity="0.75">$$70616$$Max</TextBlock>
                                 </Grid>
+                                <Slider Name="OptionScrollSpeed" Height="20" Width="300" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,0,5" Value="{Binding Path=OptionScrollSpeed}" Minimum="0.05" Maximum="0.5" SmallChange="0.01" LargeChange="0.1" TabIndex="9">
+                                    <Slider.ToolTip>$$37073$$Adjust the scroll speed of your camera.</Slider.ToolTip>
+                                </Slider>
                             </StackPanel>
                         </Grid>
                     </local:Age3KeyboardFocusBorder>
@@ -209,19 +209,19 @@
                             </TextBlock>
 
                             <StackPanel Orientation="Vertical" Grid.Column="1" VerticalAlignment="Center">
-                                <Slider Name="OptionCameraInertiaRampTime" Height="20" Width="300" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,10,0,0" Value="{Binding Path=OptionCameraInertiaRampTime}" Minimum="0.0" Maximum="500.0" SmallChange="1.0" LargeChange="100.0" TabIndex="12">
-                                    <Slider.ToolTip>$$43201$$Adjust the time for the camera to accelerate to full speed when scrolling.</Slider.ToolTip>
-                                </Slider>
-                                <Grid Height="auto">
+                                <Grid Height="auto" Margin="0,10,0,0">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="auto"/>
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
-                                    <TextBlock Grid.Column="0" Style="{StaticResource subInfoLeft}" HorizontalAlignment="Left" VerticalAlignment="Top" Opacity="0.75">$$42086$$Short</TextBlock>
-                                    <TextBlock Name="OptionCameraAccelerationAmount" Grid.Column="1" Style="{StaticResource subInfoLeft}" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="White">50%</TextBlock>
-                                    <TextBlock Grid.Column="2" Style="{StaticResource subInfoLeft}" HorizontalAlignment="Right" VerticalAlignment="Top" Opacity="0.75">$$42087$$Long</TextBlock>
+                                    <TextBlock Grid.Column="0" Style="{StaticResource subInfoLeft}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Opacity="0.75">$$42086$$Short</TextBlock>
+                                    <TextBlock Name="OptionCameraAccelerationAmount" Grid.Column="1" Style="{StaticResource subInfoLeft}" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Bottom" Foreground="White">50%</TextBlock>
+                                    <TextBlock Grid.Column="2" Style="{StaticResource subInfoLeft}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Opacity="0.75">$$42087$$Long</TextBlock>
                                 </Grid>
+                                <Slider Name="OptionCameraInertiaRampTime" Height="20" Width="300" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,0,5" Value="{Binding Path=OptionCameraInertiaRampTime}" Minimum="0.0" Maximum="500.0" SmallChange="1.0" LargeChange="100.0" TabIndex="12">
+                                    <Slider.ToolTip>$$43201$$Adjust the time for the camera to accelerate to full speed when scrolling.</Slider.ToolTip>
+                                </Slider>
                             </StackPanel>
                         </Grid>
                     </local:Age3KeyboardFocusBorder>

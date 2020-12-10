@@ -163,7 +163,7 @@
                             </Trigger>
 
                             <Trigger Property="IsChecked" Value="False"/>
-                            
+
                             <Trigger Property="IsEnabled" Value="False">
                                 <Setter TargetName="ButtonText" Property="Foreground" Value="{StaticResource ButtonTextGradient3}" />
                                 <Setter TargetName="background" Property="Fill" Value="{StaticResource MainMenuButtonInnerGradientDisabled}" />
@@ -195,91 +195,106 @@
             </Style.Setters>
         </Style>
 
-      <DataTemplate DataType="{x:Type local:Age3LadderEntry}">
-        <Grid Width ="370" Height="30">
-          <Grid.RowDefinitions>
-            <RowDefinition Height="30"/>
-          </Grid.RowDefinitions>
-          <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="66"/>
-            <ColumnDefinition Width="60"/>
-            <ColumnDefinition Width="60"/>
-            <ColumnDefinition Width="66"/>
-            <ColumnDefinition Width="62"/>
-          </Grid.ColumnDefinitions>
+        <DataTemplate DataType="{x:Type local:Age3LadderEntry}">
+            <Grid Width ="auto" Height="30">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="100"/>
+                </Grid.ColumnDefinitions>
 
-          <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Rating}" />
-          <TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Ranking}" />
-          <TextBlock Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Wins}" />
-          <TextBlock Grid.Row="0" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Losses}" />
-          <TextBlock Grid.Row="0" Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding WinPercentage}" />
-        </Grid>
-      </DataTemplate>
+                <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Rating}" />
+                <TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Ranking}" />
+                <TextBlock Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Wins}" />
+                <TextBlock Grid.Row="0" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Losses}" />
+                <TextBlock Grid.Row="0" Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding WinPercentage}" />
+            </Grid>
+        </DataTemplate>
 
-      <DataTemplate DataType="{x:Type local:Age3String}">
-        <TextBlock Height="30" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Text}" />
-      </DataTemplate>
+        <DataTemplate DataType="{x:Type local:Age3String}">
+            <TextBlock Height="30" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Text}" />
+        </DataTemplate>
 
-      <DataTemplate DataType="{x:Type local:Age3ProfileInfo}">
-        <Grid Width="500">
-          <Grid.RowDefinitions>
-            <RowDefinition Height="60"/>
-            <RowDefinition Height="*"/>
-          </Grid.RowDefinitions>
-          <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="500"/>
-          </Grid.ColumnDefinitions>
+        <DataTemplate DataType="{x:Type local:Age3ProfileInfo}">
+            <Grid Width="auto">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
 
-          <!-- Player ranking icon can go here, next to the player's name, once it's set up -->
-          <TextBlock Grid.Row="0" Margin="0,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding AliasWithClan}" />
+                <!-- Player ranking icon can go here, next to the player's name, once it's set up -->
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
 
-          <Grid Grid.Row="1" Margin="5,5,5,5"  >
-            <Grid.RowDefinitions>
-              <RowDefinition Height="1"/>
-              <RowDefinition Height="30"/>
-              <RowDefinition Height="1"/>
-              <RowDefinition Height="30"/>
-              <RowDefinition Height="30"/>
-              <RowDefinition Height="30"/>
-              <RowDefinition Height="30"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-              <ColumnDefinition Width="168" />
-              <ColumnDefinition Width="66"/>
-              <ColumnDefinition Width="60"/>
-              <ColumnDefinition Width="60"/>
-              <ColumnDefinition Width="66"/>
-              <ColumnDefinition Width="62"/>
-            </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
+                        <Image Width="60" Height="60" Source="{Binding Avatar.Avatar}"/>
+                        <StackPanel Margin="10,0,0,0" VerticalAlignment="Center">
+                            <TextBlock HorizontalAlignment="Left" Text="{Binding AliasWithClan}" />
+                            <TextBlock HorizontalAlignment="Left" Text="{Binding Clan.Name}"/>
+                        </StackPanel>
+                    </StackPanel>
 
-            <Rectangle Grid.Row="0" Grid.ColumnSpan="6" Fill="Orange" Width="500" Height="2" Margin="0,0,0,0" />
+                    <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top">
+                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,0,10,0" Text="$$72642$$Casual Rank"/>
+                        <Grid>
+                            <Image Source="{Binding RankInfo.WinLossRatioRankIcon}" />
+                            <Image Source="{Binding RankInfo.TotalWinRankIcon}" />
+                        </Grid>
+                    </StackPanel>
+                </Grid>
 
-            <TextBlock Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Text="Leaderboard" />
-            <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Text="$$19099$$Rating" />
-            <TextBlock Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Text="$$79925$$Rank" />
-            <TextBlock Grid.Row="1" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Text="$$70823$$Wins" />
-            <TextBlock Grid.Row="1" Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Center" Text="$$70824$$Losses" />
-            <TextBlock Grid.Row="1" Grid.Column="5" HorizontalAlignment="Center" VerticalAlignment="Center" Text="$$79926$$Win %" />
+                <Grid Grid.Row="1" Margin="5,5,5,5"  >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="1"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="300" />
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="100"/>
+                    </Grid.ColumnDefinitions>
 
-            <Rectangle Grid.Row="2" Grid.ColumnSpan="6" Fill="Orange" Width="500" Height="2" Margin="0,0,0,0" />
+                    <Rectangle Grid.Row="0" Grid.ColumnSpan="6" Fill="Orange" Width="auto" Height="2" Margin="0,0,0,0" />
 
-            <TextBlock Grid.Row="3" Grid.Column="0" VerticalAlignment="Center"  Text="$$71487$$Supremacy (1v1)" />
-            <ContentPresenter Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="5" Content="{Binding LadderResults.SupremacySinglesLadder}" />
+                    <TextBlock Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Text="$$72667$$Ranked Leaderboard" />
+                    <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Text="$$19099$$Rating" />
+                    <TextBlock Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Text="$$79925$$Rank" />
+                    <TextBlock Grid.Row="1" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Text="$$70823$$Wins" />
+                    <TextBlock Grid.Row="1" Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Center" Text="$$70824$$Losses" />
+                    <TextBlock Grid.Row="1" Grid.Column="5" HorizontalAlignment="Center" VerticalAlignment="Center" Text="$$79926$$Win %" />
 
-            <TextBlock Grid.Row="4" Grid.Column="0" VerticalAlignment="Center"  Text="$$71488$$Supremacy (Team)" />
-            <ContentPresenter Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="5" Content="{Binding LadderResults.SupremacyTeamLadder}" />
+                    <Rectangle Grid.Row="2" Grid.ColumnSpan="6" Fill="Orange" Width="auto" Height="2" Margin="0,0,0,0" />
 
-            <TextBlock Grid.Row="5" Grid.Column="0" VerticalAlignment="Center"  Text="$$71506$$Treaty (All)" />
-            <ContentPresenter Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="5" Content="{Binding LadderResults.DeathmatchLadder}" />
+                    <TextBlock Grid.Row="3" Grid.Column="0" VerticalAlignment="Center"  Text="$$71487$$Supremacy (1v1)" />
+                    <ContentPresenter Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="5" Content="{Binding LadderResults.SupremacySinglesLadder}" />
 
-            <TextBlock Grid.Row="6" Grid.Column="0" VerticalAlignment="Center"  Text="$$71507$$Deathmatch (All)" />
-            <ContentPresenter Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="5" Content="{Binding LadderResults.TreatyLadder}" />
+                    <TextBlock Grid.Row="4" Grid.Column="0" VerticalAlignment="Center"  Text="$$71488$$Supremacy (Team)" />
+                    <ContentPresenter Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="5" Content="{Binding LadderResults.SupremacyTeamLadder}" />
 
-          </Grid>
-        </Grid>
+                    <TextBlock Grid.Row="5" Grid.Column="0" VerticalAlignment="Center"  Text="$$71506$$Treaty (All)" />
+                    <ContentPresenter Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="5" Content="{Binding LadderResults.DeathmatchLadder}" />
 
-      </DataTemplate>
-
+                    <TextBlock Grid.Row="6" Grid.Column="0" VerticalAlignment="Center"  Text="$$71507$$Deathmatch (All)" />
+                    <ContentPresenter Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="5" Content="{Binding LadderResults.TreatyLadder}" />
+                </Grid>
+            </Grid>
+        </DataTemplate>
     </Window.Resources>
 
     <Viewbox Style="{StaticResource ViewboxMain}">
@@ -344,7 +359,7 @@
                                     <TextBlock x:Name="mpsetup_gamename_text" Padding="20" Margin="0,0,0,0" FontSize="30" Style="{StaticResource CampaignTitleTextBlockStyle}">Game Name</TextBlock>
                                     <Image x:Name="mpsetup_mods_warning_icon" Visibility="Collapsed" Source="{StaticResource warning_icon}" Margin="0,16,16,16" ToolTip="$$79933$$Warning: You currently have mods enabled. Only players using the same mods will be able to join this game."/>
                                 </StackPanel>
-                                
+
                                 <StackPanel Grid.Row="1" Height="auto" VerticalAlignment="Top">
                                     <StackPanel.Resources>
                                         <Style TargetType="Grid">
@@ -405,7 +420,11 @@
                                                 </Rectangle.Fill>
                                             </Rectangle>
 
-                                            <TextBlock x:Name="mpsetup_Player1_nametext" FontFamily="Trajan Pro" FontWeight="Bold" FontSize="25" Foreground="White" Height="40" Padding="5" Background="Transparent" Margin="5,15,0,0" ToolTip="{Binding }">Player Name here.
+                                            <TextBlock x:Name="mpsetup_Player1_nametext" FontFamily="Trajan Pro" FontWeight="Bold" FontSize="25" Foreground="White" Height="40" Padding="5" Background="Transparent" Margin="5,15,0,0">
+                                                Player Name here.
+                                                <TextBlock.ToolTip>
+                                                    <ToolTip Content="{Binding }" Style="{StaticResource RankTooltips}"/>
+                                                </TextBlock.ToolTip>
                                                 <TextBlock.Effect>
                                                     <DropShadowEffect BlurRadius="5" Color="Black" Direction="-90" ShadowDepth="3" RenderingBias="Quality"/>
                                                 </TextBlock.Effect>
@@ -423,11 +442,14 @@
                                         </Grid>
 
                                         <!--Profile-->
-                                        <Image Grid.Column="0" x:Name="mpsetup_Player1_Avatar" HorizontalAlignment="Left" Height="65" Margin="10,0,0,0" Source="/resources/hc_profile.png" Visibility="Visible">
-                                            <Image.Effect>
-                                                <DropShadowEffect BlurRadius="10" Color="Black" Direction="-90" ShadowDepth="5" RenderingBias="Quality"/>
-                                            </Image.Effect>
-                                        </Image>
+                                        <Grid Grid.Column="0" HorizontalAlignment="Left" Height="65" Margin="10,0,0,0" >
+                                            <Image x:Name="mpsetup_Player1_Avatar" Source="/resources/hc_profile.png" Visibility="Visible">
+                                                <Image.Effect>
+                                                    <DropShadowEffect BlurRadius="10" Color="Black" Direction="-90" ShadowDepth="5" RenderingBias="Quality"/>
+                                                </Image.Effect>
+                                            </Image>
+                                        </Grid>
+
 
                                         <!--Flag-->
                                         <Button Grid.Column="1" x:Name="mpsetup_Player1_CivFlag" Height="65" Width="95" VerticalAlignment="Center" Background="{StaticResource flag_square_random}" Style="{StaticResource ImageButton}" Content="20"/>
@@ -535,7 +557,11 @@
                                                 </Rectangle.Fill>
                                             </Rectangle>
 
-                                            <TextBlock x:Name="mpsetup_Player2_nametext" FontFamily="Trajan Pro" FontWeight="Bold" FontSize="25" Foreground="White" Height="40" Padding="5" Background="Transparent" Margin="5,15,0,0" ToolTip="{Binding }">Player Name here.
+                                            <TextBlock x:Name="mpsetup_Player2_nametext" FontFamily="Trajan Pro" FontWeight="Bold" FontSize="25" Foreground="White" Height="40" Padding="5" Background="Transparent" Margin="5,15,0,0">
+                                                Player Name here.
+                                                <TextBlock.ToolTip>
+                                                    <ToolTip Content="{Binding }" Style="{StaticResource RankTooltips}"/>
+                                                </TextBlock.ToolTip>
                                                 <TextBlock.Effect>
                                                     <DropShadowEffect BlurRadius="5" Color="Black" Direction="-90" ShadowDepth="3" RenderingBias="Quality"/>
                                                 </TextBlock.Effect>
@@ -553,11 +579,14 @@
                                         </Grid>
 
                                         <!--Profile-->
-                                        <Image Grid.Column="0" x:Name="mpsetup_Player2_Avatar" HorizontalAlignment="Left" Height="65" Margin="10,0,0,0" Source="/resources/hc_profile.png" Visibility="Visible">
-                                            <Image.Effect>
-                                                <DropShadowEffect BlurRadius="10" Color="Black" Direction="-90" ShadowDepth="5" RenderingBias="Quality"/>
-                                            </Image.Effect>
-                                        </Image>
+                                        <Grid Grid.Column="0" HorizontalAlignment="Left" Height="65" Margin="10,0,0,0" >
+                                            <Image x:Name="mpsetup_Player2_Avatar" Source="/resources/hc_profile.png" Visibility="Visible">
+                                                <Image.Effect>
+                                                    <DropShadowEffect BlurRadius="10" Color="Black" Direction="-90" ShadowDepth="5" RenderingBias="Quality"/>
+                                                </Image.Effect>
+                                            </Image>
+                                        </Grid>
+
 
                                         <!--Flag-->
                                         <Button Grid.Column="1" x:Name="mpsetup_Player2_CivFlag" Height="65" Width="95" VerticalAlignment="Center" Background="{StaticResource flag_square_random}" Style="{StaticResource ImageButton}" Content="20"/>
@@ -665,7 +694,11 @@
                                                 </Rectangle.Fill>
                                             </Rectangle>
 
-                                            <TextBlock x:Name="mpsetup_Player3_nametext" FontFamily="Trajan Pro" FontWeight="Bold" FontSize="25" Foreground="White" Height="40" Padding="5" Background="Transparent" Margin="5,15,0,0" ToolTip="{Binding }">Player Name here.
+                                            <TextBlock x:Name="mpsetup_Player3_nametext" FontFamily="Trajan Pro" FontWeight="Bold" FontSize="25" Foreground="White" Height="40" Padding="5" Background="Transparent" Margin="5,15,0,0">
+                                                Player Name here.
+                                                <TextBlock.ToolTip>
+                                                    <ToolTip Content="{Binding }" Style="{StaticResource RankTooltips}"/>
+                                                </TextBlock.ToolTip>
                                                 <TextBlock.Effect>
                                                     <DropShadowEffect BlurRadius="5" Color="Black" Direction="-90" ShadowDepth="3" RenderingBias="Quality"/>
                                                 </TextBlock.Effect>
@@ -683,11 +716,14 @@
                                         </Grid>
 
                                         <!--Profile-->
-                                        <Image Grid.Column="0" x:Name="mpsetup_Player3_Avatar" HorizontalAlignment="Left" Height="65" Margin="10,0,0,0" Source="/resources/hc_profile.png" Visibility="Visible">
-                                            <Image.Effect>
-                                                <DropShadowEffect BlurRadius="10" Color="Black" Direction="-90" ShadowDepth="5" RenderingBias="Quality"/>
-                                            </Image.Effect>
-                                        </Image>
+                                        <Grid Grid.Column="0" HorizontalAlignment="Left" Height="65" Margin="10,0,0,0" >
+                                            <Image x:Name="mpsetup_Player3_Avatar" Source="/resources/hc_profile.png" Visibility="Visible">
+                                                <Image.Effect>
+                                                    <DropShadowEffect BlurRadius="10" Color="Black" Direction="-90" ShadowDepth="5" RenderingBias="Quality"/>
+                                                </Image.Effect>
+                                            </Image>
+                                        </Grid>
+
 
                                         <!--Flag-->
                                         <Button Grid.Column="1" x:Name="mpsetup_Player3_CivFlag" Height="65" Width="95" VerticalAlignment="Center" Background="{StaticResource flag_square_random}" Style="{StaticResource ImageButton}" Content="20"/>
@@ -795,7 +831,11 @@
                                                 </Rectangle.Fill>
                                             </Rectangle>
 
-                                            <TextBlock x:Name="mpsetup_Player4_nametext" FontFamily="Trajan Pro" FontWeight="Bold" FontSize="25" Foreground="White" Height="40" Padding="5" Background="Transparent" Margin="5,15,0,0" ToolTip="{Binding }">Player Name here.
+                                            <TextBlock x:Name="mpsetup_Player4_nametext" FontFamily="Trajan Pro" FontWeight="Bold" FontSize="25" Foreground="White" Height="40" Padding="5" Background="Transparent" Margin="5,15,0,0">
+                                                Player Name here.
+                                                <TextBlock.ToolTip>
+                                                    <ToolTip Content="{Binding }" Style="{StaticResource RankTooltips}"/>
+                                                </TextBlock.ToolTip>
                                                 <TextBlock.Effect>
                                                     <DropShadowEffect BlurRadius="5" Color="Black" Direction="-90" ShadowDepth="3" RenderingBias="Quality"/>
                                                 </TextBlock.Effect>
@@ -814,11 +854,14 @@
                                         </Grid>
 
                                         <!--Profile-->
-                                        <Image Grid.Column="0" x:Name="mpsetup_Player4_Avatar" HorizontalAlignment="Left" Height="65" Margin="10,0,0,0" Source="/resources/hc_profile.png" Visibility="Visible">
-                                            <Image.Effect>
-                                                <DropShadowEffect BlurRadius="10" Color="Black" Direction="-90" ShadowDepth="5" RenderingBias="Quality"/>
-                                            </Image.Effect>
-                                        </Image>
+                                        <Grid Grid.Column="0" HorizontalAlignment="Left" Height="65" Margin="10,0,0,0" >
+                                            <Image x:Name="mpsetup_Player4_Avatar" Source="/resources/hc_profile.png" Visibility="Visible">
+                                                <Image.Effect>
+                                                    <DropShadowEffect BlurRadius="10" Color="Black" Direction="-90" ShadowDepth="5" RenderingBias="Quality"/>
+                                                </Image.Effect>
+                                            </Image>
+                                        </Grid>
+
 
                                         <!--Flag-->
                                         <Button Grid.Column="1" x:Name="mpsetup_Player4_CivFlag" Height="65" Width="95" VerticalAlignment="Center" Background="{StaticResource flag_square_random}" Style="{StaticResource ImageButton}" Content="20" />
@@ -926,7 +969,11 @@
                                                 </Rectangle.Fill>
                                             </Rectangle>
 
-                                            <TextBlock x:Name="mpsetup_Player5_nametext" FontFamily="Trajan Pro" FontWeight="Bold" FontSize="25" Foreground="White" Height="40" Padding="5" Background="Transparent" Margin="5,15,0,0" ToolTip="{Binding }">Player Name here.
+                                            <TextBlock x:Name="mpsetup_Player5_nametext" FontFamily="Trajan Pro" FontWeight="Bold" FontSize="25" Foreground="White" Height="40" Padding="5" Background="Transparent" Margin="5,15,0,0">
+                                                Player Name here.
+                                                <TextBlock.ToolTip>
+                                                    <ToolTip Content="{Binding }" Style="{StaticResource RankTooltips}"/>
+                                                </TextBlock.ToolTip>
                                                 <TextBlock.Effect>
                                                     <DropShadowEffect BlurRadius="5" Color="Black" Direction="-90" ShadowDepth="3" RenderingBias="Quality"/>
                                                 </TextBlock.Effect>
@@ -944,11 +991,14 @@
                                         </Grid>
 
                                         <!--Profile-->
-                                        <Image Grid.Column="0" x:Name="mpsetup_Player5_Avatar" HorizontalAlignment="Left" Height="65" Margin="10,0,0,0" Source="/resources/hc_profile.png" Visibility="Visible">
-                                            <Image.Effect>
-                                                <DropShadowEffect BlurRadius="10" Color="Black" Direction="-90" ShadowDepth="5" RenderingBias="Quality"/>
-                                            </Image.Effect>
-                                        </Image>
+                                        <Grid Grid.Column="0" HorizontalAlignment="Left" Height="65" Margin="10,0,0,0" >
+                                            <Image x:Name="mpsetup_Player5_Avatar" Source="/resources/hc_profile.png" Visibility="Visible">
+                                                <Image.Effect>
+                                                    <DropShadowEffect BlurRadius="10" Color="Black" Direction="-90" ShadowDepth="5" RenderingBias="Quality"/>
+                                                </Image.Effect>
+                                            </Image>
+                                        </Grid>
+
 
                                         <!--Flag-->
                                         <Button Grid.Column="1" x:Name="mpsetup_Player5_CivFlag" Height="65" Width="95" VerticalAlignment="Center" Background="{StaticResource flag_square_random}" Style="{StaticResource ImageButton}" Content="20" />
@@ -1056,7 +1106,11 @@
                                                 </Rectangle.Fill>
                                             </Rectangle>
 
-                                            <TextBlock x:Name="mpsetup_Player6_nametext" FontFamily="Trajan Pro" FontWeight="Bold" FontSize="25" Foreground="White" Height="40" Padding="5" Background="Transparent" Margin="5,15,0,0" ToolTip="{Binding }">Player Name here.
+                                            <TextBlock x:Name="mpsetup_Player6_nametext" FontFamily="Trajan Pro" FontWeight="Bold" FontSize="25" Foreground="White" Height="40" Padding="5" Background="Transparent" Margin="5,15,0,0">
+                                                Player Name here.
+                                                <TextBlock.ToolTip>
+                                                    <ToolTip Content="{Binding }" Style="{StaticResource RankTooltips}"/>
+                                                </TextBlock.ToolTip>
                                                 <TextBlock.Effect>
                                                     <DropShadowEffect BlurRadius="5" Color="Black" Direction="-90" ShadowDepth="3" RenderingBias="Quality"/>
                                                 </TextBlock.Effect>
@@ -1074,11 +1128,14 @@
                                         </Grid>
 
                                         <!--Profile-->
-                                        <Image Grid.Column="0" x:Name="mpsetup_Player6_Avatar" HorizontalAlignment="Left" Height="65" Margin="10,0,0,0" Source="/resources/hc_profile.png" Visibility="Visible">
-                                            <Image.Effect>
-                                                <DropShadowEffect BlurRadius="10" Color="Black" Direction="-90" ShadowDepth="5" RenderingBias="Quality"/>
-                                            </Image.Effect>
-                                        </Image>
+                                        <Grid Grid.Column="0" HorizontalAlignment="Left" Height="65" Margin="10,0,0,0" >
+                                            <Image x:Name="mpsetup_Player6_Avatar" Source="/resources/hc_profile.png" Visibility="Visible">
+                                                <Image.Effect>
+                                                    <DropShadowEffect BlurRadius="10" Color="Black" Direction="-90" ShadowDepth="5" RenderingBias="Quality"/>
+                                                </Image.Effect>
+                                            </Image>
+                                        </Grid>
+
 
                                         <!--Flag-->
                                         <Button Grid.Column="1" x:Name="mpsetup_Player6_CivFlag" Height="65" Width="95" VerticalAlignment="Center" Background="{StaticResource flag_square_random}" Style="{StaticResource ImageButton}" Content="20" />
@@ -1186,7 +1243,11 @@
                                                 </Rectangle.Fill>
                                             </Rectangle>
 
-                                            <TextBlock x:Name="mpsetup_Player7_nametext" FontFamily="Trajan Pro" FontWeight="Bold" FontSize="25" Foreground="White" Height="40" Padding="5" Background="Transparent" Margin="5,15,0,0" ToolTip="{Binding }">Player Name here.
+                                            <TextBlock x:Name="mpsetup_Player7_nametext" FontFamily="Trajan Pro" FontWeight="Bold" FontSize="25" Foreground="White" Height="40" Padding="5" Background="Transparent" Margin="5,15,0,0">
+                                                Player Name here.
+                                                <TextBlock.ToolTip>
+                                                    <ToolTip Content="{Binding }" Style="{StaticResource RankTooltips}"/>
+                                                </TextBlock.ToolTip>
                                                 <TextBlock.Effect>
                                                     <DropShadowEffect BlurRadius="5" Color="Black" Direction="-90" ShadowDepth="3" RenderingBias="Quality"/>
                                                 </TextBlock.Effect>
@@ -1204,11 +1265,14 @@
                                         </Grid>
 
                                         <!--Profile-->
-                                        <Image Grid.Column="0" x:Name="mpsetup_Player7_Avatar" HorizontalAlignment="Left" Height="65" Margin="10,0,0,0" Source="/resources/hc_profile.png" Visibility="Visible">
-                                            <Image.Effect>
-                                                <DropShadowEffect BlurRadius="10" Color="Black" Direction="-90" ShadowDepth="5" RenderingBias="Quality"/>
-                                            </Image.Effect>
-                                        </Image>
+                                        <Grid Grid.Column="0" HorizontalAlignment="Left" Height="65" Margin="10,0,0,0" >
+                                            <Image x:Name="mpsetup_Player7_Avatar" Source="/resources/hc_profile.png" Visibility="Visible">
+                                                <Image.Effect>
+                                                    <DropShadowEffect BlurRadius="10" Color="Black" Direction="-90" ShadowDepth="5" RenderingBias="Quality"/>
+                                                </Image.Effect>
+                                            </Image>
+                                        </Grid>
+
 
                                         <!--Flag-->
                                         <Button Grid.Column="1" x:Name="mpsetup_Player7_CivFlag" Height="65" Width="95" VerticalAlignment="Center" Background="{StaticResource flag_square_random}" Style="{StaticResource ImageButton}" Content="20" />
@@ -1317,7 +1381,11 @@
                                                 </Rectangle.Fill>
                                             </Rectangle>
 
-                                            <TextBlock x:Name="mpsetup_Player8_nametext" FontFamily="Trajan Pro" FontWeight="Bold" FontSize="25" Foreground="White" Height="40" Padding="5" Background="Transparent" Margin="5,15,0,0" ToolTip="{Binding }">Player Name here.
+                                            <TextBlock x:Name="mpsetup_Player8_nametext" FontFamily="Trajan Pro" FontWeight="Bold" FontSize="25" Foreground="White" Height="40" Padding="5" Background="Transparent" Margin="5,15,0,0">
+                                                Player Name here.
+                                                <TextBlock.ToolTip>
+                                                    <ToolTip Content="{Binding }" Style="{StaticResource RankTooltips}"/>
+                                                </TextBlock.ToolTip>
                                                 <TextBlock.Effect>
                                                     <DropShadowEffect BlurRadius="5" Color="Black" Direction="-90" ShadowDepth="3" RenderingBias="Quality"/>
                                                 </TextBlock.Effect>
@@ -1335,11 +1403,14 @@
                                         </Grid>
 
                                         <!--Profile-->
-                                        <Image Grid.Column="0" x:Name="mpsetup_Player8_Avatar" HorizontalAlignment="Left" Height="65" Margin="10,0,0,0" Source="/resources/hc_profile.png" Visibility="Visible">
-                                            <Image.Effect>
-                                                <DropShadowEffect BlurRadius="10" Color="Black" Direction="-90" ShadowDepth="5" RenderingBias="Quality"/>
-                                            </Image.Effect>
-                                        </Image>
+                                        <Grid Grid.Column="0" HorizontalAlignment="Left" Height="65" Margin="10,0,0,0" >
+                                            <Image x:Name="mpsetup_Player8_Avatar" Source="/resources/hc_profile.png" Visibility="Visible">
+                                                <Image.Effect>
+                                                    <DropShadowEffect BlurRadius="10" Color="Black" Direction="-90" ShadowDepth="5" RenderingBias="Quality"/>
+                                                </Image.Effect>
+                                            </Image>
+                                        </Grid>
+
 
                                         <!--Flag-->
                                         <Button Grid.Column="1" x:Name="mpsetup_Player8_CivFlag" Height="65" Width="95" VerticalAlignment="Center" Background="{StaticResource flag_square_random}" Style="{StaticResource ImageButton}" Content="20" />
@@ -1421,8 +1492,8 @@
                             </ComboBox>
                             <!--Map-->
                             <Image x:Name="mpsetup_MapDisplay" Width="340" Height="340" Margin="0,5,0,0"/>
-							<!--Map Type-->
-							<TextBlock x:Name="mpsetup_LabelMapType" Style="{StaticResource subInfoLeft}" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="400" Text="$$71121$$Select Type" Margin="0,5,0,0"/>
+                            <!--Map Type-->
+                            <TextBlock x:Name="mpsetup_LabelMapType" Style="{StaticResource subInfoLeft}" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="400" Text="$$71121$$Select Type" Margin="0,5,0,0"/>
                             <ComboBox  x:Name="mpsetup_MapTypeDropdown" Width="400"  Height="40" HorizontalAlignment="Center" Style="{StaticResource RegularCombobox}" MaxDropDownHeight="380" Margin="0,0,0,0">
                                 <ComboBoxItem Content="$$79860$$All Maps" IsSelected="True">
                                     <ComboBoxItem.ToolTip>$$79861$$</ComboBoxItem.ToolTip>
@@ -1436,7 +1507,7 @@
                                 <ComboBox.ToolTip>$$71375$$</ComboBox.ToolTip>
                             </ComboBox>
                             <!--Select Map-->
-							<TextBlock x:Name="mpsetup_LabelMap" Style="{StaticResource subInfoLeft}" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="400" Text="$$19812$$Select Map" Margin="0,5,0,0"/>
+                            <TextBlock x:Name="mpsetup_LabelMap" Style="{StaticResource subInfoLeft}" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="400" Text="$$19812$$Select Map" Margin="0,5,0,0"/>
                             <ComboBox x:Name="mpsetup_MapDropdown" Width="400"  Height="40" HorizontalAlignment="Center" Style="{StaticResource RegularCombobox}" MaxDropDownHeight="380" Margin="0,0,0,0">
                                 <ComboBoxItem Content="All Maps" IsSelected="True"/>
                                 <ComboBoxItem Content="Amazonia"/>

@@ -6,6 +6,42 @@
             <GradientStop Color="#00000000" Offset="0.8" />
             <GradientStop Color="#80000000" Offset="1" />
         </LinearGradientBrush>
+        <Style TargetType="ToolTip" x:Key="ProfileTooltips">
+            <Setter Property="DataContext" Value="{StaticResource optionsProxy}"/>
+            <Setter Property="FontSize" Value="18" />
+            <Setter Property="MaxWidth" Value="500"/>
+            <Setter Property="FontFamily" Value="Open Sans"/>
+            <Setter Property="Foreground" Value="#d6c894"/>
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Setter Property="HasDropShadow" Value="True"/>
+            <Setter Property="VerticalOffset" Value="15"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="Opacity" Value="{Binding Path=OptionTooltipBackgroundAlpha}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ToolTip">
+                        <Border x:Name="Border" Background="#34221c" BorderBrush="#6f683f" BorderThickness="1" Width="{TemplateBinding Width}" Height="{TemplateBinding Height}">
+                            <ContentPresenter Margin="7,5,7,5" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="HasDropShadow" Value="true">
+                                <Setter TargetName="Border" Property="CornerRadius" Value="4"/>
+                                <Setter TargetName="Border" Property="SnapsToDevicePixels" Value="true"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Resources>
+                <Style TargetType="ContentPresenter">
+                    <Style.Resources>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="TextWrapping" Value="Wrap" />
+                        </Style>
+                    </Style.Resources>
+                </Style>
+            </Style.Resources>
+        </Style>
     </Window.Resources>
     <Viewbox Style="{StaticResource ViewboxMain}" KeyboardNavigation.DirectionalNavigation="Contained">
         <Grid x:Name="mainGridPanel" Width="1920" Height="1080">
@@ -30,20 +66,31 @@
             <Grid Grid.Column="1">
                 <Rectangle Width="6" HorizontalAlignment="Left" Margin="0,-5,0,-5" Fill="{StaticResource PanelBGStrokeGradientVertical}" Stroke="Black" StrokeThickness="2" />
             </Grid>
+            <Grid Grid.Column="2">
+                <Button DataContext="{Binding LocalUser, Source={x:Static local:Age3MPDataCache.Current}}" HorizontalAlignment="Right" VerticalAlignment="Top"
+                        Margin="0,10"
+                        Content="{Binding Avatar}"
+                        Width="100" Height="100"
+                        Style="{StaticResource AvatarButton}" 
+                        Command="{Binding Source={x:Static local:Age3MPCommands.NavigateToAvatarPicker}}">
+                    <Button.ToolTip>$$72631$$Click to change profile picture.</Button.ToolTip>
+                </Button>
+            </Grid>
             <Grid Grid.Column="3">
-              <Grid VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,0,0,0" Width="420" Height="200">
-                <Grid.RowDefinitions>
-                  <RowDefinition Height="60"/>
-                  <RowDefinition Height="60"/>
-                </Grid.RowDefinitions>
-                <local:Age3Button Grid.Row="0" x:Name="XBLSignIn" Style="{StaticResource MainMenuButton}" HorizontalAlignment="Center" Width="380" Margin="10,10,10,10" Content="$$71031$$Xbox Live Sign In" ConsoleCommand="XBLSignInOut">
-                  <Button.ToolTip>$$71032$$Sign in to Xbox Live.</Button.ToolTip>
-                </local:Age3Button>
-                <StackPanel Grid.Row="1" x:Name="BanMessageTextBox" Visibility="Hidden">
-                  <Rectangle Fill="{StaticResource main_menu_bg}" Margin="10,10,10,10" />
-                  <TextBlock x:Name="BanMessageText" Style="{StaticResource MainTitleTextBlockStyle}" Text="" VerticalAlignment="Center" HorizontalAlignment="Center" Width="380" Margin="10,10,10,10" Foreground="#fff" FontSize="16" TextWrapping="Wrap"/>
-                </StackPanel>
-              </Grid>
+                <Grid VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,0,0,0" Width="420" Height="200">
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top">
+                        <local:Age3Button Grid.Row="0" x:Name="XBLSignIn" Style="{StaticResource MainMenuButton}" HorizontalAlignment="Center" Width="380" Margin="10,10,10,10" Content="$$71031$$Xbox Live Sign In" ConsoleCommand="XBLSignInOut">
+                            <Button.ToolTip>$$71032$$Sign in to Xbox Live.</Button.ToolTip>
+                        </local:Age3Button>
+                        <local:Age3Button Grid.Row="0" x:Name="ChallengeButton" Style="{StaticResource MainMenuButton}" HorizontalAlignment="Center" Width="380" Margin="10,10,10,10" Content="$$72646$$Event Challenges" ConsoleCommand="showChallengeEvents()">
+                            <Button.ToolTip>$$72665$$Select to open challenges.</Button.ToolTip>
+                        </local:Age3Button>
+                        <StackPanel Grid.Row="1" x:Name="BanMessageTextBox" Visibility="Hidden">
+                            <Rectangle Fill="{StaticResource main_menu_bg}" Margin="10,10,10,10" />
+                            <TextBlock x:Name="BanMessageText" Style="{StaticResource MainTitleTextBlockStyle}" Text="" VerticalAlignment="Center" HorizontalAlignment="Center" Width="380" Margin="10,10,10,10" Foreground="#fff" FontSize="16" TextWrapping="Wrap"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
             </Grid>
             <Grid Grid.Column="2" Grid.ColumnSpan="2" x:Name="demoMessage" Margin="700,880,0,0" Visibility="Hidden">
                 <Rectangle Fill="{StaticResource main_menu_bg}" />

@@ -26,90 +26,107 @@
             <Setter Property="TextWrapping" Value="Wrap"/>
         </Style>
 
-      <DataTemplate DataType="{x:Type local:Age3LadderEntry}">
-          <Grid Width ="370" Height="30">
-            <Grid.RowDefinitions>
-              <RowDefinition Height="30"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-              <ColumnDefinition Width="66"/>
-              <ColumnDefinition Width="60"/>
-              <ColumnDefinition Width="60"/>
-              <ColumnDefinition Width="66"/>
-              <ColumnDefinition Width="62"/>
-            </Grid.ColumnDefinitions>
+        <DataTemplate DataType="{x:Type local:Age3LadderEntry}">
+            <Grid Width ="auto" Height="30">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="80"/>
+                    <ColumnDefinition Width="80"/>
+                    <ColumnDefinition Width="80"/>
+                    <ColumnDefinition Width="80"/>
+                    <ColumnDefinition Width="80"/>
+                </Grid.ColumnDefinitions>
 
-            <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Rating}" />
-            <TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Ranking}" />
-            <TextBlock Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Wins}" />
-            <TextBlock Grid.Row="0" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Losses}" />
-            <TextBlock Grid.Row="0" Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding WinPercentage}" />
-        </Grid>
-      </DataTemplate>
+                <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Rating}" />
+                <TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Ranking}" />
+                <TextBlock Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Wins}" />
+                <TextBlock Grid.Row="0" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Losses}" />
+                <TextBlock Grid.Row="0" Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding WinPercentage}" />
+            </Grid>
+        </DataTemplate>
 
-      <DataTemplate DataType="{x:Type local:Age3String}">
-        <TextBlock Height="30" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Text}" />
-      </DataTemplate>
+        <DataTemplate DataType="{x:Type local:Age3String}">
+            <TextBlock Height="30" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Text}" />
+        </DataTemplate>
 
-      <DataTemplate DataType="{x:Type local:Age3ProfileInfo}">
-        <Grid Width="500">
-          <Grid.RowDefinitions>
-            <RowDefinition Height="60"/>
-            <RowDefinition Height="*"/>
-          </Grid.RowDefinitions>
-          <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="500"/>
-          </Grid.ColumnDefinitions>
+        <DataTemplate DataType="{x:Type local:Age3ProfileInfo}">
+            <Grid Width="auto">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
 
-          <!-- Player ranking icon can go here, next to the player's name, once it's set up -->
-          <TextBlock Grid.Row="0" Margin="0,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding AliasWithClan}" />
+                <!-- Player ranking icon can go here, next to the player's name, once it's set up -->
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
 
-          <Grid Grid.Row="1" Margin="5,5,5,5"  >
-            <Grid.RowDefinitions>
-              <RowDefinition Height="1"/>
-              <RowDefinition Height="30"/>
-              <RowDefinition Height="1"/>
-              <RowDefinition Height="30"/>
-              <RowDefinition Height="30"/>
-              <RowDefinition Height="30"/>
-              <RowDefinition Height="30"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-              <ColumnDefinition Width="168" />
-              <ColumnDefinition Width="66"/>
-              <ColumnDefinition Width="60"/>
-              <ColumnDefinition Width="60"/>
-              <ColumnDefinition Width="66"/>
-              <ColumnDefinition Width="62"/>
-            </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
+                        <Image Width="60" Height="60" Source="{Binding Avatar.Avatar}"/>
+                        <StackPanel Margin="10,0,0,0" VerticalAlignment="Center">
+                            <TextBlock HorizontalAlignment="Left" Text="{Binding AliasWithClan}" />
+                            <TextBlock HorizontalAlignment="Left" Text="{Binding Clan.Name}"/>
+                        </StackPanel>
+                    </StackPanel>
 
-            <Rectangle Grid.Row="0" Grid.ColumnSpan="6" Fill="Orange" Width="500" Height="2" Margin="0,0,0,0" />
+                    <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top">
+                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,0,10,0" Text="$$72642$$Casual Rank"/>
+                        <Grid>
+                            <Image Source="{Binding RankInfo.WinLossRatioRankIcon}" />
+                            <Image Source="{Binding RankInfo.TotalWinRankIcon}" />
+                        </Grid>
+                    </StackPanel>
+                </Grid>
 
-            <TextBlock Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Text="Leaderboard" />
-            <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Text="$$19099$$Rating" />
-            <TextBlock Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Text="$$79925$$Rank" />
-            <TextBlock Grid.Row="1" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Text="$$70823$$Wins" />
-            <TextBlock Grid.Row="1" Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Center" Text="$$70824$$Losses" />
-            <TextBlock Grid.Row="1" Grid.Column="5" HorizontalAlignment="Center" VerticalAlignment="Center" Text="$$79926$$Win %" />
+                <Grid Grid.Row="1" Margin="5,5,5,5"  >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="1"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="300" />
+                        <ColumnDefinition Width="80"/>
+                        <ColumnDefinition Width="80"/>
+                        <ColumnDefinition Width="80"/>
+                        <ColumnDefinition Width="80"/>
+                        <ColumnDefinition Width="80"/>
+                    </Grid.ColumnDefinitions>
 
-            <Rectangle Grid.Row="2" Grid.ColumnSpan="6" Fill="Orange" Width="500" Height="2" Margin="0,0,0,0" />
+                    <Rectangle Grid.Row="0" Grid.ColumnSpan="6" Fill="Orange" Width="auto" Height="2" Margin="0,0,0,0" />
 
-            <TextBlock Grid.Row="3" Grid.Column="0" VerticalAlignment="Center"  Text="$$71487$$Supremacy (1v1)" />
-            <ContentPresenter Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="5" Content="{Binding LadderResults.SupremacySinglesLadder}" />
+                    <TextBlock Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Text="$$72667$$Ranked Leaderboard" />
+                    <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Text="$$19099$$Rating" />
+                    <TextBlock Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Text="$$79925$$Rank" />
+                    <TextBlock Grid.Row="1" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Text="$$70823$$Wins" />
+                    <TextBlock Grid.Row="1" Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Center" Text="$$70824$$Losses" />
+                    <TextBlock Grid.Row="1" Grid.Column="5" HorizontalAlignment="Center" VerticalAlignment="Center" Text="$$79926$$Win %" />
 
-            <TextBlock Grid.Row="4" Grid.Column="0" VerticalAlignment="Center"  Text="$$71488$$Supremacy (Team)" />
-            <ContentPresenter Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="5" Content="{Binding LadderResults.SupremacyTeamLadder}" />
+                    <Rectangle Grid.Row="2" Grid.ColumnSpan="6" Fill="Orange" Width="auto" Height="2" Margin="0,0,0,0" />
 
-            <TextBlock Grid.Row="5" Grid.Column="0" VerticalAlignment="Center"  Text="$$71506$$Treaty (All)" />
-            <ContentPresenter Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="5" Content="{Binding LadderResults.DeathmatchLadder}" />
+                    <TextBlock Grid.Row="3" Grid.Column="0" VerticalAlignment="Center"  Text="$$71487$$Supremacy (1v1)" />
+                    <ContentPresenter Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="5" Content="{Binding LadderResults.SupremacySinglesLadder}" />
 
-            <TextBlock Grid.Row="6" Grid.Column="0" VerticalAlignment="Center"  Text="$$71507$$Deathmatch (All)" />
-            <ContentPresenter Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="5" Content="{Binding LadderResults.TreatyLadder}" />
+                    <TextBlock Grid.Row="4" Grid.Column="0" VerticalAlignment="Center"  Text="$$71488$$Supremacy (Team)" />
+                    <ContentPresenter Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="5" Content="{Binding LadderResults.SupremacyTeamLadder}" />
 
-          </Grid>
-        </Grid>
+                    <TextBlock Grid.Row="5" Grid.Column="0" VerticalAlignment="Center"  Text="$$71506$$Treaty (All)" />
+                    <ContentPresenter Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="5" Content="{Binding LadderResults.DeathmatchLadder}" />
 
-      </DataTemplate>
+                    <TextBlock Grid.Row="6" Grid.Column="0" VerticalAlignment="Center"  Text="$$71507$$Deathmatch (All)" />
+                    <ContentPresenter Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="5" Content="{Binding LadderResults.TreatyLadder}" />
+                </Grid>
+            </Grid>
+        </DataTemplate>
+
     </Window.Resources>
 
     <Viewbox Style="{StaticResource ViewboxMain}" Focusable="False">
@@ -120,7 +137,7 @@
                     <RowDefinition Height="50"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                
+
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1550"/>
                     <ColumnDefinition Width="*"/>
@@ -220,7 +237,7 @@
                                 </ComboBox>
                             </StackPanel>
                         </local:Age3KeyboardFocusBorder>
-                        
+
 
                         <!--Game Type-->
                         <local:Age3KeyboardFocusBorder Margin="10,10,10,0">
@@ -230,24 +247,24 @@
                                 </TextBlock>
                                 <ComboBox x:Name="MPESOGameList_FilterDlg_GameTypeDropdown" Width="360" Height="40" HorizontalAlignment="Center" Style="{StaticResource RegularCombobox}" TabIndex="12">
                                     <ComboBoxItem Content="$$48914$$All Game Types" IsSelected="True"/>
-                                  <ComboBoxItem Content="$$71503$$All Ranked Matches"/>
-                                  <ComboBoxItem Content="$$71502$$All Non-Ranked Matches"/>
-                                  <ComboBoxItem Content="$$71504$$Supremacy (Non-Ranked)"/>
+                                    <ComboBoxItem Content="$$71503$$All Ranked Matches"/>
+                                    <ComboBoxItem Content="$$71502$$All Non-Ranked Matches"/>
+                                    <ComboBoxItem Content="$$71504$$Supremacy (Non-Ranked)"/>
                                     <ComboBoxItem Content="$$71505$$Deathmatch (Non-Ranked)"/>
-                                    <ComboBoxItem Content="$$69767$$Scenario"/>                                  
-                                  <ComboBoxItem Content="$$71487$$Supremacy 1v1"/>
-                                  <ComboBoxItem Content="$$71491$$Supremacy 2v2"/>
-                                  <ComboBoxItem Content="$$71492$$Supremacy 3v3"/>
-                                  <ComboBoxItem Content="$$71493$$Supremacy 4v4"/>
-                                  <ComboBoxItem Content="$$71494$$Deathmatch 1v1"/>
-                                  <ComboBoxItem Content="$$71495$$Deathmatch 2v2"/>
-                                  <ComboBoxItem Content="$$71496$$Deathmatch 3v3"/>
-                                  <ComboBoxItem Content="$$71497$$Deathmatch 4v4"/>
-                                  <ComboBoxItem Content="$$71498$$Treaty 1v1"/>
-                                  <ComboBoxItem Content="$$71499$$Treaty 2v2"/>
-                                  <ComboBoxItem Content="$$71500$$Treaty 3v3"/>
-                                  <ComboBoxItem Content="$$71501$$Treaty 4v4"/>
-                                  <ComboBox.ToolTip>$$71092$$Change filter on a specific game type.</ComboBox.ToolTip>
+                                    <ComboBoxItem Content="$$69767$$Scenario"/>
+                                    <ComboBoxItem Content="$$71487$$Supremacy 1v1"/>
+                                    <ComboBoxItem Content="$$71491$$Supremacy 2v2"/>
+                                    <ComboBoxItem Content="$$71492$$Supremacy 3v3"/>
+                                    <ComboBoxItem Content="$$71493$$Supremacy 4v4"/>
+                                    <ComboBoxItem Content="$$71494$$Deathmatch 1v1"/>
+                                    <ComboBoxItem Content="$$71495$$Deathmatch 2v2"/>
+                                    <ComboBoxItem Content="$$71496$$Deathmatch 3v3"/>
+                                    <ComboBoxItem Content="$$71497$$Deathmatch 4v4"/>
+                                    <ComboBoxItem Content="$$71498$$Treaty 1v1"/>
+                                    <ComboBoxItem Content="$$71499$$Treaty 2v2"/>
+                                    <ComboBoxItem Content="$$71500$$Treaty 3v3"/>
+                                    <ComboBoxItem Content="$$71501$$Treaty 4v4"/>
+                                    <ComboBox.ToolTip>$$71092$$Change filter on a specific game type.</ComboBox.ToolTip>
                                 </ComboBox>
                             </StackPanel>
                         </local:Age3KeyboardFocusBorder>
@@ -312,7 +329,7 @@
                             <Button.ToolTip>$$71341$$Sort by Map</Button.ToolTip>
                         </Button>
                         <Button x:Name="MPESOGameList_SortByGameType" Grid.Column="4" Style="{StaticResource SubMenuButton}" Margin="2,0,2,0" Content="$$48916$$Rules" TabIndex="18" >
-                            <Button.ToolTip>$$71342$$Sort by Game Rules</Button.ToolTip>    
+                            <Button.ToolTip>$$71342$$Sort by Game Rules</Button.ToolTip>
                         </Button>
                         <Button x:Name="MPESOGameList_SortByType" Grid.Column="5" Style="{StaticResource SubMenuButton}" Margin="2,0,2,0" Content="$$20197$$Type" TabIndex="19" >
                             <Button.ToolTip>$$71343$$Sort by Game Type</Button.ToolTip>
@@ -323,13 +340,13 @@
                                     <Setter Property="ContentTemplate">
                                         <Setter.Value>
                                             <DataTemplate>
-                                                <Image Name="icon" Source="{StaticResource lang_icon}"/>
+                                                <Image Name="icon" Source="{StaticResource star_icon}"/>
                                             </DataTemplate>
                                         </Setter.Value>
                                     </Setter>
                                 </Style>
                             </Button.Style>
-                            <Button.ToolTip>$$71344$$Sort by Language</Button.ToolTip>
+                            <Button.ToolTip>$$72643$$Sort by Casual Rank</Button.ToolTip>
                         </Button>
                         <Button x:Name="MPESOGameList_SortByServer" Grid.Column="7" Style="{StaticResource SubMenuButton}" Margin="2,0,2,0" Content="$$71490$$Server" TabIndex="21" >
                             <Button.ToolTip>$$71345$$Sort by Server</Button.ToolTip>
@@ -477,12 +494,11 @@
                                                             </TextBlock.ToolTip>
                                                         </TextBlock>
 
-                                                        <!--Language-->
-                                                        <TextBlock Grid.Column="6" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding lang}" TextAlignment="Center">
-                                                            <TextBlock.Effect>
-                                                                <DropShadowEffect BlurRadius="5" Color="Black" Direction="-90" ShadowDepth="1" RenderingBias="Quality"/>
-                                                            </TextBlock.Effect>
-                                                        </TextBlock>
+                                                        <!--Ranking-->
+                                                        <Grid Grid.Column="6" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                            <Image Source="{Binding TotalWinsRanking}" />
+                                                            <Image Source="{Binding WinLossRanking}" />
+                                                        </Grid>
 
                                                         <!--Server-->
                                                         <StackPanel Grid.Column="7" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
@@ -549,49 +565,49 @@
                         </local:Age3KeyboardFocusBorder>
                     </Grid>
 
-                  <!--Buttons - Row 1-->
-                  <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <!--Mods Warning-->
-                    <Image x:Name="MPESOGameList_ModsWarningIcon" Visibility="Collapsed" Source="{StaticResource warning_icon}" Margin="0,8,8,8" ToolTip="$$79932$$Warning: You currently have mods enabled. Only games with the same mods as you will be visible to you."/>
-                    <!--Refresh button-->
-                    <Button x:Name="MPESOGameList_RefreshButton" Style="{StaticResource MainMenuButton}" Width="290" Content="$$21130$$Refresh" Margin="0,0,0,0" TabIndex="2" >
-                      <Button.ToolTip>$$22103$$Refresh the game list.</Button.ToolTip>
-                    </Button>
-                    <!--Join button-->
-                    <Button x:Name="MPESOGameList_JoinButton" Style="{StaticResource MainMenuButton}" Width="290" Content="$$21129$$Join" Visibility="Visible" IsEnabled="False" Margin="30,0,0,0" TabIndex="3" >
-                      <Button.ToolTip>$$70744$$Select to join game as player.</Button.ToolTip>
-                    </Button>
-                    <!--Observe button-->
-                    <Button x:Name="MPESOGameList_ObserveButton" Style="{StaticResource MainMenuButton}" Width="290" Content="$$70743$$Observe" Visibility="Collapsed" IsEnabled="False" Margin="30,0,0,0" TabIndex="4" >
-                      <Button.ToolTip>$$70745$$Select to join game as spectator.</Button.ToolTip>
-                    </Button>
-                    <!--Spectator mode button-->
-                    <Button x:Name="MPESOGameList_SpectatorModeButton" Style="{StaticResource MainMenuButton}" Width="290" HorizontalAlignment="Left" Content="$$70645$$Spectator Mode" Visibility="Visible" IsEnabled="False" Margin="30,0,0,0" TabIndex="5" >
-                      <Button.ToolTip>$$71454$$Look for games to join as a player, or as a spectator.</Button.ToolTip>
-                    </Button>
-                    <!--Spectator mode button (fake) checkbox-->
-                    <Image x:Name="MPESOGameList_SpectatorModeCheckboxImageOn" IsHitTestVisible="False" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="-290,0,0,0" Height="40" Width="40" Source="/resources/checkbox_on.png" Focusable="False"/>
-                    <Image x:Name="MPESOGameList_SpectatorModeCheckboxImageOff" IsHitTestVisible="False" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="-290,0,0,0" Height="40" Width="40" Source="/resources/checkbox_off.png" Focusable="False"/>
-                  </StackPanel>
-                  <!--Buttons - Row 2-->
-                  <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <!--Search text input box-->
-                    <local:PreviewTextBox x:Name="MPESOGameList_SearchForGamesTextInputBox" Height="44" Width="400" Margin="10,0,0,0" TabIndex="6">
-                      <local:PreviewTextBox.ToolTip>$$71451$$Search for a game by name, ID, or player name</local:PreviewTextBox.ToolTip>
-                    </local:PreviewTextBox>
-                    <!--Search button-->
-                    <Button x:Name="MPESOGameList_SearchForGamesButton" Style="{StaticResource MainMenuButton}" Width="290" Content="$$19813$$Search" Margin="10,0,10,0" TabIndex="7" >
-                      <Button.ToolTip>$$71451$$Search for a game by name, ID, or player name</Button.ToolTip>
-                    </Button>
-                    <!--Reset all filters button-->
+                    <!--Buttons - Row 1-->
+                    <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <!--Mods Warning-->
+                        <Image x:Name="MPESOGameList_ModsWarningIcon" Visibility="Collapsed" Source="{StaticResource warning_icon}" Margin="0,8,8,8" ToolTip="$$79932$$Warning: You currently have mods enabled. Only games with the same mods as you will be visible to you."/>
+                        <!--Refresh button-->
+                        <Button x:Name="MPESOGameList_RefreshButton" Style="{StaticResource MainMenuButton}" Width="290" Content="$$21130$$Refresh" Margin="0,0,0,0" TabIndex="2" >
+                            <Button.ToolTip>$$22103$$Refresh the game list.</Button.ToolTip>
+                        </Button>
+                        <!--Join button-->
+                        <Button x:Name="MPESOGameList_JoinButton" Style="{StaticResource MainMenuButton}" Width="290" Content="$$21129$$Join" Visibility="Visible" IsEnabled="False" Margin="30,0,0,0" TabIndex="3" >
+                            <Button.ToolTip>$$70744$$Select to join game as player.</Button.ToolTip>
+                        </Button>
+                        <!--Observe button-->
+                        <Button x:Name="MPESOGameList_ObserveButton" Style="{StaticResource MainMenuButton}" Width="290" Content="$$70743$$Observe" Visibility="Collapsed" IsEnabled="False" Margin="30,0,0,0" TabIndex="4" >
+                            <Button.ToolTip>$$70745$$Select to join game as spectator.</Button.ToolTip>
+                        </Button>
+                        <!--Spectator mode button-->
+                        <Button x:Name="MPESOGameList_SpectatorModeButton" Style="{StaticResource MainMenuButton}" Width="290" HorizontalAlignment="Left" Content="$$70645$$Spectator Mode" Visibility="Visible" IsEnabled="False" Margin="30,0,0,0" TabIndex="5" >
+                            <Button.ToolTip>$$71454$$Look for games to join as a player, or as a spectator.</Button.ToolTip>
+                        </Button>
+                        <!--Spectator mode button (fake) checkbox-->
+                        <Image x:Name="MPESOGameList_SpectatorModeCheckboxImageOn" IsHitTestVisible="False" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="-290,0,0,0" Height="40" Width="40" Source="/resources/checkbox_on.png" Focusable="False"/>
+                        <Image x:Name="MPESOGameList_SpectatorModeCheckboxImageOff" IsHitTestVisible="False" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="-290,0,0,0" Height="40" Width="40" Source="/resources/checkbox_off.png" Focusable="False"/>
+                    </StackPanel>
+                    <!--Buttons - Row 2-->
+                    <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <!--Search text input box-->
+                        <local:PreviewTextBox x:Name="MPESOGameList_SearchForGamesTextInputBox" Height="44" Width="400" Margin="10,0,0,0" TabIndex="6">
+                            <local:PreviewTextBox.ToolTip>$$71451$$Search for a game by name, ID, or player name</local:PreviewTextBox.ToolTip>
+                        </local:PreviewTextBox>
+                        <!--Search button-->
+                        <Button x:Name="MPESOGameList_SearchForGamesButton" Style="{StaticResource MainMenuButton}" Width="290" Content="$$19813$$Search" Margin="10,0,10,0" TabIndex="7" >
+                            <Button.ToolTip>$$71451$$Search for a game by name, ID, or player name</Button.ToolTip>
+                        </Button>
+                        <!--Reset all filters button-->
                         <Button x:Name="MPESOGameList_ResetAllFiltersButton" Style="{StaticResource MainMenuButton}" Width="290" Content="$$71489$$Reset All Filters" Visibility="Visible"  IsEnabled="False" Margin="30,0,0,0" TabIndex="8">
-                      <Button.ToolTip>$$71453$$Reset all game filters to the defaults.</Button.ToolTip>
-                    </Button>
-                    <!--Close button-->
-                    <Button x:Name="MPESOGameList_CloseButton" Style="{StaticResource MainMenuButton}" Width="290" Content="$$18457$$Close" Visibility="Visible" Margin="30,0,0,0" TabIndex="9" IsCancel="true">
-                      <Button.ToolTip>$$71452$$Return to the Multiplayer menu.</Button.ToolTip>
-                    </Button>
-                  </StackPanel>
+                            <Button.ToolTip>$$71453$$Reset all game filters to the defaults.</Button.ToolTip>
+                        </Button>
+                        <!--Close button-->
+                        <Button x:Name="MPESOGameList_CloseButton" Style="{StaticResource MainMenuButton}" Width="290" Content="$$18457$$Close" Visibility="Visible" Margin="30,0,0,0" TabIndex="9" IsCancel="true">
+                            <Button.ToolTip>$$71452$$Return to the Multiplayer menu.</Button.ToolTip>
+                        </Button>
+                    </StackPanel>
                 </Grid>
 
                 <Grid Grid.Column="1" Grid.Row="1" Margin="15,0,25,0">
@@ -607,9 +623,9 @@
                     <StackPanel Grid.Row="2">
                         <TextBlock x:Name="MPESOGameList_RoomName" FontFamily="Trajan Pro" FontSize="18" TextAlignment="Center" Margin="0,10,0,0" Foreground="White" Width="310" Text="Room Name" />
                         <Button x:Name="MPESOGameList_ReportButton" Style="{StaticResource MainMenuButton}" Width="310" Content="$$72246$$Report" Margin="0,0,0,0" >
-                          <Button.ToolTip>$$72245$$Report the lobby</Button.ToolTip>
+                            <Button.ToolTip>$$72245$$Report the lobby</Button.ToolTip>
                         </Button>
-                      
+
                         <Image x:Name="MPESOGameList_MapIcon" Height="320" Width="320" Source="resources/images/icons/random_map/all_maps.png"/>
 
                         <TextBlock x:Name="MPESOGameList_GameSpeedLabel" Style="{StaticResource subInfoLeft}" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="310" Height="40" Margin="0,5,0,-10" Text="$$36149$$Game Speed" />
@@ -633,14 +649,46 @@
 
                         <TextBlock FontFamily="Trajan Pro" FontSize="19" TextAlignment="Center" Margin="0,10,0,5" Foreground="White" Width="310" Text="$$30068$$Players" />
                         <Rectangle Style="{StaticResource filemanager_dividingline}" Width="300" Margin="0,5,0,5" />
-                        <TextBlock x:Name="player1_alias" Style="{StaticResource subInfoLeft}" Margin="10,0,0,0" Width="300" FontSize="18" Foreground="White" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding AliasWithClan}" ToolTip="{Binding }"></TextBlock>
-                        <TextBlock x:Name="player2_alias" Style="{StaticResource subInfoLeft}" Margin="10,0,0,0" Width="300" FontSize="18" Foreground="White" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding AliasWithClan}" ToolTip="{Binding }"></TextBlock>
-                        <TextBlock x:Name="player3_alias" Style="{StaticResource subInfoLeft}" Margin="10,0,0,0" Width="300" FontSize="18" Foreground="White" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding AliasWithClan}" ToolTip="{Binding }"></TextBlock>
-                        <TextBlock x:Name="player4_alias" Style="{StaticResource subInfoLeft}" Margin="10,0,0,0" Width="300" FontSize="18" Foreground="White" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding AliasWithClan}" ToolTip="{Binding }"></TextBlock>
-                        <TextBlock x:Name="player5_alias" Style="{StaticResource subInfoLeft}" Margin="10,0,0,0" Width="300" FontSize="18" Foreground="White" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding AliasWithClan}" ToolTip="{Binding }"></TextBlock>
-                        <TextBlock x:Name="player6_alias" Style="{StaticResource subInfoLeft}" Margin="10,0,0,0" Width="300" FontSize="18" Foreground="White" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding AliasWithClan}" ToolTip="{Binding }"></TextBlock>
-                        <TextBlock x:Name="player7_alias" Style="{StaticResource subInfoLeft}" Margin="10,0,0,0" Width="300" FontSize="18" Foreground="White" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding AliasWithClan}" ToolTip="{Binding }"></TextBlock>
-                        <TextBlock x:Name="player8_alias" Style="{StaticResource subInfoLeft}" Margin="10,0,0,0" Width="300" FontSize="18" Foreground="White" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding AliasWithClan}" ToolTip="{Binding }"></TextBlock>
+                        <TextBlock x:Name="player1_alias" Style="{StaticResource subInfoLeft}" Margin="10,0,0,0" Width="300" FontSize="18" Foreground="White" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding AliasWithClan}">
+                            <TextBlock.ToolTip>
+                                <ToolTip Content="{Binding }" Style="{StaticResource RankTooltips}"/>
+                            </TextBlock.ToolTip>
+                        </TextBlock>
+                        <TextBlock x:Name="player2_alias" Style="{StaticResource subInfoLeft}" Margin="10,0,0,0" Width="300" FontSize="18" Foreground="White" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding AliasWithClan}">
+                            <TextBlock.ToolTip>
+                                <ToolTip Content="{Binding }" Style="{StaticResource RankTooltips}"/>
+                            </TextBlock.ToolTip>
+                        </TextBlock>
+                        <TextBlock x:Name="player3_alias" Style="{StaticResource subInfoLeft}" Margin="10,0,0,0" Width="300" FontSize="18" Foreground="White" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding AliasWithClan}">
+                            <TextBlock.ToolTip>
+                                <ToolTip Content="{Binding }" Style="{StaticResource RankTooltips}"/>
+                            </TextBlock.ToolTip>
+                        </TextBlock>
+                        <TextBlock x:Name="player4_alias" Style="{StaticResource subInfoLeft}" Margin="10,0,0,0" Width="300" FontSize="18" Foreground="White" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding AliasWithClan}">
+                            <TextBlock.ToolTip>
+                                <ToolTip Content="{Binding }" Style="{StaticResource RankTooltips}"/>
+                            </TextBlock.ToolTip>
+                        </TextBlock>
+                        <TextBlock x:Name="player5_alias" Style="{StaticResource subInfoLeft}" Margin="10,0,0,0" Width="300" FontSize="18" Foreground="White" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding AliasWithClan}">
+                            <TextBlock.ToolTip>
+                                <ToolTip Content="{Binding }" Style="{StaticResource RankTooltips}"/>
+                            </TextBlock.ToolTip>
+                        </TextBlock>
+                        <TextBlock x:Name="player6_alias" Style="{StaticResource subInfoLeft}" Margin="10,0,0,0" Width="300" FontSize="18" Foreground="White" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding AliasWithClan}">
+                            <TextBlock.ToolTip>
+                                <ToolTip Content="{Binding }" Style="{StaticResource RankTooltips}"/>
+                            </TextBlock.ToolTip>
+                        </TextBlock>
+                        <TextBlock x:Name="player7_alias" Style="{StaticResource subInfoLeft}" Margin="10,0,0,0" Width="300" FontSize="18" Foreground="White" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding AliasWithClan}">
+                            <TextBlock.ToolTip>
+                                <ToolTip Content="{Binding }" Style="{StaticResource RankTooltips}"/>
+                            </TextBlock.ToolTip>
+                        </TextBlock>
+                        <TextBlock x:Name="player8_alias" Style="{StaticResource subInfoLeft}" Margin="10,0,0,0" Width="300" FontSize="18" Foreground="White" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding AliasWithClan}">
+                            <TextBlock.ToolTip>
+                                <ToolTip Content="{Binding }" Style="{StaticResource RankTooltips}"/>
+                            </TextBlock.ToolTip>
+                        </TextBlock>
                     </StackPanel>
                 </Grid>
             </Grid>

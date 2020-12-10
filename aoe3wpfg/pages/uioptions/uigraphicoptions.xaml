@@ -64,9 +64,9 @@
             </TextBlock>
 
             <!--Background Panel-->
-            <Rectangle HorizontalAlignment="Left" Height="245" Margin="28,65,0,0" Grid.Row="2" VerticalAlignment="Top" Width="625" Grid.Column="1" Style="{StaticResource PanelBGSection}"/>
+            <Rectangle HorizontalAlignment="Left" Height="308" Margin="28,65,0,0" Grid.Row="2" VerticalAlignment="Top" Width="625" Grid.Column="1" Style="{StaticResource PanelBGSection}"/>
 
-            <Rectangle HorizontalAlignment="Left" Height="390" Margin="28,370,0,0" Grid.Row="2" VerticalAlignment="Top" Width="625" Grid.Column="1" Style="{StaticResource PanelBGSection}"/>
+            <Rectangle HorizontalAlignment="Left" Height="327" Margin="28,433,0,0" Grid.Row="2" VerticalAlignment="Top" Width="625" Grid.Column="1" Style="{StaticResource PanelBGSection}"/>
 
             <Rectangle HorizontalAlignment="Left" Height="171" Margin="2,65,0,0" Grid.Row="2" VerticalAlignment="Top" Width="625" Grid.Column="2" Style="{StaticResource PanelBGSection}"/>
 
@@ -78,10 +78,10 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="50"/>
                     <RowDefinition Height="10"/>
-                    <RowDefinition Height="250"/>
+                    <RowDefinition Height="*"/>
                     <RowDefinition Height="50"/>
                     <RowDefinition Height="10"/>
-                    <RowDefinition Height="380"/>
+                    <RowDefinition Height="*"/>
                     <RowDefinition Height="10"/>
                     <RowDefinition Height="20"/>
                 </Grid.RowDefinitions>
@@ -104,11 +104,14 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="2"/>
                         <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="2"/>
+                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
 
                     <Rectangle Grid.Row="1"  Style="{StaticResource filemanager_dividingline}"/>
                     <Rectangle Grid.Row="3"  Style="{StaticResource filemanager_dividingline}"/>
                     <Rectangle Grid.Row="5"  Style="{StaticResource filemanager_dividingline}"/>
+                    <Rectangle Grid.Row="7"  Style="{StaticResource filemanager_dividingline}"/>
 
                     <local:Age3KeyboardFocusBorder Grid.Row="0">
                         <Grid Height="55">
@@ -174,12 +177,57 @@
                                 <ComboBox.ToolTip>$$72527$$High resolutions have greater detail but may reduce performance.</ComboBox.ToolTip>
                                 <ComboBoxItem Content="75%"/>
                                 <ComboBoxItem Content="88%"/>
-                                <ComboBoxItem Content="100%" IsSelected="True"/> 
+                                <ComboBoxItem Content="100%" IsSelected="True"/>
                             </ComboBox>
                         </Grid>
                     </local:Age3KeyboardFocusBorder>
-                    
-                    <local:Age3KeyboardFocusBorder Grid.Row="4" x:Name="OptionGrfxSuperSampling" Visibility="Collapsed">
+
+                    <local:Age3KeyboardFocusBorder Grid.Row="4">
+                        <CheckBox Name="OptionEnableVsync" Style="{StaticResource Checkbox_Options}" HorizontalAlignment="Left" VerticalAlignment="Center" FlowDirection="RightToLeft" Width="590" Height="55" TabIndex="11"  IsChecked="{Binding Path=OptionEnableVsync}">
+                            <TextBlock Text="$$37140$$VSync" TextWrapping="Wrap" FlowDirection="LeftToRight" Width="540"/>
+                            <CheckBox.ToolTip>
+                                <ToolTip FlowDirection="LeftToRight">
+                                    $$37141$$Enable to sync to vertical retrace. Disabling VSync may increase frame rate but cause tearing.
+                                </ToolTip>
+                            </CheckBox.ToolTip>
+                        </CheckBox>
+                    </local:Age3KeyboardFocusBorder>
+
+                    <local:Age3KeyboardFocusBorder Grid.Row="6">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Style="{StaticResource subInfoLeft}" Margin="0,0,0,0" VerticalAlignment="Center" Width="280">
+                                $$72644$$Frame Rate Limit
+                                <TextBlock.ToolTip>$$72645$$Adjust Frame Rate limit.</TextBlock.ToolTip>
+                            </TextBlock>
+                            <StackPanel Orientation="Vertical" Grid.Column="1" VerticalAlignment="Center">
+                                <Grid Height="auto" Margin="0,10,0,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" Style="{StaticResource subInfoLeft}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Opacity="0.75">
+                                        30 FPS
+                                    </TextBlock>
+                                    <TextBlock Name="OptionFPSLimitUnit" Grid.Column="1" Style="{StaticResource subInfoLeft}" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Bottom" Foreground="White">
+                                        60 FPS
+                                    </TextBlock>
+                                    <TextBlock Grid.Column="2" Style="{StaticResource subInfoLeft}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Opacity="0.75">
+                                        144 FPS
+                                    </TextBlock>
+                                </Grid>
+                                <Slider Name="OptionFPSLimit" Height="20" Width="280" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,0,5" Value="{Binding Path=OptionFPSLimit}" Minimum="30.0" Maximum="144.0" SmallChange="1.0" LargeChange="10.0" TabIndex="14">
+                                    <Slider.ToolTip>$$72645$$Adjust Frame Rate limit.</Slider.ToolTip>
+                                </Slider>
+                            </StackPanel>
+                        </Grid>
+                    </local:Age3KeyboardFocusBorder>
+
+                    <local:Age3KeyboardFocusBorder Grid.Row="8" x:Name="OptionGrfxSuperSampling" Visibility="Collapsed">
                         <Grid Height="55">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
@@ -196,17 +244,6 @@
                                 <ComboBoxItem Content="200%"/>
                             </ComboBox>
                         </Grid>
-                    </local:Age3KeyboardFocusBorder>
-
-                    <local:Age3KeyboardFocusBorder Grid.Row="6">
-                        <CheckBox Name="OptionEnableVsync" Style="{StaticResource Checkbox_Options}" HorizontalAlignment="Left" VerticalAlignment="Center" FlowDirection="RightToLeft" Width="590" Height="55" TabIndex="11"  IsChecked="{Binding Path=OptionEnableVsync}">
-                            <TextBlock Text="$$37140$$VSync" TextWrapping="Wrap" FlowDirection="LeftToRight" Width="540"/>
-                            <CheckBox.ToolTip>
-                                <ToolTip FlowDirection="LeftToRight">
-                                    $$37141$$Enable to sync to vertical retrace. Disabling VSync may increase frame rate but cause tearing.
-                                </ToolTip>
-                            </CheckBox.ToolTip>
-                        </CheckBox>
                     </local:Age3KeyboardFocusBorder>
                 </Grid>
 
@@ -265,29 +302,29 @@
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
                             <TextBlock Grid.Column="0" Style="{StaticResource subInfoLeft}" Margin="0,0,0,0" VerticalAlignment="Center" Width="280">
-                            $$37074$$Obscured Units Alpha
+                                $$37074$$Obscured Units Alpha
                                 <TextBlock.ToolTip>$$37075$$Controls the transparency of units obscured behind other objects.</TextBlock.ToolTip>
                             </TextBlock>
                             <StackPanel Orientation="Vertical" Grid.Column="1" VerticalAlignment="Center">
-                                <Slider Name="OptionObscuredUnitAlpha" Height="20" Width="280" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,10,0,0" Value="{Binding Path=OptionObscuredUnitAlpha}" Minimum="0.0" Maximum="100.0" SmallChange="1.0" LargeChange="10.0" TabIndex="14">
-                                    <Slider.ToolTip>$$37075$$Controls the transparency of units obscured behind other objects.</Slider.ToolTip>
-                                </Slider>
-                                <Grid Height="auto">
+                                <Grid Height="auto" Margin="0,10,0,0">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="auto"/>
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
-                                    <TextBlock Grid.Column="0" Style="{StaticResource subInfoLeft}" HorizontalAlignment="Left" VerticalAlignment="Top" Opacity="0.75">
-                                $$42084$$Min
+                                    <TextBlock Grid.Column="0" Style="{StaticResource subInfoLeft}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Opacity="0.75">
+                                        $$42084$$Min
                                     </TextBlock>
-                                    <TextBlock Name="OptionObscuredUnitAlphaAmount" Grid.Column="1" Style="{StaticResource subInfoLeft}" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="White">
-                                50%
+                                    <TextBlock Name="OptionObscuredUnitAlphaAmount" Grid.Column="1" Style="{StaticResource subInfoLeft}" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Bottom" Foreground="White">
+                                        50%
                                     </TextBlock>
-                                    <TextBlock Grid.Column="2" Style="{StaticResource subInfoLeft}" HorizontalAlignment="Right" VerticalAlignment="Top" Opacity="0.75">
-                                $$42085$$Max
+                                    <TextBlock Grid.Column="2" Style="{StaticResource subInfoLeft}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Opacity="0.75">
+                                        $$42085$$Max
                                     </TextBlock>
                                 </Grid>
+                                <Slider Name="OptionObscuredUnitAlpha" Height="20" Width="280" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,0,5" Value="{Binding Path=OptionObscuredUnitAlpha}" Minimum="0.0" Maximum="100.0" SmallChange="1.0" LargeChange="10.0" TabIndex="14">
+                                    <Slider.ToolTip>$$37075$$Controls the transparency of units obscured behind other objects.</Slider.ToolTip>
+                                </Slider>
                             </StackPanel>
                         </Grid>
                     </local:Age3KeyboardFocusBorder>

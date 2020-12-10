@@ -385,10 +385,7 @@
                             </TextBlock>
 
                             <StackPanel Orientation="Vertical" Grid.Column="1" VerticalAlignment="Center">
-                                <Slider Name="OptionMinimapGamma" Height="20" Width="250" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,10,0,0" Value="{Binding Path=OptionMinimapGamma}" Minimum="0.0" Maximum="1.0" SmallChange="0.05" LargeChange="0.1">
-                                    <Slider.ToolTip>$$71514$$Darken minimap for better contrast between terrain and units/buildings.</Slider.ToolTip>
-                                </Slider>
-                                <Grid Height="auto">
+                                <Grid Height="auto" Margin="0,10,0,0">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="*"/>
@@ -400,6 +397,9 @@
                                         $$71516$$Darker
                                     </TextBlock>
                                 </Grid>
+                                <Slider Name="OptionMinimapGamma" Height="20" Width="250" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0" Value="{Binding Path=OptionMinimapGamma}" Minimum="0.0" Maximum="1.0" SmallChange="0.05" LargeChange="0.1">
+                                    <Slider.ToolTip>$$71514$$Darken minimap for better contrast between terrain and units/buildings.</Slider.ToolTip>
+                                </Slider>
                             </StackPanel>
                         </Grid>
                     </local:Age3KeyboardFocusBorder>

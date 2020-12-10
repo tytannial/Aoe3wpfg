@@ -128,25 +128,25 @@
                             </TextBlock>
 
                             <StackPanel Orientation="Vertical" Grid.Column="1" VerticalAlignment="Center">
-                                <Slider Name="OptionSoundLevel" Height="20" Width="280" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,10,0,0" Value="{Binding Path=OptionSoundLevel}" Minimum="0.0" Maximum="1.0" SmallChange="0.01" LargeChange="0.1" TabIndex="9">
-                                    <Slider.ToolTip>$$37153$$Adjust the sound volume.</Slider.ToolTip>
-                                </Slider>
-                                <Grid Height="auto">
+                                <Grid Height="auto" Margin="0,10,0,0">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="auto"/>
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
-                                    <TextBlock Grid.Column="0" Style="{StaticResource subInfoLeft}" VerticalAlignment="Top" Opacity="0.75">
-                                $$42084$$Min
+                                    <TextBlock Grid.Column="0" Style="{StaticResource subInfoLeft}" VerticalAlignment="Bottom" Opacity="0.75">
+                                        $$42084$$Min
                                     </TextBlock>
-                                    <TextBlock Name="OptionSoundLevelAmount" Grid.Column="1" Style="{StaticResource subInfoLeft}" FontSize="20" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="White">
-                                50%
+                                    <TextBlock Name="OptionSoundLevelAmount" Grid.Column="1" Style="{StaticResource subInfoLeft}" FontSize="20" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Bottom" Foreground="White">
+                                        50%
                                     </TextBlock>
-                                    <TextBlock Grid.Column="2" Style="{StaticResource subInfoLeft}" HorizontalAlignment="Right" VerticalAlignment="Top" Opacity="0.75">
-                                $$42085$$Max
+                                    <TextBlock Grid.Column="2" Style="{StaticResource subInfoLeft}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Opacity="0.75">
+                                        $$42085$$Max
                                     </TextBlock>
                                 </Grid>
+                                <Slider Name="OptionSoundLevel" Height="20" Width="280" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,0,5" Value="{Binding Path=OptionSoundLevel}" Minimum="0.0" Maximum="1.0" SmallChange="0.01" LargeChange="0.1" TabIndex="9">
+                                    <Slider.ToolTip>$$37153$$Adjust the sound volume.</Slider.ToolTip>
+                                </Slider>
                             </StackPanel>
                         </Grid>
                     </local:Age3KeyboardFocusBorder>
@@ -163,25 +163,25 @@
                             </TextBlock>
 
                             <StackPanel Orientation="Vertical" Grid.Column="1" VerticalAlignment="Center">
-                                <Slider Name="OptionAmbientSoundLevel" Height="20" Width="280" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,10,0,0" Value="{Binding Path=OptionAmbientSoundLevel}" Minimum="0.0" Maximum="1.0" SmallChange="0.01" LargeChange="0.1" TabIndex="10">
-                                    <Slider.ToolTip>$$37155$$Adjust the ambient sound volume.</Slider.ToolTip>
-                                </Slider>
-                                <Grid Height="auto">
+                                <Grid Height="auto" Margin="0,10,0,0">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="auto"/>
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
-                                    <TextBlock Grid.Column="0" Style="{StaticResource subInfoLeft}" HorizontalAlignment="Left" VerticalAlignment="Top" Opacity="0.75">
-                                $$42084$$Min
+                                    <TextBlock Grid.Column="0" Style="{StaticResource subInfoLeft}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Opacity="0.75">
+                                        $$42084$$Min
                                     </TextBlock>
-                                    <TextBlock Name="OptionAmbientSoundLevelAmount" Grid.Column="1" Style="{StaticResource subInfoLeft}" FontSize="20" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="White">
-                                50%
+                                    <TextBlock Name="OptionAmbientSoundLevelAmount" Grid.Column="1" Style="{StaticResource subInfoLeft}" FontSize="20" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Bottom" Foreground="White">
+                                        50%
                                     </TextBlock>
-                                    <TextBlock Grid.Column="2" Style="{StaticResource subInfoLeft}" HorizontalAlignment="Right" VerticalAlignment="Top" Opacity="0.75">
-                                $$42085$$Max
+                                    <TextBlock Grid.Column="2" Style="{StaticResource subInfoLeft}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Opacity="0.75">
+                                        $$42085$$Max
                                     </TextBlock>
                                 </Grid>
+                                <Slider Name="OptionAmbientSoundLevel" Height="20" Width="280" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,0,5" Value="{Binding Path=OptionAmbientSoundLevel}" Minimum="0.0" Maximum="1.0" SmallChange="0.01" LargeChange="0.1" TabIndex="10">
+                                    <Slider.ToolTip>$$37155$$Adjust the ambient sound volume.</Slider.ToolTip>
+                                </Slider>
                             </StackPanel>
                         </Grid>
                     </local:Age3KeyboardFocusBorder>
@@ -209,25 +209,25 @@
                             </TextBlock>
 
                             <StackPanel Orientation="Vertical" Grid.Column="1" VerticalAlignment="Center">
-                                <Slider Name="OptionSoundChatVolume" Height="20" Width="280" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,10,0,0" Value="{Binding Path=OptionSoundChatVolume}" Minimum="0.0" Maximum="1.0" SmallChange="0.01" LargeChange="0.1" TabIndex="13">
-                                    <Slider.ToolTip>$$41621$$Adjust the taunts and AI chats volume.</Slider.ToolTip>
-                                </Slider>
-                                <Grid Height="auto">
+                                <Grid Height="auto" Margin="0,10,0,0">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="auto"/>
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
-                                    <TextBlock Grid.Column="0" Style="{StaticResource subInfoLeft}" HorizontalAlignment="Left" VerticalAlignment="Top" Opacity="0.75">
-                                $$42084$$Min
+                                    <TextBlock Grid.Column="0" Style="{StaticResource subInfoLeft}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Opacity="0.75">
+                                        $$42084$$Min
                                     </TextBlock>
-                                    <TextBlock x:Name="OptionChatSoundLevelAmount" Grid.Column="1" Style="{StaticResource subInfoLeft}" FontSize="20" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="White">
-                                50%
+                                    <TextBlock x:Name="OptionChatSoundLevelAmount" Grid.Column="1" Style="{StaticResource subInfoLeft}" FontSize="20" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Bottom" Foreground="White">
+                                        50%
                                     </TextBlock>
-                                    <TextBlock Grid.Column="2" Style="{StaticResource subInfoLeft}" HorizontalAlignment="Right" VerticalAlignment="Top" Opacity="0.75">
-                                $$42085$$Max
+                                    <TextBlock Grid.Column="2" Style="{StaticResource subInfoLeft}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Opacity="0.75">
+                                        $$42085$$Max
                                     </TextBlock>
                                 </Grid>
+                                <Slider Name="OptionSoundChatVolume" Height="20" Width="280" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,0,5" Value="{Binding Path=OptionSoundChatVolume}" Minimum="0.0" Maximum="1.0" SmallChange="0.01" LargeChange="0.1" TabIndex="13">
+                                    <Slider.ToolTip>$$41621$$Adjust the taunts and AI chats volume.</Slider.ToolTip>
+                                </Slider>
                             </StackPanel>
                         </Grid>
                     </local:Age3KeyboardFocusBorder>
@@ -289,25 +289,25 @@
                             </TextBlock>
 
                             <StackPanel Orientation="Vertical" Grid.Column="1" VerticalAlignment="Center">
-                                <Slider Name="OptionMusicLevel" Height="20" Width="280" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,10,0,0" Value="{Binding Path=OptionMusicLevel}" Minimum="0.0" Maximum="1.0" SmallChange="0.01" LargeChange="0.1" TabIndex="15">
-                                    <Slider.ToolTip>$$37162$$Adjust the music volume.</Slider.ToolTip>
-                                </Slider>
-                                <Grid Height="auto">
+                                <Grid Height="auto" Margin="0,10,0,0">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="auto"/>
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
-                                    <TextBlock Grid.Column="0" Style="{StaticResource subInfoLeft}" HorizontalAlignment="Left" VerticalAlignment="Top" Opacity="0.75">
-                                    $$42084$$Min
+                                    <TextBlock Grid.Column="0" Style="{StaticResource subInfoLeft}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Opacity="0.75">
+                                        $$42084$$Min
                                     </TextBlock>
-                                    <TextBlock Name="OptionMusicLevelAmount" Grid.Column="1" Style="{StaticResource subInfoLeft}" FontSize="20" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="White">
-                                    50%
+                                    <TextBlock Name="OptionMusicLevelAmount" Grid.Column="1" Style="{StaticResource subInfoLeft}" FontSize="20" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Bottom" Foreground="White">
+                                        50%
                                     </TextBlock>
-                                    <TextBlock Grid.Column="2" Style="{StaticResource subInfoLeft}" HorizontalAlignment="Right" VerticalAlignment="Top" Opacity="0.75">
-                                    $$42085$$Max
+                                    <TextBlock Grid.Column="2" Style="{StaticResource subInfoLeft}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Opacity="0.75">
+                                        $$42085$$Max
                                     </TextBlock>
                                 </Grid>
+                                <Slider Name="OptionMusicLevel" Height="20" Width="280" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,0,5" Value="{Binding Path=OptionMusicLevel}" Minimum="0.0" Maximum="1.0" SmallChange="0.01" LargeChange="0.1" TabIndex="15">
+                                    <Slider.ToolTip>$$37162$$Adjust the music volume.</Slider.ToolTip>
+                                </Slider>
                             </StackPanel>
                         </Grid>
                     </local:Age3KeyboardFocusBorder>

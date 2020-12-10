@@ -175,7 +175,7 @@
                                                                 <ColumnDefinition Width="*"/>
                                                                 <ColumnDefinition Width="Auto"/>
                                                             </Grid.ColumnDefinitions>
-                                                            <Button DataContext="{Binding User}" Content="{Binding ViewProfile}" Style="{StaticResource ProfileActionButton}"/>
+                                                            <Button Content="{Binding User.Avatar}" Style="{StaticResource ViewProfileButton}"/>
                                                             <TextBlock Text="{Binding User.Alias}" Style="{StaticResource ItemTextStyle}" Margin="5,0" HorizontalAlignment="Left" VerticalAlignment="Center"  Grid.Column="1"/>
                                                             <Button Content="{Binding CancelInvite}" Style="{StaticResource ProfileActionButton}" Grid.Column="2" />
                                                         </Grid>
@@ -189,7 +189,7 @@
                                     <Expander.Header>
                                         <ContentPresenter Content="{Binding Items.Count, ElementName=applicants}" local:Age3StringDB.StringFormatId="72294"/>
                                     </Expander.Header>
-                                    <ItemsControl x:Name="applicants" Focusable="False" ItemsSource="{Binding Clan.Applications}">
+                                    <ItemsControl x:Name="applicants" Focusable="False" ItemsSource="{Binding Clan.Applicants}">
                                         <ItemsControl.ItemTemplate>
                                             <DataTemplate DataType="{x:Type local:MPClanMember}">
                                                 <local:Age3KeyboardFocusBorder Margin="32,0,10,0">
@@ -202,11 +202,11 @@
                                                                 <ColumnDefinition Width="Auto"/>
                                                                 <ColumnDefinition Width="Auto"/>
                                                             </Grid.ColumnDefinitions>
-                                                            <Button DataContext="{Binding User}" Content="{Binding ViewProfile}" Style="{StaticResource ProfileActionButton}"/>
+                                                            <Button Content="{Binding User.Avatar}" Style="{StaticResource ViewProfileButton}"/>
                                                             <TextBlock Text="{Binding User.Alias}" Style="{StaticResource ItemTextStyle}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0" Grid.Column="1"/>
-                                                            <Button Style="{StaticResource ProfileActionButton}" Grid.Column="2"
+                                                            <Button Style="{StaticResource ProfileActionButton}" Grid.Column="2" 
                                                                     Content="{Binding AcceptApplication}" ToolTip="$$71993$$Accept" />
-                                                            <Button Style="{StaticResource ProfileActionButton}" Grid.Column="3"
+                                                            <Button Style="{StaticResource ProfileActionButton}" Grid.Column="3" 
                                                                     Content="{Binding RejectApplication}" ToolTip="$$71987$$Reject" />
                                                         </Grid>
                                                     </Border>
@@ -224,7 +224,7 @@
                                     <ListBox.ItemTemplate>
                                         <DataTemplate DataType="{x:Type local:MPClanMember}">
                                             <Border Style="{StaticResource ItemBorderStyle}">
-                                                <Grid>
+                                                <Grid> 
                                                     <Grid.ColumnDefinitions>
                                                         <ColumnDefinition Width="Auto"/>
                                                         <ColumnDefinition Width="*"/>
@@ -233,7 +233,7 @@
                                                     <Grid.ContextMenu>
                                                         <ContextMenu Tag="{Binding }" Style="{StaticResource ProfileContextMenu}"/>
                                                     </Grid.ContextMenu>
-                                                    <Button DataContext="{Binding User}" Content="{Binding ViewProfile}" Style="{StaticResource ProfileActionButton}"/>
+                                                    <Button Content="{Binding User.Avatar}" Style="{StaticResource ViewProfileButton}"/>
                                                     <TextBlock Text="{Binding User.Alias}" Style="{StaticResource ItemTextStyle}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0" Grid.Column="1"/>
                                                     <Image Grid.Column="2" Height="35" Width="35">
                                                         <Image.Style>
@@ -277,9 +277,9 @@
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,10,0,0">
                             <local:Age3ProfileSelector x:Name="Search"  Width="540"/>
                             <!-- <local:PreviewTextBox x:Name="Clan_RecruitPlayer" Width="540" Margin="0,0,0,0" VerticalContentAlignment="Center" TabIndex="1" PreviewText="$$70729$$Search..." />-->
-                            <Button Grid.Row="0" Grid.Column="3" x:Name="ClanPage_RecruitButton" Style="{StaticResource MainMenuButton}" HorizontalAlignment="Right" Margin="10,0,0,0" Width="250"
+                            <Button Grid.Row="0" Grid.Column="3" x:Name="ClanPage_RecruitButton" Style="{StaticResource MainMenuButton}" HorizontalAlignment="Right" Margin="10,0,0,0" Width="250" 
                                     Content="$$72448$$Recruit Player"
-                                    Visibility="Visible"
+                                    Visibility="Visible" 
                                     CommandParameter="{Binding DataContext.SelectedProfile, ElementName=Search}" Command="{Binding RecruitCommand}">
                                 <Button.ToolTip>$$72450$$Enter player name then select Recruit Player.</Button.ToolTip>
                             </Button>
@@ -321,7 +321,7 @@
 
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,5,0,5" ToolTip="$$90171$$ Add a name for your clan.">
                                 <TextBlock x:Name="Settings_ClanJoinPolicy" FontSize="20" Width="350" Padding="15,22" Style="{StaticResource ConfirmationTitlesStyle}" Margin="0,0,0,0" VerticalAlignment="Center" TextWrapping="Wrap">
-                                    $$72486$$Join Policy:
+                                $$72486$$Join Policy:
                                 </TextBlock>
                                 <StackPanel Orientation="Horizontal" Width="800" Height="40" Margin="10,0,0,0">
                                     <RadioButton Content="$$21193$$Public" Margin="0,0,5,0" IsChecked="{Binding Clan.Info.JoinPolicy, Mode=TwoWay, Converter={StaticResource EnumToBool}, ConverterParameter=Public}" >
@@ -336,7 +336,7 @@
                                 </StackPanel>
                             </StackPanel>
                         </StackPanel>
-
+                        
                         <StackPanel Grid.Row="5" Orientation="Horizontal" Margin="0,5,0,5" HorizontalAlignment="Center">
                             <Button x:Name="Settings_Disband" Style="{StaticResource MainMenuButton}" Margin="20,0,0,0" Width="300" Content="$$72494$$Disband" Command="{Binding Disband}"/>
                             <Button x:Name="Settings_Save" Style="{StaticResource MainMenuButton}" Margin="20,0,0,0" Width="300" Content="$$18442$$Save" Command="{Binding ApplySettings}" />

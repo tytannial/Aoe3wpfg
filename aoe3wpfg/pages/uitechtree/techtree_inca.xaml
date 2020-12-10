@@ -287,20 +287,18 @@
 
             <!--Docks-->
             <!--Black BG-->
-            <Line Grid.Row="0" Grid.Column="68" Grid.RowSpan="7" X1="18" Y1="80" X2="18" Y2="354" Stroke="Black" StrokeThickness="8"/>
+            <Line Grid.Row="0" Grid.Column="68" Grid.RowSpan="7" X1="18" Y1="80" X2="18" Y2="254" Stroke="Black" StrokeThickness="8"/>
             <Line Grid.Row="0" Grid.Column="74" Grid.RowSpan="10" X1="18" Y1="80" X2="18" Y2="150" Stroke="Black" StrokeThickness="8"/>
             <Line Grid.Row="0" Grid.Column="68" Grid.ColumnSpan="16" Grid.RowSpan="2" X1="18" Y1="100" X2="470" Y2="100" Stroke="Black" StrokeThickness="8"/>
             <Line Grid.Row="1" Grid.Column="68" Grid.ColumnSpan="16" Grid.RowSpan="2" X1="18" Y1="50" X2="100" Y2="50" Stroke="Black" StrokeThickness="8"/>
             <Line Grid.Row="2" Grid.Column="68" Grid.ColumnSpan="16" Grid.RowSpan="2" X1="18" Y1="50" X2="100" Y2="50" Stroke="Black" StrokeThickness="8"/>
-            <Line Grid.Row="3" Grid.Column="68" Grid.ColumnSpan="16" Grid.RowSpan="2" X1="18" Y1="50" X2="100" Y2="50" Stroke="Black" StrokeThickness="8"/>
             <!--White BG-->
-            <Line Grid.Row="0" Grid.Column="68" Grid.RowSpan="7" X1="18" Y1="80" X2="18" Y2="352" Stroke="White" StrokeThickness="4"/>
+            <Line Grid.Row="0" Grid.Column="68" Grid.RowSpan="7" X1="18" Y1="80" X2="18" Y2="252" Stroke="White" StrokeThickness="4"/>
             <Line Grid.Row="0" Grid.Column="74" Grid.RowSpan="10" X1="18" Y1="80" X2="18" Y2="150" Stroke="White" StrokeThickness="4"/>
             <Line Grid.Row="1" Grid.Column="68" Grid.RowSpan="10" X1="18" Y1="80" X2="18" Y2="150" Stroke="White" StrokeThickness="4" StrokeDashArray="4 2"/>
             <Line Grid.Row="0" Grid.Column="68" Grid.ColumnSpan="16" Grid.RowSpan="2" X1="18" Y1="100" X2="470" Y2="100" Stroke="White" StrokeThickness="4"/>
             <Line Grid.Row="1" Grid.Column="68" Grid.ColumnSpan="16" Grid.RowSpan="2" X1="18" Y1="50" X2="100" Y2="50" Stroke="White" StrokeThickness="4"/>
             <Line Grid.Row="2" Grid.Column="68" Grid.ColumnSpan="16" Grid.RowSpan="2" X1="18" Y1="50" X2="100" Y2="50" Stroke="White" StrokeThickness="4"/>
-            <Line Grid.Row="3" Grid.Column="68" Grid.ColumnSpan="16" Grid.RowSpan="2" X1="18" Y1="50" X2="100" Y2="50" Stroke="White" StrokeThickness="4"/>
 
             <!--Firepit-->
             <!--Black BG-->

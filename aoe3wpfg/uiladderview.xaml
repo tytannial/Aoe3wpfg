@@ -212,6 +212,13 @@
 
                     </Style>
                 </ListView.ItemContainerStyle>
+              
+            <ItemsControl.ItemsPanel>
+              <ItemsPanelTemplate>
+                <UniformGrid x:Name="ladderGrid" IsItemsHost="True" HorizontalAlignment="Stretch" SelectionMode="Single" Rows="15" Columns="1" VerticalAlignment="Stretch" VerticalContentAlignment="Stretch" />
+              </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>           
+              
             </ListView>
         </Grid>
         <!-- Current user info: -->
