@@ -514,8 +514,12 @@
                             <TextBlock x:Name="challengeName" Style="{StaticResource subTitle}" Text="Challenge Name"/>
                             <Rectangle Height="1" Width="320" Fill="White" Margin="0,20,0,20"/>
 
+                            <StackPanel x:Name="challengeGoalSection" Width="320" Height="50" Orientation="Horizontal">
+                                <TextBlock x:Name="challengeGoal" Width="320" VerticalAlignment="Top" FontSize="17" Style="{StaticResource RegularTextBlockStyle}">Goal: Collect 800 Food</TextBlock>
+                            </StackPanel>
+
                             <!--These challenge text will definetly need bindings as it will constant update when players select different challenges.-->
-                            <StackPanel x:Name="goldSection" Width="320" Orientation="Horizontal">
+                            <StackPanel x:Name="goldSection" Width="320" Margin="0,20,0,0" Orientation="Horizontal">
                                 <Image x:Name="goldImage" Width="50" Height="50" Source="/resources/images/icons/eso/awards/award_03.png"/>
                                 <TextBlock x:Name="goldText" Style="{StaticResource RegularTextBlockStyle}">Lose less than 2 units</TextBlock>
                             </StackPanel>

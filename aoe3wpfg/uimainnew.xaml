@@ -1062,11 +1062,7 @@
                                         </Storyboard>
                                     </BeginStoryboard>
                                 </Trigger.ExitActions>
-
                             </Trigger>
-
-
-
                             <EventTrigger RoutedEvent="PreviewMouseDown">
                                 <SoundPlayerAction Source="resources/audio/smallbutton.wav" />
                             </EventTrigger>
@@ -1079,7 +1075,7 @@
         <ImageBrush x:Key="icontest" ImageSource="/resources/images/icons/abilities/ability_anchor_fist.png" Stretch="Uniform" />
         <Style TargetType="{x:Type Button}" x:Key="UnitSelectionButton">
             <Setter Property="FontFamily" Value="Trajan Pro" />
-            <Setter Property="Height" Value="35" />
+            <Setter Property="Height" Value="35"/>
             <Setter Property="Focusable" Value="False" />
             <Setter Property="Margin" Value="10,0,0,0" />
             <Setter Property="ClickMode" Value="Press" />
@@ -1114,17 +1110,27 @@
                                 <local:Age3ResourceTimer x:Name="timer" Style ="{StaticResource TimerStyle}" Height="50" Width="50" DisplayState="{Binding TimerState}"/>
                             </Grid>
 
-                            <TextBlock x:Name="UnitSelection_Text" HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="22" FontWeight="Bold" Foreground="White" Margin="0,5,5,0" Text="{TemplateBinding Content}">
-                                <TextBlock.Style>
-                                    <Style TargetType="TextBlock">
-                                        <Setter Property="Effect">
-                                            <Setter.Value>
-                                                <DropShadowEffect BlurRadius="3" Color="Black" Direction="-90" ShadowDepth="3" RenderingBias="Quality" />
-                                            </Setter.Value>
-                                        </Setter>
-                                    </Style>
-                                </TextBlock.Style>
-                            </TextBlock>
+                            <Border HorizontalAlignment="Right" VerticalAlignment="Top" CornerRadius="2" BorderThickness="1" Margin="0,1,1,0" BorderBrush="{StaticResource MainMenuButtonStrokeGradient}" Visibility="{Binding Visibility, ElementName=UnitSelection_Text}">
+                                <Border.Background>
+                                    <SolidColorBrush Color="Black" Opacity="0.9"/>
+                                </Border.Background>
+                                <TextBlock x:Name="UnitSelection_Text" FontSize="18" FontWeight="Bold" Foreground="White" Margin="2,0,2,0" Text="{TemplateBinding Content}">
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock">
+                                            <Style.Triggers>
+                                                <Trigger Property="Text" Value="">
+                                                    <Setter Property="Visibility" Value="Collapsed" />
+                                                </Trigger>
+                                            </Style.Triggers>
+                                            <Setter Property="Effect">
+                                                <Setter.Value>
+                                                    <DropShadowEffect BlurRadius="3" Color="Black" Direction="-90" ShadowDepth="3" RenderingBias="Quality" />
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+                            </Border>
 
                             <Grid VerticalAlignment="Bottom">
                                 <Rectangle Fill="Black" Height="5" Width="45" VerticalAlignment="Center" Margin="0,0,0,0" RadiusX="1" RadiusY="1"/>
@@ -1150,89 +1156,7 @@
                                     </ProgressBar.Style>
                                 </ProgressBar>
                             </Grid>
-
                         </Grid>
-
-                        <ControlTemplate.Triggers>
-
-                            <Trigger Property="IsPressed" Value="True">
-                                <Trigger.EnterActions>
-                                    <StopStoryboard BeginStoryboardName="MouseOverStoryBoard" />
-                                    <StopStoryboard BeginStoryboardName="MouseOverStoryBoard2" />
-                                    <BeginStoryboard>
-                                        <Storyboard>
-                                            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)" To="1" Duration="0:0:.05" />
-                                            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)" To="1" Duration="0:0:.05" />
-                                            <DoubleAnimation Storyboard.TargetName="glow" Storyboard.TargetProperty="Opacity" To="0.75" Duration="0:0:.05" />
-                                            <DoubleAnimation Storyboard.TargetName="glow2" Storyboard.TargetProperty="Opacity" To="0.15" Duration="0:0:.05" />
-                                        </Storyboard>
-                                    </BeginStoryboard>
-                                </Trigger.EnterActions>
-                                <Trigger.ExitActions>
-                                    <BeginStoryboard>
-                                        <Storyboard>
-                                            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)" To="1.05" Duration="0:0:.05" />
-                                            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)" To="1.05" Duration="0:0:.05" />
-                                            <DoubleAnimation Storyboard.TargetName="glow" Storyboard.TargetProperty="Opacity" To="0.5" Duration="0:0:.05" />
-                                            <DoubleAnimation Storyboard.TargetName="glow2" Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:.05" />
-                                        </Storyboard>
-                                    </BeginStoryboard>
-                                </Trigger.ExitActions>
-                            </Trigger>
-
-
-                            <Trigger Property="IsMouseOver" Value="True">
-
-                                <Trigger.EnterActions>
-                                    <BeginStoryboard Name="MouseOverStoryBoard">
-                                        <Storyboard>
-                                            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)" To="1.05" Duration="0:0:.2" />
-                                            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)" To="1.05" Duration="0:0:.2" />
-                                            <DoubleAnimation Storyboard.TargetName="glow" Storyboard.TargetProperty="Opacity" To="0.5" Duration="0:0:.2" />
-                                        </Storyboard>
-                                    </BeginStoryboard>
-                                    <SoundPlayerAction Source="resources/audio/mouseover_00.wav" />
-                                </Trigger.EnterActions>
-                                <Trigger.ExitActions>
-                                    <BeginStoryboard Name="MouseOverStoryBoard2">
-                                        <Storyboard>
-                                            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)" To="1" Duration="0:0:.2" />
-                                            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)" To="1" Duration="0:0:.2" />
-                                            <DoubleAnimation Storyboard.TargetName="glow" Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:.2" />
-                                        </Storyboard>
-                                    </BeginStoryboard>
-                                </Trigger.ExitActions>
-
-                            </Trigger>
-
-                            <Trigger Property="IsFocused" Value="True">
-
-                                <Trigger.EnterActions>
-                                    <BeginStoryboard>
-                                        <Storyboard>
-                                            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)" To="1.05" Duration="0:0:.2" />
-                                            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)" To="1.05" Duration="0:0:.2" />
-                                            <DoubleAnimation Storyboard.TargetName="glow" Storyboard.TargetProperty="Opacity" To="0.5" Duration="0:0:.2" />
-                                        </Storyboard>
-                                    </BeginStoryboard>
-                                    <SoundPlayerAction Source="resources/audio/mouseover_00.wav" />
-                                </Trigger.EnterActions>
-                                <Trigger.ExitActions>
-                                    <BeginStoryboard>
-                                        <Storyboard>
-                                            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)" To="1" Duration="0:0:.2" />
-                                            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)" To="1" Duration="0:0:.2" />
-                                            <DoubleAnimation Storyboard.TargetName="glow" Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:.2" />
-                                        </Storyboard>
-                                    </BeginStoryboard>
-                                </Trigger.ExitActions>
-
-                            </Trigger>
-
-                            <EventTrigger RoutedEvent="PreviewMouseDown">
-                                <SoundPlayerAction Source="resources/audio/smallbutton.wav" />
-                            </EventTrigger>
-                        </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
@@ -3684,7 +3608,7 @@
                     <Grid Grid.Row="1" Grid.Column="3" Margin="0,25,0,5" HorizontalAlignment="Left" Width="auto">
                         <Grid.Style>
                             <Style TargetType="Grid">
-                                <Setter Property="Visibility" Value="Collapsed"/>
+                                <Setter Property="Visibility" Value="Visible"/>
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding IsChecked,ElementName=selected_units}" Value="True">
                                         <Setter Property="Visibility" Value="Visible"/>
@@ -3725,7 +3649,7 @@
                                             <ImageBrush ImageSource="resources/images/icons/portraits/units/pikeman_portrait.png" />
                                         </local:Age3Button.Background>
                                     </local:Age3Button>
-                                    <local:Age3Button x:Name="unitselectionpanel_unitStackButton4" Height="45" Width="45" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,4,0,0" Style="{StaticResource UnitSelectionButton}" Content="3">
+                                    <local:Age3Button x:Name="unitselectionpanel_unitStackButton4" Height="45" Width="45" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,4,0,0" Style="{StaticResource UnitSelectionButton}" Content="3">
                                         <local:Age3Button.Background>
                                             <ImageBrush ImageSource="resources/images/icons/portraits/units/pikeman_portrait.png" />
                                         </local:Age3Button.Background>
@@ -3753,7 +3677,7 @@
                                             <ImageBrush ImageSource="resources/images/icons/portraits/units/pikeman_portrait.png" />
                                         </local:Age3Button.Background>
                                     </local:Age3Button>
-                                    <local:Age3Button x:Name="unitselectionpanel_unitStackButton9" Height="45" Width="45" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,4,0,0" Style="{StaticResource UnitSelectionButton}" Content="3">
+                                    <local:Age3Button x:Name="unitselectionpanel_unitStackButton9" Height="45" Width="45" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,4,0,0" Style="{StaticResource UnitSelectionButton}" Content="3">
                                         <local:Age3Button.Background>
                                             <ImageBrush ImageSource="resources/images/icons/portraits/units/pikeman_portrait.png" />
                                         </local:Age3Button.Background>
@@ -3859,7 +3783,7 @@
                 </Grid>
 
                 <!-- NEW CHATBOX READY -->
-                <Grid x:Name="ChatPanel" Height="250" Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" Width="620" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="410,0,0,0" Visibility="Collapsed">
+                <Grid x:Name="ChatPanel" Height="250" Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" Width="620" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="415,0,0,0" Visibility="Collapsed">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" />
                         <RowDefinition Height="40" />
@@ -4025,7 +3949,7 @@
             <!--FOR TRADE MONOPOLY AND REVOLUTION-->
             <Grid x:Name="SpecialPopupPanel" Grid.Row="0" Grid.Column="0" Grid.RowSpan="5" Grid.ColumnSpan="5" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,500" Visibility="Collapsed">
                 <ContentControl x:Name="SpecialPopup_RayContainer" Template="{StaticResource EndGamePanel_Ray}" Visibility="Collapsed"/>
-                <Rectangle x:Name="SpecialPopup_BGContainer" Fill="Gray" Height="120" />
+                <Rectangle x:Name="SpecialPopup_BGContainer" Fill="Black" Height="120" Opacity="0.5" />
                 <Grid x:Name="SpecialPopup_textContainer" Width="800" Height="100" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <Grid.Resources>
                         <Style TargetType="TextBlock">
@@ -4063,7 +3987,7 @@
 
             <!--AI Personality chatbox-->
             <!--This needs to remain outside so that it can be displayed during cutscenes-->
-            <StackPanel IsHitTestVisible="False" x:Name="IncomingChatPanel" Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" Width="620" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="960,0,0,0" Visibility="Visible">
+            <StackPanel IsHitTestVisible="False" x:Name="IncomingChatPanel" Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" Width="620" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="965,0,0,0" Visibility="Visible">
                 <StackPanel.LayoutTransform>
                     <ScaleTransform
                         CenterX="0"

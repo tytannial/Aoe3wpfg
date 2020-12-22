@@ -21,7 +21,7 @@
         <DataTemplate DataType="{x:Type local:Age3ChatMessage}">
             <StackPanel>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
-                    <Button Content="{Binding From.Avatar}" Style="{StaticResource ViewProfileButton}" Margin="0,0,10,0" IsHitTestVisible="False"/>
+                    <Button DataContext="{Binding From}" Style="{StaticResource ViewProfileButton}" Margin="0,0,10,0" IsHitTestVisible="False"/>
                     <TextBlock DataContext="{Binding From}" Text="{Binding AliasWithClan}" Style="{StaticResource CampaignTitleTextBlockStyle}" FontSize="18" Width="450" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="0">
                         <TextBlock.ContextMenu>
                             <ContextMenu Tag="{Binding }" Style="{StaticResource ProfileContextMenu}"/>

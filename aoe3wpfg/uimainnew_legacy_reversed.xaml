@@ -1117,11 +1117,10 @@
         <ImageBrush x:Key="icontest" ImageSource="/resources/images/icons/abilities/ability_anchor_fist.png" Stretch="Uniform" />
         <Style TargetType="{x:Type Button}" x:Key="UnitSelectionButton">
             <Setter Property="FontFamily" Value="Trajan Pro" />
-            <Setter Property="Height" Value="35" />
+            <Setter Property="Height" Value="35"/>
             <Setter Property="Focusable" Value="False" />
-            <Setter Property="ClickMode" Value="Press" />
-
             <Setter Property="Margin" Value="10,0,0,0" />
+            <Setter Property="ClickMode" Value="Press" />
 
             <Setter Property="RenderTransformOrigin" Value="0.5, 0.5" />
             <Setter Property="RenderTransform">
@@ -1153,17 +1152,27 @@
                                 <local:Age3ResourceTimer x:Name="timer" Style ="{StaticResource TimerStyle}" Height="50" Width="50" DisplayState="{Binding TimerState}"/>
                             </Grid>
 
-                            <TextBlock x:Name="UnitSelection_Text" HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="22" FontWeight="Bold" Foreground="White" Margin="0,5,5,0" Text="{TemplateBinding Content}">
-                                <TextBlock.Style>
-                                    <Style TargetType="TextBlock">
-                                        <Setter Property="Effect">
-                                            <Setter.Value>
-                                                <DropShadowEffect BlurRadius="3" Color="Black" Direction="-90" ShadowDepth="3" RenderingBias="Quality" />
-                                            </Setter.Value>
-                                        </Setter>
-                                    </Style>
-                                </TextBlock.Style>
-                            </TextBlock>
+                            <Border HorizontalAlignment="Right" VerticalAlignment="Top" CornerRadius="2" BorderThickness="1" Margin="0,1,1,0" BorderBrush="{StaticResource MainMenuButtonStrokeGradient}" Visibility="{Binding Visibility, ElementName=UnitSelection_Text}">
+                                <Border.Background>
+                                    <SolidColorBrush Color="Black" Opacity="0.9"/>
+                                </Border.Background>
+                                <TextBlock x:Name="UnitSelection_Text" FontSize="18" FontWeight="Bold" Foreground="White" Margin="2,0,2,0" Text="{TemplateBinding Content}">
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock">
+                                            <Style.Triggers>
+                                                <Trigger Property="Text" Value="">
+                                                    <Setter Property="Visibility" Value="Collapsed" />
+                                                </Trigger>
+                                            </Style.Triggers>
+                                            <Setter Property="Effect">
+                                                <Setter.Value>
+                                                    <DropShadowEffect BlurRadius="3" Color="Black" Direction="-90" ShadowDepth="3" RenderingBias="Quality" />
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+                            </Border>
 
                             <Grid VerticalAlignment="Bottom">
                                 <Rectangle Fill="Black" Height="5" Width="45" VerticalAlignment="Center" Margin="0,0,0,0" RadiusX="1" RadiusY="1"/>
@@ -1190,86 +1199,6 @@
                                 </ProgressBar>
                             </Grid>
                         </Grid>
-
-                        <ControlTemplate.Triggers>
-
-                            <Trigger Property="IsPressed" Value="True">
-                                <Trigger.EnterActions>
-                                    <StopStoryboard BeginStoryboardName="MouseOverStoryBoard" />
-                                    <StopStoryboard BeginStoryboardName="MouseOverStoryBoard2" />
-                                    <BeginStoryboard>
-                                        <Storyboard>
-                                            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)" To="1" Duration="0:0:.05" />
-                                            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)" To="1" Duration="0:0:.05" />
-                                            <DoubleAnimation Storyboard.TargetName="glow" Storyboard.TargetProperty="Opacity" To="0.75" Duration="0:0:.05" />
-                                            <DoubleAnimation Storyboard.TargetName="glow2" Storyboard.TargetProperty="Opacity" To="0.15" Duration="0:0:.05" />
-                                        </Storyboard>
-                                    </BeginStoryboard>
-                                </Trigger.EnterActions>
-                                <Trigger.ExitActions>
-                                    <BeginStoryboard>
-                                        <Storyboard>
-                                            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)" To="1.05" Duration="0:0:.05" />
-                                            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)" To="1.05" Duration="0:0:.05" />
-                                            <DoubleAnimation Storyboard.TargetName="glow" Storyboard.TargetProperty="Opacity" To="0.5" Duration="0:0:.05" />
-                                            <DoubleAnimation Storyboard.TargetName="glow2" Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:.05" />
-                                        </Storyboard>
-                                    </BeginStoryboard>
-                                </Trigger.ExitActions>
-                            </Trigger>
-
-                            <Trigger Property="IsMouseOver" Value="True">
-
-                                <Trigger.EnterActions>
-                                    <BeginStoryboard Name="MouseOverStoryBoard">
-                                        <Storyboard>
-                                            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)" To="1.05" Duration="0:0:.2" />
-                                            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)" To="1.05" Duration="0:0:.2" />
-                                            <DoubleAnimation Storyboard.TargetName="glow" Storyboard.TargetProperty="Opacity" To="0.5" Duration="0:0:.2" />
-                                        </Storyboard>
-                                    </BeginStoryboard>
-                                    <SoundPlayerAction Source="resources/audio/mouseover_00.wav" />
-                                </Trigger.EnterActions>
-                                <Trigger.ExitActions>
-                                    <BeginStoryboard Name="MouseOverStoryBoard2">
-                                        <Storyboard>
-                                            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)" To="1" Duration="0:0:.2" />
-                                            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)" To="1" Duration="0:0:.2" />
-                                            <DoubleAnimation Storyboard.TargetName="glow" Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:.2" />
-                                        </Storyboard>
-                                    </BeginStoryboard>
-                                </Trigger.ExitActions>
-
-                            </Trigger>
-
-                            <Trigger Property="IsFocused" Value="True">
-
-                                <Trigger.EnterActions>
-                                    <BeginStoryboard>
-                                        <Storyboard>
-                                            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)" To="1.05" Duration="0:0:.2" />
-                                            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)" To="1.05" Duration="0:0:.2" />
-                                            <DoubleAnimation Storyboard.TargetName="glow" Storyboard.TargetProperty="Opacity" To="0.5" Duration="0:0:.2" />
-                                        </Storyboard>
-                                    </BeginStoryboard>
-                                    <SoundPlayerAction Source="resources/audio/mouseover_00.wav" />
-                                </Trigger.EnterActions>
-                                <Trigger.ExitActions>
-                                    <BeginStoryboard>
-                                        <Storyboard>
-                                            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)" To="1" Duration="0:0:.2" />
-                                            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)" To="1" Duration="0:0:.2" />
-                                            <DoubleAnimation Storyboard.TargetName="glow" Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:.2" />
-                                        </Storyboard>
-                                    </BeginStoryboard>
-                                </Trigger.ExitActions>
-
-                            </Trigger>
-
-                            <EventTrigger RoutedEvent="PreviewMouseDown">
-                                <SoundPlayerAction Source="resources/audio/smallbutton.wav" />
-                            </EventTrigger>
-                        </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
@@ -2176,7 +2105,7 @@
 
                                     <!--Income-->
                                     <TextBlock x:Name="minimapPanel_dptotalPopLeft" Style="{StaticResource RegularTextBlockStyle}" TextAlignment="Left" VerticalAlignment="Center" Margin="45,5,0,0" Height="25" Width="120" FontFamily="Trajan Pro" FontSize="20" FontWeight="Bold">
-                                        {totalPop}/{popcap}
+                                    {totalPop}/{popcap}
                                         <TextBlock.ToolTip>
                                             $$32714$$Your current population is {totalpop} / You can support a total population of {popcap}.
                                         </TextBlock.ToolTip>
@@ -2193,7 +2122,7 @@
                                 <!--Settler Counter-->
                                 <local:Age3Button x:Name="SettlerCountDialog_foodLabel" Style="{StaticResource settlerCounterButton}" Margin="0,0,0,0" Height="30" Width="40" Visibility="Collapsed" ConsoleCommand="uiFindResourceGatherers(food)">
                                     <TextBlock x:Name="SettlerCountDialog_food" Style="{StaticResource RegularTextBlockStyle}" FontFamily="Trajan Pro" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center">
-                                        {numGatherers(food)}
+                                {numGatherers(food)}
                                     </TextBlock>
                                     <Button.ToolTip>
                                         $$18397$$Food Gatherers: {numGatherers(food)}
@@ -2209,7 +2138,7 @@
                                     </Rectangle>
                                     <!--Income-->
                                     <TextBlock x:Name="minimapPanel_dpfood" Style="{StaticResource RegularTextBlockStyle}" TextAlignment="Left" VerticalAlignment="Center" Margin="45,5,0,0" Height="25" Width="120" FontFamily="Trajan Pro" FontSize="20" FontWeight="Bold">
-                                        {resource(food)}
+                                {resource(food)}
                                         <TextBlock.ToolTip>
                                             $$18397$$Food Gatherers: {numGatherers(food)}
                                         </TextBlock.ToolTip>
@@ -2226,7 +2155,7 @@
                                 <!--Settler Counter-->
                                 <local:Age3Button x:Name="SettlerCountDialog_woodLabel" Style="{StaticResource settlerCounterButton}" Margin="0,0,0,0" Height="30" Width="40" Visibility="Collapsed" ConsoleCommand="uiFindResourceGatherers(wood)">
                                     <TextBlock x:Name="SettlerCountDialog_wood" Style="{StaticResource RegularTextBlockStyle}" FontFamily="Trajan Pro" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center">
-                                        {numGatherers(wood)}
+                                {numGatherers(wood)}
                                     </TextBlock>
                                     <Button.ToolTip>
                                         $$18419$$Wood Gatherers: {numGatherers(wood)}
@@ -2242,7 +2171,7 @@
                                     </Rectangle>
                                     <!--Income-->
                                     <TextBlock x:Name="minimapPanel_dpwood" Style="{StaticResource RegularTextBlockStyle}" TextAlignment="Left" VerticalAlignment="Center" Margin="45,5,0,0" Height="25" Width="120" FontFamily="Trajan Pro" FontSize="20" FontWeight="Bold">
-                                        {resource(wood)}
+                                {resource(wood)}
                                         <TextBlock.ToolTip>
                                             $$18419$$Wood Gatherers: {numGatherers(wood)}
                                         </TextBlock.ToolTip>
@@ -2259,7 +2188,7 @@
                                 <!--Settler Counter-->
                                 <local:Age3Button x:Name="SettlerCountDialog_goldLabel" Style="{StaticResource settlerCounterButton}" Margin="0,0,0,0" Height="30" Width="40" Visibility="Collapsed" ConsoleCommand="uiFindResourceGatherers(gold)">
                                     <TextBlock x:Name="SettlerCountDialog_gold" Style="{StaticResource RegularTextBlockStyle}" FontFamily="Trajan Pro" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center">
-                                        {numGatherers(gold)}
+                                {numGatherers(gold)}
                                     </TextBlock>
                                     <Button.ToolTip>
                                         $$18420$$Coin Gatherers: {numGatherers(gold)}
@@ -2275,7 +2204,7 @@
                                     </Rectangle>
                                     <!--Income-->
                                     <TextBlock x:Name="minimapPanel_dpgold" Style="{StaticResource RegularTextBlockStyle}" TextAlignment="Left" VerticalAlignment="Center" Margin="45,5,0,0" Height="25" Width="120" FontFamily="Trajan Pro" FontSize="20" FontWeight="Bold">
-                                        {resource(gold)}
+                            {resource(gold)}
                                         <TextBlock.ToolTip>
                                             $$18420$$Gold Gatherers: {numGatherers(gold)}
                                         </TextBlock.ToolTip>
@@ -2292,7 +2221,7 @@
                                 <!--Settler Counter-->
                                 <local:Age3Button x:Name="SettlerCountDialog_idle" Style="{StaticResource settlerCounterButton}" Margin="0,0,0,0" Height="30" Width="40" ConsoleCommand="uiFindIdleType(&quot;ValidIdleVillager&quot;)" Visibility="Collapsed">
                                     <TextBlock x:Name="SettlerCountDialog_idleLabel" Style="{StaticResource RegularTextBlockStyle}" FontFamily="Trajan Pro" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center">
-                                        {numIdle(AbstractVillager)}
+                                {numIdle(AbstractVillager)}
                                     </TextBlock>
                                     <Button.ToolTip>
                                         $$41608$$Idle Villagers: {numIdle(AbstractVillager)}
@@ -2308,7 +2237,7 @@
                                     </Rectangle>
                                     <!--Income-->
                                     <TextBlock x:Name="SettlerCountDialog_pop" Style="{StaticResource RegularTextBlockStyle}" TextAlignment="Left" VerticalAlignment="Center" Margin="45,5,0,0" Height="25" Width="120" FontFamily="Trajan Pro" FontSize="20" FontWeight="Bold">
-                                        {numUnits(AbstractVillager)}
+                                {numUnits(AbstractVillager)}
                                         <TextBlock.ToolTip>$$29017$$</TextBlock.ToolTip>
                                         <TextBlock.Effect>
                                             <DropShadowEffect BlurRadius="3" Color="Black" Direction="-90" ShadowDepth="1" RenderingBias="Quality" />
@@ -2323,7 +2252,7 @@
                                 <!--Settler Counter-->
                                 <local:Age3Button x:Name="SettlerCountDialog_danceLabel" Style="{StaticResource settlerCounterButton}" Margin="0,0,0,0" Height="30" Width="40" Visibility="Collapsed" ConsoleCommand="uiFindDancers">
                                     <TextBlock x:Name="SettlerCountDialog_dance" Style="{StaticResource RegularTextBlockStyle}" FontFamily="Trajan Pro" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center">
-                                        {numDancers}
+                                {numDancers}
                                     </TextBlock>
                                     <Button.ToolTip>
                                         $$45791$$Dancers: {numDancers}
@@ -2339,7 +2268,7 @@
                                     </Rectangle>
                                     <!--Income-->
                                     <TextBlock x:Name="minimapPanel_dance" Style="{StaticResource RegularTextBlockStyle}" TextAlignment="Left" VerticalAlignment="Center" Margin="45,5,0,0" Height="25" Width="120" FontFamily="Trajan Pro" FontSize="20" FontWeight="Bold">
-                                        {danceQuickValue}
+                            {danceQuickValue}
                                         <TextBlock.ToolTip>
                                             {danceDescription}
                                         </TextBlock.ToolTip>
@@ -2365,7 +2294,7 @@
                                     </Rectangle>
                                     <!--Income-->
                                     <TextBlock x:Name="minimapPanel_trade" Style="{StaticResource RegularTextBlockStyle}" TextAlignment="Left" VerticalAlignment="Center" Margin="45,4,0,0" Height="25" Width="120" FontFamily="Trajan Pro" FontSize="20" FontWeight="Bold">
-                                        {resource(trade)}
+                            {resource(trade)}
                                         <TextBlock.ToolTip>
                                             $$61365$$Trade Gatherers: {numGatherers(trade)}
                                         </TextBlock.ToolTip>
@@ -2396,11 +2325,11 @@
                     <Rectangle Grid.Row="2" HorizontalAlignment="Center" Height="40" Width="450" Margin="0,0,10,0" Style="{StaticResource PanelBGSection}" />
 
                     <TextBlock x:Name="homecitytransportpanel_homecityPlayer" Grid.Row="1" Style="{StaticResource RegularTextBlockStyle}" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center" Width="430" Margin="0,0,0,0" FontFamily="Trajan Pro" FontSize="20" FontWeight="Bold">
-                        Player Name
+                    Player Name
                     </TextBlock>
 
                     <TextBlock x:Name="homecitytransportpanelhomecityName" Grid.Row="2" Style="{StaticResource RegularTextBlockStyle}" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center" Width="430" Margin="0,0,0,0" FontFamily="Trajan Pro" FontSize="20" FontWeight="Bold">
-                        Player Civ
+                    Player Civ
                     </TextBlock>
 
                     <Grid x:Name="hc_playerlvl" Grid.Row="3">
@@ -2414,10 +2343,10 @@
                         <Rectangle Grid.Column="1" HorizontalAlignment="Right" Width="220" Height="40" Margin="0,0,35,0" VerticalAlignment="Center" Style="{StaticResource PanelBGSection}" />
 
                         <TextBlock x:Name="homecitytransportpanel_homecityLevel" Grid.Column="0" Style="{StaticResource RegularTextBlockStyle}" Width="190" VerticalAlignment="Center" TextAlignment="Center" HorizontalAlignment="Center" Margin="10,0,0,0" FontFamily="Trajan Pro" FontSize="20" FontWeight="Bold">
-                            Level 1
+                        Level 1
                         </TextBlock>
                         <TextBlock x:Name="homecitytransportpanel_homecityExp" Grid.Column="1" Style="{StaticResource RegularTextBlockStyle}" Width="190" VerticalAlignment="Center" TextAlignment="Center" Margin="10,0,0,0" FontFamily="Trajan Pro" FontSize="20" FontWeight="Bold">
-                            XP 99,999
+                        XP 99,999
                         </TextBlock>
                     </Grid>
                 </Grid>
@@ -2544,11 +2473,11 @@
                         <Grid Grid.Column="6" HorizontalAlignment="Center" VerticalAlignment="Center" Width="250">
                             <!--Timeline Title-->
                             <TextBlock x:Name="spectatortimeline_Label" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="Trajan Pro" FontSize="18" Foreground="White">
-                                $$20513$$Time
+                                    $$20513$$Time
                             </TextBlock>
                             <!--Timeline Timer-->
                             <TextBlock x:Name="spectatortimeline_Timer" HorizontalAlignment="Right" VerticalAlignment="Center" FontFamily="Trajan Pro" FontSize="18" Foreground="White">
-                                00:00
+                                    00:00
                             </TextBlock>
                         </Grid>
                     </Grid>
@@ -2641,7 +2570,7 @@
                                             <SolidColorBrush Color="Black" Opacity="0.7"/>
                                         </Grid.Background>
                                         <TextBlock x:Name="objectivesBannerPrimaryHeading" FontFamily="Trajan Pro" FontSize="21" Style="{StaticResource ConfirmationTitlesStyleSmall}" HorizontalAlignment="Left" Margin="5">
-                                            $$31802$$Primary Objectives
+                                    $$31802$$Primary Objectives
                                         </TextBlock>
                                     </Grid>
 
@@ -2659,7 +2588,7 @@
                                             <SolidColorBrush Color="Black" Opacity="0.7"/>
                                         </Grid.Background>
                                         <TextBlock x:Name="objectivesBannerSecondaryHeading" FontFamily="Trajan Pro" FontSize="21" Style="{StaticResource ConfirmationTitlesStyleSmall}" HorizontalAlignment="Left" Margin="5">
-                                            $$31803$$Secondary Objectives
+                                    $$31803$$Secondary Objectives
                                         </TextBlock>
                                     </Grid>
 
@@ -2750,7 +2679,7 @@
                     <!--Objectives Details-->
                     <ScrollViewer Grid.Row="4" Margin="25,10,35,10" VerticalScrollBarVisibility="Auto">
                         <TextBlock x:Name="objDetails" TextWrapping="Wrap" FontFamily="arial" FontSize="16" Foreground="White">
-                            You should move your settlers to the top of the hill quickly. Gather all the wood piles near the fire pit and light it. Your only settlers are in the village north. If you lose them, you will not light the fire.
+                        You should move your settlers to the top of the hill quickly. Gather all the wood piles near the fire pit and light it. Your only settlers are in the village north. If you lose them, you will not light the fire.
                         </TextBlock>
                     </ScrollViewer>
 
@@ -2971,7 +2900,7 @@
                                 </TextBlock>
                                 <DockPanel x:Name="timePanel" HorizontalAlignment="Right" Height="20" Width="340" Margin="0,-1,0,0" Visibility="Collapsed">
                                     <TextBlock x:Name="timeDisplay" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" Margin="0,0,0,0" Style="{StaticResource RegularTextBlockStyle}" Opacity="0.8">
-                                        00:00:10:21 {Moderate}
+                                    00:00:10:21 {Moderate}
                                     </TextBlock>
                                 </DockPanel>
                             </StackPanel>
@@ -3158,7 +3087,7 @@
 
                         <StackPanel x:Name="homeCityCardPanel_NoDeckPanel" Grid.Row="1" Grid.Column="2" Grid.RowSpan="4" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed">
                             <TextBlock Style="{StaticResource RegularTextBlockStyle}" TextAlignment="Center" Padding="10" FontSize="14" Width="500" TextWrapping="Wrap">
-                                $$42352$$Choose the Deck to play with for this game.
+                            $$42352$$Choose the Deck to play with for this game.
                             </TextBlock>
                             <Button x:Name="homeCityCardPanel_NoDeckButton" Width="250" Margin="0,10,0,0" Style="{StaticResource MainMenuButton}" Content="$$41593$$Select a Deck">
                             </Button>
@@ -3182,13 +3111,13 @@
                     <ContentControl Template="{StaticResource QueueBG}" Margin="0,-10,10,-15" />
 
                     <ScrollViewer VerticalAlignment="Top" HorizontalAlignment="Center" Width="730" Height="165" Margin="0,0,0,10">
-                        <TextBlock x:Name="unitstatpanel3_helpText" TextWrapping="Wrap" Margin="0,0,0,0" FontFamily="Arial" FontSize="16" FontWeight="Bold" Foreground="White">
-                            The Settlers is ethe main resource gatherer for most Civilizations in the game. Settlers are relatively inexpensive but fragile; they are not meant for combat, but will fire weak muskets to defend themselves and others.
-                            Settlers can be used to collect Treasures. Each Civilization has a limite to the number of Settlers they can have at once. Settlers pay for themselves rather quickly, and the longer an individual Settler is alive,
-                            the more he/she contributes to the overall wealth of a given colony. Some Civilizations may receive Shipments of extra Settlers from the Home City, while others have to rely solely on producing them in the New World.
-                            The Settlers is ethe main resource gatherer for most Civilizations in the game. Settlers are relatively inexpensive but fragile; they are not meant for combat, but will fire weak muskets to defend themselves and others.
-                            Settlers can be used to collect Treasures. Each Civilization has a limite to the number of Settlers they can have at once. Settlers pay for themselves rather quickly, and the longer an individual Settler is alive,
-                            the more he/she contributes to the overall wealth of a given colony. Some Civilizations may receive Shipments of extra Settlers from the Home City, while others have to rely solely on producing them in the New World.
+                        <TextBlock x:Name="unitstatpanel3_helpText" TextWrapping="Wrap" Margin="0,0,0,0" FontFamily="Arial" FontSize="16" FontWeight="Bold" Foreground="White">               
+                        The Settlers is ethe main resource gatherer for most Civilizations in the game. Settlers are relatively inexpensive but fragile; they are not meant for combat, but will fire weak muskets to defend themselves and others. 
+                        Settlers can be used to collect Treasures. Each Civilization has a limite to the number of Settlers they can have at once. Settlers pay for themselves rather quickly, and the longer an individual Settler is alive,
+                        the more he/she contributes to the overall wealth of a given colony. Some Civilizations may receive Shipments of extra Settlers from the Home City, while others have to rely solely on producing them in the New World.
+                        The Settlers is ethe main resource gatherer for most Civilizations in the game. Settlers are relatively inexpensive but fragile; they are not meant for combat, but will fire weak muskets to defend themselves and others. 
+                        Settlers can be used to collect Treasures. Each Civilization has a limite to the number of Settlers they can have at once. Settlers pay for themselves rather quickly, and the longer an individual Settler is alive,
+                        the more he/she contributes to the overall wealth of a given colony. Some Civilizations may receive Shipments of extra Settlers from the Home City, while others have to rely solely on producing them in the New World.
                         </TextBlock>
                     </ScrollViewer>
                 </Grid>
@@ -3367,7 +3296,7 @@
                                                 $$42182$$Click to show detailed help and history.
                                             </ToggleButton.ToolTip>
                                         </ToggleButton>
-                                        <ToggleButton x:Name="selected_units" Style="{StaticResource selectedUnitsButton}" Margin="0,5,0,0" Focusable="False">
+                                        <ToggleButton x:Name="selected_units" Style="{StaticResource selectedUnitsButton}" Margin="0,5,0,0" Focusable="False" IsChecked="True">
                                             <ToggleButton.ToolTip>
                                                 $$71435$$Click to show selected units.
                                             </ToggleButton.ToolTip>
@@ -3507,7 +3436,7 @@
 
                         <!--Desc-->
                         <TextBlock x:Name="socketDesc" Grid.Row="2" Grid.Column="1" FontFamily="Arial" Foreground="White" Width="410" FontSize="16" Margin="10" TextWrapping="Wrap">
-                            $$26212$$"These are our lands, but we will permit you to build a Trading Post here to forge an alliance between our people."
+                        $$26212$$"These are our lands, but we will permit you to build a Trading Post here to forge an alliance between our people."
                         </TextBlock>
                     </Grid>
 
@@ -3721,7 +3650,7 @@
                                             <ImageBrush ImageSource="resources/images/icons/portraits/units/pikeman_portrait.png" />
                                         </local:Age3Button.Background>
                                     </local:Age3Button>
-                                    <local:Age3Button x:Name="unitselectionpanel_unitStackButton4" Height="45" Width="45" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,4,0,0" Style="{StaticResource UnitSelectionButton}" Content="3">
+                                    <local:Age3Button x:Name="unitselectionpanel_unitStackButton4"  Height="45" Width="45" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,4,0,0" Style="{StaticResource UnitSelectionButton}" Content="3">
                                         <local:Age3Button.Background>
                                             <ImageBrush ImageSource="resources/images/icons/portraits/units/pikeman_portrait.png" />
                                         </local:Age3Button.Background>
@@ -3749,7 +3678,7 @@
                                             <ImageBrush ImageSource="resources/images/icons/portraits/units/pikeman_portrait.png" />
                                         </local:Age3Button.Background>
                                     </local:Age3Button>
-                                    <local:Age3Button x:Name="unitselectionpanel_unitStackButton9" Height="45" Width="45" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,4,0,0" Style="{StaticResource UnitSelectionButton}" Content="3">
+                                    <local:Age3Button x:Name="unitselectionpanel_unitStackButton9" Height="45" Width="45"  HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,4,0,0" Style="{StaticResource UnitSelectionButton}" Content="3">
                                         <local:Age3Button.Background>
                                             <ImageBrush ImageSource="resources/images/icons/portraits/units/pikeman_portrait.png" />
                                         </local:Age3Button.Background>
@@ -3767,88 +3696,88 @@
 
                 <!--WONDERS, used for Asian Civs-->
                 <StackPanel Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" Orientation="Horizontal" FlowDirection="RightToLeft" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="auto" Height="70" Margin="0,0,0,350" Visibility="Visible">
-                    <StackPanel x:Name="uiwonderpowerpanel" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Height="60" Visibility="Visible">
+                   <StackPanel x:Name="uiwonderpowerpanel" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Height="60" Visibility="Visible">
                         <local:Age3Button x:Name="WonderPowerPanel_Button1" HorizontalAlignment="Center" Height="50" Width="50" Margin="0,0,5,0" Style="{StaticResource QueueButton}" Visibility="Collapsed">
                             <local:Age3Button.ToolTip>
-                                <ToolTip Placement="Right" />
+                               <ToolTip Placement="Right" />
                             </local:Age3Button.ToolTip>
                             <local:Age3Button.Background>
-                                <ImageBrush ImageSource="resources/images/icons/abilities/ability_inspiration.png" />
+                               <ImageBrush ImageSource="resources/images/icons/abilities/ability_inspiration.png" />
                             </local:Age3Button.Background>
-                        </local:Age3Button>
+                      </local:Age3Button>
 
                         <local:Age3Button x:Name="WonderPowerPanel_Button2" HorizontalAlignment="Center" Height="50" Width="50" Margin="0,0,10,0" Style="{StaticResource QueueButton}" Visibility="Collapsed">
                             <local:Age3Button.ToolTip>
-                                <ToolTip Placement="Right" />
+                               <ToolTip Placement="Right" />
                             </local:Age3Button.ToolTip>
                             <local:Age3Button.Background>
-                                <ImageBrush ImageSource="resources/images/icons/abilities/ability_inspiration.png" />
+                               <ImageBrush ImageSource="resources/images/icons/abilities/ability_inspiration.png" />
                             </local:Age3Button.Background>
-                        </local:Age3Button>
-                    </StackPanel>
+                      </local:Age3Button>
+                   </StackPanel>
+               
+                   <!--BUILD QUEUE-->
+                   <StackPanel x:Name="unitTrainingPanel" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Height="60" Margin="0,0,0,0" Visibility="Visible" >
+                      <local:Age3Button x:Name="unittrainpanel_unitButton0" HorizontalAlignment="Center" Height="50" Width="50" Margin="0,0,0,0" Style="{StaticResource QueueButton}" Content="99">
+                           <local:Age3Button.Background>
+                               <ImageBrush ImageSource="resources/images/icons/techs/hc_food_crate/hc_food_crate_128.png" />
+                           </local:Age3Button.Background>
+                       </local:Age3Button>
 
-                    <!--BUILD QUEUE-->
-                    <StackPanel x:Name="unitTrainingPanel" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Height="60" Margin="0,0,0,0" Visibility="Visible" >
-                        <local:Age3Button x:Name="unittrainpanel_unitButton0" HorizontalAlignment="Center" Height="50" Width="50" Margin="0,0,0,0" Style="{StaticResource QueueButton}" Content="99">
-                            <local:Age3Button.Background>
-                                <ImageBrush ImageSource="resources/images/icons/techs/hc_food_crate/hc_food_crate_128.png" />
-                            </local:Age3Button.Background>
-                        </local:Age3Button>
+                       <local:Age3Button x:Name="unittrainpanel_unitButton1" HorizontalAlignment="Center" Height="50" Width="50" Margin="5,0,0,0" Style="{StaticResource QueueButton}" Content="99">
+                           <local:Age3Button.Background>
+                               <ImageBrush ImageSource="resources/images/icons/techs/hc_food_crate/hc_food_crate_128.png" />
+                           </local:Age3Button.Background>
+                       </local:Age3Button>
 
-                        <local:Age3Button x:Name="unittrainpanel_unitButton1" HorizontalAlignment="Center" Height="50" Width="50" Margin="5,0,0,0" Style="{StaticResource QueueButton}" Content="99">
-                            <local:Age3Button.Background>
-                                <ImageBrush ImageSource="resources/images/icons/techs/hc_food_crate/hc_food_crate_128.png" />
-                            </local:Age3Button.Background>
-                        </local:Age3Button>
+                       <local:Age3Button x:Name="unittrainpanel_unitButton2" HorizontalAlignment="Center" Height="50" Width="50" Margin="5,0,0,0" Style="{StaticResource QueueButton}" Content="99">
+                           <local:Age3Button.Background>
+                               <ImageBrush ImageSource="resources/images/icons/techs/hc_food_crate/hc_food_crate_128.png" />
+                           </local:Age3Button.Background>
+                       </local:Age3Button>
 
-                        <local:Age3Button x:Name="unittrainpanel_unitButton2" HorizontalAlignment="Center" Height="50" Width="50" Margin="5,0,0,0" Style="{StaticResource QueueButton}" Content="99">
-                            <local:Age3Button.Background>
-                                <ImageBrush ImageSource="resources/images/icons/techs/hc_food_crate/hc_food_crate_128.png" />
-                            </local:Age3Button.Background>
-                        </local:Age3Button>
+                       <local:Age3Button x:Name="unittrainpanel_unitButton3" HorizontalAlignment="Center" Height="50" Width="50" Margin="5,0,0,0" Style="{StaticResource QueueButton}" Content="99">
+                           <local:Age3Button.Background>
+                               <ImageBrush ImageSource="resources/images/icons/techs/hc_food_crate/hc_food_crate_128.png" />
+                           </local:Age3Button.Background>
+                       </local:Age3Button>
 
-                        <local:Age3Button x:Name="unittrainpanel_unitButton3" HorizontalAlignment="Center" Height="50" Width="50" Margin="5,0,0,0" Style="{StaticResource QueueButton}" Content="99">
-                            <local:Age3Button.Background>
-                                <ImageBrush ImageSource="resources/images/icons/techs/hc_food_crate/hc_food_crate_128.png" />
-                            </local:Age3Button.Background>
-                        </local:Age3Button>
+                       <local:Age3Button x:Name="unittrainpanel_unitButton4" HorizontalAlignment="Center" Height="50" Width="50" Margin="5,0,0,0" Style="{StaticResource QueueButton}" Content="99">
+                           <local:Age3Button.Background>
+                               <ImageBrush ImageSource="resources/images/icons/techs/hc_food_crate/hc_food_crate_128.png" />
+                           </local:Age3Button.Background>
+                       </local:Age3Button>
 
-                        <local:Age3Button x:Name="unittrainpanel_unitButton4" HorizontalAlignment="Center" Height="50" Width="50" Margin="5,0,0,0" Style="{StaticResource QueueButton}" Content="99">
-                            <local:Age3Button.Background>
-                                <ImageBrush ImageSource="resources/images/icons/techs/hc_food_crate/hc_food_crate_128.png" />
-                            </local:Age3Button.Background>
-                        </local:Age3Button>
+                       <local:Age3Button x:Name="unittrainpanel_unitButton5" HorizontalAlignment="Center" Height="50" Width="50" Margin="5,0,0,0" Style="{StaticResource QueueButton}" Content="99">
+                           <local:Age3Button.Background>
+                               <ImageBrush ImageSource="resources/images/icons/techs/hc_food_crate/hc_food_crate_128.png" />
+                           </local:Age3Button.Background>
+                       </local:Age3Button>
 
-                        <local:Age3Button x:Name="unittrainpanel_unitButton5" HorizontalAlignment="Center" Height="50" Width="50" Margin="5,0,0,0" Style="{StaticResource QueueButton}" Content="99">
-                            <local:Age3Button.Background>
-                                <ImageBrush ImageSource="resources/images/icons/techs/hc_food_crate/hc_food_crate_128.png" />
-                            </local:Age3Button.Background>
-                        </local:Age3Button>
+                       <local:Age3Button x:Name="unittrainpanel_unitButton6" HorizontalAlignment="Center" Height="50" Width="50" Margin="5,0,0,0" Style="{StaticResource QueueButton}" Content="99">
+                           <local:Age3Button.Background>
+                               <ImageBrush ImageSource="resources/images/icons/techs/hc_food_crate/hc_food_crate_128.png" />
+                           </local:Age3Button.Background>
+                       </local:Age3Button>
 
-                        <local:Age3Button x:Name="unittrainpanel_unitButton6" HorizontalAlignment="Center" Height="50" Width="50" Margin="5,0,0,0" Style="{StaticResource QueueButton}" Content="99">
-                            <local:Age3Button.Background>
-                                <ImageBrush ImageSource="resources/images/icons/techs/hc_food_crate/hc_food_crate_128.png" />
-                            </local:Age3Button.Background>
-                        </local:Age3Button>
+                       <local:Age3Button x:Name="unittrainpanel_unitButton7" HorizontalAlignment="Center" Height="50" Width="50" Margin="5,0,0,0" Style="{StaticResource QueueButton}" Content="99">
+                           <local:Age3Button.Background>
+                               <ImageBrush ImageSource="resources/images/icons/techs/hc_food_crate/hc_food_crate_128.png" />
+                           </local:Age3Button.Background>
+                       </local:Age3Button>
 
-                        <local:Age3Button x:Name="unittrainpanel_unitButton7" HorizontalAlignment="Center" Height="50" Width="50" Margin="5,0,0,0" Style="{StaticResource QueueButton}" Content="99">
-                            <local:Age3Button.Background>
-                                <ImageBrush ImageSource="resources/images/icons/techs/hc_food_crate/hc_food_crate_128.png" />
-                            </local:Age3Button.Background>
-                        </local:Age3Button>
+                       <local:Age3Button x:Name="unittrainpanel_unitButton8" HorizontalAlignment="Center" Height="50" Width="50" Margin="5,0,0,0" Style="{StaticResource QueueButton}" Content="99">
+                           <local:Age3Button.Background>
+                               <ImageBrush ImageSource="resources/images/icons/techs/hc_food_crate/hc_food_crate_128.png" />
+                           </local:Age3Button.Background>
+                       </local:Age3Button>
 
-                        <local:Age3Button x:Name="unittrainpanel_unitButton8" HorizontalAlignment="Center" Height="50" Width="50" Margin="5,0,0,0" Style="{StaticResource QueueButton}" Content="99">
-                            <local:Age3Button.Background>
-                                <ImageBrush ImageSource="resources/images/icons/techs/hc_food_crate/hc_food_crate_128.png" />
-                            </local:Age3Button.Background>
-                        </local:Age3Button>
-
-                        <local:Age3Button x:Name="unittrainpanel_unitButton9" HorizontalAlignment="Center" Height="50" Width="50" Margin="5,0,0,0" Style="{StaticResource QueueButton}" Content="99">
-                            <local:Age3Button.Background>
-                                <ImageBrush ImageSource="resources/images/icons/techs/hc_food_crate/hc_food_crate_128.png" />
-                            </local:Age3Button.Background>
-                        </local:Age3Button>
-                    </StackPanel>
+                       <local:Age3Button x:Name="unittrainpanel_unitButton9" HorizontalAlignment="Center" Height="50" Width="50" Margin="5,0,0,0" Style="{StaticResource QueueButton}" Content="99">
+                           <local:Age3Button.Background>
+                               <ImageBrush ImageSource="resources/images/icons/techs/hc_food_crate/hc_food_crate_128.png" />
+                           </local:Age3Button.Background>
+                       </local:Age3Button>
+                   </StackPanel>
                 </StackPanel>
 
                 <!--HC BUTTON-->
@@ -3987,10 +3916,49 @@
                 </Grid>
             </Grid>
 
-            <Grid x:Name="EndGamePanel" Grid.Row="0" Grid.Column="0" Grid.RowSpan="5" Grid.ColumnSpan="5" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0" Visibility="Collapsed">
-                <ContentControl x:Name="EndGamePanel_RayContainer" Template="{StaticResource EndGamePanel_Ray}" Visibility="Collapsed"/>
-                <Image x:Name="EndGamePanel_BGContainer" Source="resources/images/endgame/skirmish_victory_bg.png" Height="400" />
-                <Grid x:Name="EndGamePanel_textContainer" Width="500" Height="120" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Grid x:Name="EndGamePanel" Grid.Row="0" Grid.Column="0" Grid.RowSpan="5" Grid.ColumnSpan="5" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0" Visibility="Collapsed">
+                    <ContentControl x:Name="EndGamePanel_RayContainer" Template="{StaticResource EndGamePanel_Ray}" Visibility="Collapsed"/>
+                    <Image x:Name="EndGamePanel_BGContainer" Source="resources/images/endgame/skirmish_victory_bg.png" Height="400" />
+                    <Grid x:Name="EndGamePanel_textContainer" Width="500" Height="120" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Grid.Resources>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                <Setter Property="TextAlignment" Value="Center"/>
+                                <Setter Property="FontFamily" Value="Trajan Pro"/>
+                                <Setter Property="FontWeight" Value="Bold"/>
+                                <Setter Property="FontSize" Value="30pt"/>
+                                <Setter Property="Foreground" Value="Black"/>
+                                <Setter Property="Width" Value="500"/>
+                                <Setter Property="Height" Value="auto"/>
+                                <Setter Property="MaxHeight" Value="120"/>
+                                <Setter Property="TextWrapping" Value="Wrap"/>
+                                <Setter Property="Effect">
+                                    <Setter.Value>
+                                        <DropShadowEffect BlurRadius="3" Color="Black" Direction="-90" ShadowDepth="3" RenderingBias="Quality" />
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </Grid.Resources>
+                        <TextBlock Margin="-4,0,0,0" Text="You are Victorious!"/>
+                        <TextBlock Margin=" 4,0,0,0" Text="You are Victorious!"/>
+                        <TextBlock Margin="0, 4,0,0" Text="You are Victorious!"/>
+                        <TextBlock Margin="0,-4,0,0" Text="You are Victorious!"/>
+
+                        <TextBlock Margin="-2.9,-2.9,0,0" Text="You are Victorious!"/>
+                        <TextBlock Margin="-2.9, 2.9,0,0" Text="You are Victorious!"/>
+                        <TextBlock Margin=" 2.9,-2.9,0,0" Text="You are Victorious!"/>
+                        <TextBlock Margin=" 2.9, 2.9,0,0" Text="You are Victorious!"/>
+
+                        <TextBlock Text="You are Victorious!" Foreground="{StaticResource OverlayTitleGradient}"/>
+                </Grid>
+            </Grid>
+
+            <!--FOR TRADE MONOPOLY AND REVOLUTION-->
+            <Grid x:Name="SpecialPopupPanel" Grid.Row="0" Grid.Column="0" Grid.RowSpan="5" Grid.ColumnSpan="5" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,500" Visibility="Collapsed">
+                <ContentControl x:Name="SpecialPopup_RayContainer" Template="{StaticResource EndGamePanel_Ray}" Visibility="Collapsed"/>
+                <Rectangle x:Name="SpecialPopup_BGContainer" Fill="Black" Height="120" Opacity="0.5" />
+                <Grid x:Name="SpecialPopup_textContainer" Width="800" Height="100" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <Grid.Resources>
                         <Style TargetType="TextBlock">
                             <Setter Property="HorizontalAlignment" Value="Center"/>
@@ -3998,11 +3966,11 @@
                             <Setter Property="TextAlignment" Value="Center"/>
                             <Setter Property="FontFamily" Value="Trajan Pro"/>
                             <Setter Property="FontWeight" Value="Bold"/>
-                            <Setter Property="FontSize" Value="30pt"/>
+                            <Setter Property="FontSize" Value="25pt"/>
                             <Setter Property="Foreground" Value="Black"/>
-                            <Setter Property="Width" Value="500"/>
+                            <Setter Property="Width" Value="700"/>
                             <Setter Property="Height" Value="auto"/>
-                            <Setter Property="MaxHeight" Value="120"/>
+                            <Setter Property="MaxHeight" Value="100"/>
                             <Setter Property="TextWrapping" Value="Wrap"/>
                             <Setter Property="Effect">
                                 <Setter.Value>
@@ -4011,17 +3979,17 @@
                             </Setter>
                         </Style>
                     </Grid.Resources>
-                    <TextBlock Margin="-4,0,0,0" Text="You are Victorious!"/>
-                    <TextBlock Margin=" 4,0,0,0" Text="You are Victorious!"/>
-                    <TextBlock Margin="0, 4,0,0" Text="You are Victorious!"/>
-                    <TextBlock Margin="0,-4,0,0" Text="You are Victorious!"/>
+                    <TextBlock Margin="-4,0,0,0" Text="Trade Monopoly victory started!"/>
+                    <TextBlock Margin=" 4,0,0,0" Text="Trade Monopoly victory started!"/>
+                    <TextBlock Margin="0, 4,0,0" Text="Trade Monopoly victory started!"/>
+                    <TextBlock Margin="0,-4,0,0" Text="Trade Monopoly victory started!"/>
 
-                    <TextBlock Margin="-2.9,-2.9,0,0" Text="You are Victorious!"/>
-                    <TextBlock Margin="-2.9, 2.9,0,0" Text="You are Victorious!"/>
-                    <TextBlock Margin=" 2.9,-2.9,0,0" Text="You are Victorious!"/>
-                    <TextBlock Margin=" 2.9, 2.9,0,0" Text="You are Victorious!"/>
+                    <TextBlock Margin="-2.9,-2.9,0,0" Text="Trade Monopoly victory started!"/>
+                    <TextBlock Margin="-2.9, 2.9,0,0" Text="Trade Monopoly victory started!"/>
+                    <TextBlock Margin=" 2.9,-2.9,0,0" Text="Trade Monopoly victory started!"/>
+                    <TextBlock Margin=" 2.9, 2.9,0,0" Text="Trade Monopoly victory started!"/>
 
-                    <TextBlock Text="You are Victorious!" Foreground="{StaticResource OverlayTitleGradient}"/>
+                    <TextBlock Text="Trade Monopoly victory started!" Foreground="{StaticResource OverlayTitleGradient}"/>
                 </Grid>
             </Grid>
 
@@ -4060,7 +4028,7 @@
                             <StackPanel Grid.Column="1" Orientation="Vertical" Margin="5">
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                                     <TextBlock x:Name="IncomingChat3_SenderName" Style="{StaticResource ConfirmationTitlesStyleSmall}" FontSize="22" HorizontalAlignment="Left" TextAlignment="Left" Margin="0,0,0,0" Visibility="Visible">
-                                        Maurice of Nassau test
+                                    Maurice of Nassau test
                                     </TextBlock>
                                     <Rectangle x:Name="IncomingChat3_Colour" Width="20" Height="20" Margin="10,0,0,0" Fill="Red"/>
                                 </StackPanel>
@@ -4086,7 +4054,7 @@
                             <StackPanel Grid.Column="1" Orientation="Vertical" Margin="5">
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                                     <TextBlock x:Name="IncomingChat2_SenderName" Style="{StaticResource ConfirmationTitlesStyleSmall}" FontSize="22" HorizontalAlignment="Left" TextAlignment="Left" Margin="0,0,0,0" Visibility="Visible">
-                                        Maurice of Nassau test
+                                    Maurice of Nassau test
                                     </TextBlock>
                                     <Rectangle x:Name="IncomingChat2_Colour" Width="20" Height="20" Margin="10,0,0,0" Fill="Red"/>
                                 </StackPanel>
@@ -4113,7 +4081,7 @@
                             <StackPanel Grid.Column="1" Orientation="Vertical" Margin="5">
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                                     <TextBlock x:Name="IncomingChat1_SenderName" Style="{StaticResource ConfirmationTitlesStyleSmall}" FontSize="22" HorizontalAlignment="Left" TextAlignment="Left" Margin="0,0,0,0" Visibility="Visible">
-                                        Maurice of Nassau test
+                                    Maurice of Nassau test
                                     </TextBlock>
                                     <Rectangle x:Name="IncomingChat1_Colour" Width="20" Height="20" Margin="10,0,0,0" Fill="Red"/>
                                 </StackPanel>
@@ -4150,7 +4118,7 @@
 
                         <!--Title-->
                         <TextBlock x:Name="homecity_deckpickerLabel" Grid.Row="0" Style="{StaticResource ConfirmationTitlesStyle}" FontSize="30" VerticalAlignment="Bottom" HorizontalAlignment="Center">
-                            $$41593$$Select a Deck
+                                $$41593$$Select a Deck
                         </TextBlock>
 
                         <!--List BG Panel-->

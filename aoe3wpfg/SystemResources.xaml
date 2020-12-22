@@ -7052,10 +7052,11 @@
     </Style>
 
     <Style x:Key="ViewProfileButton" TargetType="Button" BasedOn="{StaticResource InviteActionButton}">
+        <Setter Property="Content" Value="{Binding Avatar}"/>
         <Setter Property="ContentTemplate" Value="{StaticResource AvatarTemplate}"/>
-        <Setter Property="CommandParameter" Value="{Binding Content, RelativeSource={x:Static RelativeSource.Self}}"/>
-        <Setter Property="Command" Value="{Binding Content.ViewProfile, RelativeSource={x:Static RelativeSource.Self}}"/>
-        <Setter Property="ToolTip" Value="{Binding Content.ViewProfile.Tooltip, RelativeSource={x:Static RelativeSource.Self}}"/>
+        <Setter Property="CommandParameter" Value="{Binding }"/>
+        <Setter Property="Command" Value="{Binding ViewProfile}"/>
+        <Setter Property="ToolTip" Value="{Binding ViewProfile.Tooltip}"/>
     </Style>
 
     <ImageBrush x:Key="titlebarbg" ImageSource="/resources/titlebar_tile.png" />

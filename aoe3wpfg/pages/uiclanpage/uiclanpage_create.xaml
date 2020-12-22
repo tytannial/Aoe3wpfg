@@ -54,7 +54,7 @@
                                                  Text="{Binding ClanName, Mode=TwoWay}"/>
                         </StackPanel>
 
-                        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,5,0,5" ToolTip="$$90171$$ Add a name for your clan.">
+                        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,5,0,5" ToolTip="$$72688$$Enter a description about this clan.">
                             <TextBlock x:Name="ClanPage_CreateDlg_ClanDescLabel" FontSize="20" Width="500" Padding="15,22" Style="{StaticResource ConfirmationTitlesStyle}" Margin="0,0,0,0" VerticalAlignment="Center" TextWrapping="Wrap">
                                 $$72485$$Clan Description:
                             </TextBlock>
@@ -62,7 +62,7 @@
                                                  Text="{Binding Description, Mode=TwoWay}"/>
                         </StackPanel>
 
-                        <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,5,0,5" ToolTip="$$90171$$ Add a name for your clan.">
+                        <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,5,0,5" ToolTip="$$72689$$Select a policy.">
                             <TextBlock x:Name="ClanPage_CreateDlg_ClanJoinPolicy" FontSize="20" Width="300" Padding="15,22" Style="{StaticResource ConfirmationTitlesStyle}" Margin="0,0,0,0" VerticalAlignment="Center" TextWrapping="Wrap">
                                 $$72486$$Join Policy:
                             </TextBlock>

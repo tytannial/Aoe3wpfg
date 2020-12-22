@@ -141,7 +141,7 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
-                        <Button Grid.Column="0" Content="{Binding Avatar}" Style="{StaticResource ViewProfileButton}"/>
+                        <Button Grid.Column="0" Style="{StaticResource ViewProfileButton}"/>
                         <TextBlock Text="{Binding Alias}" Grid.Column="1" VerticalAlignment="Center" Margin="10,0,0,0"/>
                         <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0">
                             <StackPanel Name="Commands" Orientation="Horizontal" >
@@ -221,7 +221,7 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
-                        <Button Grid.Column="0" Content="{Binding Avatar}" Style="{StaticResource ViewProfileButton}"/>
+                        <Button Grid.Column="0" Style="{StaticResource ViewProfileButton}"/>
                         <TextBlock Text="{Binding Alias}" Grid.Column="1" VerticalAlignment="Center" Margin="10,0,0,0"/>
                         <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0">
                             <StackPanel Name="Commands" Orientation="Horizontal" >

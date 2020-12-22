@@ -175,7 +175,7 @@
                                                                 <ColumnDefinition Width="*"/>
                                                                 <ColumnDefinition Width="Auto"/>
                                                             </Grid.ColumnDefinitions>
-                                                            <Button Content="{Binding User.Avatar}" Style="{StaticResource ViewProfileButton}"/>
+                                                            <Button DataContext="{Binding User}" Style="{StaticResource ViewProfileButton}"/>
                                                             <TextBlock Text="{Binding User.Alias}" Style="{StaticResource ItemTextStyle}" Margin="5,0" HorizontalAlignment="Left" VerticalAlignment="Center"  Grid.Column="1"/>
                                                             <Button Content="{Binding CancelInvite}" Style="{StaticResource ProfileActionButton}" Grid.Column="2" />
                                                         </Grid>
@@ -202,7 +202,7 @@
                                                                 <ColumnDefinition Width="Auto"/>
                                                                 <ColumnDefinition Width="Auto"/>
                                                             </Grid.ColumnDefinitions>
-                                                            <Button Content="{Binding User.Avatar}" Style="{StaticResource ViewProfileButton}"/>
+                                                            <Button DataContext="{Binding User}" Style="{StaticResource ViewProfileButton}"/>
                                                             <TextBlock Text="{Binding User.Alias}" Style="{StaticResource ItemTextStyle}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0" Grid.Column="1"/>
                                                             <Button Style="{StaticResource ProfileActionButton}" Grid.Column="2" 
                                                                     Content="{Binding AcceptApplication}" ToolTip="$$71993$$Accept" />
@@ -233,7 +233,7 @@
                                                     <Grid.ContextMenu>
                                                         <ContextMenu Tag="{Binding }" Style="{StaticResource ProfileContextMenu}"/>
                                                     </Grid.ContextMenu>
-                                                    <Button Content="{Binding User.Avatar}" Style="{StaticResource ViewProfileButton}"/>
+                                                    <Button DataContext="{Binding User}" Style="{StaticResource ViewProfileButton}"/>
                                                     <TextBlock Text="{Binding User.Alias}" Style="{StaticResource ItemTextStyle}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0" Grid.Column="1"/>
                                                     <Image Grid.Column="2" Height="35" Width="35">
                                                         <Image.Style>

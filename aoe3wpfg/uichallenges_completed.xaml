@@ -15,7 +15,7 @@
         <Style TargetType="TextBlock" x:Key="ConfirmationTitlesStyle">
             <Setter Property="FontFamily" Value="Trajan Pro" />
             <Setter Property="FontWeight" Value="Bold" />
-            <Setter Property="FontSize" Value="30" />
+            <Setter Property="FontSize" Value="20" />
             <Setter Property="Foreground" Value="{StaticResource ButtonTextGradient}" />
             <Setter Property="VerticalAlignment" Value="Center" />
             <Setter Property="HorizontalAlignment" Value="Center" />
@@ -61,11 +61,11 @@
                     </Grid.RowDefinitions>
 
                     <!--TITLE-->
-                    <TextBlock Grid.Row="0" VerticalAlignment="Top" Style="{StaticResource ConfirmationTitlesStyle}" FontSize="45" Text="$$72666$$Challenge Completed!"/>
+                    <TextBlock Grid.Row="0" VerticalAlignment="Top" Style="{StaticResource ConfirmationTitlesStyle}" FontSize="40" Text="$$72666$$Challenge Completed!"/>
                     <Rectangle Grid.Row="0" VerticalAlignment="Bottom" Height="3" Fill="{StaticResource DividingLineGradient}"/>
 
                     <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,20,0,0">
-                        <TextBlock x:Name="completedChallenges" Style="{StaticResource ConfirmationTitlesStyle}" Foreground="White" Text="???"/>
+                        <TextBlock x:Name="completedChallenges" Style="{StaticResource ConfirmationTitlesStyle}" Height="50" VerticalAlignment="Center" TextAlignment="Center" Foreground="White" Text="???"/>
 
                         <TextBlock Style="{StaticResource ConfirmationTitlesStyle}" Margin="0,30,0,0" Text="$$72649$$Reward"/>
                         <Rectangle Height="3" Width="600" Margin="0,2,0,5" Fill="{StaticResource DividingLineGradient}"/>

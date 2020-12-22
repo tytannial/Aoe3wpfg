@@ -61,6 +61,12 @@
             </Setter>
         </Style>
         <ImageBrush x:Key="credits_bg" ImageSource="/resources/images/credits/credits_bg.png" Stretch="UniformToFill" />
+
+        <LinearGradientBrush x:Key="ButtonTextGradient" EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="#FFFFD849" Offset="0" />
+            <GradientStop Color="#FFDCB333" Offset="1" />
+            <GradientStop Color="#FFAC831E" Offset="2" />
+        </LinearGradientBrush>
     </Window.Resources>
     
     <Viewbox Style="{StaticResource ViewboxMain}">
@@ -112,7 +118,7 @@
                                     <Setter Property="HorizontalAlignment" Value="Right" />
                                     <Setter Property="Effect">
                                         <Setter.Value>
-                                            <DropShadowEffect BlurRadius="5" Color="Black" Direction="0" ShadowDepth="4" RenderingBias="Quality" />
+                                            <DropShadowEffect BlurRadius="4" Color="Black" Direction="0" ShadowDepth="4" RenderingBias="Quality" />
                                         </Setter.Value>
                                     </Setter>
                                 </Style>

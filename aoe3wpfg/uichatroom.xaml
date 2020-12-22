@@ -80,7 +80,7 @@
                                 <ControlTemplate TargetType="{x:Type ListBoxItem}">
                                     <Border Background="{TemplateBinding Background}" CornerRadius="5">
                                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
-                                            <Button Content="{Binding Avatar}" Style="{StaticResource ViewProfileButton}"/>
+                                            <Button Style="{StaticResource ViewProfileButton}"/>
                                             <TextBlock Text="{Binding AliasWithClan}" TextWrapping="Wrap" Margin="5">
                                                 <TextBlock.ContextMenu>
                                                     <ContextMenu Tag="{Binding }"  Style="{StaticResource ProfileContextMenu}" />
