@@ -215,7 +215,8 @@
               
             <ItemsControl.ItemsPanel>
               <ItemsPanelTemplate>
-                <UniformGrid x:Name="ladderGrid" IsItemsHost="True" HorizontalAlignment="Stretch" SelectionMode="Single" Rows="15" Columns="1" VerticalAlignment="Stretch" VerticalContentAlignment="Stretch" />
+                        <!--<UniformGrid x:Name="ladderGrid" IsItemsHost="True" HorizontalAlignment="Stretch" SelectionMode="Single" Rows="15" Columns="1" VerticalAlignment="Stretch" VerticalContentAlignment="Stretch" />-->
+                        <UniformGrid x:Name="ladderGrid" IsItemsHost="True" HorizontalAlignment="Stretch" Rows="15" Columns="1" VerticalAlignment="Stretch" />
               </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>           
               

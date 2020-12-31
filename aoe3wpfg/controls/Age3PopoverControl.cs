@@ -18,10 +18,19 @@ namespace aoe3wpfg
             set { SetValue(PopoverPageProperty, value); }
         }
 
+        public bool IsPopoverOpen
+        {
+            get { return (bool)GetValue(IsPopoverOpenProperty); }
+            set { SetValue(IsPopoverOpenProperty, value); }
+        }
+
         public static readonly DependencyProperty PopoverAnimationProperty = DependencyProperty.Register(
             "PopoverAnimation", typeof(PopupAnimation), typeof(Age3PopoverControl));
 
         public static readonly DependencyProperty PopoverPageProperty = DependencyProperty.Register(
             "PopoverPage", typeof(PopupAnimation), typeof(Age3PopoverControl));
+
+        public static readonly DependencyProperty IsPopoverOpenProperty = DependencyProperty.Register(
+            "IsPopoverOpen", typeof(bool), typeof(Age3PopoverControl));
     }
 }

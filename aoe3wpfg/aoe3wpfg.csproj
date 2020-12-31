@@ -10,12 +10,4 @@
     <Content Include="resources\**" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Compile Remove="uichatbrowser.xaml.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Page Remove="uichatbrowser.xaml" />
-  </ItemGroup>
-
 </Project>
