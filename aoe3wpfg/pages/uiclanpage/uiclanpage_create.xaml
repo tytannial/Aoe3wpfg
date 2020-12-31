@@ -83,9 +83,9 @@
                             <Button x:Name="ClanPage_CreateDlg_CreateButton" Style="{StaticResource MainMenuButton}" Margin="20,0,0,0" Width="300" Content="$$33930$$Create Clan" TabIndex="3" ToolTip="$$90172$$ Create clan with given details."/>
                             <Button x:Name="ClanPage_CreateDlg_BrowserButton" Style="{StaticResource MainMenuButton}" Margin="20,0,0,0" Width="300" Content="$$70653$$Clan Browser" TabIndex="4" ToolTip="$$90173$$ Browse for clans."/>
                             <Button x:Name="ClanPage_CreateDlg_CloseButton" Style="{StaticResource MainMenuButton}" Margin="20,0,0,0" Width="300" Content="$$18457$$Close" TabIndex="5" IsCancel="True" ToolTip="$$90174$$ Close this dialog."/>
-                            <local:Age3Button Grid.Row="0" x:Name="XBLSignIn" Style="{StaticResource MainMenuButton}" Margin="20,0,0,0" Width="300" Content="$$71031$$Xbox Live Sign In" TabIndex="6" ConsoleCommand="XBLSignInOut">
+                            <age3:Age3Button Grid.Row="0" x:Name="XBLSignIn" Style="{StaticResource MainMenuButton}" Margin="20,0,0,0" Width="300" Content="$$71031$$Xbox Live Sign In" TabIndex="6" ConsoleCommand="XBLSignInOut">
                                 <Button.ToolTip>$$71032$$Sign in to Xbox Live.</Button.ToolTip>
-                            </local:Age3Button>
+                            </age3:Age3Button>
                         </StackPanel>
                     </Grid>
                 </Grid>
