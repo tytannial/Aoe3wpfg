@@ -131,7 +131,7 @@
                         </Grid>
                     </local:Age3KeyboardFocusBorder>
 
-                    <local:Age3KeyboardFocusBorder Grid.Row="2" x:Name="OptionGrfxResolution" Visibility="Collapsed">
+                    <local:Age3KeyboardFocusBorder Grid.Row="2" x:Name="OptionGrfxResolution" Visibility="Visible">
                         <Grid Height="55">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
@@ -163,7 +163,7 @@
                         </Grid>
                     </local:Age3KeyboardFocusBorder>
 
-                    <local:Age3KeyboardFocusBorder Grid.Row="2" x:Name="OptionGrfxResolutionScale" Visibility="Visible">
+                    <local:Age3KeyboardFocusBorder Grid.Row="4" x:Name="OptionGrfxResolutionScale" Visibility="Visible">
                         <Grid Height="55">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
@@ -182,7 +182,7 @@
                         </Grid>
                     </local:Age3KeyboardFocusBorder>
 
-                    <local:Age3KeyboardFocusBorder Grid.Row="4">
+                    <local:Age3KeyboardFocusBorder Grid.Row="6">
                         <CheckBox Name="OptionEnableVsync" Style="{StaticResource Checkbox_Options}" HorizontalAlignment="Left" VerticalAlignment="Center" FlowDirection="RightToLeft" Width="590" Height="55" TabIndex="11"  IsChecked="{Binding Path=OptionEnableVsync}">
                             <TextBlock Text="$$37140$$VSync" TextWrapping="Wrap" FlowDirection="LeftToRight" Width="540"/>
                             <CheckBox.ToolTip>
@@ -193,7 +193,7 @@
                         </CheckBox>
                     </local:Age3KeyboardFocusBorder>
 
-                    <local:Age3KeyboardFocusBorder Grid.Row="6">
+                    <local:Age3KeyboardFocusBorder Grid.Row="8">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
@@ -227,7 +227,7 @@
                         </Grid>
                     </local:Age3KeyboardFocusBorder>
 
-                    <local:Age3KeyboardFocusBorder Grid.Row="8" x:Name="OptionGrfxSuperSampling" Visibility="Collapsed">
+                    <local:Age3KeyboardFocusBorder Grid.Row="4" x:Name="OptionGrfxSuperSampling" Visibility="Collapsed">
                         <Grid Height="55">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>

@@ -573,6 +573,17 @@
                         <Button x:Name="MPESOGameList_RefreshButton" Style="{StaticResource MainMenuButton}" Width="290" Content="$$21130$$Refresh" Margin="0,0,0,0" TabIndex="2" >
                             <Button.ToolTip>$$22103$$Refresh the game list.</Button.ToolTip>
                         </Button>
+                        <!--Spectator mode button-->
+                        <Button x:Name="MPESOGameList_SpectatorModeButton" Style="{StaticResource MainMenuButton}" Width="290" HorizontalAlignment="Left" Content="$$70645$$Spectator Mode" Visibility="Visible" IsEnabled="False" Margin="30,0,0,0" TabIndex="5" >
+                            <Button.ToolTip>$$71454$$Look for games to join as a player, or as a spectator.</Button.ToolTip>
+                        </Button>
+                        <!--Spectator mode button (fake) checkbox-->
+                        <Image x:Name="MPESOGameList_SpectatorModeCheckboxImageOn" IsHitTestVisible="False" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="-290,0,0,0" Height="40" Width="40" Source="/resources/checkbox_on.png" Focusable="False"/>
+                        <Image x:Name="MPESOGameList_SpectatorModeCheckboxImageOff" IsHitTestVisible="False" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="-290,0,0,0" Height="40" Width="40" Source="/resources/checkbox_off.png" Focusable="False"/>
+                        <!-- Host button-->
+                        <Button x:Name="MPESOGameList_HostButton" Style="{StaticResource MainMenuButton}" Width="290" Content="$$21128$$Host Game" Visibility="Visible" IsEnabled="True" Margin="30,0,0,0" TabIndex="3" >
+                            <Button.ToolTip>$$71041$$Host a Casual Game.</Button.ToolTip>
+                        </Button>
                         <!--Join button-->
                         <Button x:Name="MPESOGameList_JoinButton" Style="{StaticResource MainMenuButton}" Width="290" Content="$$21129$$Join" Visibility="Visible" IsEnabled="False" Margin="30,0,0,0" TabIndex="3" >
                             <Button.ToolTip>$$70744$$Select to join game as player.</Button.ToolTip>
@@ -581,13 +592,6 @@
                         <Button x:Name="MPESOGameList_ObserveButton" Style="{StaticResource MainMenuButton}" Width="290" Content="$$70743$$Observe" Visibility="Collapsed" IsEnabled="False" Margin="30,0,0,0" TabIndex="4" >
                             <Button.ToolTip>$$70745$$Select to join game as spectator.</Button.ToolTip>
                         </Button>
-                        <!--Spectator mode button-->
-                        <Button x:Name="MPESOGameList_SpectatorModeButton" Style="{StaticResource MainMenuButton}" Width="290" HorizontalAlignment="Left" Content="$$70645$$Spectator Mode" Visibility="Visible" IsEnabled="False" Margin="30,0,0,0" TabIndex="5" >
-                            <Button.ToolTip>$$71454$$Look for games to join as a player, or as a spectator.</Button.ToolTip>
-                        </Button>
-                        <!--Spectator mode button (fake) checkbox-->
-                        <Image x:Name="MPESOGameList_SpectatorModeCheckboxImageOn" IsHitTestVisible="False" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="-290,0,0,0" Height="40" Width="40" Source="/resources/checkbox_on.png" Focusable="False"/>
-                        <Image x:Name="MPESOGameList_SpectatorModeCheckboxImageOff" IsHitTestVisible="False" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="-290,0,0,0" Height="40" Width="40" Source="/resources/checkbox_off.png" Focusable="False"/>
                     </StackPanel>
                     <!--Buttons - Row 2-->
                     <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">

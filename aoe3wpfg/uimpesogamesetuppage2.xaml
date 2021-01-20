@@ -308,7 +308,7 @@
 
             <Grid Grid.Row="1" Width="1920" HorizontalAlignment="Center">
                 <!--Lobby Panel-->
-                <Grid x:Name="SettingsPanelBG" HorizontalAlignment="Right" Width="450" Margin="0,60,35,40">
+                <Grid x:Name="SettingsPanelBG" HorizontalAlignment="Right" Width="450" Margin="0,5,35,40">
                     <Rectangle Style="{StaticResource PanelBGSection}" />
                 </Grid>
 
@@ -324,21 +324,7 @@
                         </Grid.ColumnDefinitions>
 
 
-                        <!-- Game ID -->
-                        <StackPanel Grid.Column="0" Grid.ColumnSpan="4" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Height="70" Margin="0,0,0,0">
-                            <TextBlock x:Name="mpsetup_LobbyIDLabel" Style="{StaticResource subInfoLeft}" Width="200" Margin="0,10,0,0" FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Right" VerticalAlignment="Center" Text="$$71520$$Game ID:"/>
-                            <TextBlock x:Name="mpsetup_LobbyID" Style="{StaticResource subInfoLeft}" Width="82" Margin="10,0,10,0" FontWeight="Bold" TextAlignment="Left" HorizontalAlignment="Right" VerticalAlignment="Center" Text=""/>
-                            <Button x:Name="mpsetup_CopyLobbyID_Btn" Style="{StaticResource MainMenuButton}"  Height="40" Width="120" Margin="0,0,0,0" HorizontalAlignment="Right" Content="$$25345$$Copy" Visibility="Visible"  IsEnabled="True">
-                                <Button.ToolTip>$$71450$$Copy game ID to the clipboard</Button.ToolTip>
-                            </Button>
-                            <Button x:Name="mpsetup_Invite_Btn" Style="{StaticResource MainMenuButton}"  Height="40" Width="120" Margin="0,0,0,0" HorizontalAlignment="Right" Content="$$20049$$Invite" Visibility="Visible"  IsEnabled="True">
-                                <Button.ToolTip>$$70811$$Invite to game</Button.ToolTip>
-                            </Button>
-                            <Button Name="hcSummary_TechTree" Height="35" Width="50" HorizontalAlignment="Right" Margin="10,0,0,0" Style="{StaticResource HUDButton}">
-                                <Image Source="{StaticResource icon_techtree}" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0"></Image>
-                                <Button.ToolTip>$$70734$$You can view Technology Trees of all civilizations.</Button.ToolTip>
-                            </Button>
-                        </StackPanel>
+
 
                         <!--Lobby-->
                         <Grid Grid.Column="1">
@@ -358,6 +344,21 @@
                                 <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
                                     <TextBlock x:Name="mpsetup_gamename_text" Padding="20" Margin="0,0,0,0" FontSize="30" Style="{StaticResource CampaignTitleTextBlockStyle}">Game Name</TextBlock>
                                     <Image x:Name="mpsetup_mods_warning_icon" Visibility="Collapsed" Source="{StaticResource warning_icon}" Margin="0,16,16,16" ToolTip="$$79933$$Warning: You currently have mods enabled. Only players using the same mods will be able to join this game."/>
+                                    <!-- Game ID -->
+                                    <StackPanel Grid.Column="0" Grid.ColumnSpan="4" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Height="70" Margin="0,0,0,0">
+                                        <TextBlock x:Name="mpsetup_LobbyIDLabel" Style="{StaticResource subInfoLeft}" Width="200" Margin="0,10,0,0" FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Right" VerticalAlignment="Center" Text="$$71520$$Game ID:"/>
+                                        <TextBlock x:Name="mpsetup_LobbyID" Style="{StaticResource subInfoLeft}" Width="82" Margin="10,24,10,18" FontWeight="Bold" TextAlignment="Left" HorizontalAlignment="Right" VerticalAlignment="Center" Text="" Height="28"/>
+                                        <Button x:Name="mpsetup_CopyLobbyID_Btn" Style="{StaticResource MainMenuButton}"  Height="40" Width="120" Margin="0,0,0,0" HorizontalAlignment="Right" Content="$$25345$$Copy" Visibility="Visible"  IsEnabled="True">
+                                            <Button.ToolTip>$$71450$$Copy game ID to the clipboard</Button.ToolTip>
+                                        </Button>
+                                        <Button x:Name="mpsetup_Invite_Btn" Style="{StaticResource MainMenuButton}"  Height="40" Width="120" Margin="0,0,0,0" HorizontalAlignment="Right" Content="$$20049$$Invite" Visibility="Visible"  IsEnabled="True">
+                                            <Button.ToolTip>$$70811$$Invite to game</Button.ToolTip>
+                                        </Button>
+                                        <Button Name="hcSummary_TechTree" Height="35" Width="50" HorizontalAlignment="Right" Margin="10,0,0,0" Style="{StaticResource HUDButton}">
+                                            <Image Source="{StaticResource icon_techtree}" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0"></Image>
+                                            <Button.ToolTip>$$70734$$You can view Technology Trees of all civilizations.</Button.ToolTip>
+                                        </Button>
+                                    </StackPanel>
                                 </StackPanel>
 
                                 <StackPanel Grid.Row="1" Height="auto" VerticalAlignment="Top">
@@ -1478,7 +1479,7 @@
                             </Grid>
                         </Grid>
 
-                        <StackPanel Grid.Column="3" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,70,0,0">
+                        <StackPanel Grid.Column="3" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,15,0,0">
                             <!--Players-->
                             <ComboBox x:Name="mpsetup_NumberPlayers" Width="400" Height="40" HorizontalAlignment="Center" Style="{StaticResource RegularCombobox}" MaxDropDownHeight="380" Margin="0,0,0,0">
                                 <ComboBoxItem Content="$$36122$$2 Players" IsSelected="True"/>
@@ -1491,7 +1492,7 @@
                                 <ComboBox.ToolTip>$$41646$$</ComboBox.ToolTip>
                             </ComboBox>
                             <!--Map-->
-                            <Image x:Name="mpsetup_MapDisplay" Width="340" Height="340" Margin="0,5,0,0"/>
+                            <Image x:Name="mpsetup_MapDisplay" Width="260" Height="260" Margin="0,5,0,0"/>
                             <!--Map Type-->
                             <TextBlock x:Name="mpsetup_LabelMapType" Style="{StaticResource subInfoLeft}" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="400" Text="$$71121$$Select Type" Margin="0,5,0,0"/>
                             <ComboBox  x:Name="mpsetup_MapTypeDropdown" Width="400"  Height="40" HorizontalAlignment="Center" Style="{StaticResource RegularCombobox}" MaxDropDownHeight="380" Margin="0,0,0,0">
@@ -1570,6 +1571,15 @@
                                 <ComboBoxItem Content="$$36135$$Post-Sovereign Age"/>
                                 <ComboBox.ToolTip>$$41643$$</ComboBox.ToolTip>
                             </ComboBox>
+                            <TextBlock x:Name="mpsetup_EndingAgeLabel" Style="{StaticResource subInfoLeft}" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="400" Text="$$72731$$Ending Age" Margin="0,5,0,0"/>
+                            <ComboBox x:Name="mpsetup_EndingAgeDropdown" Width="400"  Height="40" HorizontalAlignment="Center" Style="{StaticResource RegularCombobox}" MaxDropDownHeight="380" Margin="0,0,0,0">
+                                <ComboBoxItem Content="$$36129$$Exploration Age"/>
+                                <ComboBoxItem Content="$$36130$$Commerce Age"/>
+                                <ComboBoxItem Content="$$36131$$Fortress Age"/>
+                                <ComboBoxItem Content="$$36132$$Industrial Age"/>
+                                <ComboBoxItem Content="$$36134$$Imperial Age" IsSelected="True"/>
+                                <ComboBox.ToolTip>$$72732$$</ComboBox.ToolTip>
+                            </ComboBox>
                             <TextBlock x:Name="mpsetup_LabelDifficulty" Style="{StaticResource subInfoLeft}" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="400" Text="$$36147$$Difficulty" Margin="0,5,0,0"/>
                             <ComboBox x:Name="mpsetup_DifficultyDropdown" Width="400"  Height="40" HorizontalAlignment="Center" Style="{StaticResource RegularCombobox}" MaxDropDownHeight="380" Margin="0,0,0,0">
                                 <ComboBoxItem Content="$$32605$$Easy"/>
@@ -1586,6 +1596,16 @@
                                 <ComboBoxItem Content="$$36137$$Medium" IsSelected="True"/>
                                 <ComboBoxItem Content="$$36138$$Fast"/>
                                 <ComboBox.ToolTip>$$37456$$</ComboBox.ToolTip>
+                            </ComboBox>
+                            <TextBlock x:Name="mpsetup_StartingResourcesLabel" Style="{StaticResource subInfoLeft}" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="400" Text="$$72723$$Starting Resources" Margin="0,5,0,0"/>
+                            <ComboBox x:Name="mpsetup_StartingResourcesDropdown" Width="400"  Height="40" HorizontalAlignment="Center" Style="{StaticResource RegularCombobox}" MaxDropDownHeight="380" Margin="0,0,0,0">
+                                <ComboBoxItem Content="$$72725$$Standard" IsSelected="True"/>
+                                <ComboBoxItem Content="$$72727$$Medium"/>
+                                <ComboBoxItem Content="$$72728$$High"/>
+                                <ComboBoxItem Content="$$72733$$Ultra"/>
+                                <ComboBoxItem Content="$$72729$$Infinite"/>
+                                <ComboBoxItem Content="$$72730$$Random"/>
+                                <ComboBox.ToolTip>$$72724$$</ComboBox.ToolTip>
                             </ComboBox>
                             <Rectangle Height="1" Width="420" Fill="White" Margin="0,5,0,5"/>
                             <!--Checkboxes-->

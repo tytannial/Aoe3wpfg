@@ -69,6 +69,16 @@
                     </StackPanel>
 
                     <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                        <ComboBox x:Name="SinglePlayerSetup_NumPlayersSelection"  Height="40" Width="300" FontSize="20" Padding="8" MaxDropDownHeight="380" Style="{StaticResource RegularCombobox}">
+                            <ComboBoxItem Content="$$36122$$2 Players" IsSelected="True"/>
+                            <ComboBoxItem Content="$$36123$$3 Players"/>
+                            <ComboBoxItem Content="$$36124$$4 Players"/>
+                            <ComboBoxItem Content="$$36125$$5 Players"/>
+                            <ComboBoxItem Content="$$36126$$6 Players"/>
+                            <ComboBoxItem Content="$$36127$$7 Players"/>
+                            <ComboBoxItem Content="$$36128$$8 Players"/>
+                            <ComboBox.ToolTip>$$41646$$</ComboBox.ToolTip>
+                        </ComboBox>
                         <local:Age3KeyboardFocusBorder>
                             <RadioButton x:Name="toggleSupremacy" GroupName="Mode" IsChecked="True" Margin="20,0,20,0">
                                 <TextBlock Foreground="White" FontSize="25" Text="$$18864$$Supremacy">
@@ -753,18 +763,9 @@
 
                         <!--Game Settings-->
                         <StackPanel Grid.Column="3" Grid.Row="3" Margin="0,15,0,0">
-                            <ComboBox x:Name="SinglePlayerSetup_NumPlayersSelection"  Height="40" Width="450" FontSize="20" Padding="8" MaxDropDownHeight="380" Style="{StaticResource RegularCombobox}">
-                                <ComboBoxItem Content="$$36122$$2 Players" IsSelected="True"/>
-                                <ComboBoxItem Content="$$36123$$3 Players"/>
-                                <ComboBoxItem Content="$$36124$$4 Players"/>
-                                <ComboBoxItem Content="$$36125$$5 Players"/>
-                                <ComboBoxItem Content="$$36126$$6 Players"/>
-                                <ComboBoxItem Content="$$36127$$7 Players"/>
-                                <ComboBoxItem Content="$$36128$$8 Players"/>
-                                <ComboBox.ToolTip>$$41646$$</ComboBox.ToolTip>
-                            </ComboBox>
+                            
 
-                            <Image x:Name="SinglePlayerSetup_MapDisplay" Height="200" Width="200" Margin="0,10,0,0">
+                            <Image x:Name="SinglePlayerSetup_MapDisplay" Height="175" Width="175" Margin="0,5,0,0">
                                 <Image.ToolTip>$$19943$$</Image.ToolTip>
                             </Image>
 
@@ -838,7 +839,7 @@
                                     <ComboBox.ToolTip>$$71133$$</ComboBox.ToolTip>
                                 </ComboBox>
 
-                                <StackPanel>
+                                <StackPanel Orientation="Horizontal" Width="450">
                                     <StackPanel.Style>
                                         <Style TargetType="StackPanel">
                                             <Setter Property="Visibility" Value="Collapsed"/>
@@ -850,7 +851,7 @@
                                         </Style>
                                     </StackPanel.Style>
                                     <local:Age3KeyboardFocusBorder Margin="10,0,10,0">
-                                        <ComboBox x:Name="TreatyDropdown" Height="40" Width="450" Style="{StaticResource RegularCombobox}" FontSize="21" MaxDropDownHeight="380" Margin="0,5,0,0">
+                                        <ComboBox x:Name="TreatyDropdown" Height="40" Width="200" HorizontalAlignment="Left" Style="{StaticResource RegularCombobox}" FontSize="21" MaxDropDownHeight="380" Margin="-10,5,0,0">
                                             <ComboBox.ToolTip>$$90176$$ Select a rule set.</ComboBox.ToolTip>
                                             <ComboBoxItem Content="$$46612$$10 min." IsSelected="True">
                                                 <ComboBoxItem.ToolTip>
@@ -885,8 +886,8 @@
                                         </ComboBox>
                                     </local:Age3KeyboardFocusBorder>
 
-                                    <local:Age3KeyboardFocusBorder Margin="10,0,10,0">
-                                        <CheckBox x:Name="BlockadeCheckbox" Style="{StaticResource Checkbox_Medium}" Width="450" FontSize="21" Content="$$30458$$Blockade">
+                                    <local:Age3KeyboardFocusBorder Margin="0,0,10,0">
+                                        <CheckBox HorizontalAlignment="Left" HorizontalContentAlignment="Left" x:Name="BlockadeCheckbox" Style="{StaticResource Checkbox_Medium}" Width="250" FontSize="21" Content="$$30458$$Blockade">
                                             <CheckBox.ToolTip>$$71369$$Blockade: A condition to prevernt players from getting shipments.</CheckBox.ToolTip>
                                         </CheckBox>
                                     </local:Age3KeyboardFocusBorder>
@@ -918,21 +919,36 @@
                                 </ComboBox>
                             </StackPanel>
 
-                            <StackPanel Width="500">
-                                <TextBlock x:Name="SPS_LabelStartingAge" Style="{StaticResource RegularTextBlockStyle}" HorizontalAlignment="Center" TextAlignment="Center" Width="450">
+                            <StackPanel Width="450" Orientation="Horizontal" Margin="0,5,0,0">
+                                <TextBlock x:Name="SPS_LabelStartingAge" Style="{StaticResource RegularTextBlockStyle}" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Left" Width="200">
                                     $$36148$$Starting Age
                                     <TextBlock.ToolTip>$$41643$$</TextBlock.ToolTip>
                                 </TextBlock>
-                                <ComboBox x:Name="SinglePlayerSetup_StartingAgeSelection" Margin="0,0,0,0" Height="40" Width="450" FontSize="20" Padding="8" MaxDropDownHeight="380" Style="{StaticResource RegularCombobox}">
+                                <ComboBox x:Name="SinglePlayerSetup_StartingAgeSelection" Margin="0,0,0,2" Height="40" Width="250" FontSize="20" Padding="8" MaxDropDownHeight="380" Style="{StaticResource RegularCombobox}">
                                     <ComboBoxItem Content="$$36425$$Nomad" IsSelected="True"/>
                                     <ComboBoxItem Content="$$36129$$Exploration Age"/>
-                                    <ComboBoxItem Content="$$36430$$Commerce Age"/>
-                                    <ComboBoxItem Content="$$36431$$Fortress Age"/>
-                                    <ComboBoxItem Content="$$36432$$Industrial Age"/>
-                                    <ComboBoxItem Content="$$36433$$Post-Industrial Age"/>
-                                    <ComboBoxItem Content="$$36434$$Sovereign Age"/>
-                                    <ComboBoxItem Content="$$36435$$Post-Sovereign Age"/>
+                                    <ComboBoxItem Content="$$36130$$Commerce Age"/>
+                                    <ComboBoxItem Content="$$36131$$Fortress Age"/>
+                                    <ComboBoxItem Content="$$36132$$Industrial Age"/>
+                                    <ComboBoxItem Content="$$36133$$Post-Industrial Age"/>
+                                    <ComboBoxItem Content="$$36134$$Imperial Age"/>
+                                    <ComboBoxItem Content="$$36135$$Post-Imperial Age"/>
                                     <ComboBox.ToolTip>$$41643$$</ComboBox.ToolTip>
+                                </ComboBox>
+                            </StackPanel>
+
+                            <StackPanel Width="450" Orientation="Horizontal">
+                                <TextBlock x:Name="SPS_LabelEndingAge" Style="{StaticResource RegularTextBlockStyle}" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Left" Width="200" Margin="0,8,0,0">
+                                    $$72731$$Ending Age
+                                    <TextBlock.ToolTip>$$72732$$</TextBlock.ToolTip>
+                                </TextBlock>
+                                <ComboBox x:Name="SinglePlayerSetup_EndingAgeSelection" Margin="0,0,0,0" Height="40" Width="250" FontSize="20" Padding="8" Style="{StaticResource RegularCombobox}">
+                                    <ComboBoxItem Content="$$36129$$Exploration Age"/>
+                                    <ComboBoxItem Content="$$36130$$Commerce Age"/>
+                                    <ComboBoxItem Content="$$36131$$Fortress Age"/>
+                                    <ComboBoxItem Content="$$36132$$Industrial Age"/>
+                                    <ComboBoxItem Content="$$36134$$Imperial Age" IsSelected="True"/>
+                                    <ComboBox.ToolTip>$$72732$$</ComboBox.ToolTip>
                                 </ComboBox>
                             </StackPanel>
 
@@ -950,17 +966,24 @@
                                     <ComboBoxItem Content="$$91770$$Extreme"/>
                                     <ComboBox.ToolTip>$$41644$$</ComboBox.ToolTip>
                                 </ComboBox>
+
                             </StackPanel>
 
-                            <local:Age3KeyboardFocusBorder Margin="10,0,10,0">
-                                <CheckBox x:Name="SPS_CheckHandicap" Style="{StaticResource Checkbox_Medium}" Height="40" Width="450" VerticalContentAlignment="Center" Margin="0,5,0,0">
-                                    <TextBlock Style="{StaticResource RegularTextBlockStyle}">
-                                    $$42176$$Player Handicap
-                                        <TextBlock.ToolTip>$$42186$$</TextBlock.ToolTip>
-                                    </TextBlock>
-                                    <CheckBox.ToolTip>$$42186$$</CheckBox.ToolTip>
-                                </CheckBox>
-                            </local:Age3KeyboardFocusBorder>
+                            <StackPanel Width="500">
+                                <TextBlock x:Name="SPS_LabelStartingResources" Style="{StaticResource RegularTextBlockStyle}" HorizontalAlignment="Center" TextAlignment="Center" Width="450" Margin="0,8,0,0">
+                                    $$72723$$Starting Resources
+                                    <TextBlock.ToolTip>$$72724$$</TextBlock.ToolTip>
+                                </TextBlock>
+                                <ComboBox x:Name="SinglePlayerSetup_StaringResourcesSelection" Margin="0,0,0,0" Height="40" Width="450" FontSize="20" Padding="8" Style="{StaticResource RegularCombobox}">
+                                    <ComboBoxItem Content="$$72725$$Standard" IsSelected="True"/>
+                                    <ComboBoxItem Content="$$72727$$Medium"/>
+                                    <ComboBoxItem Content="$$72728$$High"/>
+                                    <ComboBoxItem Content="$$72733$$Ultra"/>
+                                    <ComboBoxItem Content="$$72729$$Infinite"/>
+                                    <ComboBoxItem Content="$$72730$$Random"/>
+                                    <ComboBox.ToolTip>$$72724$$</ComboBox.ToolTip>
+                                </ComboBox>
+                            </StackPanel>
 
                             <StackPanel Width="500" Margin="0,0,0,5">
                                 <TextBlock x:Name="SPS_LabelGameSpeed" Style="{StaticResource RegularTextBlockStyle}" HorizontalAlignment="Center" TextAlignment="Center" Width="450">
@@ -975,7 +998,17 @@
                                 </ComboBox>
                             </StackPanel>
 
-                            <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Width="500" Margin="0,0,0,0">
+                            <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Width="500" Margin="0,-10,0,0">
+                                <local:Age3KeyboardFocusBorder Margin="10,0,10,0">
+                                    <CheckBox x:Name="SPS_CheckHandicap" Style="{StaticResource Checkbox_Medium}" Height="40" Width="450" VerticalContentAlignment="Center" Margin="0,5,0,0">
+                                        <TextBlock Style="{StaticResource RegularTextBlockStyle}">
+                                    $$42176$$Player Handicap
+                                            <TextBlock.ToolTip>$$42186$$</TextBlock.ToolTip>
+                                        </TextBlock>
+                                        <CheckBox.ToolTip>$$42186$$</CheckBox.ToolTip>
+                                    </CheckBox>
+                                </local:Age3KeyboardFocusBorder>
+
                                 <local:Age3KeyboardFocusBorder Margin="10,0,10,0">
                                     <CheckBox x:Name="SPS_CheckRecordGame" Style="{StaticResource Checkbox_Medium}" Height="40" Width="450" Margin="0,0,0,0" VerticalContentAlignment="Center">
                                         <TextBlock Style="{StaticResource RegularTextBlockStyle}">

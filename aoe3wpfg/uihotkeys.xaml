@@ -324,6 +324,12 @@
                         <CheckBox.ToolTip>$$49047$$Allow multiple commands to be set to the same hotkey</CheckBox.ToolTip>
                     </CheckBox>
                 </local:Age3KeyboardFocusBorder>
+                <local:Age3KeyboardFocusBorder Grid.Row="4" Margin="0,0,475,0">
+                    <CheckBox x:Name="hotkeysetup_AllowAltAttackMove" Style="{StaticResource Checkbox_Medium}" Height="50" VerticalContentAlignment="Center" Margin="10,0,-214,0" Content="$$79939$$Enable Alt + Right-Click Attack Move"
+                          IsChecked="{Binding AllowAltAttackMove}">
+                        <CheckBox.ToolTip>$$79939$$Enable Alt + Right-Click Attack Move</CheckBox.ToolTip>
+                    </CheckBox>
+                </local:Age3KeyboardFocusBorder>
 
 
                 <StackPanel Visibility="Collapsed" Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="55" Margin="10,0,0,0">

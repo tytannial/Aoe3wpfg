@@ -293,14 +293,14 @@
             <Line Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="7" Grid.RowSpan="2" X1="40" Y1="100" X2="490" Y2="100" Stroke="Black" StrokeThickness="8"/>
             <Line Grid.Row="6" Grid.Column="5" Grid.ColumnSpan="7" Grid.RowSpan="2" X1="40" Y1="50" X2="100" Y2="50" Stroke="Black" StrokeThickness="8"/>
             <Line Grid.Row="0" Grid.Column="2" Grid.RowSpan="3" X1="40" Y1="100" X2="40" Y2="150" Stroke="Black" StrokeThickness="8"/>
-            <Line Grid.Row="0" Grid.Column="7" Grid.RowSpan="3" X1="40" Y1="50" X2="40" Y2="120" Stroke="Black" StrokeThickness="8"/>
+            <Line Grid.Row="0" Grid.Column="7" Grid.RowSpan="3" X1="40" Y1="98" X2="40" Y2="120" Stroke="Black" StrokeThickness="8"/>
             <Line Grid.Row="6" Grid.Column="6" Grid.RowSpan="3" X1="40" Y1="50" X2="40" Y2="120" Stroke="Black" StrokeThickness="8"/>
             <!--White BG-->
             <Line Grid.Row="0" Grid.Column="1" Grid.RowSpan="10" X1="40" Y1="80" X2="40" Y2="750" Stroke="White" StrokeThickness="4"/>
             <Line Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="7" Grid.RowSpan="2" X1="40" Y1="100" X2="490" Y2="100" Stroke="White" StrokeThickness="4"/>
             <Line Grid.Row="6" Grid.Column="5" Grid.ColumnSpan="7" Grid.RowSpan="2" X1="40" Y1="50" X2="100" Y2="50" Stroke="White" StrokeThickness="4"/>
             <Line Grid.Row="0" Grid.Column="2" Grid.RowSpan="3" X1="40" Y1="100" X2="40" Y2="150" Stroke="White" StrokeThickness="4"/>
-            <Line Grid.Row="0" Grid.Column="7" Grid.RowSpan="3" X1="40" Y1="50" X2="40" Y2="120" Stroke="White" StrokeThickness="4"/>
+            <Line Grid.Row="0" Grid.Column="7" Grid.RowSpan="3" X1="40" Y1="98" X2="40" Y2="120" Stroke="White" StrokeThickness="4"/>
             <Line Grid.Row="6" Grid.Column="6" Grid.RowSpan="3" X1="40" Y1="50" X2="40" Y2="120" Stroke="White" StrokeThickness="4"/>
             <!--Market-->
             <!--Black BG-->

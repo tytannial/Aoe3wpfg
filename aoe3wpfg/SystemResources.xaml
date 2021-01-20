@@ -469,6 +469,9 @@
     <BitmapImage x:Key="multiplayer_quickicon_settings" UriSource="/resources/images/multiplayer/quickicon_settings.png" />
     <BitmapImage x:Key="multiplayer_profile" UriSource="/resources/images/multiplayer/profile_icon.png" />
 
+    <BitmapImage x:Key="xbox_platform_logo" UriSource="/resources/images/logo/Xbox_logo.png" />
+    <BitmapImage x:Key="world_platform_logo" UriSource="/resources/images/logo/Web_logo.png" />
+
     <BitmapImage x:Key="friends_accept" UriSource="/resources/images/multiplayer/friend_accept.png" />
     <BitmapImage x:Key="friends_block" UriSource="/resources/images/multiplayer/friend_block.png" />
     <BitmapImage x:Key="friends_cancel" UriSource="/resources/images/multiplayer/friend_cancel.png" />
@@ -3536,6 +3539,175 @@
                             </Rectangle>
                         </Grid>
                     </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- a copy of MainMenuButton which supports correct use of data templates -->
+    <Style TargetType="{x:Type Button}" x:Key="MainMenuButtonClean">
+
+        <Style.Triggers>
+            <EventTrigger RoutedEvent="Click">
+                <SoundPlayerAction Source="resources/audio/bigbutton.wav" />
+            </EventTrigger>
+        </Style.Triggers>
+
+        <Setter Property="FontFamily" Value="Trajan Pro" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="FontSize" Value="18" />
+        <Setter Property="Foreground" Value="{StaticResource ButtonTextGradient}"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Height" Value="40" />
+        <Setter Property="KeyboardNavigation.AcceptsReturn" Value="True"/>
+        <Setter Property="MinWidth" Value="100"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+
+        <!--<Setter Property="FocusVisualStyle" Value="{StaticResource MainMenuButtonFocusVisual}"/>-->
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+
+        <Setter Property="Background" Value="{StaticResource ButtonInnerGradient}" />
+        <!-- 
+        <Setter Property="Background" Value="{StaticResource MainMenuButtonInnerGradient}" /> -->
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid Name="test" Height="{TemplateBinding Height}" Width="{TemplateBinding Width}" MinWidth="{TemplateBinding MinWidth}" MinHeight="{TemplateBinding MinHeight}">
+                        <Grid Name="buttoncontainer" RenderTransformOrigin="0.5, 0.5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="1"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+
+                            <Grid.RenderTransform>
+                                <ScaleTransform ScaleX="1" ScaleY="1" />
+                            </Grid.RenderTransform>
+                            <Rectangle Name="background" Grid.Column="1" Margin="2" Fill="{TemplateBinding Background}" RadiusX="5" RadiusY="5">
+                            </Rectangle>
+
+                            <Rectangle Name="highlightover" Grid.Column="1" Margin="2" Fill="{StaticResource MainMenuButtonInnerGradientOver}" RadiusX="5" RadiusY="5" Opacity="0">
+                            </Rectangle>
+
+                            <Rectangle Name="highlightpress" Grid.Column="1" Margin="2" Fill="{StaticResource MainMenuButtonInnerGradientPress}" RadiusX="5" RadiusY="5" Opacity="0">
+                            </Rectangle>
+
+                            <Rectangle Name="strokeblack" Grid.ColumnSpan="3" Margin="0" Fill="Transparent" StrokeThickness="3" Stroke="Black" RadiusX="5" RadiusY="5">
+                            </Rectangle>
+
+                            <Rectangle Name="strokegold" Grid.Column="1" Margin="2" Fill="Transparent" StrokeThickness="2" Stroke="{StaticResource ButtonStrokeGradient}" RadiusX="5" RadiusY="5">
+                            </Rectangle>
+
+                            <Rectangle Name="strokegoldover" Grid.Column="1" Margin="2" Fill="Transparent" StrokeThickness="2" Stroke="{StaticResource MainMenuButtonStrokeGradientOver}" RadiusX="5" RadiusY="5" Opacity="0">
+                            </Rectangle>
+                        </Grid>
+                        
+                        <ContentPresenter Margin="6" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                              Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}" ContentStringFormat="{TemplateBinding ContentStringFormat}" />
+                    </Grid>
+
+                    <ControlTemplate.Triggers>
+                        <!--
+                        Having these triggers in this order makes it so that is the order they execute in.
+                        When the player clicks on the button for the first time, Button.IsFocused and IsPressed 
+                        get executed, but the last one overrides the current animation. So before when IsFocused
+                        was after IsPressed, only IsFocused occured visually, and since the final state looks identical
+                        to the final state of MouseOver, the end result looked like nothing happened, but subsequent 
+                        clicks executed IsPressed because IsFocused was already true, therefore not changing states 
+                        and not executing.
+                        -->
+                        <!--
+                        -->
+                        <Trigger Property="Button.IsFocused" Value="True">
+                            <Trigger.EnterActions>
+                                <StopStoryboard BeginStoryboardName="MouseOverStoryBoard2" />
+                                <StopStoryboard BeginStoryboardName="IsPressedStoryBoard2" />
+                                <BeginStoryboard Name="FocusStoryBoard">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="buttoncontainer" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)" To="1.05" Duration="0:0:.2" />
+                                        <DoubleAnimation Storyboard.TargetName="buttoncontainer" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)" To="1.05" Duration="0:0:.2" />
+                                        <DoubleAnimation Storyboard.TargetName="highlightpress" Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:.6" RepeatBehavior="Forever" AutoReverse="True" />
+                                        <DoubleAnimation Storyboard.TargetName="strokegoldover" Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:.6" RepeatBehavior="Forever" AutoReverse="True" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                                <SoundPlayerAction Source="resources/audio/mouseover_00.wav" />
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard Name="FocusStoryBoard2">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="buttoncontainer" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)" To="1" Duration="0:0:.2" />
+                                        <DoubleAnimation Storyboard.TargetName="buttoncontainer" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)" To="1" Duration="0:0:.2" />
+                                        <DoubleAnimation Storyboard.TargetName="highlightpress" Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:.2" />
+                                        <DoubleAnimation Storyboard.TargetName="strokegoldover" Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:.2" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.ExitActions>
+                            <Setter Property="Foreground" Value="{StaticResource ButtonTextGradientOver}" />
+                        </Trigger>
+
+                        <Trigger Property="IsPressed" Value="True">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard Name="IsPressedStoryBoard">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="buttoncontainer" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)" To="1" Duration="0:0:.05" />
+                                        <DoubleAnimation Storyboard.TargetName="buttoncontainer" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)" To="1" Duration="0:0:.05" />
+                                        <DoubleAnimation Storyboard.TargetName="highlightpress" Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:.05" />
+                                        <DoubleAnimation Storyboard.TargetName="strokegoldover" Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:.05" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <StopStoryboard BeginStoryboardName="MouseOverStoryBoard" />
+                                <StopStoryboard BeginStoryboardName="MouseOverStoryBoard2" />
+                                <BeginStoryboard Name="IsPressedStoryBoard2">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="buttoncontainer" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)" To="1.05" Duration="0:0:.05" />
+                                        <DoubleAnimation Storyboard.TargetName="buttoncontainer" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)" To="1.05" Duration="0:0:.05" />
+                                        <DoubleAnimation Storyboard.TargetName="buttoncontainer" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)" To="1.05" Duration="0:0:.05" />
+                                        <DoubleAnimation Storyboard.TargetName="highlightpress" Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:.6" RepeatBehavior="Forever" AutoReverse="True" />
+                                        <DoubleAnimation Storyboard.TargetName="strokegoldover" Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:.6" RepeatBehavior="Forever" AutoReverse="True" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.ExitActions>
+                            <Setter Property="Foreground" Value="{StaticResource ButtonTextGradientOver}" />
+                        </Trigger>
+
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Trigger.EnterActions>
+                                <StopStoryboard BeginStoryboardName="IsPressedStoryBoard" />
+                                <BeginStoryboard Name="MouseOverStoryBoard">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="buttoncontainer" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)" To="1.05" Duration="0:0:.2" />
+                                        <DoubleAnimation Storyboard.TargetName="buttoncontainer" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)" To="1.05" Duration="0:0:.2" />
+                                        <DoubleAnimation Storyboard.TargetName="highlightpress" Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:.6" RepeatBehavior="Forever" AutoReverse="True" />
+                                        <DoubleAnimation Storyboard.TargetName="strokegoldover" Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:.6" RepeatBehavior="Forever" AutoReverse="True" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                                <SoundPlayerAction Source="resources/audio/mouseover_00.wav" />
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <StopStoryboard BeginStoryboardName="IsPressedStoryBoard" />
+                                <BeginStoryboard Name="MouseOverStoryBoard2">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="buttoncontainer" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)" To="1" Duration="0:0:.2" />
+                                        <DoubleAnimation Storyboard.TargetName="buttoncontainer" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)" To="1" Duration="0:0:.2" />
+                                        <DoubleAnimation Storyboard.TargetName="highlightpress" Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:.2" />
+                                        <DoubleAnimation Storyboard.TargetName="strokegoldover" Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:.2" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.ExitActions>
+                            <Setter Property="Foreground" Value="{StaticResource ButtonTextGradientOver}" />
+                        </Trigger>
+
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Foreground" Value="{StaticResource ButtonTextGradient3}" />
+                            <Setter TargetName="background" Property="Fill" Value="{StaticResource MainMenuButtonInnerGradientDisabled}" />
+                            <Setter TargetName="strokegold" Property="Stroke" Value="{StaticResource MainMenuButtonStrokeGradientDisabled}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

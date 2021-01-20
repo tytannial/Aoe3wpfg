@@ -2567,9 +2567,20 @@
                             </Viewbox>
                         </DockPanel>
 
-                        <DockPanel x:Name="objectivesBanner" HorizontalAlignment="Right" Height="Auto" Width="450" Background="#66000000" Margin="0,5,0,0" Visibility="Collapsed">
+                        <DockPanel x:Name="objectivesBanner" HorizontalAlignment="Right" Height="Auto" Width="450" Background="#66000000" Margin="0,5,0,0" Visibility="Visible">
                             <StackPanel HorizontalAlignment="Right" VerticalAlignment="Top" Height="Auto" Width="450" Visibility="Visible">
-                                <Grid HorizontalAlignment="Left" VerticalAlignment="Center" Width="450" Visibility="{Binding ElementName=objectivesBannerPrimaryHeading, Path=Visibility}">
+                                <Grid HorizontalAlignment="Left" VerticalAlignment="Center" Width="450">
+                                    <Grid.Style>
+                                        <Style TargetType="Grid">
+                                            <Setter Property="Visibility" Value="{Binding ElementName=objectivesBannerPrimaryHeading, Path=Visibility}"/>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding ElementName=objectivesBannerPrimary, Path=Items.Count}" Value="0">
+                                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Grid.Style>
+
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="30"/>
                                         <RowDefinition Height="*"/>
@@ -2580,14 +2591,25 @@
                                             <SolidColorBrush Color="Black" Opacity="0.7"/>
                                         </Grid.Background>
                                         <TextBlock x:Name="objectivesBannerPrimaryHeading" FontFamily="Trajan Pro" FontSize="21" Style="{StaticResource ConfirmationTitlesStyleSmall}" HorizontalAlignment="Left" Margin="5">
-                                    $$31802$$Primary Objectives
+                                            $$31802$$Primary Objectives
                                         </TextBlock>
                                     </Grid>
 
                                     <ListBox Grid.Row="1" x:Name="objectivesBannerPrimary" Style="{StaticResource objectivesListBox}" ItemContainerStyle="{StaticResource objectiveHUDTextStyle}"/>
                                 </Grid>
 
-                                <Grid HorizontalAlignment="Left" VerticalAlignment="Center" Width="450" Visibility="{Binding ElementName=objectivesBannerSecondary, Path=Visibility}">
+                                <Grid HorizontalAlignment="Left" VerticalAlignment="Center" Width="450">
+                                    <Grid.Style>
+                                        <Style TargetType="Grid">
+                                            <Setter Property="Visibility" Value="{Binding ElementName=objectivesBannerSecondary, Path=Visibility}"/>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding ElementName=objectivesBannerSecondary, Path=Items.Count}" Value="0">
+                                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Grid.Style>
+
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="30"/>
                                         <RowDefinition Height="*"/>
@@ -2598,7 +2620,7 @@
                                             <SolidColorBrush Color="Black" Opacity="0.7"/>
                                         </Grid.Background>
                                         <TextBlock x:Name="objectivesBannerSecondaryHeading" FontFamily="Trajan Pro" FontSize="21" Style="{StaticResource ConfirmationTitlesStyleSmall}" HorizontalAlignment="Left" Margin="5">
-                                    $$31803$$Secondary Objectives
+                                            $$31803$$Secondary Objectives
                                         </TextBlock>
                                     </Grid>
 
@@ -3635,12 +3657,12 @@
                                 <ImageBrush ImageSource="resources/images/icons/command/command_repair.png" />
                             </local:Age3Button.Background>
                         </local:Age3Button>
-                        <local:Age3Button x:Name="commandpanel2_bigbutton" Grid.Row="1" Grid.Column="5" Grid.ColumnSpan="2" Grid.RowSpan="3" Height="205" Width="135" Style="{StaticResource BigButton}" Visibility="Hidden">
+                        <local:Age3Button x:Name="commandpanel2_bigbutton" Grid.Row="1" Grid.Column="5" Grid.ColumnSpan="2" Grid.RowSpan="3" Height="205" Width="135" Style="{StaticResource BigAbilityButton}" Visibility="Hidden">
                             <local:Age3Button.Background>
                                 <ImageBrush ImageSource="resources/images/icons/techs/native_big_button/native_01.png" />
                             </local:Age3Button.Background>
                         </local:Age3Button>
-                        <local:Age3Button x:Name="commandpanel2_bighugebutton" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" Grid.ColumnSpan="6" Grid.RowSpan="3" Height="205" Width="412" Style="{StaticResource BigButton}" Visibility="Hidden">
+                        <local:Age3Button x:Name="commandpanel2_bighugebutton" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" Grid.ColumnSpan="6" Grid.RowSpan="3" Height="205" Width="412" Style="{StaticResource BigAbilityButton}" Visibility="Hidden">
                             <local:Age3Button.Background>
                                 <ImageBrush ImageSource="resources/images/hud/consulate_openrelations.png" />
                             </local:Age3Button.Background>
@@ -3958,42 +3980,47 @@
                 </Grid>
             </Grid>
 
-                <Grid x:Name="EndGamePanel" Grid.Row="0" Grid.Column="0" Grid.RowSpan="5" Grid.ColumnSpan="5" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0" Visibility="Collapsed">
-                    <ContentControl x:Name="EndGamePanel_RayContainer" Template="{StaticResource EndGamePanel_Ray}" Visibility="Collapsed"/>
-                    <Image x:Name="EndGamePanel_BGContainer" Source="resources/images/endgame/skirmish_victory_bg.png" Height="400" />
-                    <Grid x:Name="EndGamePanel_textContainer" Width="500" Height="120" HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <Grid.Resources>
-                            <Style TargetType="TextBlock">
-                                <Setter Property="HorizontalAlignment" Value="Center"/>
-                                <Setter Property="VerticalAlignment" Value="Center"/>
-                                <Setter Property="TextAlignment" Value="Center"/>
-                                <Setter Property="FontFamily" Value="Trajan Pro"/>
-                                <Setter Property="FontWeight" Value="Bold"/>
-                                <Setter Property="FontSize" Value="30pt"/>
-                                <Setter Property="Foreground" Value="Black"/>
-                                <Setter Property="Width" Value="500"/>
-                                <Setter Property="Height" Value="auto"/>
-                                <Setter Property="MaxHeight" Value="120"/>
-                                <Setter Property="TextWrapping" Value="Wrap"/>
-                                <Setter Property="Effect">
-                                    <Setter.Value>
-                                        <DropShadowEffect BlurRadius="3" Color="Black" Direction="-90" ShadowDepth="3" RenderingBias="Quality" />
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-                        </Grid.Resources>
-                        <TextBlock Margin="-4,0,0,0" Text="You are Victorious!"/>
-                        <TextBlock Margin=" 4,0,0,0" Text="You are Victorious!"/>
-                        <TextBlock Margin="0, 4,0,0" Text="You are Victorious!"/>
-                        <TextBlock Margin="0,-4,0,0" Text="You are Victorious!"/>
+            <Grid x:Name="EndGamePanel" Grid.Row="0" Grid.Column="0" Grid.RowSpan="5" Grid.ColumnSpan="5" Height="450" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0" Visibility="Collapsed">
+                <ContentControl x:Name="EndGamePanel_RayContainer" Template="{StaticResource EndGamePanel_Ray}" Visibility="Collapsed"/>
+                <Image x:Name="EndGamePanel_BGContainer" Source="resources/images/endgame/skirmish_victory_bg.png" Height="400" />
+                <Grid x:Name="EndGamePanel_textContainer" Width="500" Height="120" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Grid.Resources>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="TextAlignment" Value="Center"/>
+                            <Setter Property="FontFamily" Value="Trajan Pro"/>
+                            <Setter Property="FontWeight" Value="Bold"/>
+                            <Setter Property="FontSize" Value="30pt"/>
+                            <Setter Property="Foreground" Value="Black"/>
+                            <Setter Property="Width" Value="500"/>
+                            <Setter Property="Height" Value="auto"/>
+                            <Setter Property="MaxHeight" Value="120"/>
+                            <Setter Property="TextWrapping" Value="Wrap"/>
+                            <Setter Property="Effect">
+                                <Setter.Value>
+                                    <DropShadowEffect BlurRadius="3" Color="Black" Direction="-90" ShadowDepth="3" RenderingBias="Quality" />
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </Grid.Resources>
+                    <TextBlock Margin="-4,0,0,0" Text="You are Victorious!"/>
+                    <TextBlock Margin=" 4,0,0,0" Text="You are Victorious!"/>
+                    <TextBlock Margin="0, 4,0,0" Text="You are Victorious!"/>
+                    <TextBlock Margin="0,-4,0,0" Text="You are Victorious!"/>
 
-                        <TextBlock Margin="-2.9,-2.9,0,0" Text="You are Victorious!"/>
-                        <TextBlock Margin="-2.9, 2.9,0,0" Text="You are Victorious!"/>
-                        <TextBlock Margin=" 2.9,-2.9,0,0" Text="You are Victorious!"/>
-                        <TextBlock Margin=" 2.9, 2.9,0,0" Text="You are Victorious!"/>
+                    <TextBlock Margin="-2.9,-2.9,0,0" Text="You are Victorious!"/>
+                    <TextBlock Margin="-2.9, 2.9,0,0" Text="You are Victorious!"/>
+                    <TextBlock Margin=" 2.9,-2.9,0,0" Text="You are Victorious!"/>
+                    <TextBlock Margin=" 2.9, 2.9,0,0" Text="You are Victorious!"/>
 
-                        <TextBlock Text="You are Victorious!" Foreground="{StaticResource OverlayTitleGradient}"/>
+                    <TextBlock Text="You are Victorious!" Foreground="{StaticResource OverlayTitleGradient}"/>
                 </Grid>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,0">
+                    <Button x:Name="EndGamePanel_MapButton" Focusable="False" Style="{StaticResource MainMenuButton}" Width="280" Margin="0,0,0,0" Content="$$19029$$View Map" />
+                    <Button x:Name="EndGamePanel_PostGameButton" Focusable="False" Style="{StaticResource MainMenuButton}" Width="280" Margin="20,0,0,0" Content="$$20152$$View Postgame" />
+                </StackPanel>
             </Grid>
 
             <!--FOR TRADE MONOPOLY AND REVOLUTION-->

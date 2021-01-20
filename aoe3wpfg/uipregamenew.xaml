@@ -77,20 +77,57 @@
                 </Button>
             </Grid>
             <Grid Grid.Column="3">
-                <Grid VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,0,0,0" Width="420" Height="200">
-                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top">
-                        <local:Age3Button Grid.Row="0" x:Name="XBLSignIn" Style="{StaticResource MainMenuButton}" HorizontalAlignment="Center" Width="380" Margin="10,10,10,10" Content="$$71031$$Xbox Live Sign In" ConsoleCommand="XBLSignInOut">
-                            <Button.ToolTip>$$71032$$Sign in to Xbox Live.</Button.ToolTip>
-                        </local:Age3Button>
-                        <local:Age3Button Grid.Row="0" x:Name="ChallengeButton" Style="{StaticResource MainMenuButton}" HorizontalAlignment="Center" Width="380" Margin="10,10,10,10" Content="$$72646$$Event Challenges" ConsoleCommand="showChallengeEvents()">
-                            <Button.ToolTip>$$72665$$Select to open challenges.</Button.ToolTip>
-                        </local:Age3Button>
-                        <StackPanel Grid.Row="1" x:Name="BanMessageTextBox" Visibility="Hidden">
-                            <Rectangle Fill="{StaticResource main_menu_bg}" Margin="10,10,10,10" />
-                            <TextBlock x:Name="BanMessageText" Style="{StaticResource MainTitleTextBlockStyle}" Text="" VerticalAlignment="Center" HorizontalAlignment="Center" Width="380" Margin="10,10,10,10" Foreground="#fff" FontSize="16" TextWrapping="Wrap"/>
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top">
+                    <Grid Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0" Width="380" >
+                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top">
+                            <StackPanel.Resources>
+                                <Style x:Name="NormalButton" TargetType="{x:Type Button}" BasedOn="{StaticResource MainMenuButtonClean}">
+                                </Style>
+                                <Style x:Name="Age3Button" TargetType="{x:Type local:Age3Button}" BasedOn="{StaticResource MainMenuButtonClean}">
+                                </Style>
+                            </StackPanel.Resources>
+                            <UniformGrid Columns="1" Height="100" Margin="0,10">
+                                <!-- Grid to keep these lined up with the avatar -->
+                                <Button DataContext="{Binding LocalUser, Source={x:Static local:Age3MPDataCache.Current}}" Command="{Binding ViewProfile}" CommandParameter="{Binding }"  Visibility="Visible" ToolTip="{Binding ViewProfile.Description}">
+                                    <Button.Content>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Image Source="{StaticResource multiplayer_profile}"/>
+                                            <TextBlock Text="{Binding Alias}" Style="{StaticResource CampaignTitleTextBlockStyle}" FontSize="20" VerticalAlignment="Bottom"/>
+                                        </StackPanel>
+                                    </Button.Content>
+                                </Button>
+                                <Border Background="{StaticResource main_menu_bg}" CornerRadius="4" BorderBrush="{StaticResource PanelBGStrokeGradientVertical}" BorderThickness="1">
+                                    <Grid Margin="5" HorizontalAlignment="Stretch">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <local:Age3Button x:Name="XBLSignIn" Margin="0" Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}" Height="36" MinWidth="0" ConsoleCommand="XBLSignInOut" >
+                                            <Button.Content>
+                                                <Image Source="{StaticResource xbox_platform_logo}"/>
+                                            </Button.Content>
+                                            <Button.ToolTip>$$71032$$Sign in to Xbox Live.</Button.ToolTip>
+                                        </local:Age3Button>
+                                        <TextBlock Grid.Column="1" x:Name="XBLStatus" Text="$$71031$$Xbox Live Sign In" Style="{StaticResource CampaignTitleTextBlockStyle}" HorizontalAlignment="Stretch" FontSize="20" TextAlignment="Center" Margin="0" />
+                                    </Grid>
+                                </Border>
+                        
+
+                            </UniformGrid>
+                            <local:Age3Button Grid.Row="0" x:Name="ChallengeButton" Style="{StaticResource MainMenuButton}" Content="$$72646$$Event Challenges" ConsoleCommand="showChallengeEvents()">
+                                <Button.ToolTip>$$72665$$Select to open challenges.</Button.ToolTip>
+                            </local:Age3Button>
+                            <StackPanel Grid.Row="1" x:Name="BanMessageTextBox" Visibility="Hidden">
+                                <TextBlock Background="{StaticResource main_menu_bg}" Margin="0,10" Padding="40,10" x:Name="BanMessageText" Style="{StaticResource MainTitleTextBlockStyle}" Text="You have been banned for 1 day. This is a really long message to test that." TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center"  Foreground="#fff" FontSize="16" TextWrapping="Wrap"/>
+                            </StackPanel>
                         </StackPanel>
-                    </StackPanel>
-                </Grid>
+                    </Grid>
+                    <Grid x:Name="DownloadingModsSection" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,0,0,0" Width="420" Height="64" Visibility="Collapsed">
+                        <Rectangle Fill="Black" Opacity="0.75" Margin="5, 5, 5, 5" />
+                        <TextBlock x:Name="DownloadingModsText" Margin="20,0,25,0" Style="{StaticResource subInfoLeft}" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap">[Loc] Downloading 1 of 4 Mods</TextBlock>
+                    </Grid>
+                </StackPanel>
             </Grid>
             <Grid Grid.Column="2" Grid.ColumnSpan="2" x:Name="demoMessage" Margin="700,880,0,0" Visibility="Hidden">
                 <Rectangle Fill="{StaticResource main_menu_bg}" />
