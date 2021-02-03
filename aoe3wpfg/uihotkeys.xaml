@@ -147,8 +147,12 @@
     </Page.Resources>
 
     <Grid Height="1080" Width="1920" DataContext="{DynamicResource ViewModel}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="252"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
 
-        <Grid Width="1380" Height="950" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0">
+        <Grid Grid.Column="1" Width="1580" Height="1060" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,-20">
             <local:Age3PanelBG Stroke="Black" StrokeThickness="8" Margin="18,18,12,14">
 
                 <local:Age3PanelBG.Fill>
@@ -166,7 +170,7 @@
             <local:Age3PanelBG Fill="Transparent" Stroke="{StaticResource PanelBGStrokeGradient}" StrokeThickness="3" Margin="20" />
         </Grid>
 
-        <Grid Width="1380" Height="950">
+        <Grid Grid.Column="1" Width="1580" Height="1000">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="25" />
                 <ColumnDefinition Width="550" />
@@ -179,19 +183,17 @@
                 <RowDefinition Height="25" />
                 <RowDefinition Height="65" />
                 <RowDefinition Height="*" />
-                <RowDefinition Height="70" />
+                <RowDefinition Height="30" />
             </Grid.RowDefinitions>
 
             <!--Titles-->
-            <TextBlock x:Name="hotkeysetup_LabelCenter" Style="{StaticResource ConfirmationTitlesStyle}" Grid.Row="1" Grid.ColumnSpan="4" FontSize="40" VerticalAlignment="Center" Text="$$20095$$Customize Hotkeys">
-            </TextBlock>
+            <TextBlock x:Name="hotkeysetup_LabelCenter" Style="{StaticResource ConfirmationTitlesStyle}" Grid.Row="1" Grid.ColumnSpan="4" FontSize="40" VerticalAlignment="Center" Text="$$20095$$Customize Hotkeys"/>
 
-            <Rectangle HorizontalAlignment="Left" Height="690" Margin="28,70,0,0" Grid.Column="1" Grid.Row="2" VerticalAlignment="Top" Width="512" Style="{StaticResource PanelBGSection}" />
-
-            <Rectangle HorizontalAlignment="Right" Height="479" Width="750" Margin="0,70,20,0" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="2" VerticalAlignment="Top" Style="{StaticResource PanelBGSection}" />
+            <Rectangle HorizontalAlignment="Left" Height="806" Margin="28,70,0,0" Grid.Column="1" Grid.Row="2" VerticalAlignment="Top" Width="512" Style="{StaticResource PanelBGSection}" />
+            <Rectangle HorizontalAlignment="Right" Height="596" Width="950" Margin="0,70,20,0" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="2" VerticalAlignment="Top" Style="{StaticResource PanelBGSection}" />
 
             <!--Groups Column-->
-            <Grid Grid.Row="2" Grid.Column="1" Margin="20,0,0,37">
+            <Grid Grid.Row="2" Grid.Column="1" Margin="20,0,0,10">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="70" />
                     <RowDefinition Height="*" />
@@ -206,7 +208,7 @@
             </Grid>
 
             <!--Input Column-->
-            <Grid Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" Margin="0,0,20,37">
+            <Grid Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" Margin="0,0,20,10">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="70" />
                     <RowDefinition Height="*" />
@@ -217,7 +219,7 @@
                 </Grid.RowDefinitions>
 
                 <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="10">
-                    <TextBlock x:Name="hotkeysetup_CommandLabel" Style="{StaticResource PageTitleStyle}" Margin="0,0,0,0" Width="430" TextAlignment="Center" VerticalAlignment="Center" FontSize="30" Foreground="White" Text="$$24097$$Command" />
+                    <TextBlock x:Name="hotkeysetup_CommandLabel" Style="{StaticResource PageTitleStyle}" Margin="0,0,0,0" Width="650" TextAlignment="Center" VerticalAlignment="Center" FontSize="30" Foreground="White" Text="$$24097$$Command" />
                     <TextBlock x:Name="hotkeysetup_HotkeyLabel" Style="{StaticResource PageTitleStyle}" Margin="0,0,0,0" Width="300" TextAlignment="Center" VerticalAlignment="Center" FontSize="30" Foreground="White" Text="$$19178$$Hotkey" />
                 </StackPanel>
 
@@ -239,7 +241,7 @@
                                     <Setter.Value>
                                         <ControlTemplate TargetType="{x:Type ListViewItem}">
                                             <Border Background="{TemplateBinding Background}" BorderThickness="0,0,0,3">
-                                               <Border.BorderBrush>
+                                                <Border.BorderBrush>
                                                     <LinearGradientBrush StartPoint="0,1" EndPoint="1,0" Opacity="0.3">
                                                         <GradientStop Offset="0" Color="Transparent"/>
                                                         <GradientStop Offset="0.5" Color="White"/>
@@ -249,7 +251,7 @@
                                                 <Button Style="{StaticResource TransparentButton}" IsEnabled="{TemplateBinding IsSelected}" Command="{Binding ChangeKey}">
                                                     <Grid>
                                                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" IsEnabled="False">
-                                                            <TextBlock Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" FontFamily="Trajan Pro" FontSize="18" Width="480" TextWrapping="Wrap" Text="{Binding Action}" />
+                                                            <TextBlock Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" FontFamily="Trajan Pro" FontSize="18" Width="620" TextWrapping="Wrap" Text="{Binding Action}" />
                                                             <TextBlock Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" FontFamily="Trajan Pro" FontSize="18" Width="220" Text="{Binding Input}" />
                                                         </StackPanel>
                                                         <TextBlock HorizontalAlignment="Right" VerticalAlignment="Center" Foreground="Red" FontFamily="Trajan Pro" FontSize="30" Margin="0,0,5,10" Text="*" Visibility="{Binding isConflicted}" >
@@ -299,7 +301,6 @@
                     </ListView>
                 </local:Age3KeyboardFocusBorder>
 
-
                 <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="55" Margin="0,0,0,0">
                     <TextBlock Style="{StaticResource PageTitleStyle}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20" Foreground="White" Margin="15,0,20,0" >
                         $$71101$$Keybindings:
@@ -344,19 +345,19 @@
 
                 <!--Buttons-->
                 <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="55" Margin="10,0,0,0">
-                    <Button Margin="0,0,0,0" VerticalAlignment="Bottom" Style="{StaticResource MainMenuButton}" IsEnabled="{Binding CanReset}" Width="180" Content="$$71118$$Reset All" Command="{Binding ResetAllKeybinds}" ToolTipService.ShowOnDisabled="True">
+                    <Button Margin="0,0,0,0" VerticalAlignment="Bottom" Style="{StaticResource MainMenuButton}" IsEnabled="{Binding CanReset}" Width="230" Content="$$71118$$Reset All" Command="{Binding ResetAllKeybinds}" ToolTipService.ShowOnDisabled="True">
                         <Button.ToolTip>$$71119$$Reset all hotkeys to its default assignment</Button.ToolTip>
                     </Button>
 
-                    <Button Margin="5,0,0,0" VerticalAlignment="Bottom" Style="{StaticResource MainMenuButton}" IsEnabled="{Binding CanReset}" Width="180" Content="$$18480$$Reset" Command="{Binding ResetSelectedKeybind}" ToolTipService.ShowOnDisabled="True">
+                    <Button Margin="5,0,0,0" VerticalAlignment="Bottom" Style="{StaticResource MainMenuButton}" IsEnabled="{Binding CanReset}" Width="230" Content="$$18480$$Reset" Command="{Binding ResetSelectedKeybind}" ToolTipService.ShowOnDisabled="True">
                         <Button.ToolTip>$$19183$$Reset the selected hotkey to its default assignment.</Button.ToolTip>
                     </Button>
 
-                    <Button Margin="5,0,0,0" VerticalAlignment="Bottom" Style="{StaticResource MainMenuButton}" IsEnabled="{Binding HasModifications}" Width="180" Content="$$71107$$Save Keybindings" Command="{Binding SaveKeybinds}" ToolTipService.ShowOnDisabled="True">
+                    <Button Margin="5,0,0,0" VerticalAlignment="Bottom" Style="{StaticResource MainMenuButton}" IsEnabled="{Binding HasModifications}" Width="230" Content="$$71107$$Save Keybindings" Command="{Binding SaveKeybinds}" ToolTipService.ShowOnDisabled="True">
                         <Button.ToolTip>$$71108$$Saves your profiles keybindings.</Button.ToolTip>
                     </Button>
 
-                    <Button Margin="5,0,0,0" VerticalAlignment="Bottom" Style="{StaticResource MainMenuButton}" Width="180" Content="$$18466$$Cancel" Command="{Binding Cancel}">
+                    <Button Margin="5,0,0,0" VerticalAlignment="Bottom" Style="{StaticResource MainMenuButton}" Width="230" Content="$$18466$$Cancel" Command="{Binding Cancel}">
                         <Button.ToolTip>$$90174$$Close this dialog.</Button.ToolTip>
                     </Button>
                 </StackPanel>

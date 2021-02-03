@@ -139,7 +139,8 @@
                     </ListBox>
                     <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
                         <Button x:Name="Playerprofile_close" Style="{StaticResource MainMenuButton}" Margin="0" Width="350" Content="$$18457$$Close"/>
-                        <Button x:Name="Playerprofile_confirm" Style="{StaticResource MainMenuButton}" Margin="50,0,0,0" Width="350" Content="$$72623$$Change profile" Command="{Binding ApplySelected}"/>
+                        <Button x:Name="Playerprofile_confirm" Style="{StaticResource MainMenuButton}" Margin="35,0,0,0" Width="350" Content="$$72623$$Change profile" Command="{Binding ApplySelected}"/>
+                        <Button x:Name="Playerprofile_claimreward" Style="{StaticResource MainMenuButton}" Visibility="{Binding ShowClaimRewardButton}" Margin="35,0,0,0" Width="350" Content="$$72742$$Claim Reward!" Command="{Binding ClaimRewards}"/>
                     </StackPanel>
                 </Grid>
             </Grid>

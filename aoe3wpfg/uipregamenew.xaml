@@ -75,6 +75,10 @@
                         Command="{Binding Source={x:Static local:Age3MPCommands.NavigateToAvatarPicker}}">
                     <Button.ToolTip>$$72631$$Click to change profile picture.</Button.ToolTip>
                 </Button>
+                <Grid DataContext="{StaticResource uiSettings}" IsHitTestVisible="false" Margin="0,2,86,0" HorizontalAlignment="Right" VerticalAlignment="Top" Visibility="{Binding NewAvatarNotificationVisibility, NotifyOnSourceUpdated=True}">
+                    <Ellipse Width="20" Height="20" Fill="Red"/>
+                    <TextBlock FontFamily="Arial" Margin="0,1,0,0" FontWeight="Bold" Width="22" Height="23" FontSize="20" Foreground="White" TextAlignment="Center" Text="!" />
+                </Grid>
             </Grid>
             <Grid Grid.Column="3">
                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top">
@@ -116,7 +120,10 @@
 
                             </UniformGrid>
                             <local:Age3Button Grid.Row="0" x:Name="ChallengeButton" Style="{StaticResource MainMenuButton}" Content="$$72646$$Event Challenges" ConsoleCommand="showChallengeEvents()">
-                                <Button.ToolTip>$$72665$$Select to open challenges.</Button.ToolTip>
+                                <Button.ToolTip>$$72665$$Select to open event challenges.</Button.ToolTip>
+                            </local:Age3Button>
+                            <local:Age3Button Grid.Row="0" x:Name="Challenges" Margin="0,10,0,0" Style="{StaticResource MainMenuButton}" Content="$$49131$$Bombard Brawl" ConsoleCommand="openChallengesScreen()">
+                                <Button.ToolTip>$$49148$$Select to open Bombard Brawl challenges.</Button.ToolTip>
                             </local:Age3Button>
                             <StackPanel Grid.Row="1" x:Name="BanMessageTextBox" Visibility="Hidden">
                                 <TextBlock Background="{StaticResource main_menu_bg}" Margin="0,10" Padding="40,10" x:Name="BanMessageText" Style="{StaticResource MainTitleTextBlockStyle}" Text="You have been banned for 1 day. This is a really long message to test that." TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center"  Foreground="#fff" FontSize="16" TextWrapping="Wrap"/>

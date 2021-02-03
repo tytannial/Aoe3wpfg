@@ -776,29 +776,62 @@
                                 <ComboBoxItem Content="$$79860$$All Maps" IsSelected="True">
                                     <ComboBoxItem.ToolTip>$$79861$$</ComboBoxItem.ToolTip>
                                 </ComboBoxItem>
-                                <ComboBoxItem Content="$$71123$$Competetive Maps">
+                                <ComboBoxItem Content="$$71123$$Competitive Maps">
                                     <ComboBoxItem.ToolTip>$$71125$$</ComboBoxItem.ToolTip>
                                 </ComboBoxItem>
                                 <ComboBoxItem Content="$$42359$$Custom Maps">
                                     <ComboBoxItem.ToolTip>$$71126$$</ComboBoxItem.ToolTip>
                                 </ComboBoxItem>
+                                <ComboBoxItem x:Name="isCustomScenario" Content="$$35548$$Custom Scenario">
+                                    <ComboBoxItem.ToolTip>$$35549$$</ComboBoxItem.ToolTip>
+                                </ComboBoxItem>
                                 <ComboBox.ToolTip>$$71375$$</ComboBox.ToolTip>
                             </ComboBox>
 
-                            <TextBlock Style="{StaticResource RegularTextBlockStyle}" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="450" Text="$$19812$$Select Map" Margin="0,5,0,0">
-                                <TextBlock.ToolTip>$$41642$$</TextBlock.ToolTip>
-                            </TextBlock>
-                            <!--Select Map-->
-                            <ComboBox x:Name="SinglePlayerSetup_MapSelection" Width="450"  Height="40" HorizontalAlignment="Center" Style="{StaticResource RegularCombobox}" MaxDropDownHeight="380" Margin="0,0,0,0">
-                                <ComboBoxItem Content="All Maps" IsSelected="True"/>
-                                <ComboBoxItem Content="Standard Maps"/>
-                                <ComboBoxItem Content="Amazonia"/>
-                                <ComboBoxItem Content="Andes"/>
-                                <ComboBoxItem Content="Araucania"/>
-                                <ComboBoxItem Content="Bayou"/>
-                                <ComboBox.ToolTip>$$41642$$</ComboBox.ToolTip>
-                            </ComboBox>
+                            <StackPanel x:Name="SinglePlayerSetup_CustomScenarioParent" Width="500" Margin="0,10,0,10">
+                                <StackPanel.Style>
+                                    <Style TargetType="StackPanel">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsSelected,ElementName=isCustomScenario}" Value="True">
+                                                <Setter Property="Visibility" Value="Visible"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </StackPanel.Style>
+                                <local:Age3Button Grid.Column="3" Grid.Row="3" VerticalAlignment="Bottom" x:Name="SinglePlayerSetup_ChooseScenarioButton" Style="{StaticResource MainMenuButton}" Width="450" Content="$$72739$$Choose Scenario" Margin="0,5,0,0" ConsoleCommand="">
+                                    <Button.ToolTip>$$72740$$Choose which Custom Scenario to play</Button.ToolTip>
+                                </local:Age3Button>
+                                <TextBlock Style="{StaticResource RegularTextBlockStyle}" x:Name="SinglePlayerSetup_ChosenScenario" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Width="450" Text="Chosen Scenario" Margin="0,5,0,0">
+                                    <TextBlock.ToolTip>$$72741$$The chosen Custom Scenario file</TextBlock.ToolTip>
+                                </TextBlock>
+                            </StackPanel>
 
+                            <StackPanel x:Name="SinglePlayerSetup_MapSelectionParent" Width="500">
+                                <StackPanel.Style>
+                                    <Style TargetType="StackPanel">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsSelected,ElementName=isCustomScenario}" Value="True">
+                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </StackPanel.Style>
+                                <TextBlock Style="{StaticResource RegularTextBlockStyle}" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="450" Text="$$19812$$Select Map" Margin="0,5,0,0">
+                                    <TextBlock.ToolTip>$$41642$$</TextBlock.ToolTip>
+                                </TextBlock>
+                                <!--Select Map-->
+                                <ComboBox x:Name="SinglePlayerSetup_MapSelection" Width="450"  Height="40" HorizontalAlignment="Center" Style="{StaticResource RegularCombobox}" MaxDropDownHeight="380" Margin="0,0,0,0">
+                                    <ComboBoxItem Content="All Maps" IsSelected="True"/>
+                                    <ComboBoxItem Content="Standard Maps"/>
+                                    <ComboBoxItem Content="Amazonia"/>
+                                    <ComboBoxItem Content="Andes"/>
+                                    <ComboBoxItem Content="Araucania"/>
+                                    <ComboBoxItem Content="Bayou"/>
+                                    <ComboBox.ToolTip>$$41642$$</ComboBox.ToolTip>
+                                </ComboBox>
+                            </StackPanel>
 
                             <StackPanel x:Name="SinglePlayerSetup_GameRulesParent" Width="500">
                                 <StackPanel.Style>
@@ -807,6 +840,9 @@
                                         <Style.Triggers>
                                             <DataTrigger Binding="{Binding IsChecked,ElementName=toggleSupremacy}" Value="True">
                                                 <Setter Property="Visibility" Value="Visible"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding IsSelected,ElementName=isCustomScenario}" Value="True">
+                                                <Setter Property="Visibility" Value="Collapsed"/>
                                             </DataTrigger>
                                         </Style.Triggers>
                                     </Style>
@@ -901,6 +937,9 @@
                                         <Style.Triggers>
                                             <DataTrigger Binding="{Binding IsChecked,ElementName=toggleDeathmatch}" Value="True">
                                                 <Setter Property="Visibility" Value="Visible"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding IsSelected,ElementName=isCustomScenario}" Value="True">
+                                                <Setter Property="Visibility" Value="Collapsed"/>
                                             </DataTrigger>
                                         </Style.Triggers>
                                     </Style>

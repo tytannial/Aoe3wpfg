@@ -622,73 +622,114 @@
                         <RowDefinition Height="45"/>
                     </Grid.RowDefinitions>
 
-                    <TextBlock Grid.Row="1" FontFamily="Trajan Pro" FontWeight="Bold" FontSize="25" TextAlignment="Center" VerticalAlignment="Center" Foreground="White" Width="310" TextWrapping="Wrap" Text="$$70986$$Settings"/>
+                    <Grid.Resources>
+                        <Style TargetType="TextBlock" BasedOn="{StaticResource subInfoLeft}">
+                            <Setter Property="FontSize" Value="18"/>
+                            <Setter Property="TextAlignment" Value="Center"/>
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                            <Setter Property="VerticalAlignment" Value="Bottom"/>
+                            <Setter Property="TextWrapping" Value="Wrap"/>
+                            <Setter Property="Width" Value="310"/>
+                            <Setter Property="Margin" Value="0,2,0,2"/>
+                        </Style>
+                    </Grid.Resources>
 
-                    <StackPanel Grid.Row="2">
-                        <TextBlock x:Name="MPESOGameList_RoomName" FontFamily="Trajan Pro" FontSize="18" TextAlignment="Center" Margin="0,10,0,0" Foreground="White" Width="310" Text="Room Name" />
-                        <Button x:Name="MPESOGameList_ReportButton" Style="{StaticResource MainMenuButton}" Width="310" Content="$$72246$$Report" Margin="0,0,0,0" >
-                            <Button.ToolTip>$$72245$$Report the lobby</Button.ToolTip>
-                        </Button>
+                    <TextBlock Grid.Row="1" FontSize="25" TextAlignment="Center" VerticalAlignment="Center" Foreground="White" TextWrapping="Wrap" Text="$$70986$$Settings"/>
 
-                        <Image x:Name="MPESOGameList_MapIcon" Height="320" Width="320" Source="resources/images/icons/random_map/all_maps.png"/>
+                    <StackPanel Grid.Row="2" Margin="0,10,0,0">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Height="30">
+                            <TextBlock x:Name="MPESOGameList_RoomName" VerticalAlignment="Center" Height="30" Foreground="White" Width="280" Text="Room Name" />
+                            <Button x:Name="MPESOGameList_ReportButton" Width="30" Height="30">
+                                <Button.Style>
+                                    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource SubMenuButton}">
+                                        <Setter Property="ContentTemplate">
+                                            <Setter.Value>
+                                                <DataTemplate>
+                                                    <Image Source="{StaticResource friends_report}"/>
+                                                </DataTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </Button.Style>
+                                <Button.ToolTip>$$71346$$Sort by time since created</Button.ToolTip>
+                            </Button>
+                        </StackPanel>
 
-                        <TextBlock x:Name="MPESOGameList_GameSpeedLabel" Style="{StaticResource subInfoLeft}" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="310" Height="40" Margin="0,5,0,-10" Text="$$36149$$Game Speed" />
+                        <Image x:Name="MPESOGameList_MapIcon" Height="200" Width="200" Source="resources/images/icons/random_map/all_maps.png"/>
+
+                        <TextBlock x:Name="MPESOGameList_GameSpeedLabel" Text="$$36149$$Game Speed" />
                         <Grid HorizontalAlignment="Center" Height="50">
                             <Rectangle Style="{StaticResource PanelBGSection}"/>
-                            <TextBlock x:Name="MPESOGameList_GameSpeed" Style="{StaticResource subInfoLeft}" TextAlignment="Center" HorizontalAlignment="Center" Foreground="White" Width="310" Padding="12" Text="Medium" />
+                            <TextBlock x:Name="MPESOGameList_GameSpeed" Foreground="White" VerticalAlignment="Center" Text="Medium" />
                         </Grid>
 
-                        <TextBlock x:Name="MPESOGameList_StartingAgeLabel" Style="{StaticResource subInfoLeft}" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="310" Height="40" Margin="0,10,0,-10" 
-					   Text="$$36148$$Starting Age" />
+                        <TextBlock x:Name="MPESOGameList_StartingAgeLabel" Text="$$36148$$Starting Age" />
                         <Grid HorizontalAlignment="Center" Height="50">
                             <Rectangle Style="{StaticResource PanelBGSection}" />
-                            <TextBlock x:Name="MPESOGameList_StartingAge" Style="{StaticResource subInfoLeft}" TextAlignment="Center" HorizontalAlignment="Center" Foreground="White" Width="310" Padding="12" Text="Exploration Age" />
+                            <TextBlock x:Name="MPESOGameList_StartingAge" Foreground="White" VerticalAlignment="Center" Text="Exploration Age" />
                         </Grid>
 
-                        <TextBlock x:Name="MPESOGameList_CheatsLabel" Style="{StaticResource subInfoLeft}" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="310" Height="40" Margin="0,10,0,-10" Text="$$45775$$Cheats" />
+                        <StackPanel Visibility="Collapsed">
+                            <TextBlock x:Name="MPESOGameList_EndingAgeLabel" Text="$$72731$$Ending Age" />
+                            <Grid HorizontalAlignment="Center" Height="50">
+                                <Rectangle Style="{StaticResource PanelBGSection}" />
+                                <TextBlock x:Name="MPESOGameList_EndingAge" Foreground="White" VerticalAlignment="Center" Text="Exploration Age" />
+                            </Grid>
+                        </StackPanel>
+
+                        <StackPanel x:Name="StartingResources" Visibility="Collapsed">
+                            <TextBlock x:Name="MPESOGameList_StartingResourcesLabel" Text="$$72723$$Starting Resources"/>
+                            <Grid HorizontalAlignment="Center" Height="50">
+                                <Rectangle Style="{StaticResource PanelBGSection}" />
+                                <TextBlock x:Name="MPESOGameList_StartingResources" Foreground="White" VerticalAlignment="Center" Text="$$72725$$Standard" />
+                            </Grid>
+                        </StackPanel>
+
+                        <TextBlock x:Name="MPESOGameList_CheatsLabel" Text="$$45775$$Cheats" />
+                        
                         <Grid HorizontalAlignment="Center" Height="50">
                             <Rectangle Style="{StaticResource PanelBGSection}" />
-                            <TextBlock x:Name="MPESOGameList_Cheats" Style="{StaticResource subInfoLeft}" TextAlignment="Center" HorizontalAlignment="Center" Foreground="White" Width="310" Padding="12" Text="Disabled" />
+                            <TextBlock x:Name="MPESOGameList_Cheats" Foreground="White" VerticalAlignment="Center" Text="Disabled" />
                         </Grid>
 
-                        <TextBlock FontFamily="Trajan Pro" FontSize="19" TextAlignment="Center" Margin="0,10,0,5" Foreground="White" Width="310" Text="$$30068$$Players" />
-                        <Rectangle Style="{StaticResource filemanager_dividingline}" Width="300" Margin="0,5,0,5" />
-                        <TextBlock x:Name="player1_alias" Style="{StaticResource subInfoLeft}" Margin="10,0,0,0" Width="300" FontSize="18" Foreground="White" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding AliasWithClan}">
+                        <TextBlock FontFamily="Trajan Pro" Margin="0,10,0,0" Foreground="White" Height="30" Text="$$30068$$Players" />
+                        <Rectangle Style="{StaticResource filemanager_dividingline}" Width="300" Margin="0,0,0,5" />
+                        <TextBlock x:Name="player1_alias" Text="{Binding AliasWithClan}">
                             <TextBlock.ToolTip>
                                 <ToolTip Content="{Binding }" Style="{StaticResource RankTooltips}"/>
                             </TextBlock.ToolTip>
                         </TextBlock>
-                        <TextBlock x:Name="player2_alias" Style="{StaticResource subInfoLeft}" Margin="10,0,0,0" Width="300" FontSize="18" Foreground="White" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding AliasWithClan}">
+                        <TextBlock x:Name="player2_alias" Text="{Binding AliasWithClan}">
                             <TextBlock.ToolTip>
                                 <ToolTip Content="{Binding }" Style="{StaticResource RankTooltips}"/>
                             </TextBlock.ToolTip>
                         </TextBlock>
-                        <TextBlock x:Name="player3_alias" Style="{StaticResource subInfoLeft}" Margin="10,0,0,0" Width="300" FontSize="18" Foreground="White" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding AliasWithClan}">
+                        <TextBlock x:Name="player3_alias" Text="{Binding AliasWithClan}">
                             <TextBlock.ToolTip>
                                 <ToolTip Content="{Binding }" Style="{StaticResource RankTooltips}"/>
                             </TextBlock.ToolTip>
                         </TextBlock>
-                        <TextBlock x:Name="player4_alias" Style="{StaticResource subInfoLeft}" Margin="10,0,0,0" Width="300" FontSize="18" Foreground="White" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding AliasWithClan}">
+                        <TextBlock x:Name="player4_alias" Text="{Binding AliasWithClan}">
                             <TextBlock.ToolTip>
                                 <ToolTip Content="{Binding }" Style="{StaticResource RankTooltips}"/>
                             </TextBlock.ToolTip>
                         </TextBlock>
-                        <TextBlock x:Name="player5_alias" Style="{StaticResource subInfoLeft}" Margin="10,0,0,0" Width="300" FontSize="18" Foreground="White" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding AliasWithClan}">
+                        <TextBlock x:Name="player5_alias" Text="{Binding AliasWithClan}">
                             <TextBlock.ToolTip>
                                 <ToolTip Content="{Binding }" Style="{StaticResource RankTooltips}"/>
                             </TextBlock.ToolTip>
                         </TextBlock>
-                        <TextBlock x:Name="player6_alias" Style="{StaticResource subInfoLeft}" Margin="10,0,0,0" Width="300" FontSize="18" Foreground="White" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding AliasWithClan}">
+                        <TextBlock x:Name="player6_alias" Text="{Binding AliasWithClan}">
                             <TextBlock.ToolTip>
                                 <ToolTip Content="{Binding }" Style="{StaticResource RankTooltips}"/>
                             </TextBlock.ToolTip>
                         </TextBlock>
-                        <TextBlock x:Name="player7_alias" Style="{StaticResource subInfoLeft}" Margin="10,0,0,0" Width="300" FontSize="18" Foreground="White" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding AliasWithClan}">
+                        <TextBlock x:Name="player7_alias" Text="{Binding AliasWithClan}">
                             <TextBlock.ToolTip>
                                 <ToolTip Content="{Binding }" Style="{StaticResource RankTooltips}"/>
                             </TextBlock.ToolTip>
                         </TextBlock>
-                        <TextBlock x:Name="player8_alias" Style="{StaticResource subInfoLeft}" Margin="10,0,0,0" Width="300" FontSize="18" Foreground="White" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding AliasWithClan}">
+                        <TextBlock x:Name="player8_alias" Text="{Binding AliasWithClan}">
                             <TextBlock.ToolTip>
                                 <ToolTip Content="{Binding }" Style="{StaticResource RankTooltips}"/>
                             </TextBlock.ToolTip>

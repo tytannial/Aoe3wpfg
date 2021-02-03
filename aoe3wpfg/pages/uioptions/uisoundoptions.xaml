@@ -7,9 +7,23 @@
       mc:Ignorable="d" 
       Title="uisoundoptions" Width="1920" Height="1080">
 
-    <Grid Height="1080" Width="1920">
+    <Page.Resources>
+        <Style TargetType="Rectangle" x:Key="filemanager_dividingline">
+            <Setter Property="Width" Value="auto" />
+            <Setter Property="Height" Value="2" />
+            <Setter Property="Fill" Value="#b9b4a5" />
+            <Setter Property="OpacityMask" Value="{StaticResource square_2px}" />
+            <Setter Property="Opacity" Value="0.5" />
+        </Style>
+    </Page.Resources>
 
-        <Grid Width="1380" Height="950" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0">
+    <Grid Height="1080" Width="1920">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="252"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="1" Width="1580" Height="1060" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,-20">
             <local:Age3PanelBG Stroke="Black" StrokeThickness="8" Margin="18,18,12,14">
 
                 <local:Age3PanelBG.Fill>
@@ -28,21 +42,21 @@
         </Grid>
 
         <!--Buttons-->
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="55" Width="630" Margin="0,0,335,160">
+        <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="55" Width="730" Margin="0,0,100,80">
             <!--NOTE: This button needs to be grayed out until a player has made changes to the settings.-->
-            <Button x:Name="RevertButton" Style="{StaticResource MainMenuButton}" Width="200" Content="$$70696$$Revert" Margin="10,0,0,0" TabIndex="16" >
+            <Button x:Name="RevertButton" Style="{StaticResource MainMenuButton}" Width="230" Content="$$70696$$Revert" Margin="10,0,0,0" TabIndex="16" >
                 <Button.ToolTip>$$70804$$Undo changes in this menu.</Button.ToolTip>
             </Button>
             <!--Methods to Apply settings: 1.Select the Apply button. 2.Select the Back button 3.Selectin any other tabs-->
-            <Button x:Name="ApplyButton" Style="{StaticResource MainMenuButton}" Width="200" Content="$$70697$$Apply" Margin="10,0,0,0" TabIndex="17" >
+            <Button x:Name="ApplyButton" Style="{StaticResource MainMenuButton}" Width="230" Content="$$70697$$Apply" Margin="10,0,0,0" TabIndex="17" >
                 <Button.ToolTip>$$41541$$Apply the current options settings.</Button.ToolTip>
             </Button>
-            <Button x:Name="CancelButton" Style="{StaticResource MainMenuButton}" Width="200" Content="$$18466$$Cancel" Margin="10, 0, 0, 0">
+            <Button x:Name="CancelButton" Style="{StaticResource MainMenuButton}" Width="230" Content="$$18466$$Cancel" Margin="10, 0, 0, 0">
                 <Button.ToolTip>$$90174$$Close this dialog.</Button.ToolTip>
             </Button>
         </StackPanel>
 
-        <Grid Width="1380" Height="950" DataContext="{StaticResource optionsProxy}">
+        <Grid Grid.Column="1" Width="1580" Height="1000" DataContext="{StaticResource optionsProxy}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="25"/>
                 <ColumnDefinition Width="*"/>
@@ -54,8 +68,25 @@
                 <RowDefinition Height="25"/>
                 <RowDefinition Height="65"/>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="70"/>
+                <RowDefinition Height="30"/>
             </Grid.RowDefinitions>
+
+            <Grid.Resources>
+                <Style TargetType="CheckBox" BasedOn="{StaticResource Checkbox_Options}">
+                    <Setter Property="HorizontalAlignment" Value="Left"/>
+                    <Setter Property="VerticalAlignment" Value="Center"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                    <Setter Property="FlowDirection" Value="RightToLeft"/>
+                    <Setter Property="Width" Value="690"/>
+                    <Setter Property="Height" Value="60"/>
+                </Style>
+
+                <Style TargetType="TextBlock" BasedOn="{StaticResource RegularTextBlockStyle}">
+                    <Setter Property="TextWrapping" Value="Wrap"/>
+                    <Setter Property="FlowDirection" Value="LeftToRight"/>
+                    <Setter Property="Width" Value="640"/>
+                </Style>
+            </Grid.Resources>
 
             <!--Title-->
             <TextBlock Style="{StaticResource ConfirmationTitlesStyle}" Grid.Row="1" Grid.ColumnSpan="4" FontSize="36" VerticalAlignment="Center">
@@ -63,13 +94,8 @@
             </TextBlock>
 
             <!--Background panels-->
-            <Rectangle HorizontalAlignment="Left" Height="580" Margin="28,70,0,0" Grid.Row="2" VerticalAlignment="Top" Width="625" Grid.Column="1" Style="{StaticResource PanelBGSection}"/>
-
-            <Rectangle HorizontalAlignment="Left" Height="244" Margin="1,70,0,0" Grid.Row="2" VerticalAlignment="Top" Width="625" Grid.Column="2" Style="{StaticResource PanelBGSection}"/>
-
-            <!--
-            <Rectangle HorizontalAlignment="Left" Height="320" Margin="665,340,0,0" Grid.Row="2" VerticalAlignment="Top" Width="625" Grid.ColumnSpan="2" Grid.Column="1" Style="{StaticResource PanelBGSection}"/>
-            -->
+            <Rectangle HorizontalAlignment="Left" Height="806" Margin="28,70,0,0" Grid.Row="2" VerticalAlignment="Top" Width="725" Grid.Column="1" Style="{StaticResource PanelBGSection}"/>
+            <Rectangle HorizontalAlignment="Left" Height="254" Margin="1,70,0,0" Grid.Row="2" VerticalAlignment="Top" Width="725" Grid.Column="2" Style="{StaticResource PanelBGSection}"/>
 
             <!--Sound-->
             <Grid Grid.Row="2" Grid.Column="1" Margin="35,0,20,10">
@@ -106,8 +132,8 @@
                     <Rectangle Grid.Row="7"  Style="{StaticResource filemanager_dividingline}"/>
 
                     <local:Age3KeyboardFocusBorder Grid.Row="0">
-                        <CheckBox Name="OptionSoundOnOff" Style="{StaticResource Checkbox_Options}" HorizontalAlignment="Left" VerticalAlignment="Center" FlowDirection="RightToLeft" Width="590" Height="60" TabIndex="8"  IsChecked="{Binding Path=OptionSoundOnOff}">
-                            <TextBlock Text="$$37150$$Sound On" TextWrapping="Wrap" FlowDirection="LeftToRight" Width="540"/>
+                        <CheckBox Name="OptionSoundOnOff" TabIndex="8"  IsChecked="{Binding Path=OptionSoundOnOff}">
+                            <TextBlock Text="$$37150$$Sound On"/>
                             <CheckBox.ToolTip>
                                 <ToolTip FlowDirection="LeftToRight">
                                     $$37151$$Turn sound on or off.
@@ -187,8 +213,8 @@
                     </local:Age3KeyboardFocusBorder>
 
                     <local:Age3KeyboardFocusBorder Grid.Row="6">
-                        <CheckBox Name="OptionSoundAllowTaunts" Style="{StaticResource Checkbox_Options}" HorizontalAlignment="Left" VerticalAlignment="Center" FlowDirection="RightToLeft" Width="590" Height="60" TabIndex="12"  IsChecked="{Binding Path=OptionSoundAllowTaunts}">
-                            <TextBlock Text="$$37083$$Allow Player Taunts" TextWrapping="Wrap" FlowDirection="LeftToRight" Width="540"/>
+                        <CheckBox Name="OptionSoundAllowTaunts" TabIndex="12"  IsChecked="{Binding Path=OptionSoundAllowTaunts}">
+                            <TextBlock Text="$$37083$$Allow Player Taunts"/>
                             <CheckBox.ToolTip>
                                 <ToolTip FlowDirection="LeftToRight">
                                     $$37084$$Allow player taunts.
@@ -266,9 +292,8 @@
                     <Rectangle Grid.Row="1"  Style="{StaticResource filemanager_dividingline}"/>
 
                     <local:Age3KeyboardFocusBorder Grid.Row="0">
-                        <CheckBox Name="OptionMusicOnOff" Style="{StaticResource Checkbox_Options}" HorizontalAlignment="Left" VerticalAlignment="Center" FlowDirection="RightToLeft" Width="590"
-                                  Height="60" TabIndex="14"  IsChecked="{Binding Path=OptionMusicOnOff}">
-                            <TextBlock Text="$$37159$$Music On" TextWrapping="Wrap" FlowDirection="LeftToRight" Width="540"/>
+                        <CheckBox Name="OptionMusicOnOff" TabIndex="14" IsChecked="{Binding Path=OptionMusicOnOff}">
+                            <TextBlock Text="$$37159$$Music On"/>
                             <CheckBox.ToolTip>
                                 <ToolTip FlowDirection="LeftToRight">
                                     $$37160$$Turn music on and off.

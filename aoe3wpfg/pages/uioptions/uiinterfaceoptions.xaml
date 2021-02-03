@@ -44,10 +44,23 @@
                 </Style>
             </Style.Resources>
         </Style>
+
+        <Style TargetType="Rectangle" x:Key="filemanager_dividingline">
+            <Setter Property="Width" Value="auto" />
+            <Setter Property="Height" Value="2" />
+            <Setter Property="Fill" Value="#b9b4a5" />
+            <Setter Property="OpacityMask" Value="{StaticResource square_2px}" />
+            <Setter Property="Opacity" Value="0.5" />
+        </Style>
     </Page.Resources>
 
     <Grid Height="1080" Width="1920">
-        <Grid Width="1380" Height="950" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="252"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="1" Width="1580" Height="1060" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,-20">
             <local:Age3PanelBG Stroke="Black" StrokeThickness="8" Margin="18,18,12,14">
                 <local:Age3PanelBG.Fill>
                     <ImageBrush ImageSource="/resources/wood.png"/>
@@ -65,21 +78,21 @@
         </Grid>
 
         <!--Buttons-->
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="55" Width="630" Margin="0,0,335,160">
+        <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="55" Width="730" Margin="0,0,100,80">
             <!--NOTE: This button needs to be grayed out until a player has made changes to the settings.-->
-            <Button x:Name="RevertButton" Style="{StaticResource MainMenuButton}" Width="200" Content="$$70696$$Revert" Margin="10,0,0,0" TabIndex="30" >
+            <Button x:Name="RevertButton" Style="{StaticResource MainMenuButton}" Width="230" Content="$$70696$$Revert" Margin="10,0,0,0" TabIndex="30" >
                 <Button.ToolTip>$$70804$$Undo changes in this menu.</Button.ToolTip>
             </Button>
             <!--Methods to Apply settings: 1.Select the Apply button. 2.Select the Back button 3.Selectin any other tabs-->
-            <Button x:Name="ApplyButton" Style="{StaticResource MainMenuButton}" Width="200" Content="$$70697$$Apply" Margin="10,0,0,0" TabIndex="31" >
+            <Button x:Name="ApplyButton" Style="{StaticResource MainMenuButton}" Width="230" Content="$$70697$$Apply" Margin="10,0,0,0" TabIndex="31" >
                 <Button.ToolTip>$$41541$$Apply the current options settings.</Button.ToolTip>
             </Button>
-            <Button x:Name="CancelButton" Style="{StaticResource MainMenuButton}" Width="200" Content="$$18466$$Cancel" Margin="10, 0, 0, 0">
+            <Button x:Name="CancelButton" Style="{StaticResource MainMenuButton}" Width="230" Content="$$18466$$Cancel" Margin="10, 0, 0, 0">
                 <Button.ToolTip>$$90174$$Close this dialog.</Button.ToolTip>
             </Button>
         </StackPanel>
 
-        <Grid Width="1380" Height="950" DataContext="{StaticResource optionsProxy}">
+        <Grid Grid.Column="1" Width="1580" Height="1000" DataContext="{StaticResource optionsProxy}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="25"/>
                 <ColumnDefinition Width="*"/>
@@ -90,8 +103,25 @@
                 <RowDefinition Height="25"/>
                 <RowDefinition Height="65"/>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="70"/>
+                <RowDefinition Height="35"/>
             </Grid.RowDefinitions>
+
+            <Grid.Resources>
+                <Style TargetType="CheckBox" BasedOn="{StaticResource Checkbox_Options}">
+                    <Setter Property="HorizontalAlignment" Value="Left"/>
+                    <Setter Property="VerticalAlignment" Value="Center"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                    <Setter Property="FlowDirection" Value="RightToLeft"/>
+                    <Setter Property="Width" Value="690"/>
+                    <Setter Property="Height" Value="60"/>
+                </Style>
+
+                <Style TargetType="TextBlock" BasedOn="{StaticResource RegularTextBlockStyle}">
+                    <Setter Property="TextWrapping" Value="Wrap"/>
+                    <Setter Property="FlowDirection" Value="LeftToRight"/>
+                    <Setter Property="Width" Value="640"/>
+                </Style>
+            </Grid.Resources>
 
             <!--Title-->
             <TextBlock Style="{StaticResource ConfirmationTitlesStyle}" Grid.Row="1" Grid.ColumnSpan="4" VerticalAlignment="Center" FontSize="40">
@@ -99,10 +129,10 @@
             </TextBlock>
 
             <!--Background panel-->
-            <Rectangle HorizontalAlignment="Left" Height="694" Margin="28,65,0,0" Grid.Row="2" VerticalAlignment="Top" Width="625" Grid.Column="1" Style="{StaticResource PanelBGSection}"/>
-            <Rectangle HorizontalAlignment="Left" Height="130" Margin="1,65,0,0" Grid.Row="2" VerticalAlignment="Top" Width="625" Grid.Column="2" Style="{StaticResource PanelBGSection}"/>
-            <Rectangle HorizontalAlignment="Left" Height="365" Margin="1,241,0,0" Grid.Row="2" VerticalAlignment="Top" Width="625" Grid.Column="2" Style="{StaticResource PanelBGSection}"/>
-            <Rectangle HorizontalAlignment="Left" Height="59" Margin="1,654,0,0" Grid.Row="2" VerticalAlignment="Top" Width="625" Grid.Column="2" Style="{StaticResource PanelBGSection}"/>
+            <Rectangle HorizontalAlignment="Left" Height="809" Margin="28,65,0,0" Grid.Row="2" VerticalAlignment="Top" Width="725" Grid.Column="1" Style="{StaticResource PanelBGSection}"/>
+            <Rectangle HorizontalAlignment="Left" Height="130" Margin="1,65,0,0" Grid.Row="2" VerticalAlignment="Top" Width="732" Grid.Column="2" Style="{StaticResource PanelBGSection}"/>
+            <Rectangle HorizontalAlignment="Left" Height="441" Margin="1,241,0,0" Grid.Row="2" VerticalAlignment="Top" Width="732" Grid.Column="2" Style="{StaticResource PanelBGSection}"/>
+            <Rectangle HorizontalAlignment="Left" Height="60" Margin="1,736,0,0" Grid.Row="2" VerticalAlignment="Top" Width="732" Grid.Column="2" Style="{StaticResource PanelBGSection}"/>
 
             <!--Game UI Options-->
             <Grid Grid.Row="2" Grid.Column="1" Margin="19,0,0,0">
@@ -111,7 +141,6 @@
                     <RowDefinition Height="10"/>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="10"/>
-                    <RowDefinition Height="20"/>
                 </Grid.RowDefinitions>
 
                 <TextBlock Style="{StaticResource PageTitleStyle}" Grid.Row="0" FontSize="30" Margin="0,20,0,0" Foreground="White">
@@ -121,6 +150,10 @@
                 <!--Game UI-->
                 <Grid Grid.Row="2" Margin="25,-15,25,0">
                     <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="2"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="2"/>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="2"/>
                         <RowDefinition Height="*"/>
@@ -157,10 +190,12 @@
                     <Rectangle Grid.Row="17"  Style="{StaticResource filemanager_dividingline}"/>
                     <Rectangle Grid.Row="19"  Style="{StaticResource filemanager_dividingline}"/>
                     <Rectangle Grid.Row="21"  Style="{StaticResource filemanager_dividingline}"/>
+                    <Rectangle Grid.Row="23"  Style="{StaticResource filemanager_dividingline}"/>
+                    <Rectangle Grid.Row="25"  Style="{StaticResource filemanager_dividingline}"/>
 
                     <local:Age3KeyboardFocusBorder Grid.Row="0">
-                        <CheckBox Name="OptionUIShowTraining" Style="{StaticResource Checkbox_Options}" HorizontalAlignment="Left" VerticalAlignment="Center" FlowDirection="RightToLeft" Width="590" Height="60" TabIndex="8"  IsChecked="{Binding Path=OptionUIShowTraining}">
-                            <TextBlock Text="$$37043$$Show Unit Training Queue" TextWrapping="Wrap" FlowDirection="LeftToRight" Width="545"/>
+                        <CheckBox Name="OptionUIShowTraining" TabIndex="8" IsChecked="{Binding Path=OptionUIShowTraining}">
+                            <TextBlock Text="$$37043$$Show Unit Training Queue"/>
                             <CheckBox.ToolTip>
                                 <ToolTip FlowDirection="LeftToRight">
                                     $$71016$$Displays all units that are in training.
@@ -192,8 +227,8 @@
                     </local:Age3KeyboardFocusBorder>
 
                     <local:Age3KeyboardFocusBorder Grid.Row="4">
-                        <CheckBox Name="OptionUIShowVillagerTasks" Style="{StaticResource Checkbox_Options}" HorizontalAlignment="Left" VerticalAlignment="Center" FlowDirection="RightToLeft" Width="590" Height="60" TabIndex="10"  IsChecked="{Binding Path=OptionUIShowVillagerTasks}">
-                            <TextBlock Text="$$70596$$Show Advanced Resource" TextWrapping="Wrap" FlowDirection="LeftToRight" Width="545"/>
+                        <CheckBox Name="OptionUIShowVillagerTasks" TabIndex="10"  IsChecked="{Binding Path=OptionUIShowVillagerTasks}">
+                            <TextBlock Text="$$70596$$Show Advanced Resource" />
                             <CheckBox.ToolTip>
                                 <ToolTip FlowDirection="LeftToRight">
                                     $$71018$$Displays more details on the resource panel.
@@ -203,8 +238,8 @@
                     </local:Age3KeyboardFocusBorder>
 
                     <local:Age3KeyboardFocusBorder Grid.Row="6">
-                        <CheckBox Name="OptionUIShowScore" Style="{StaticResource Checkbox_Options}" HorizontalAlignment="Left" VerticalAlignment="Center" FlowDirection="RightToLeft" Width="590" Height="60" TabIndex="11"  IsChecked="{Binding Path=OptionUIShowScore}">
-                            <TextBlock Text="$$37049$$Show Score" TextWrapping="Wrap" FlowDirection="LeftToRight" Width="545"/>
+                        <CheckBox Name="OptionUIShowScore" TabIndex="11"  IsChecked="{Binding Path=OptionUIShowScore}">
+                            <TextBlock Text="$$37049$$Show Score" />
                             <CheckBox.ToolTip>
                                 <ToolTip FlowDirection="LeftToRight">
                                     $$71019$$Displays the scoreboard of the game.
@@ -214,8 +249,8 @@
                     </local:Age3KeyboardFocusBorder>
 
                     <local:Age3KeyboardFocusBorder Grid.Row="8">
-                        <CheckBox Name="OptionAdvancedFormationUI" Style="{StaticResource Checkbox_Options}" HorizontalAlignment="Left" VerticalAlignment="Center" FlowDirection="RightToLeft" Width="590" Height="60" TabIndex="12"  IsChecked="{Binding Path=OptionAdvancedFormationUI}">
-                            <TextBlock Text="$$70597$$Advanced Formation" TextWrapping="Wrap" FlowDirection="LeftToRight" Width="545"/>
+                        <CheckBox Name="OptionAdvancedFormationUI" TabIndex="12"  IsChecked="{Binding Path=OptionAdvancedFormationUI}">
+                            <TextBlock Text="$$70597$$Advanced Formation" />
                             <CheckBox.ToolTip>
                                 <ToolTip FlowDirection="LeftToRight">
                                     $$71020$$Provides formation tactics in the command panel for military units.
@@ -225,8 +260,8 @@
                     </local:Age3KeyboardFocusBorder>
 
                     <local:Age3KeyboardFocusBorder Grid.Row="10">
-                        <CheckBox Name="OptionEnableRobustRollover" Style="{StaticResource Checkbox_Options}" HorizontalAlignment="Left" VerticalAlignment="Center" FlowDirection="RightToLeft" Width="590" Height="60" TabIndex="13"  IsChecked="{Binding Path=OptionEnableRobustRollover}">
-                            <TextBlock Text="$$70599$$Advanced Tech" TextWrapping="Wrap" FlowDirection="LeftToRight" Width="545"/>
+                        <CheckBox Name="OptionEnableRobustRollover" TabIndex="13"  IsChecked="{Binding Path=OptionEnableRobustRollover}">
+                            <TextBlock Text="$$70599$$Advanced Tech" />
                             <CheckBox.ToolTip>
                                 <ToolTip FlowDirection="LeftToRight">
                                     $$71023$$Displays additional information and stats for improvements.
@@ -236,8 +271,8 @@
                     </local:Age3KeyboardFocusBorder>
 
                     <local:Age3KeyboardFocusBorder Grid.Row="12">
-                        <CheckBox Name="OptionShowHPOnAlt" Style="{StaticResource Checkbox_Options}" HorizontalAlignment="Left" VerticalAlignment="Center" FlowDirection="RightToLeft" Width="590" Height="60" TabIndex="14"  IsChecked="{Binding Path=OptionShowHPOnAlt}">
-                            <TextBlock Text="$$70600$$Shows hitpoint" TextWrapping="Wrap" FlowDirection="LeftToRight" Width="545"/>
+                        <CheckBox Name="OptionShowHPOnAlt" TabIndex="14"  IsChecked="{Binding Path=OptionShowHPOnAlt}">
+                            <TextBlock Text="$$70600$$Shows hitpoint" />
                             <CheckBox.ToolTip>
                                 <ToolTip FlowDirection="LeftToRight">
                                     $$65693$$Holding down the ALT key displays unit hitpoint bars.
@@ -247,8 +282,8 @@
                     </local:Age3KeyboardFocusBorder>
 
                     <local:Age3KeyboardFocusBorder Grid.Row="14">
-                        <CheckBox Name="OptionInvertControlShift" Style="{StaticResource Checkbox_Options}" HorizontalAlignment="Left" VerticalAlignment="Center" FlowDirection="RightToLeft" Width="590" Height="60" TabIndex="15"  IsChecked="{Binding Path=OptionInvertControlShift}">
-                            <TextBlock Text="$$70601$$Inverts Control/Shift" TextWrapping="Wrap" FlowDirection="LeftToRight" Width="545"/>
+                        <CheckBox Name="OptionInvertControlShift" TabIndex="15"  IsChecked="{Binding Path=OptionInvertControlShift}">
+                            <TextBlock Text="$$70601$$Inverts Control/Shift" />
                             <CheckBox.ToolTip>
                                 <ToolTip FlowDirection="LeftToRight">
                                     $$69621$$Inverts Control/Shift functionality in Unit Select Panel.
@@ -258,8 +293,8 @@
                     </local:Age3KeyboardFocusBorder>
 
                     <local:Age3KeyboardFocusBorder Grid.Row="16">
-                        <CheckBox Name="OptionSnapOnFindUnit" Style="{StaticResource Checkbox_Options}" HorizontalAlignment="Left" VerticalAlignment="Center" FlowDirection="RightToLeft" Width="590" Height="60" TabIndex="16"  IsChecked="{Binding Path=OptionSnapOnFindUnit}">
-                            <TextBlock Text="$$70602$$Hotkeys Snap to Unit" TextWrapping="Wrap" FlowDirection="LeftToRight" Width="545"/>
+                        <CheckBox Name="OptionSnapOnFindUnit" TabIndex="16"  IsChecked="{Binding Path=OptionSnapOnFindUnit}">
+                            <TextBlock Text="$$70602$$Hotkeys Snap to Unit" />
                             <CheckBox.ToolTip>
                                 <ToolTip FlowDirection="LeftToRight">
                                     $$65767$$Pressing the "Find Unit" Hotkey causes your camera to center on that unit.
@@ -301,8 +336,8 @@
                     </local:Age3KeyboardFocusBorder>
 
                     <local:Age3KeyboardFocusBorder Grid.Row="20">
-                        <CheckBox Name="OptionUIShowVisualControlGroups" Style="{StaticResource Checkbox_Options}" HorizontalAlignment="Left" VerticalAlignment="Center" FlowDirection="RightToLeft" Width="590" Height="60" TabIndex="18"  IsChecked="{Binding Path=OptionUIShowVisualControlGroups}">
-                            <TextBlock Text="$$68619$$Show visual control groups" TextWrapping="Wrap" FlowDirection="LeftToRight" Width="545"/>
+                        <CheckBox Name="OptionUIShowVisualControlGroups" TabIndex="18"  IsChecked="{Binding Path=OptionUIShowVisualControlGroups}">
+                            <TextBlock Text="$$68619$$Show visual control groups" />
                             <CheckBox.ToolTip>
                                 <ToolTip FlowDirection="LeftToRight">
                                     $$69622$$Shows visual control group banners across the top left of the screen.
@@ -312,11 +347,33 @@
                     </local:Age3KeyboardFocusBorder>
 
                     <local:Age3KeyboardFocusBorder Grid.Row="22">
-                        <CheckBox Name="OptionWonderPowerUI" Style="{StaticResource Checkbox_Options}" HorizontalAlignment="Left" VerticalAlignment="Center" FlowDirection="RightToLeft" Width="590" Height="60" TabIndex="19"  IsChecked="{Binding Path=OptionWonderPowerUI}">
-                            <TextBlock Text="$$70699$$Wonder Power" TextWrapping="Wrap" FlowDirection="LeftToRight" Width="545"/>
+                        <CheckBox Name="OptionWonderPowerUI" TabIndex="19"  IsChecked="{Binding Path=OptionWonderPowerUI}">
+                            <TextBlock Text="$$70699$$Wonder Power" />
                             <CheckBox.ToolTip>
                                 <ToolTip FlowDirection="LeftToRight">
                                     $$69368$$Turn on to show the wonder power UI.
+                                </ToolTip>
+                            </CheckBox.ToolTip>
+                        </CheckBox>
+                    </local:Age3KeyboardFocusBorder>
+
+                    <local:Age3KeyboardFocusBorder Grid.Row="24">
+                        <CheckBox Name="OptionResourceGather" TabIndex="20"  IsChecked="{Binding Path=OptionShowFloatingResourceBars}">
+                            <TextBlock Text="$$72735$$Display Resource Gathering" />
+                            <CheckBox.ToolTip>
+                                <ToolTip FlowDirection="LeftToRight">
+                                    $$72736$$Turn on to show Resource Gathering from villagers.
+                                </ToolTip>
+                            </CheckBox.ToolTip>
+                        </CheckBox>
+                    </local:Age3KeyboardFocusBorder>
+
+                    <local:Age3KeyboardFocusBorder Grid.Row="26">
+                        <CheckBox Name="OptionShowButtonHotkeys" TabIndex="21"  IsChecked="{Binding Path=OptionUIShowButtonHotkeys}">
+                            <TextBlock Text="$$72461$$Display Hotkey Commands" />
+                            <CheckBox.ToolTip>
+                                <ToolTip FlowDirection="LeftToRight">
+                                    $$72462$$Display Hotkeys on your command panel.
                                 </ToolTip>
                             </CheckBox.ToolTip>
                         </CheckBox>
@@ -435,8 +492,8 @@
                     <Rectangle Grid.Row="9"  Style="{StaticResource filemanager_dividingline}"/>
 
                     <local:Age3KeyboardFocusBorder Grid.Row="0">
-                        <CheckBox Name="OptionTooltipEnableWorld" Style="{StaticResource Checkbox_Options}" HorizontalAlignment="Left" VerticalAlignment="Center" FlowDirection="RightToLeft" Width="590" Height="60" TabIndex="23"  IsChecked="{Binding Path=OptionTooltipEnableWorld}">
-                            <TextBlock Text="$$37059$$Game World Tooltips" TextWrapping="Wrap" FlowDirection="LeftToRight" Width="545"/>
+                        <CheckBox Name="OptionTooltipEnableWorld" TabIndex="23" IsChecked="{Binding Path=OptionTooltipEnableWorld}">
+                            <TextBlock Text="$$37059$$Game World Tooltips" />
                             <CheckBox.ToolTip>
                                 <ToolTip FlowDirection="LeftToRight">
                                     $$37060$$Adds tooltips for units and resources on the game map.
@@ -543,8 +600,8 @@
                     </local:Age3KeyboardFocusBorder>
 
                     <local:Age3KeyboardFocusBorder Grid.Row="8">
-                        <CheckBox Name="OptionAdvancedUnitTypeInfo" Style="{StaticResource Checkbox_Options}" HorizontalAlignment="Left" VerticalAlignment="Center" FlowDirection="RightToLeft" Width="590" Height="60" TabIndex="27"  IsChecked="{Binding Path=OptionAdvancedUnitTypeInfo}">
-                            <TextBlock Text="$$22302$$Unit Type" TextWrapping="Wrap" FlowDirection="LeftToRight" Width="545"/>
+                        <CheckBox Name="OptionAdvancedUnitTypeInfo" TabIndex="27"  IsChecked="{Binding Path=OptionAdvancedUnitTypeInfo}">
+                            <TextBlock Text="$$22302$$Unit Type" />
                             <CheckBox.ToolTip>
                                 <ToolTip FlowDirection="LeftToRight">
                                     $$71021$$Displays unit type when mouseover.
@@ -554,8 +611,8 @@
                     </local:Age3KeyboardFocusBorder>
 
                     <local:Age3KeyboardFocusBorder Grid.Row="10">
-                        <CheckBox Name="OptionFriendOrFoeColor" Style="{StaticResource Checkbox_Options}" HorizontalAlignment="Left" VerticalAlignment="Center" FlowDirection="RightToLeft" Width="590" Height="60" TabIndex="28"  IsChecked="{Binding Path=OptionFriendOrFoeColor}">
-                            <TextBlock Text="$$37055$$Enable Friend or Foe Colors" TextWrapping="Wrap" FlowDirection="LeftToRight" Width="545"/>
+                        <CheckBox Name="OptionFriendOrFoeColor" TabIndex="28"  IsChecked="{Binding Path=OptionFriendOrFoeColor}">
+                            <TextBlock Text="$$37055$$Enable Friend or Foe Colors" />
                             <CheckBox.ToolTip>
                                 <ToolTip FlowDirection="LeftToRight">
                                     $$71022$$Toggles between all colours and red/blue colors to determine friends or foes.

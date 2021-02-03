@@ -1,0 +1,413 @@
+﻿<Window x:Class="aoe3wpfg.uichallengesscreen"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:aoe3wpfg"
+        mc:Ignorable="d"
+        Style="{StaticResource WindowStyle}"
+        Title="uichallengesscreen">
+
+    <Window.Resources>
+        <Style x:Key="{x:Type local:Age3KeyboardFocusBorder}" TargetType="local:Age3KeyboardFocusBorder">
+            <Style.Setters>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="local:Age3KeyboardFocusBorder">
+                            <Grid>
+                                <Border Name="FocusBorder" Margin="-10" BorderThickness="2" CornerRadius="5" BorderBrush="NavajoWhite" Grid.RowSpan="3"/>
+                                <ContentPresenter Name="PART_Content"/>
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style.Setters>
+        </Style>
+
+        <Style TargetType="TextBlock" x:Key="MainTitleTextBlockStyle">
+            <Setter Property="FontFamily" Value="Trajan Pro" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="FontSize" Value="40" />
+            <Setter Property="Foreground" Value="{StaticResource TitleGradient}" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="TextAlignment" Value="Center"/>
+            <Setter Property="Width" Value="470"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect BlurRadius="3" Color="Black" Direction="-90" ShadowDepth="3" RenderingBias="Quality" />
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="TextBlock" x:Key="RegularTextBlockStyle">
+            <Setter Property="FontFamily" Value="Trajan Pro" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="FontSize" Value="20" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="TextAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="5,0,0,0"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="Width" Value="450"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect BlurRadius="3" Color="Black" Direction="-90" ShadowDepth="3" RenderingBias="Quality" />
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource basicListItem}" x:Key="challengeliststyle">
+            <Setter Property="Width" Value="420" />
+            <Setter Property="Background" Value="#FF2C2010"/>
+            <Setter Property="ContentTemplate">
+                <Setter.Value>
+                    <DataTemplate>
+                        <TextBlock Padding="10" Width="400" local:Age3StringDB.StringId="{Binding ChallengeNameID}" HorizontalAlignment="Center" TextAlignment="Center" VerticalAlignment="Center" />
+                    </DataTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Window.DataContext>
+        <local:Age3ChallengeListViewModel />
+    </Window.DataContext>
+
+    <Viewbox Style="{StaticResource ViewboxMain}">
+        <Grid x:Name="mainGridPanel" Width="1920" Height="1080" Focusable="False">
+            <Grid Background="{StaticResource marble_bg2}" Focusable="False">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <!--Back BTN-->
+                <Grid Grid.Row="0">
+                    <ContentControl Template="{StaticResource Titlebar}" Focusable="False"/>
+                    <local:Age3Button x:Name="btn_back" Style="{StaticResource SubMenuBackButton}" IsCancel="true" VerticalAlignment="Center" HorizontalAlignment="Left" Content="$$42451$$Back">
+                        <Button.ToolTip>$$42451$$Back</Button.ToolTip>
+                    </local:Age3Button>
+                </Grid>
+
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="500"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!--Challenge Picker-->
+                    <Grid Grid.Column="0" Background="{StaticResource wood_tile}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="10"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="80"/>
+                        </Grid.RowDefinitions>
+
+                        <Rectangle Grid.Row="0" Grid.RowSpan="6" Fill="Black" Width="4" HorizontalAlignment="Right" Opacity="1" Margin="0"></Rectangle>
+                        <Rectangle Grid.Row="0" Grid.RowSpan="6" Fill="#fcdd94" Width="2" HorizontalAlignment="Right" Margin="0" Opacity="1"></Rectangle>
+
+                        <!--Title-->
+                        <TextBlock Style="{StaticResource MainTitleTextBlockStyle}" Grid.Row="1">
+                            $$72737$$Challenges
+                        </TextBlock>
+
+                        <!--Background Panel-->
+                        <Rectangle Grid.Row="2" Style="{StaticResource PanelBGSection}" Margin="15,5,15,5"/>
+
+                        <local:Age3KeyboardFocusBorder Grid.Row="2" Margin="25,15,25,15" Height="800" VerticalAlignment="Top">
+                            <ListView x:Name="ChallengeList" ItemsSource="{Binding Challenges}" SelectedItem="{Binding SelectedChallenge}" ItemContainerStyle="{StaticResource challengeliststyle}" BorderBrush="Transparent" BorderThickness="0" ScrollViewer.CanContentScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" Height="Auto" SelectionMode="Single" Background="Transparent">
+                                <ListView.Resources>
+                                    <Style TargetType="GridViewColumnHeader">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                    </Style>
+                                </ListView.Resources>
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn Width="430" />
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                        </local:Age3KeyboardFocusBorder>
+
+                        <!--Start button-->
+                        <local:Age3Button x:Name="challenges_begin_btn" DataContext="{Binding SelectedItem, ElementName=ChallengeList}" Command="{Binding BeginChallenge}" Grid.Row="3"  VerticalAlignment="Center" Style="{StaticResource MainMenuButton}" Width="450" Content="$$70690$$Begin" IsEnabled="True"  Visibility="Visible" TabIndex="3">
+                            <Button.ToolTip>$$19939$$Start the game!</Button.ToolTip>
+                        </local:Age3Button>
+                    </Grid>
+
+                    <Grid Grid.Column="1" DataContext="{Binding SelectedItem, ElementName=ChallengeList}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition MinHeight="100" Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="10"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Rectangle Grid.Row="0" Grid.RowSpan="5" Width="210" HorizontalAlignment="Left" Margin="210,0,0,0" Opacity="0.9">
+                            <Rectangle.Fill>
+                                <ImageBrush ImageSource="/resources/chdivider_shadow.png"/>
+                            </Rectangle.Fill>
+                            <Rectangle.RenderTransform>
+                                <ScaleTransform ScaleX="-1"/>
+                            </Rectangle.RenderTransform>
+                        </Rectangle>
+
+                        <Rectangle Grid.Row="0" Grid.RowSpan="5" Width="210" HorizontalAlignment="Right" Margin="210,0,0,0" Opacity="0.9">
+                            <Rectangle.Fill>
+                                <ImageBrush ImageSource="/resources/chdivider_shadow.png"/>
+                            </Rectangle.Fill>
+                        </Rectangle>
+
+                        <Rectangle Grid.Row="0" Grid.RowSpan="5" Height="100" VerticalAlignment="Top" Margin="0,100,0,0" Opacity="0.75">
+                            <Rectangle.RenderTransform>
+                                <ScaleTransform ScaleY="-1"/>
+                            </Rectangle.RenderTransform>
+                            <Rectangle.Fill>
+                                <ImageBrush ImageSource="/resources/chdivider_shadowv.png"/>
+                            </Rectangle.Fill>
+                        </Rectangle>
+
+                        <Rectangle Grid.Row="5" VerticalAlignment="Bottom" Height="100" Opacity="0.75">
+                            <Rectangle.Fill>
+                                <ImageBrush ImageSource="/resources/chdivider_shadowv.png"/>
+                            </Rectangle.Fill>
+                        </Rectangle>
+
+                        <!--Title-->
+                        <TextBlock x:Name="challenges_selected_title" Grid.Row="0" Style="{StaticResource MainTitleTextBlockStyle}" Width="1200" FontSize="50" local:Age3StringDB.StringId="{Binding ChallengeNameID}" />
+
+                        <Rectangle Grid.Row="0" Fill="#fcdd94" Width="1390" Height="2" VerticalAlignment="Bottom"></Rectangle>
+
+                        <!-- >>>>>>>>> Content presenters for right hand panel go here - instantiate a DataTemplate for each type of challenge defined in Age3ChallengeListViewModel <<<<<<<< -->
+                        <Grid Grid.Row="3">
+                            <Grid.Resources>
+                                <DataTemplate DataType="{x:Type local:Age3StatFriendsLeaderboard}">
+                                    <Grid Height="550">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+                                        <TextBlock Grid.Row="0" Style="{StaticResource MainTitleTextBlockStyle}" Width="1200" FontSize="50" HorizontalAlignment="Center" TextAlignment="Center" Text="$$49145$$Leaderboards"/>
+                                        <Rectangle Grid.Row="1" Fill="#fcdd94" Width="1390" Height="2" VerticalAlignment="Bottom"></Rectangle>
+                                        <Grid Grid.Row="2" Width="1350" HorizontalAlignment="Left" Margin="0,10,0,0">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="35"/>
+                                                <ColumnDefinition Width="165"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="400"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Grid.Column="1" Style="{StaticResource MainTitleTextBlockStyle}" Width="auto" HorizontalAlignment="Left" FontSize="25" Text="$$34117$$Rank"/>
+                                            <TextBlock Grid.Column="2" Style="{StaticResource MainTitleTextBlockStyle}" Width="auto" HorizontalAlignment="Left" FontSize="25" Text="$$38147$$Name"/>
+                                            <TextBlock Grid.Column="3" Style="{StaticResource MainTitleTextBlockStyle}" Width="auto" HorizontalAlignment="Right" FontSize="25" Text="$$49144$$High Score"/>
+                                        </Grid>
+                                        <ListView Grid.Row="3" ItemsSource="{Binding Results}"
+                                                  ScrollViewer.VerticalScrollBarVisibility="Auto"                                                  
+                                                  ScrollViewer.CanContentScroll="True"
+                                                  Margin="20,5,20,20"
+                                                  HorizontalAlignment="Center"
+                                                  VerticalAlignment="Top">
+                                            <ListView.Resources>
+                                                <Style TargetType="ListViewItem">
+                                                    <Setter Property="FontSize" Value="25" />
+                                                    <Setter Property="Foreground" Value="White" />
+                                                    <Setter Property="FontFamily" Value="Trajan Pro" />
+                                                    <Setter Property="Height" Value="45"/>
+                                                    <Setter Property="Padding" Value="0"/>
+                                                    <Setter Property="Margin" Value="0,1,0,1"/>
+                                                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                                    <Setter Property="VerticalContentAlignment" Value="Center"/>
+                                                    <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                                                    <Setter Property="Effect">
+                                                        <Setter.Value>
+                                                            <DropShadowEffect BlurRadius="20" Color="Black" Direction="-90" ShadowDepth="3" RenderingBias="Quality" />
+                                                        </Setter.Value>
+                                                    </Setter>
+
+                                                    <Setter Property="Template">
+                                                        <Setter.Value>
+                                                            <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                                                <Grid>
+                                                                    <Grid.Resources>
+                                                                        <Style TargetType="TextBlock">
+                                                                            <Setter Property="HorizontalAlignment" Value="Left"/>
+                                                                            <Setter Property="VerticalAlignment" Value="Center"/>
+                                                                            <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
+                                                                        </Style>
+                                                                    </Grid.Resources>
+                                                                    <Grid.ColumnDefinitions>
+                                                                        <ColumnDefinition Width="20"/>
+                                                                        <ColumnDefinition Width="150"/>
+                                                                        <ColumnDefinition Width="1000"/>
+                                                                        <ColumnDefinition Width="150"/>
+                                                                        <ColumnDefinition Width="20"/>
+                                                                    </Grid.ColumnDefinitions>
+
+                                                                    <Border Grid.Column="0" Grid.ColumnSpan="11" Background="{TemplateBinding Background}" CornerRadius="4"/>
+                                                                    <TextBlock Grid.Column="1" Text="{Binding Rank}" Width="150" TextAlignment="Left" Margin="10,0,0,0"/>
+                                                                    <TextBlock Grid.Column="2" Text="{Binding User.Alias}" Width="1000" TextAlignment="Left"/>
+                                                                    <TextBlock Grid.Column="3" Text="{Binding Value}" Width="150" TextAlignment="Center"/>
+                                                                </Grid>
+                                                            </ControlTemplate>
+                                                        </Setter.Value>
+                                                    </Setter>
+
+                                                    <Style.Triggers>
+                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                            <Trigger.EnterActions>
+                                                                <SoundPlayerAction Source="resources/audio/mouseover_00.wav"/>
+                                                            </Trigger.EnterActions>
+                                                            <Setter Property="Background" Value="{StaticResource ListViewItemGradientOver}" />
+                                                            <Setter Property="Foreground" Value="#f6f6f6" />
+                                                        </Trigger>
+
+                                                        <Trigger Property="IsFocused" Value="True">
+                                                            <Trigger.EnterActions>
+                                                                <SoundPlayerAction Source="resources/audio/mouseover_00.wav"/>
+                                                            </Trigger.EnterActions>
+                                                            <Setter Property="Background" Value="{StaticResource ListViewItemGradientOver}" />
+                                                            <Setter Property="Foreground" Value="#f6f6f6" />
+                                                        </Trigger>
+
+                                                        <Trigger Property="IsSelected" Value="True">
+                                                            <Setter Property="Background" Value="{StaticResource ListViewItemGradientSelected}" />
+                                                            <Setter Property="Foreground" Value="#ffffff" />
+                                                        </Trigger>
+
+                                                        <EventTrigger RoutedEvent="PreviewMouseDown">
+                                                            <SoundPlayerAction Source="resources/audio/smallbutton.wav" />
+                                                        </EventTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                                <Style TargetType="GridViewColumnHeader">
+                                                    <Setter Property="Visibility" Value="Collapsed" />
+                                                </Style>
+                                            </ListView.Resources>
+                                            <ListView.View>
+                                                <GridView>
+                                                    <GridViewColumn DisplayMemberBinding="{Binding Rank}" Width="100"/>
+                                                    <GridViewColumn DisplayMemberBinding="{Binding User.Alias}" Width="600" />
+                                                    <GridViewColumn DisplayMemberBinding="{Binding Value}" Width="150"/>
+                                                </GridView>
+                                            </ListView.View>
+                                        </ListView>
+
+                                        <TextBlock x:Name="NoContestText" Grid.Row="3" HorizontalAlignment="Center" Width="1000">
+                                            $$49153$$You and your friends have not yet completed this challenge, begin this challenge to be the top among your friends!
+                                            <TextBlock.Style>
+                                                <Style TargetType="TextBlock" BasedOn="{StaticResource RegularTextBlockStyle}">
+                                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                                    <Setter Property="HorizontalAlignment" Value="Center" />
+                                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                                    <Setter Property="TextAlignment" Value="Center"/>
+                                                    <Setter Property="TextWrapping" Value="Wrap"/>
+                                                    <Setter Property="Width" Value="450"/>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Results.Count}" Value="0">
+                                                            <Setter Property="Visibility" Value="Visible"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                    </Grid>
+                                </DataTemplate>
+                                
+                                <!-- Content presenter for challenges of type "TimedScoreChallengeEntry" -->
+                                <DataTemplate DataType="{x:Type local:TimedScoreChallengeEntry}" >
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="10"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="600"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Border VerticalAlignment="Top" >
+                                            <Image x:Name="challenges_image"  Source="{Binding Image}" />
+                                        </Border>
+
+                                        <StackPanel Grid.Column="1" Margin="10" VerticalAlignment="Top">
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                                <TextBlock Style="{StaticResource MainTitleTextBlockStyle}" FontSize="21" TextAlignment="Left" Width="auto" Text="$$19814$$Civilization:"/>
+                                                <TextBlock local:Age3StringDB.StringId="{Binding CivNameID}" Style="{StaticResource RegularTextBlockStyle}" FontSize="21" TextAlignment="Left" Width="auto" Margin="20,0,0,0" />
+                                            </StackPanel>
+
+                                            <Rectangle Fill="White" HorizontalAlignment="Left" Width="795" Height="1" Margin="0,5,0,5"></Rectangle>
+
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                                <TextBlock Style="{StaticResource MainTitleTextBlockStyle}" FontSize="21" TextAlignment="Left" Width="Auto" Text="$$49146$$Time Limit:"/>
+                                                <TextBlock Text="{Binding TimeLimit}" Style="{StaticResource RegularTextBlockStyle}" FontSize="21" TextAlignment="Left" Width="auto" Margin="20,0,0,0" />
+                                            </StackPanel>
+
+                                            <Rectangle Fill="White" HorizontalAlignment="Left" Width="795" Height="1" Margin="0,5,0,5"></Rectangle>
+
+                                            <TextBlock Text="{Binding Description}"  FontFamily="Arial" FontSize="21" Foreground="White" TextWrapping="Wrap" />
+
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,20,0,0"
+                                                        DataContext="{Binding Ladder}">
+                                                <StackPanel.Resources>
+                                                    <Style TargetType="TextBlock">
+                                                        <Setter Property="FontFamily" Value="Trajan Pro" />
+                                                        <Setter Property="FontWeight" Value="Bold" />
+                                                        <Setter Property="FontSize" Value="40" />
+                                                        <Setter Property="Foreground" Value="{StaticResource TitleGradient}" />
+                                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                                        <Setter Property="VerticalAlignment" Value="Center"/>
+                                                        <Setter Property="TextAlignment" Value="Center"/>
+                                                        <Setter Property="Width" Value="400"/>
+                                                        <Setter Property="TextWrapping" Value="Wrap"/>
+                                                        <Setter Property="Effect">
+                                                            <Setter.Value>
+                                                                <DropShadowEffect BlurRadius="3" Color="Black" Direction="-90" ShadowDepth="3" RenderingBias="Quality" />
+                                                            </Setter.Value>
+                                                        </Setter>
+                                                    </Style>
+                                                </StackPanel.Resources>
+                                                <StackPanel>
+                                                    <TextBlock FontSize="30" Text="$$49143$$Your Score" />
+                                                    <TextBlock x:Name="YourScoreValue" Foreground="White" Text="{Binding YourScore.Value}"/>
+                                                </StackPanel>
+
+                                                <StackPanel>
+                                                    <TextBlock FontSize="30" Text="$$49144$$High Score"/>
+                                                    <TextBlock x:Name="HighScoreValue" Foreground="White" Text="{Binding HighScore.Value}"/>
+                                                </StackPanel>
+                                            </StackPanel>
+                                        </StackPanel>
+
+                                        <ContentPresenter x:Name="Leaderboard" Content="{Binding Ladder}" Grid.Row="2" Grid.ColumnSpan="2" VerticalAlignment="Bottom"/>
+                                    </Grid>
+                                    <DataTemplate.Triggers>
+                                        <DataTrigger Binding="{Binding Ladder}" Value="{x:Null}" >
+                                            <Setter TargetName="Leaderboard" Property="Visibility" Value="Collapsed"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Ladder.YourScore}" Value="{x:Null}" >
+                                            <Setter TargetName="YourScoreValue" Property="TextBlock.Text" Value="-"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Ladder.HighScore}" Value="{x:Null}" >
+                                            <Setter TargetName="HighScoreValue" Property="TextBlock.Text" Value="-"/>
+                                        </DataTrigger>
+                                    </DataTemplate.Triggers>
+                                </DataTemplate>
+                                <!-- End of content presenter for challenges of type "TimedScoreChallengeEntry" -->
+                            </Grid.Resources>
+
+                            <ContentPresenter Content="{Binding }" Grid.Row="2" Grid.ColumnSpan="2"/>
+                        </Grid>
+
+                        <!-- >>>>>>>>> End of content presenters for right-hand panel <<<<<<<< -->
+
+                    </Grid>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Viewbox>
+</Window>

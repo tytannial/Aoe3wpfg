@@ -1,0 +1,42 @@
+﻿<Window x:Class="aoe3wpfg.uichallenges_endpanel"
+xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+xmlns:local="clr-namespace:aoe3wpfg"
+mc:Ignorable="d"
+Title="uichallenges_endpanel"
+Style="{StaticResource WindowStyle}">
+
+    <Viewbox Style="{StaticResource ViewboxMain}">
+        <Grid x:Name="mainGridPanel" Height="1080" Width="1920">
+
+            <ContentControl Template="{StaticResource ScreenBlur}" />
+
+            <Grid Width="{Binding ElementName=MainStack, Path=ActualWidth}" MinWidth="900" Height="{Binding ElementName=ContentStack, Path=ActualHeight}" Style="{StaticResource PopupGrid}">
+
+                <ContentControl Template="{StaticResource PanelBG_Titled}" Margin="-50,-50,-50,-90" />
+
+                <StackPanel x:Name="ContentStack" HorizontalAlignment="Center" VerticalAlignment="Center">
+
+                    <StackPanel x:Name="MainStack"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="{Binding ElementName=ScenarioDefeatedDlg_DefeatedText, Path=ActualWidth}" Margin="-50,-20,-50,0">
+                        <TextBlock x:Name="Challenge_Title" Style="{StaticResource ConfirmationTitlesStyle}" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center" MinWidth="900"
+Text="$$72666$$Challenge Completed"/>
+                    </StackPanel>
+
+                    <StackPanel x:Name="ResultsDisplay" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <!-- these bindings refer to an Age3StatLeaderboardUpdateResult -->
+                        <TextBlock Style="{StaticResource RegularTextBlockStyle}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="40" Margin="0,20,0,0">$$49143$$Your Score</TextBlock>
+                        <TextBlock x:Name="scoreText" Text="{Binding Score}"  Style="{StaticResource ConfirmationTitlesStyle}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,-10" FontSize="80" />
+                        <StackPanel x:Name="rankSection" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,20,0,0">
+                            <TextBlock Style="{StaticResource ConfirmationTitlesStyle}" FontSize="40" Margin="0,0,10,0">$$79925$$Rank</TextBlock>
+                            <TextBlock x:Name="rankText" Text="{Binding PersonalBest.Rank}" Style="{StaticResource RegularTextBlockStyle}" FontSize="40" Margin="10,0,0,0"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <local:Age3Button x:Name="ChallengeEndGame_MainMenuButton" Style="{StaticResource MainMenuButton}" Width="400" Margin="0,20,0,0" Content="$$20259$$Return to Main Menu" ConsoleCommand="gadgetUnreal(&quot;ScenarioDefeatedDlg&quot;) leaveGame"/>
+                </StackPanel>
+            </Grid>
+        </Grid>
+    </Viewbox>
+</Window>
